@@ -32,12 +32,3 @@ Chịu trách nhiệm cấu hình hạ tầng, thiết lập quy trình CI/CD (G
 Chịu trách nhiệm viết Unit/Integration Tests, kiểm tra bảo mật, chuẩn hóa dữ liệu, thiết lập cơ sở dữ liệu (PostgreSQL/Redis) và kiểm soát chất lượng mã nguồn trước khi tạo Pull Request.
 
 
-
-## 4. Repository các phân hệ
-
-| Phân hệ | Link Repository |
-|---|---|
-| Frontend | Chưa cập nhật |
-| Backend | Chưa cập nhật |
-| DevOps | Chưa cập nhật |
-| QA | Chưa cập nhật |
