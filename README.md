@@ -14,7 +14,7 @@
 | 4 | Nguyễn Tấn Thành    | DPM235518 | Frontend / Mobile Developers    |
 | 5 | Trần Quang Vinh     | DPM235499 | Frontend / Mobile Developers    |
 | 6 | Trần Lê Hửu Lý      | DPM235447 | QA / Security & Data Specialist |
-| 7 | Nguyễn Ngô Thanh    | DPM235475 | DevOps / Cloud Engineer         |
+| 7 | Nguyễn Ngô Thanh Tân| DPM235475 | DevOps / Cloud Engineer         |
 
 ## 3. Phân công nhiệm vụ
 
