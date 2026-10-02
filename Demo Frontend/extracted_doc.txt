@@ -1,0 +1,87 @@
+﻿=== TABLE 1 ===
+Thiếu | Một phần | Mô phỏng | Sai quy trình | Sai quy tắc | Sai chức năng
+4 | 10 | 23 | 1 | 5 | 2
+=== TABLE 2 ===
+Mã / ưu tiên | Yêu cầu | Đánh giá | Nhận xét và bằng chứng
+Hồ sơ nghiên cứu sinh
+FR-HS01MUST | Tiếp nhận và import danh sách NCS trúng tuyển | Thiếu | Không có giao diện import danh sách hoặc tạo hồ sơ từ quyết định.index.html:339–588
+FR-HS02MUST | Phân loại đối tượng đầu vào và gán lộ trình | Thiếu | Chỉ có dữ liệu NCS mẫu; không nhập loại đầu vào hoặc tính lộ trình 3/4 năm.index.html:339–588
+FR-HS03MUST | Quản lý thông tin lý lịch khoa học của NCS | Mô phỏng | Sửa được SĐT/email/nơi làm việc trên DOM; tải lại mất, không có tệp đính kèm.management.js:388–406; index.html:2305–2330
+FR-HS04MUST | Quản lý trạng thái học vụ và cảnh báo | Một phần | Có nhãn trạng thái và bộ lọc tĩnh; không có cập nhật trạng thái/cảnh báo theo dữ liệu.index.html:343–354; management.js:160–194
+FR-HS05MUST | Quản lý hồ sơ gia hạn và điều chỉnh thông tin | Mô phỏng | Có form gia hạn/tạm dừng; chỉ thêm hàng tạm, không cập nhật hạn hoặc lưu quyết định.management.js:408–436; index.html:2343–2368
+Chương trình và kế hoạch
+FR-CT01MUST | Quản lý danh mục CTĐT tiến sĩ theo ngành/khóa | Một phần | Hiển thị khung 90 tín chỉ cố định; thiếu CRUD theo ngành, khóa, đối tượng đầu vào.index.html:590–735
+FR-CT02MUST | Lập kế hoạch học tập và nghiên cứu toàn khóa | Mô phỏng | Có form lập kế hoạch nhưng submit chỉ đóng modal và hiện thông báo.index.html:2667–2692
+FR-CT03MUST | Phê duyệt kế hoạch học tập nhiều cấp | Sai quy trình | Một nút đổi ngay sang “Đã duyệt bởi NHD & PĐT”; thiếu bước xác nhận Bộ môn và trạng thái từng cấp.management.js:438–447
+FR-CT04SHOULD | Điều chỉnh kế hoạch học tập, nghiên cứu | Mô phỏng | Form điều chỉnh không lưu phiên bản, lý do hoặc luồng duyệt.index.html:2667–2692
+FR-CT05MUST | Đối chiếu tiến độ thực tế với kế hoạch gốc | Một phần | Thanh tiến độ 68%/65% là số tĩnh, không tính từ kế hoạch và kết quả.index.html:605–632
+Người hướng dẫn
+FR-HD01MUST | Quản lý hồ sơ lý lịch khoa học NHD | Một phần | Có danh sách NHD mẫu; không có hồ sơ/công trình hoặc quản lý số NCS thực.index.html:734–834
+FR-HD02MUST | Kiểm soát định mức hướng dẫn tự động | Sai quy tắc | Form cho chọn NHD ghi 2/3, 2/2, 1/1; không kiểm tra định mức GS 4, PGS/TS 3 khi submit.index.html:2392–2408; management.js:449–460
+FR-HD03MUST | Phân công và ban hành QĐ cử NHD | Mô phỏng | Có form phân công; submit chỉ ghi log tạm và toast, không có đề xuất Khoa/QĐ lưu trữ.management.js:449–460
+FR-HD04MUST | Thay đổi hoặc bổ sung người hướng dẫn | Mô phỏng | Có form đề xuất thay đổi NHD; không thu ý kiến NHD cũ/mới hoặc quyết định.index.html:2705–2741
+FR-HD05MUST | Cổng thông tin dành cho NHD | Một phần | Có dashboard vai trò NHD và nút duyệt/chấm; dữ liệu NCS, hàng chờ đều cố định.management.js:96–116; management.js:196–218
+Học phần tiểu luận đề cương
+FR-HP01MUST | Đăng ký học phần và theo dõi điểm số | Mô phỏng | Nút đăng ký chỉ đổi trạng thái trên DOM; không lưu đăng ký/import điểm/kiểm tra ngưỡng.management.js:462–476; index.html:835–969
+FR-HP02MUST | Quản lý nộp và đánh giá Tiểu luận tổng quan | Sai quy tắc | Form nộp là toast; form chấm luôn kết luận Đạt, không chặn điểm TB dưới 7.index.html:2754–2772; management.js:478–492
+FR-HP03MUST | Quản lý nộp và xét duyệt Đề cương nghiên cứu | Mô phỏng | Có form nộp đề cương; chưa có lập Hội đồng 5 người, nhận xét, kết luận.index.html:2785–2816
+FR-HP04MUST | Quản lý bản giải trình chỉnh sửa đề cương | Mô phỏng | Form ghi bản giải trình nhưng không tải/lưu tệp hay xác nhận chữ ký NHD.index.html:2785–2816
+FR-HP05MUST | Kiểm soát điều kiện chuyển tiếp học vụ năm 1 | Thiếu | Không thấy kiểm tra học phần + tiểu luận + đề cương trước khi mở chuyên đề.management.js:332–352; index.html:2829–2866
+Chuyên đề tiến độ công bố
+FR-CD01MUST | Đăng ký và quản lý 2-3 Chuyên đề tiến sĩ | Mô phỏng | Có danh sách và form đăng ký chuyên đề; submit chỉ hiện thông báo, không thêm chuyên đề.index.html:1067–1154; index.html:2829–2866
+FR-CD02MUST | Đánh giá Chuyên đề tiến sĩ | Sai quy tắc | Nút chấm tự sinh điểm 8.5–9.5 và Đạt; không có tiểu ban 3 người hoặc biên bản.management.js:494–506
+FR-CD03MUST | Nộp Báo cáo tiến độ định kỳ 6 tháng/lần | Mô phỏng | Form nộp tiến độ không có tệp thật hoặc dữ liệu kỳ được lưu.index.html:2879–2914
+FR-CD04MUST | Đánh giá Báo cáo tiến độ của NHD và Bộ môn | Mô phỏng | Nút Đạt/Không đạt đổi nhãn; không nhập nhận xét NHD hoặc xác nhận Trưởng Bộ môn.management.js:508–522
+FR-CD05MUST | Thẩm định tiêu chuẩn công bố khoa học | Sai quy tắc | Khai báo bài báo rồi NCS tự bấm Thẩm định; không kiểm tra tác giả, affiliation, chỉ mục hay 0,75 điểm.management.js:524–562
+Đề tài và luận án
+FR-LA01MUST | Quản lý đề tài và thay đổi tên đề tài luận án | Mô phỏng | Có tên đề tài và form đổi tên; không lưu bản tiếng Anh, ý kiến NHD/QĐ.index.html:1331–1383; index.html:2927–2953
+FR-LA02MUST | Quản lý các phiên bản bản thảo Luận án tiến sĩ | Mô phỏng | Có lịch sử bản thảo mẫu; form upload chỉ toast, không chọn tệp hay kiểm tra định dạng.index.html:1420–1458; index.html:2966–2988
+FR-LA03MUST | Quản lý xác nhận đồng ý cho bảo vệ của NHD | Mô phỏng | Nút NHD “ký số” chỉ đổi nhãn; không nhận văn bản nhận xét/chữ ký.management.js:597–606
+FR-LA04MUST | Kiểm tra trùng lặp trích dẫn và cam đoan | Mô phỏng | Turnitin trả cố định 14%; không tích hợp kiểm tra hoặc lưu phiếu và cam đoan.management.js:564–595
+FR-LA05MUST | Khóa bản thảo phục vụ thẩm định và bảo vệ | Thiếu | Không có trạng thái khóa bản thảo hay chặn sửa sau duyệt.index.html:1331–1466; management.js:354–365
+Bảo vệ và hoàn thành
+FR-BV01MUST | Quản lý Trình luận án tại Đơn vị chuyên môn | Một phần | Có nội dung Semina mẫu; thiếu thao tác lập hội đồng, biên bản và kết luận thực.index.html:1467–1660
+FR-BV02MUST | Kiểm tra tự động Bảng kiểm điều kiện bảo vệ (Checklist) | Sai quy tắc | Checklist 6/6 viết sẵn; thiếu kiểm tra tiểu luận, đề cương, Semina và thời hạn đào tạo.index.html:1490–1530
+FR-BV03MUST | Quản lý quy trình Phản biện độc lập luận án | Một phần | Bảng phản biện 2/2 tĩnh; không có hồ sơ gửi, phiếu kín hoặc kết luận xử lý.index.html:1530–1556
+FR-BV04MUST | Thành lập Hội đồng đánh giá luận án cấp Trường | Một phần | Danh sách hội đồng mẫu; không có lập/duyệt hội đồng hay kiểm tra cơ cấu 5/7 người.index.html:1570–1659
+FR-BV05MUST | Công khai Tóm tắt luận án trên Cổng thông tin | Mô phỏng | Hiển thị 30/30 ngày cố định; không đăng tải tệp thật, ghi nhận thời điểm công khai hoặc tự kiểm tra hạn trước bảo vệ. URL PDF dùng example.com.index.html:1560–1570; app.js:489–539
+FR-BV06MUST | Quản lý hoàn thiện sau bảo vệ, lưu chiểu và cấp bằng | Mô phỏng | Có form hồ sơ sau bảo vệ và nút cấp bằng; không kiểm tra chữ ký/biên nhận hoặc thời hạn 3–6 tháng.index.html:3001–3028; management.js:619–628
+Thay đổi trong đào tạo
+FR-TD01MUST | Quản lý thay đổi người hướng dẫn | Mô phỏng | Form đổi NHD chỉ toast; thiếu ý kiến các bên, quyết định và lịch sử phiên bản.index.html:2705–2741
+FR-TD02MUST | Quản lý thay đổi tên đề tài luận án | Mô phỏng | Form đổi tên đề tài chỉ toast; không ghi nhận giải trình, phê duyệt/QĐ.index.html:2927–2953
+FR-TD03MUST | Quản lý tạm dừng học tập / Nghỉ học tạm thời | Mô phỏng | Form tạm dừng thêm hàng tạm; không tính lại hạn đào tạo.management.js:408–436
+FR-TD04MUST | Quản lý chuyển cơ sở đào tạo / Buộc thôi học | Một phần | Có bảng biến động mẫu; không có quy trình chuyển cơ sở/buộc thôi học.index.html:1753–1830
+Tra cứu báo cáo kiểm định
+FR-BC01MUST | Cổng tra cứu văn bằng tiến sĩ công khai | Sai chức năng | Nhập mã/tên bất kỳ đều tạo phôi bằng “xác thực”; không truy vấn sổ gốc.app.js:970–1013
+FR-BC02MUST | Báo cáo thống kê tiến độ đào tạo NCS theo ngành/khóa | Mô phỏng | Báo cáo và số liệu mẫu; nút xuất chỉ toast, không tải tệp.index.html:1831–1955; management.js:630–633
+FR-BC03SHOULD | Thống kê năng suất công bố khoa học của NCS và NHD | Một phần | Có chỉ số/bảng bài báo mẫu; không tổng hợp theo khoa, bộ môn, NHD từ dữ liệu.index.html:1256–1330; index.html:1831–1955
+FR-BC04MUST | Kết xuất hồ sơ phục vụ kiểm định chất lượng giáo dục | Mô phỏng | Nút xuất hồ sơ/kiểm định chỉ thông báo; không tạo gói hồ sơ.index.html:1838–1844; management.js:630–633
+FR-BC05MUST | Ghi nhật ký hệ thống bất biến (Audit Trail Log) | Sai chức năng | Nhật ký là mảng JS, mất sau tải lại; IP giả cố định và không bất biến.management.js:252–295
+=== OUTSIDE PARAGRAPHS ===
+Đánh giá frontend DTMS so với đặc tả
+Kết luận: Chưa đủ điều kiện nghiệm thu chức năng theo đặc tả. Gói frontend có khung 14 phân hệ, nhưng các nghiệp vụ chủ yếu là dữ liệu và thao tác mô phỏng; chưa có yêu cầu nào được xác nhận hoàn chỉnh đầu cuối.
+Phạm vi: Đối chiếu 45 yêu cầu chức năng trong “phân tích thiết kế 01.docx” với mã từ “Demo Frontend.rar” và chạy thử bằng Edge. Ngày kiểm tra: 30/09/2026.
+Tổng hợp kết quả
+Cách đọc bảng: “Một phần” có giao diện hoặc thông tin liên quan; “Mô phỏng” có thao tác nhưng chưa xử lý/lưu nghiệp vụ; “Sai” là kết quả hoặc luồng không khớp đặc tả.
+Các vấn đề cần ưu tiên
+Tra cứu văn bằng tạo phôi bằng cho mã và tên không tồn tại; không được xem đó là xác thực văn bằng.
+NCS có thể tự thẩm định bài báo vừa khai báo. Vai trò và điều kiện nghiệp vụ cần được kiểm tra tại backend.
+Dữ liệu nhập ở tiêu đề bài báo có thể thực thi mã trong trang; cần xử lý nội dung người dùng trước khi đưa vào HTML.
+Không có ô chọn tệp thật, dữ liệu thêm/sửa mất sau tải lại, nút xuất báo cáo không tạo tệp.
+Định mức NHD, điểm đạt, điều kiện chuyển bước, cảnh báo quá hạn và bảng kiểm bảo vệ chưa được tính từ hồ sơ.
+Bằng chứng trực quan
+1  Tra cứu văn bằng
+Nhập mã KHONG-TON-TAI và một tên không tồn tại; giao diện vẫn dựng phôi bằng với số sổ gốc cố định.
+Ảnh 1  FR-BC01  Kết quả được tạo từ dữ liệu nhập, không đối soát sổ gốc.
+2  NCS tự thẩm định bài báo
+Trong phiên NCS, bài báo vừa khai báo có nút “Thẩm định”. Sau khi bấm, trạng thái đổi thành hợp lệ.
+Ảnh 2  FR-CD05  Trước thao tác: Chờ PĐT thẩm định.
+Ảnh 3  FR-CD05  Sau thao tác của NCS: Đã thẩm định hợp lệ.
+3  Nộp minh chứng và bảng kiểm bảo vệ
+Vùng nộp minh chứng trông như nơi tải tệp nhưng trang không có ô chọn tệp. Bảng kiểm bảo vệ hiển thị sẵn 6/6 điều kiện.
+Ảnh 4  FR-HS05  Vùng tải tệp chỉ kích hoạt thông báo.
+Ảnh 5  FR-BV02  Sáu điều kiện được đánh dấu sẵn trong HTML.
+Đánh giá chi tiết 45 yêu cầu
+Ưu tiên MUST và SHOULD được giữ theo tài liệu đặc tả. Dẫn chứng trong cột cuối trỏ đến tệp và số dòng của gói frontend.
+Giới hạn đánh giá
+Gói bàn giao không có backend, cơ sở dữ liệu, dịch vụ lưu tệp, email, ký số hoặc hạ tầng tích hợp. Vì vậy chưa thể xác nhận hiệu năng, mã hóa, sao lưu, tính đúng dữ liệu thật và các luồng đầu cuối. Các quy tắc học thuật được đối chiếu theo tài liệu đặc tả được cung cấp; báo cáo không xác minh hiệu lực pháp lý của các văn bản viện dẫn.

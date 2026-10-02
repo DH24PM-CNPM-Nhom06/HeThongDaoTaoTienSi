@@ -1,0 +1,153 @@
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS & MOBILE OPTIMIZATIONS
+   ========================================================================== */
+
+@media (max-width: 1140px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-top: 40px;
+  }
+
+  .hero-content { max-width: 100%; }
+  
+  .quick-access-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-grid, .legal-grid, .lookup-shell {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .lookup-intro {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .roles-grid, .roadmap-stepper, .public-grid, .notice-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 860px) {
+  :root {
+    --nav-height: 64px;
+    --institution-height: 32px;
+  }
+
+  .institution-bar-inner span:last-child {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .primary-nav {
+    position: fixed;
+    top: var(--header-height);
+    right: 0;
+    left: 0;
+    bottom: 0;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 24px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 240ms cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .primary-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-link {
+    padding: 14px 16px;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-login {
+    margin-left: 0;
+    margin-top: 16px;
+    width: 100%;
+  }
+
+  .hero h1 {
+    font-size: 2.1rem;
+  }
+
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .roles-grid, .roadmap-stepper, .public-grid, .notice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .thesis-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .thesis-links {
+    width: 100%;
+  }
+
+  .thesis-links a {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .legal-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 580px) {
+  .quick-access-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom .container {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .lookup-intro, .lookup-fields-panel {
+    padding: 28px 20px;
+  }
+
+  .internal-access {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
