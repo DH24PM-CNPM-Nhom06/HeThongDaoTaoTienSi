@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+//[Authorize]
 public class NghiencuusinhsController : ControllerBase
 {
     private readonly DtmsDbContext _context;
