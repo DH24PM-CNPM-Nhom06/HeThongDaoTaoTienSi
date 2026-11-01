@@ -1,114 +1,125 @@
 using DTMS.Api.DTOs;
+using DTMS.Api.Helpers;
 using DTMS.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-[Route("api/[controller]")]
-[ApiController]
-public class DanhgiahocthuatsController : ControllerBase
+namespace DTMS.Api.Controllers
 {
-    private readonly DtmsDbContext _context;
-    public DanhgiahocthuatsController(DtmsDbContext context)
+    // Đọc: NCS xem của mình; NHD xem NCS mình hướng dẫn; ADMIN/PDT/TBM xem tất cả.
+    // Ghi: ADMIN/PDT/TBM toàn quyền; NHD chỉ với NCS mình hướng dẫn; NCS không được ghi.
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize(Roles = "ADMIN,PDT,TBM,NHD,NCS")]
+    public class DanhgiahocthuatsController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly DtmsDbContext _context;
 
-    // GET: api/Danhgiahocthuat
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<DanhgiahocthuatDto>>> GetDanhgiahocthuats()
-    {
-        var dsDanhGia = await _context.Danhgiahocthuats
-            .Select(dg => new DanhgiahocthuatDto
+        public DanhgiahocthuatsController(DtmsDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Danhgiahocthuats
+        [HttpGet]
+        public async Task<IActionResult> GetDanhgiahocthuats()
+        {
+            var query = _context.Danhgiahocthuats.AsQueryable();
+
+            var readable = await Access.ReadableNcsAsync(_context, User);
+            if (readable != null)
             {
-                MaDanhGia = dg.MaDanhGia,
-                MaNcs = dg.MaNcs,
-                LoaiDanhGia = dg.LoaiDanhGia,
-                TenNoiDung = dg.TenNoiDung,
-                MaHoiDong = dg.MaHoiDong,
-                DiemTrungBinh = dg.DiemTrungBinh,
-                KetLuan = dg.KetLuan,
-                FileBaoCao = dg.FileBaoCao,
-                FileBienBan = dg.FileBienBan,
-                FileGiaiTrinh = dg.FileGiaiTrinh
-            })
-            .ToListAsync();
-        return Ok(dsDanhGia);
-    }
-
-    // GET: api/Danhgiahocthuat/5
-    [HttpGet("{madanhgia}")]
-    public async Task<ActionResult<Danhgiahocthuat>> GetDanhgiahocthuat(int madanhgia)
-    {
-        var danhgiahocthuat = await _context.Danhgiahocthuats.FindAsync(madanhgia);
-
-        if (danhgiahocthuat == null)
-        {
-            return NotFound();
-        }
-
-        return danhgiahocthuat;
-    }
-
-    // PUT: api/Danhgiahocthuat/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut("{madanhgia}")]
-    public async Task<IActionResult> PutDanhgiahocthuat(int? madanhgia, Danhgiahocthuat danhgiahocthuat)
-    {
-        if (madanhgia != danhgiahocthuat.MaDanhGia)
-        {
-            return BadRequest();
-        }
-
-        _context.Entry(danhgiahocthuat).State = EntityState.Modified;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!DanhgiahocthuatExists(madanhgia))
-            {
-                return NotFound();
+                query = query.Where(dg => readable.Contains(dg.MaNcs));
             }
-            else
+
+            var ds = await query
+                .Select(dg => new DanhgiahocthuatDto
+                {
+                    MaDanhGia = dg.MaDanhGia,
+                    MaNcs = dg.MaNcs,
+                    LoaiDanhGia = dg.LoaiDanhGia,
+                    TenNoiDung = dg.TenNoiDung,
+                    MaHoiDong = dg.MaHoiDong,
+                    DiemTrungBinh = dg.DiemTrungBinh,
+                    KetLuan = dg.KetLuan,
+                    FileBaoCao = dg.FileBaoCao,
+                    FileBienBan = dg.FileBienBan,
+                    FileGiaiTrinh = dg.FileGiaiTrinh
+                })
+                .ToListAsync();
+
+            return Ok(ds);
+        }
+
+        // GET: api/Danhgiahocthuats/5
+        [HttpGet("{madanhgia:int}")]
+        public async Task<ActionResult<Danhgiahocthuat>> GetDanhgiahocthuat(int madanhgia)
+        {
+            var dg = await _context.Danhgiahocthuats.FindAsync(madanhgia);
+            if (dg == null) return NotFound();
+
+            if (!await Access.CanReadNcsAsync(_context, User, dg.MaNcs)) return NotFound();
+
+            return Ok(dg);
+        }
+
+        // POST: api/Danhgiahocthuats
+        [HttpPost]
+        [Authorize(Roles = "ADMIN,PDT,TBM,NHD")]
+        public async Task<ActionResult<Danhgiahocthuat>> PostDanhgiahocthuat(Danhgiahocthuat danhgiahocthuat)
+        {
+            if (!await Access.CanWriteNcsAsync(_context, User, danhgiahocthuat.MaNcs)) return Forbid();
+
+            danhgiahocthuat.MaDanhGia = 0;
+
+            _context.Danhgiahocthuats.Add(danhgiahocthuat);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetDanhgiahocthuat), new { madanhgia = danhgiahocthuat.MaDanhGia }, danhgiahocthuat);
+        }
+
+        // PUT: api/Danhgiahocthuats/5
+        [HttpPut("{madanhgia:int}")]
+        [Authorize(Roles = "ADMIN,PDT,TBM,NHD")]
+        public async Task<IActionResult> PutDanhgiahocthuat(int madanhgia, Danhgiahocthuat danhgiahocthuat)
+        {
+            if (madanhgia != danhgiahocthuat.MaDanhGia) return BadRequest();
+
+            var cu = await _context.Danhgiahocthuats.AsNoTracking().FirstOrDefaultAsync(e => e.MaDanhGia == madanhgia);
+            if (cu == null) return NotFound();
+
+            if (!await Access.CanWriteNcsAsync(_context, User, cu.MaNcs) ||
+                !await Access.CanWriteNcsAsync(_context, User, danhgiahocthuat.MaNcs))
             {
+                return Forbid();
+            }
+
+            _context.Entry(danhgiahocthuat).State = EntityState.Modified;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await _context.Danhgiahocthuats.AnyAsync(e => e.MaDanhGia == madanhgia)) return NotFound();
                 throw;
             }
+
+            return NoContent();
         }
 
-        return NoContent();
-    }
-
-    // POST: api/Danhgiahocthuat
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost]
-    public async Task<ActionResult<Danhgiahocthuat>> PostDanhgiahocthuat(Danhgiahocthuat danhgiahocthuat)
-    {
-        _context.Danhgiahocthuats.Add(danhgiahocthuat);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction("GetDanhgiahocthuat", new { madanhgia = danhgiahocthuat.MaDanhGia }, danhgiahocthuat);
-    }
-
-    // DELETE: api/Danhgiahocthuat/5
-    [HttpDelete("{madanhgia}")]
-    public async Task<IActionResult> DeleteDanhgiahocthuat(int? madanhgia)
-    {
-        var danhgiahocthuat = await _context.Danhgiahocthuats.FindAsync(madanhgia);
-        if (danhgiahocthuat == null)
+        // DELETE: api/Danhgiahocthuats/5  (chỉ ADMIN, PDT)
+        [HttpDelete("{madanhgia:int}")]
+        [Authorize(Roles = "ADMIN,PDT")]
+        public async Task<IActionResult> DeleteDanhgiahocthuat(int madanhgia)
         {
-            return NotFound();
+            var dg = await _context.Danhgiahocthuats.FindAsync(madanhgia);
+            if (dg == null) return NotFound();
+
+            _context.Danhgiahocthuats.Remove(dg);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
-
-        _context.Danhgiahocthuats.Remove(danhgiahocthuat);
-        await _context.SaveChangesAsync();
-
-        return NoContent();
-    }
-
-    private bool DanhgiahocthuatExists(int? madanhgia)
-    {
-        return _context.Danhgiahocthuats.Any(e => e.MaDanhGia == madanhgia);
     }
 }

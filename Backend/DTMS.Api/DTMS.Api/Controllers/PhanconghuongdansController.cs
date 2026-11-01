@@ -1,112 +1,96 @@
-using DTMS.Api.DTOs;
+using DTMS.Api.Helpers;
 using DTMS.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-[Route("api/[controller]")]
-[ApiController]
-public class PhanconghuongdansController : ControllerBase
+namespace DTMS.Api.Controllers
 {
-    private readonly DtmsDbContext _context;
-    public PhanconghuongdansController(DtmsDbContext context)
+    // Phân công người hướng dẫn.
+    // Đọc: ADMIN/PDT/TBM xem tất cả; NHD và NCS xem phân công của NCS mình liên quan (NCS: của mình).
+    // Ghi: chỉ ADMIN, PDT.
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize(Roles = "ADMIN,PDT,TBM,NHD,NCS")]
+    public class PhanconghuongdansController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly DtmsDbContext _context;
 
-    // GET: api/Phanconghuongdan
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<PhanconghuongdanDto>>> GetPhanconghuongdans()
-    {
-        var dsPhanCong = await _context.Phanconghuongdans
-            .Select(pc => new PhanconghuongdanDto
+        public PhanconghuongdansController(DtmsDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Phanconghuongdans
+        [HttpGet]
+        public async Task<IActionResult> GetPhanconghuongdans()
+        {
+            var query = _context.Phanconghuongdans.AsQueryable();
+
+            var readable = await Access.ReadableNcsAsync(_context, User);
+            if (readable != null)
             {
-                MaPhanCong = pc.MaPhanCong,
-                MaNcs = pc.MaNcs,
-                MaGv = pc.MaGv,
-                VaiTro = pc.VaiTro,
-                SoQuyetDinh = pc.SoQuyetDinh,
-                NgayHieuLuc = pc.NgayHieuLuc,
-                NgayKetThuc = pc.NgayKetThuc,
-                TrangThai = pc.TrangThai
-            })
-            .ToListAsync();
-        return Ok(dsPhanCong);
-    }
-
-    // GET: api/Phanconghuongdan/5
-    [HttpGet("{maphancong}")]
-    public async Task<ActionResult<Phanconghuongdan>> GetPhanconghuongdan(int maphancong)
-    {
-        var phanconghuongdan = await _context.Phanconghuongdans.FindAsync(maphancong);
-
-        if (phanconghuongdan == null)
-        {
-            return NotFound();
-        }
-
-        return phanconghuongdan;
-    }
-
-    // PUT: api/Phanconghuongdan/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut("{maphancong}")]
-    public async Task<IActionResult> PutPhanconghuongdan(int? maphancong, Phanconghuongdan phanconghuongdan)
-    {
-        if (maphancong != phanconghuongdan.MaPhanCong)
-        {
-            return BadRequest();
-        }
-
-        _context.Entry(phanconghuongdan).State = EntityState.Modified;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!PhanconghuongdanExists(maphancong))
-            {
-                return NotFound();
+                query = query.Where(pc => readable.Contains(pc.MaNcs));
             }
-            else
+
+            return Ok(await query.ToListAsync());
+        }
+
+        // GET: api/Phanconghuongdans/5
+        [HttpGet("{maphancong:int}")]
+        public async Task<ActionResult<Phanconghuongdan>> GetPhanconghuongdan(int maphancong)
+        {
+            var pc = await _context.Phanconghuongdans.FindAsync(maphancong);
+            if (pc == null) return NotFound();
+
+            if (!await Access.CanReadNcsAsync(_context, User, pc.MaNcs)) return NotFound();
+
+            return Ok(pc);
+        }
+
+        // PUT: api/Phanconghuongdans/5  (chỉ ADMIN, PDT)
+        [HttpPut("{maphancong:int}")]
+        [Authorize(Roles = "ADMIN,PDT")]
+        public async Task<IActionResult> PutPhanconghuongdan(int maphancong, Phanconghuongdan phanconghuongdan)
+        {
+            if (maphancong != phanconghuongdan.MaPhanCong) return BadRequest();
+
+            _context.Entry(phanconghuongdan).State = EntityState.Modified;
+            try
             {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await _context.Phanconghuongdans.AnyAsync(e => e.MaPhanCong == maphancong)) return NotFound();
                 throw;
             }
+
+            return NoContent();
         }
 
-        return NoContent();
-    }
-
-    // POST: api/Phanconghuongdan
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost]
-    public async Task<ActionResult<Phanconghuongdan>> PostPhanconghuongdan(Phanconghuongdan phanconghuongdan)
-    {
-        _context.Phanconghuongdans.Add(phanconghuongdan);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction("GetPhanconghuongdan", new { maphancong = phanconghuongdan.MaPhanCong }, phanconghuongdan);
-    }
-
-    // DELETE: api/Phanconghuongdan/5
-    [HttpDelete("{maphancong}")]
-    public async Task<IActionResult> DeletePhanconghuongdan(int? maphancong)
-    {
-        var phanconghuongdan = await _context.Phanconghuongdans.FindAsync(maphancong);
-        if (phanconghuongdan == null)
+        // POST: api/Phanconghuongdans  (chỉ ADMIN, PDT)
+        [HttpPost]
+        [Authorize(Roles = "ADMIN,PDT")]
+        public async Task<ActionResult<Phanconghuongdan>> PostPhanconghuongdan(Phanconghuongdan phanconghuongdan)
         {
-            return NotFound();
+            _context.Phanconghuongdans.Add(phanconghuongdan);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetPhanconghuongdan), new { maphancong = phanconghuongdan.MaPhanCong }, phanconghuongdan);
         }
 
-        _context.Phanconghuongdans.Remove(phanconghuongdan);
-        await _context.SaveChangesAsync();
+        // DELETE: api/Phanconghuongdans/5  (chỉ ADMIN, PDT)
+        [HttpDelete("{maphancong:int}")]
+        [Authorize(Roles = "ADMIN,PDT")]
+        public async Task<IActionResult> DeletePhanconghuongdan(int maphancong)
+        {
+            var pc = await _context.Phanconghuongdans.FindAsync(maphancong);
+            if (pc == null) return NotFound();
 
-        return NoContent();
-    }
-
-    private bool PhanconghuongdanExists(int? maphancong)
-    {
-        return _context.Phanconghuongdans.Any(e => e.MaPhanCong == maphancong);
+            _context.Phanconghuongdans.Remove(pc);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

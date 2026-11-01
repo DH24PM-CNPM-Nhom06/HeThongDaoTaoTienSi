@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using DTMS.Api.DTOs;
 using DTMS.Api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class NganhdaotaosController : ControllerBase
 {
     private readonly DtmsDbContext _context;
@@ -44,6 +46,7 @@ public class NganhdaotaosController : ControllerBase
 
     // PUT: api/Nganhdaotao/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [Authorize(Roles = "ADMIN,PDT")]
     [HttpPut("{manganh}")]
     public async Task<IActionResult> PutNganhdaotao(string? manganh, Nganhdaotao nganhdaotao)
     {
@@ -75,6 +78,7 @@ public class NganhdaotaosController : ControllerBase
 
     // POST: api/Nganhdaotao
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [Authorize(Roles = "ADMIN,PDT")]
     [HttpPost]
     public async Task<ActionResult<Nganhdaotao>> PostNganhdaotao(Nganhdaotao nganhdaotao)
     {
@@ -85,6 +89,7 @@ public class NganhdaotaosController : ControllerBase
     }
 
     // DELETE: api/Nganhdaotao/5
+    [Authorize(Roles = "ADMIN,PDT")]
     [HttpDelete("{manganh}")]
     public async Task<IActionResult> DeleteNganhdaotao(string? manganh)
     {

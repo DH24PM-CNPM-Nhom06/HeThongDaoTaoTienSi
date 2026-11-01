@@ -1,115 +1,97 @@
-using DTMS.Api.DTOs;
+using DTMS.Api.Helpers;
 using DTMS.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-[Route("api/[controller]")]
-[ApiController]
-public class HoidongdanhgiumsController : ControllerBase
+namespace DTMS.Api.Controllers
 {
-    private readonly DtmsDbContext _context;
-    public HoidongdanhgiumsController(DtmsDbContext context)
+    // Đọc: ADMIN/PDT/TBM xem tất cả; NHD xem hội đồng của NCS mình hướng dẫn;
+    // PBDL xem hội đồng của NCS được phân công phản biện hoặc hội đồng mình là thành viên.
+    // Ghi: chỉ ADMIN, PDT.
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize(Roles = "ADMIN,PDT,TBM,NHD,PBDL,NCS")]
+    public class HoidongdanhgiumsController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly DtmsDbContext _context;
 
-    // GET: api/Hoidongdanhgium
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<HoidongdanhgiumDto>>> GetHoidongdanhgia()
-    {
-        var dsHoiDong = await _context.Hoidongdanhgia
-            .Select(hd => new HoidongdanhgiumDto
+        public HoidongdanhgiumsController(DtmsDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Hoidongdanhgiums
+        [HttpGet]
+        public async Task<IActionResult> GetHoidongdanhgia()
+        {
+            var query = _context.Hoidongdanhgia.AsQueryable();
+
+            var visible = await Access.VisibleHoiDongIdsAsync(_context, User);
+            if (visible != null)
             {
-                MaHoiDong = hd.MaHoiDong,
-                MaNcs = hd.MaNcs,
-                LoaiHoiDong = hd.LoaiHoiDong,
-                SoQuyetDinh = hd.SoQuyetDinh,
-                NgayThanhLap = hd.NgayThanhLap,
-                NgayBaoVe = hd.NgayBaoVe,
-                DiaDiem = hd.DiaDiem,
-                SoPhieuTanThanh = hd.SoPhieuTanThanh,
-                TongSoPhieu = hd.TongSoPhieu,
-                KetLuan = hd.KetLuan,
-                FileQuyetDinh = hd.FileQuyetDinh
-            })
-            .ToListAsync();
-        return Ok(dsHoiDong);
-    }
-
-    // GET: api/Hoidongdanhgium/5
-    [HttpGet("{mahoidong}")]
-    public async Task<ActionResult<Hoidongdanhgium>> GetHoidongdanhgium(int mahoidong)
-    {
-        var hoidongdanhgium = await _context.Hoidongdanhgia.FindAsync(mahoidong);
-
-        if (hoidongdanhgium == null)
-        {
-            return NotFound();
-        }
-
-        return hoidongdanhgium;
-    }
-
-    // PUT: api/Hoidongdanhgium/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut("{mahoidong}")]
-    public async Task<IActionResult> PutHoidongdanhgium(int? mahoidong, Hoidongdanhgium hoidongdanhgium)
-    {
-        if (mahoidong != hoidongdanhgium.MaHoiDong)
-        {
-            return BadRequest();
-        }
-
-        _context.Entry(hoidongdanhgium).State = EntityState.Modified;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!HoidongdanhgiumExists(mahoidong))
-            {
-                return NotFound();
+                query = query.Where(h => visible.Contains(h.MaHoiDong));
             }
-            else
+
+            return Ok(await query.ToListAsync());
+        }
+
+        // GET: api/Hoidongdanhgiums/5
+        [HttpGet("{mahoidong:int}")]
+        public async Task<ActionResult<Hoidongdanhgium>> GetHoidongdanhgium(int mahoidong)
+        {
+            var hd = await _context.Hoidongdanhgia.FindAsync(mahoidong);
+            if (hd == null) return NotFound();
+
+            var visible = await Access.VisibleHoiDongIdsAsync(_context, User);
+            if (visible != null && !visible.Contains(mahoidong)) return NotFound();
+
+            return Ok(hd);
+        }
+
+        // PUT: api/Hoidongdanhgiums/5  (chỉ ADMIN, PDT)
+        [HttpPut("{mahoidong:int}")]
+        [Authorize(Roles = "ADMIN,PDT")]
+        public async Task<IActionResult> PutHoidongdanhgium(int mahoidong, Hoidongdanhgium hoidongdanhgium)
+        {
+            if (mahoidong != hoidongdanhgium.MaHoiDong) return BadRequest();
+
+            _context.Entry(hoidongdanhgium).State = EntityState.Modified;
+            try
             {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await _context.Hoidongdanhgia.AnyAsync(e => e.MaHoiDong == mahoidong)) return NotFound();
                 throw;
             }
+
+            return NoContent();
         }
 
-        return NoContent();
-    }
-
-    // POST: api/Hoidongdanhgium
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost]
-    public async Task<ActionResult<Hoidongdanhgium>> PostHoidongdanhgium(Hoidongdanhgium hoidongdanhgium)
-    {
-        _context.Hoidongdanhgia.Add(hoidongdanhgium);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction("GetHoidongdanhgium", new { mahoidong = hoidongdanhgium.MaHoiDong }, hoidongdanhgium);
-    }
-
-    // DELETE: api/Hoidongdanhgium/5
-    [HttpDelete("{mahoidong}")]
-    public async Task<IActionResult> DeleteHoidongdanhgium(int? mahoidong)
-    {
-        var hoidongdanhgium = await _context.Hoidongdanhgia.FindAsync(mahoidong);
-        if (hoidongdanhgium == null)
+        // POST: api/Hoidongdanhgiums  (chỉ ADMIN, PDT)
+        [HttpPost]
+        [Authorize(Roles = "ADMIN,PDT")]
+        public async Task<ActionResult<Hoidongdanhgium>> PostHoidongdanhgium(Hoidongdanhgium hoidongdanhgium)
         {
-            return NotFound();
+            _context.Hoidongdanhgia.Add(hoidongdanhgium);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetHoidongdanhgium), new { mahoidong = hoidongdanhgium.MaHoiDong }, hoidongdanhgium);
         }
 
-        _context.Hoidongdanhgia.Remove(hoidongdanhgium);
-        await _context.SaveChangesAsync();
+        // DELETE: api/Hoidongdanhgiums/5  (chỉ ADMIN, PDT)
+        [HttpDelete("{mahoidong:int}")]
+        [Authorize(Roles = "ADMIN,PDT")]
+        public async Task<IActionResult> DeleteHoidongdanhgium(int mahoidong)
+        {
+            var hd = await _context.Hoidongdanhgia.FindAsync(mahoidong);
+            if (hd == null) return NotFound();
 
-        return NoContent();
-    }
-
-    private bool HoidongdanhgiumExists(int? mahoidong)
-    {
-        return _context.Hoidongdanhgia.Any(e => e.MaHoiDong == mahoidong);
+            _context.Hoidongdanhgia.Remove(hd);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

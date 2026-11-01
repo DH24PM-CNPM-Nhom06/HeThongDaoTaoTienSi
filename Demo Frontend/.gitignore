@@ -1,0 +1,31 @@
+# Dependencies and browser test output
+node_modules/
+playwright-report/
+test-results/
+.cache/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.local.js
+*.local.json
+
+# Temporary files and local exports
+tmp/
+output/
+backups/
+*.log
+*.tmp
+*.bak
+DTMS_Backup*.json
+DTMS_DEMO_Backup*.json
+extracted_doc.txt
+
+# Editor and operating system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+~$*

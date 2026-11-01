@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using DTMS.Api.DTOs;
 using DTMS.Api.Models;
 
 namespace DTMS.Api.Controllers
 {
+    // API công khai: tra cứu văn bằng, không cần đăng nhập
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class PublicController : ControllerBase
     {
         private readonly DtmsDbContext _context;
@@ -15,34 +18,46 @@ namespace DTMS.Api.Controllers
             _context = context;
         }
 
+        // GET: api/Public/diploma?code=...&name=...
         [HttpGet("diploma")]
         public IActionResult VerifyDiploma([FromQuery] string code, [FromQuery] string name)
         {
-            // TODO:
-            // 1. Kiểm tra tham số đầu vào 'code' và 'name'
-            // 2. Dùng _context truy vấn kết hợp các bảng:
-            //    - hoanthienvatotnghiep (để kiểm tra SoHieuBang)
-            //    - nghiencuusinh (để đối chiếu HoTen)
-            //    - nganhdaotao (để lấy TenNganh)
-            // 3. Nếu không tìm thấy, trả về IsValid = false
-            // 4. Nếu tìm thấy, gán dữ liệu vào DiplomaDetailDto
+            if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(name))
+            {
+                return BadRequest(new DiplomaResponse { IsValid = false, Message = "Vui lòng nhập đủ số hiệu bằng và họ tên." });
+            }
 
-            // KẾT QUẢ TẠM THỜI ĐỂ TEST (Yêu cầu bạn kia xóa và viết logic thật):
-            var response = new DiplomaResponse
+            var maCode = code.Trim();
+            var tenNguoi = name.Trim().ToLower();
+
+            var diploma = (from tn in _context.Hoanthienvatotnghieps
+                           join ncs in _context.Nghiencuusinhs on tn.MaNcs equals ncs.MaNcs
+                           join nganh in _context.Nganhdaotaos on ncs.MaNganh equals nganh.MaNganh
+                           where tn.SoHieuBang == maCode && ncs.HoTen.ToLower() == tenNguoi
+                           select new DiplomaDetailDto
+                           {
+                               SoHieuBang = tn.SoHieuBang,
+                               HoTen = ncs.HoTen,
+                               NganhDaoTao = nganh.TenNganh,
+                               SoVaoSoGoc = tn.SoVaoSoGoc,
+                               NgayCap = tn.NgayCapBang.HasValue ? tn.NgayCapBang.Value.ToString("yyyy-MM-dd") : null
+                           }).FirstOrDefault();
+
+            if (diploma == null)
+            {
+                return Ok(new DiplomaResponse
+                {
+                    IsValid = false,
+                    Message = "Không tìm thấy thông tin văn bằng phù hợp."
+                });
+            }
+
+            return Ok(new DiplomaResponse
             {
                 IsValid = true,
                 Message = "Xác thực thành công",
-                Data = new DiplomaDetailDto
-                {
-                    SoHieuBang = code,
-                    HoTen = name,
-                    NganhDaoTao = "Khoa học Môi trường", // Lấy từ DB
-                    SoVaoSoGoc = "SG-TS-2026-012",       // Lấy từ DB
-                    NgayCap = "2026-01-20"               // Lấy từ DB
-                }
-            };
-
-            return Ok(response);
+                Data = diploma
+            });
         }
     }
 }

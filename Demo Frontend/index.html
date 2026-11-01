@@ -18,49 +18,44 @@
     />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/management.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Bỏ qua điều hướng</a>
     <div class="os-shell">
-      <!-- LEFT DOCK NAVIGATION (7 ITEMS) -->
-      <aside class="os-dock">
-        <div class="dock-brand">DT</div>
+      <!-- PRIMARY NAVIGATION -->
+      <aside class="os-dock" id="primary-navigation">
+        <div class="dock-brand">DT<span>MS</span></div>
 
-        <nav class="dock-nav" aria-label="Thanh dock điều hướng">
-          <button class="dock-item is-active" data-dock-target="home" data-tooltip="Trang chủ" data-tooltip-vi="Trang chủ" data-tooltip-en="Home">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <nav class="dock-nav" aria-label="Điều hướng chính">
+          <button class="dock-item" data-dock-target="profile" data-tooltip="Profile" aria-label="Profile">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Profile</span>
           </button>
-
-          <!-- Core Academic Management Hub (14 Functional Modules) -->
-          <button class="dock-item" data-dock-target="management" data-tooltip="Quản lý Học vụ (14 Phân hệ)" data-tooltip-vi="Quản lý Học vụ (14 Phân hệ)" data-tooltip-en="Academic Management (14 Modules)">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h6"/></svg>
+          <button class="dock-item is-active" data-dock-target="management" data-tooltip="Bàn làm việc" aria-label="Bàn làm việc">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 8h8M8 12h5M8 16h8"/></svg><span>Bàn làm việc</span>
           </button>
-
-          <button class="dock-item" data-dock-target="roles" data-tooltip="Đối tượng" data-tooltip-vi="Đối tượng (7 Vai trò)" data-tooltip-en="Stakeholders">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-3-3.87M9 21v-2a4 4 0 0 1 3-3.87"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <button class="dock-item" data-dock-target="notifications" data-tooltip="Thông báo" aria-label="Thông báo">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/><path d="M19 3v3m1.5-1.5h-3"/></svg><span>Thông báo</span>
           </button>
-
-          <button class="dock-item" data-dock-target="roadmap" data-tooltip="Quy trình" data-tooltip-vi="Quy trình 6 bước" data-tooltip-en="Roadmap">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <button class="dock-item" data-dock-target="public" data-tooltip="Công khai" aria-label="Công khai">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19.5V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-1.5Zm0 0A2.5 2.5 0 0 1 6.5 17H18M8 7h6m-6 4h6"/></svg><span>Công khai</span>
           </button>
-
-          <button class="dock-item" data-dock-target="public" data-tooltip="Công khai" data-tooltip-vi="Công khai & Tra cứu" data-tooltip-en="Public Hub">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19.5V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-1.5Zm0 0A2.5 2.5 0 0 1 6.5 17H18M8 7h6m-6 4h6"/></svg>
+          <button class="dock-item" data-dock-target="lookup" data-tooltip="Tra cứu văn bằng" aria-label="Tra cứu văn bằng">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M8 11h6M11 8v6"/></svg><span>Tra cứu</span>
           </button>
-
-          <button class="dock-item" data-dock-target="citations" data-tooltip="Văn bản" data-tooltip-vi="Văn bản pháp lý" data-tooltip-en="Regulations">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
-          </button>
-
-          <button class="dock-item" data-dock-target="about" data-tooltip="Giới thiệu" data-tooltip-vi="Giới thiệu DTMS" data-tooltip-en="About">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          </button>
+          <button type="button" class="dock-item" data-dock-target="home" data-tooltip="Trang chủ" aria-label="Trang chủ"><span class="dock-symbol" aria-hidden="true">⌂</span><span>Trang chủ</span></button>
+          <button type="button" class="dock-item" data-dock-target="roles" data-tooltip="Vai trò" aria-label="Vai trò"><span class="dock-symbol" aria-hidden="true">♙</span><span>Vai trò</span></button>
+          <button type="button" class="dock-item" data-dock-target="roadmap" data-tooltip="Lộ trình" aria-label="Lộ trình"><span class="dock-symbol" aria-hidden="true">↗</span><span>Lộ trình</span></button>
+          <button type="button" class="dock-item" data-dock-target="citations" data-tooltip="Văn bản" aria-label="Văn bản"><span class="dock-symbol" aria-hidden="true">§</span><span>Văn bản</span></button>
+          <button type="button" class="dock-item" data-dock-target="about" data-tooltip="Giới thiệu" aria-label="Giới thiệu"><span class="dock-symbol" aria-hidden="true">ⓘ</span><span>Giới thiệu</span></button>
         </nav>
       </aside>
 
       <!-- MAIN STUDIO CANVAS -->
-      <div class="os-main">
+      <main class="os-main" id="main-content" tabindex="-1">
         <!-- TOP COMMAND BAR -->
         <header class="os-topbar">
+          <button type="button" class="menu-toggle" data-menu-toggle aria-controls="primary-navigation" aria-expanded="false" aria-label="Mở menu điều hướng">☰</button>
           <div class="topbar-status">
             <span style="font-weight:700; color:var(--text-main);" data-i18n="univ_name">TRƯỜNG ĐẠI HỌC AN GIANG · ĐHQG-HCM</span>
             <span class="status-indicator">
@@ -71,10 +66,11 @@
 
           <div class="command-search">
             <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" placeholder="Tìm kiếm nhanh dữ liệu hệ thống..." data-i18n-placeholder="search_placeholder" data-command-input />
+            <input type="search" aria-label="Tìm phân hệ nghiệp vụ" placeholder="Tìm kiếm nhanh dữ liệu hệ thống..." data-i18n-placeholder="search_placeholder" data-command-input />
           </div>
 
           <div class="topbar-actions">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary btn-mgmt-sm" data-logout onclick="DTMS_MANAGEMENT.logout()">Đăng xuất</button>
             <!-- Language Switcher -->
             <button class="lang-switcher-btn" data-lang-btn aria-label="Chuyển đổi ngôn ngữ">
               🌐 VI | EN
@@ -87,16 +83,12 @@
               <span id="topbar-role-badge" class="role-pill-badge">NCS</span>
             </div>
 
-            <button class="btn-mgmt btn-mgmt-outline-blue btn-mgmt-sm" onclick="DTMS_MANAGEMENT.openModal('modal-role-switcher')" title="Chuyển đổi quyền làm việc">
+            <button class="btn-mgmt btn-mgmt-outline-blue btn-mgmt-sm" data-role-switcher onclick="DTMS_MANAGEMENT.openModal('modal-role-switcher')" title="Chuyển đổi vai trò làm việc">
               ⇄ Đổi vai trò
             </button>
 
-            <button class="btn-mgmt btn-mgmt-outline-danger btn-mgmt-sm" data-role-admin-action onclick="DTMS_MANAGEMENT.resetDemoData()" title="Khôi phục dữ liệu mẫu ban đầu">
-              🔄 Reset Data
-            </button>
-
-            <button class="btn-login-os" onclick="DTMS_MANAGEMENT.openModal('modal-login')">
-              <span data-i18n="login_os">Đăng nhập OS</span>
+            <button class="btn-login-os" onclick="DTMS_MANAGEMENT.openWorkspace()">
+              <span data-workspace-label>Bàn làm việc</span>
               <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
             </button>
           </div>
@@ -106,7 +98,7 @@
         <div class="os-stage">
           
           <!-- 01. TRANG CHỦ (HOME VIEW) -->
-          <section class="os-view is-active" data-view="home">
+          <section class="os-view" data-view="home">
             <div class="home-hero-grid">
               <div>
                 <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:9999px; background:var(--uni-blue-50); border:1px solid var(--uni-blue-100); color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; margin-bottom:16px;" data-i18n="home_tag">
@@ -165,7 +157,7 @@
                   <span style="font-weight:800; font-size:0.86rem; color:var(--uni-blue-900);" data-i18n="campus_name">TRƯỜNG ĐẠI HỌC AN GIANG</span>
                   <span style="font-size:0.72rem; padding:4px 10px; border-radius:6px; background:var(--uni-blue-50); color:var(--uni-blue-800); font-weight:800;">ĐHQG-HCM</span>
                 </div>
-                <img src="assets/images/agu-campus.png" alt="Trường Đại học An Giang" style="width:100%; height:200px; object-fit:cover; border-radius:var(--radius-md); margin-bottom:14px;" />
+                <img src="assets/images/agu-campus.png" alt="Trường Đại học An Giang" loading="lazy" decoding="async" style="width:100%; height:200px; object-fit:cover; border-radius:var(--radius-md); margin-bottom:14px;" />
                 <div style="font-size:0.82rem; color:var(--text-secondary); display:flex; justify-content:space-between;">
                   <span data-i18n="campus_scope_label">Phạm vi quản lý:</span>
                   <strong style="color:var(--uni-blue-800);" data-i18n="campus_scope_val">Toàn bộ Quá trình Đào tạo TS</strong>
@@ -236,13 +228,22 @@
           <!-- ==========================================================================
                02. HỆ THỐNG QUẢN LÝ HỌC VỤ & ĐÀO TẠO TIẾN SĨ (14 PHÂN HỆ NGHIỆP VỤ)
                ========================================================================== -->
-          <section class="os-view" data-view="management">
+          <section class="os-view profile-view" data-view="profile">
+            <div class="profile-page-heading">
+              <span class="notice-eyebrow">DTMS · PROFILE</span>
+              <h1>Hồ sơ và tổng quan cá nhân</h1>
+              <p data-profile-role-label>Thông tin, tiến độ và nhiệm vụ theo vai trò đang sử dụng.</p>
+            </div>
+            <div data-role-dashboard-mount></div>
+          </section>
+
+          <section class="os-view is-active" data-view="management">
             <!-- Header bar of Management Studio -->
             <div class="mgmt-top-header">
               <div class="mgmt-header-title">
                 <h2>
                   <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" style="color:var(--uni-blue-800);"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h6"/></svg>
-                  Trung Tâm Quản Lý Đào Tạo Nghiên Cứu Sinh (14 Phân Hệ)
+                  Bàn làm việc · Nghiệp vụ đào tạo
                 </h2>
                 <p>Nền tảng số hóa quản trị đầy đủ các quy trình học vụ, chuyên đề, tiến độ, thẩm định công bố WoS/Scopus và cấp bằng Tiến sĩ theo Thông tư 18/2021/TT-BGDĐT.</p>
               </div>
@@ -361,7 +362,7 @@
                   <button class="btn-mgmt btn-mgmt-warning" onclick="DTMS_MANAGEMENT.openModal('modal-leave-request')">
                     📄 Đơn xin gia hạn / Tạm dừng
                   </button>
-                  <button class="btn-mgmt btn-mgmt-secondary" onclick="alert('Đã xuất toàn bộ hồ sơ đào tạo số của NCS dưới định dạng PDF.')">
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.printProfile()">
                     📥 Tải hồ sơ số (PDF)
                   </button>
                 </div>
@@ -419,12 +420,12 @@
                       <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                       1. Thông tin Cá nhân Nghiên cứu sinh
                     </h3>
-                    <span class="status-pill is-success">Dữ liệu đã xác thực</span>
+                    <span class="status-pill is-success">Hồ sơ học vụ</span>
                   </div>
 
                   <div class="mgmt-detail-row">
                     <span>Họ và tên:</span>
-                    <strong>NCS. Nguyễn Văn Bình</strong>
+                    <strong id="profile-display-name">NCS. Nguyễn Văn Bình</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Ngày sinh & Giới tính:</span>
@@ -468,11 +469,11 @@
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Chuyên ngành đào tạo:</span>
-                    <strong>Khoa học Môi trường (Mã: 9440301)</strong>
+                    <strong id="profile-display-major">Khoa học Môi trường (Mã: 9440301)</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Khóa tuyển sinh:</span>
-                    <span>Khóa 2023 (Đợt 2 - Tháng 10/2023)</span>
+                    <span id="profile-display-cohort">Khóa 2023 (Đợt 2 - Tháng 10/2023)</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Quyết định công nhận NCS:</span>
@@ -484,11 +485,11 @@
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Thời hạn đào tạo chuẩn:</span>
-                    <span>15/10/2023 – 15/10/2026 (Hết hạn chuẩn: Còn 13 tháng)</span>
+                    <span>15/10/2023 – 15/10/2026 (theo hồ sơ đào tạo)</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Thời hạn tối đa (kể cả gia hạn):</span>
-                    <span>Tối đa 06 năm (đến 15/10/2029 theo TT18)</span>
+                    <span>Thời gian tối đa: 48 tháng; đối chiếu quyết định gia hạn</span>
                   </div>
                 </div>
               </div>
@@ -527,7 +528,7 @@
                       <td>PGS.TS. Nguyễn Thị Kim</td>
                       <td><span class="status-pill is-warning">Gia hạn 06 tháng</span></td>
                       <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem hồ sơ NCS Lê Thị Mai');">Xem & Sửa</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Chi tiết hồ sơ')">Xem & Sửa</button>
                       </td>
                     </tr>
                     <tr>
@@ -538,7 +539,7 @@
                       <td>PGS.TS. Trần Đình Lâm</td>
                       <td><span class="status-pill is-blue">Đã bảo vệ luận án</span></td>
                       <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem hồ sơ NCS Phạm Quốc Cường');">Xem & Sửa</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Chi tiết hồ sơ')">Xem & Sửa</button>
                       </td>
                     </tr>
                   </tbody>
@@ -579,7 +580,7 @@
                         <td>14/09/2025</td>
                         <td><span class="status-pill is-success">Đã duyệt (QĐ 218/QĐ-ĐHAG)</span></td>
                         <td>
-                          <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Đã tải minh chứng đơn xin học vụ.')">📄 File đơn</button>
+                          <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 File đơn</button>
                         </td>
                       </tr>
                     </tbody>
@@ -602,7 +603,7 @@
                   <button class="btn-mgmt btn-mgmt-success" onclick="DTMS_MANAGEMENT.handleApprovePlan()">
                     ✓ Phê duyệt kế hoạch (NHD/PĐT)
                   </button>
-                  <button class="btn-mgmt btn-mgmt-secondary" onclick="alert('Tải khung chương trình đào tạo chuẩn (PDF)');">
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">
                     📥 Tải Khung CTĐT
                   </button>
                 </div>
@@ -805,7 +806,7 @@
                       <td><strong>2 / 3 NCS</strong></td>
                       <td><span class="status-pill is-success">Hợp lệ (Còn 1 chỉ tiêu)</span></td>
                       <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem hồ sơ chi tiết và các đề tài GS.TS Trần Văn Hướng đang hướng dẫn.');">Chi tiết</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-supervisor-detail>Chi tiết</button>
                       </td>
                     </tr>
                     <tr>
@@ -816,7 +817,7 @@
                       <td><strong>2 / 2 NCS</strong></td>
                       <td><span class="status-pill is-warning">Đạt ngưỡng định mức</span></td>
                       <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem hồ sơ chi tiết PGS.TS Lê Văn Tuấn.');">Chi tiết</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-supervisor-detail>Chi tiết</button>
                       </td>
                     </tr>
                     <tr>
@@ -827,7 +828,7 @@
                       <td><strong>1 / 1 NCS</strong></td>
                       <td><span class="status-pill is-warning">Đạt ngưỡng định mức</span></td>
                       <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem hồ sơ chi tiết TS Nguyễn Hải Nam.');">Chi tiết</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-supervisor-detail>Chi tiết</button>
                       </td>
                     </tr>
                   </tbody>
@@ -843,7 +844,7 @@
                   <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Điều kiện hoàn thành: Tích lũy tối thiểu 12 tín chỉ tiến sĩ với điểm từng học phần từ 7.0 (Điểm B) trở lên.</p>
                 </div>
                 <div style="display:flex; gap:10px;">
-                  <button class="btn-mgmt btn-mgmt-primary" onclick="alert('Đã cập nhật dữ liệu bảng điểm học phần từ hệ thống đào tạo Sau đại học.')">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Đồng bộ bảng điểm')">
                     ⟳ Đồng bộ bảng điểm
                   </button>
                 </div>
@@ -1027,9 +1028,10 @@
                     <span>Số BB-TL01/ĐHAG (Đã ký số)</span>
                   </div>
                   <div style="margin-top:14px; display:flex; gap:8px;">
-                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Tải file Tiểu luận tổng quan');">📄 Tải Tiểu luận</button>
-                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Tải biên bản họp chấm tiểu luận');">📋 Tải Biên bản</button>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Tải Tiểu luận</button>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📋 Tải Biên bản</button>
                   </div>
+                  <div class="grade-history" data-essay-grade-history aria-live="polite"></div>
                 </div>
 
                 <!-- Research Outline & Revision Card -->
@@ -1060,8 +1062,8 @@
                     <span>Số 289/QĐ-ĐHAG ký ngày 20/05/2024</span>
                   </div>
                   <div style="margin-top:14px; display:flex; gap:8px;">
-                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="alert('Tải bản Đề cương nghiên cứu hoàn thiện');">📑 Tải Đề cương</button>
-                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="alert('Tải bản Giải trình tiếp thu ý kiến Hội đồng');">📝 Bản giải trình</button>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📑 Tải Đề cương</button>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📝 Bản giải trình</button>
                   </div>
                 </div>
               </div>
@@ -1078,7 +1080,7 @@
                   <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-register-topic')">
                     + Đăng ký chuyên đề mới
                   </button>
-                  <button class="btn-mgmt btn-mgmt-secondary" onclick="alert('Tải toàn bộ biên bản 03 chuyên đề');">
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">
                     📥 Tải sổ biên bản chuyên đề
                   </button>
                 </div>
@@ -1110,7 +1112,7 @@
                       <td><span class="status-pill is-success" id="topic-status-1">Đã đánh giá (Đạt)</span></td>
                       <td>
                         <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeTopic(1)">✎ Chấm điểm</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="alert('Tải biên bản chấm Chuyên đề 1');">Biên bản</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Biên bản</button>
                       </td>
                     </tr>
                     <tr>
@@ -1123,7 +1125,7 @@
                       <td><span class="status-pill is-success" id="topic-status-2">Đã đánh giá (Đạt)</span></td>
                       <td>
                         <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeTopic(2)">✎ Chấm điểm</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="alert('Tải biên bản chấm Chuyên đề 2');">Biên bản</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Biên bản</button>
                       </td>
                     </tr>
                     <tr>
@@ -1136,12 +1138,13 @@
                       <td><span class="status-pill is-success" id="topic-status-3">Đã đánh giá (Đạt)</span></td>
                       <td>
                         <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeTopic(3)">✎ Chấm điểm</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="alert('Tải biên bản chấm Chuyên đề 3');">Biên bản</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Biên bản</button>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
+              <div class="grade-history" data-topic-grade-history aria-live="polite"></div>
 
               <!-- Topic completion banner -->
               <div class="mgmt-card" style="background:#ecfdf5; border:1px solid #a7f3d0;">
@@ -1166,7 +1169,7 @@
                   <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-submit-progress')">
                     + Nộp Báo cáo tiến độ kỳ mới
                   </button>
-                  <button class="btn-mgmt btn-mgmt-danger" onclick="alert('Hệ thống đã tự động gửi email cảnh báo quá hạn tới 02 NCS chậm nộp báo cáo.');">
+                  <button class="btn-mgmt btn-mgmt-danger" onclick="DTMS_MANAGEMENT.queueReminder()">
                     ⚠️ Gửi cảnh báo quá hạn (Email)
                   </button>
                 </div>
@@ -1182,7 +1185,7 @@
                       <span style="color:#b91c1c; font-size:0.84rem;">NCS. Lê Văn Hải (Mã: NCS-2022-AGR02) đã quá hạn nộp Báo cáo Tiến độ Kỳ 4 là 18 ngày!</span>
                     </div>
                   </div>
-                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-danger" onclick="alert('Đã gửi thông báo thúc đẩy học vụ đến NCS Lê Văn Hải và NHD.');">
+                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-danger" onclick="DTMS_MANAGEMENT.queueReminder()">
                     Nhắc nhở ngay
                   </button>
                 </div>
@@ -1209,10 +1212,10 @@
                       <td>Học phần tiến sĩ & Thu thập mẫu ban đầu</td>
                       <td>10/04/2024</td>
                       <td><span class="status-pill is-success" id="progress-status-period-1">Đạt tiến độ</span></td>
-                      <td>NCS chủ động, hoàn thành tốt các môn học nâng cao.</td>
+                      <td id="progress-comment-period-1">NCS chủ động, hoàn thành tốt các môn học nâng cao.</td>
                       <td>
                         <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeProgressReport(1, 'pass')">Đạt</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="alert('Tải file báo cáo tiến độ kỳ 1');">File</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">File</button>
                       </td>
                     </tr>
                     <tr>
@@ -1221,10 +1224,10 @@
                       <td>Bảo vệ đề cương & Vận hành mô hình lab 1</td>
                       <td>08/10/2024</td>
                       <td><span class="status-pill is-success" id="progress-status-period-2">Đạt tiến độ</span></td>
-                      <td>Số liệu thí nghiệm đạt độ tin cậy, hoàn thành CĐ 1.</td>
+                      <td id="progress-comment-period-2">Số liệu thí nghiệm đạt độ tin cậy, hoàn thành CĐ 1.</td>
                       <td>
                         <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeProgressReport(2, 'pass')">Đạt</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="alert('Tải file báo cáo tiến độ kỳ 2');">File</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">File</button>
                       </td>
                     </tr>
                     <tr>
@@ -1233,10 +1236,10 @@
                       <td>Phân tích hóa lý, viết bản thảo bài báo quốc tế 1</td>
                       <td>12/04/2025</td>
                       <td><span class="status-pill is-success" id="progress-status-period-3">Đạt tiến độ</span></td>
-                      <td>Bài báo 1 đã nộp vào tạp chí Water Research (Scopus Q1).</td>
+                      <td id="progress-comment-period-3">Bài báo 1 đã nộp vào tạp chí Water Research (Scopus Q1).</td>
                       <td>
                         <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeProgressReport(3, 'pass')">Đạt</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="alert('Tải file báo cáo tiến độ kỳ 3');">File</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">File</button>
                       </td>
                     </tr>
                     <tr>
@@ -1245,15 +1248,16 @@
                       <td>Đánh giá mô hình thực địa & Viết bài báo 2</td>
                       <td>25/09/2025</td>
                       <td><span class="status-pill is-success" id="progress-status-period-4">Đạt tiến độ</span></td>
-                      <td>Đã hoàn thành phân tích LCA, chuẩn bị viết toàn văn luận án.</td>
+                      <td id="progress-comment-period-4">Đã hoàn thành phân tích LCA, chuẩn bị viết toàn văn luận án.</td>
                       <td>
                         <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeProgressReport(4, 'pass')">Đạt</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="alert('Tải file báo cáo tiến độ kỳ 4');">File</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">File</button>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
+              <div class="grade-history" data-progress-review-history aria-live="polite"></div>
             </div>
 
             <!-- MODULE 08: QUẢN LÝ CÔNG BỐ KHOA HỌC (WOS/SCOPUS & THẨM ĐỊNH) -->
@@ -1310,7 +1314,7 @@
                       <td>Tác giả chính (1st Author)</td>
                       <td><span class="status-pill is-success">Đã thẩm định hợp lệ</span></td>
                       <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="alert('Đã tải minh chứng PDF toàn văn bài báo và thư chấp nhận.');">📄 Minh chứng</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Minh chứng</button>
                       </td>
                     </tr>
                     <tr>
@@ -1323,7 +1327,7 @@
                       <td>Tác giả liên hệ (Corresponding)</td>
                       <td><span class="status-pill is-success">Đã thẩm định hợp lệ</span></td>
                       <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="alert('Đã tải minh chứng PDF toàn văn bài báo 2.');">📄 Minh chứng</button>
+                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Minh chứng</button>
                       </td>
                     </tr>
                   </tbody>
@@ -1421,7 +1425,7 @@
               <div class="mgmt-card">
                 <div class="mgmt-card-header">
                   <h3>3. Quản Lý Các Phiên Bản Toàn Văn Luận Án (Version Control)</h3>
-                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="alert('Upload phiên bản mới');">+ Nộp phiên bản mới</button>
+                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-upload-thesis-version')">+ Nộp phiên bản mới</button>
                 </div>
 
                 <div class="mgmt-table-wrapper" style="margin-bottom:0;">
@@ -1443,7 +1447,7 @@
                         <td>15/10/2025</td>
                         <td>14.2 MB (PDF)</td>
                         <td>Bản thảo phục vụ sinh hoạt chuyên môn Bộ môn</td>
-                        <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Tải v1.0');">Tải về</button></td>
+                        <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Tải về</button></td>
                       </tr>
                       <tr>
                         <td><strong>v2.0</strong></td>
@@ -1451,7 +1455,7 @@
                         <td>15/11/2025</td>
                         <td>15.6 MB (PDF)</td>
                         <td>Bản đã tiếp thu ý kiến của Bộ môn gửi 02 Phản biện độc lập</td>
-                        <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Tải v2.0');">Tải về</button></td>
+                        <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Tải về</button></td>
                       </tr>
                       <tr>
                         <td><strong>v3.0</strong></td>
@@ -1459,7 +1463,7 @@
                         <td>10/01/2026</td>
                         <td>16.1 MB (PDF)</td>
                         <td>Bản in chính thức phục vụ Hội đồng Đánh giá luận án</td>
-                        <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="alert('Tải v3.0');">Tải bản chính</button></td>
+                        <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Tải bản chính</button></td>
                       </tr>
                     </tbody>
                   </table>
@@ -1481,7 +1485,7 @@
                   <button class="btn-mgmt btn-mgmt-success" onclick="DTMS_MANAGEMENT.handleDefenseVoting()">
                     ✓ Nhập kết quả bỏ phiếu Hội đồng (7/7 Đạt)
                   </button>
-                  <button class="btn-mgmt btn-mgmt-secondary" onclick="alert('Tải biên bản họp và Nghị quyết Hội đồng đánh giá luận án cấp Trường.');">
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">
                     📋 Tải Nghị quyết HĐ
                   </button>
                 </div>
@@ -1557,7 +1561,7 @@
               <div class="mgmt-card">
                 <div class="mgmt-card-header">
                   <h3>3. Danh Sách Hội Đồng Đánh Giá Luận Án Cấp Trường (07 Thành viên theo TT18)</h3>
-                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="alert('Đã tải Quyết định thành lập Hội đồng số 580/QĐ-ĐHAG do Hiệu trưởng ký.');">
+                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">
                     📄 Quyết định thành lập HĐ
                   </button>
                 </div>
@@ -1688,8 +1692,8 @@
                     <strong>Đã đăng ký lưu trữ số</strong>
                   </div>
                   <div style="margin-top:14px; display:flex; gap:8px;">
-                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem giấy xác nhận Thư viện ĐHAG');">📄 Giấy TV ĐHAG</button>
-                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem giấy xác nhận Thư viện Quốc gia');">🏛 Giấy TV Quốc Gia</button>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Giấy TV ĐHAG</button>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">🏛 Giấy TV Quốc Gia</button>
                   </div>
                 </div>
 
@@ -1763,7 +1767,7 @@
                       <td>12/03/2025</td>
                       <td>QĐ số 118/QĐ-ĐHAG</td>
                       <td><span class="status-pill is-success">Đã ban hành QĐ</span></td>
-                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem quyết định');">Xem QĐ</button></td>
+                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Xem QĐ</button></td>
                     </tr>
                     <tr>
                       <td><strong>BD-2024-04</strong></td>
@@ -1773,7 +1777,7 @@
                       <td>15/04/2024</td>
                       <td>QĐ số 289/QĐ-ĐHAG</td>
                       <td><span class="status-pill is-success">Đã phê duyệt</span></td>
-                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem biên bản thông qua');">Biên bản</button></td>
+                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Biên bản</button></td>
                     </tr>
                     <tr>
                       <td><strong>BD-2024-09</strong></td>
@@ -1783,7 +1787,7 @@
                       <td>20/09/2024</td>
                       <td>QĐ số 402/QĐ-ĐHAG</td>
                       <td><span class="status-pill is-success">Đã tiếp nhận lại</span></td>
-                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem đơn tạm dừng');">Chi tiết</button></td>
+                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Chi tiết</button></td>
                     </tr>
                     <tr>
                       <td><strong>BD-2023-02</strong></td>
@@ -1793,7 +1797,7 @@
                       <td>10/11/2023</td>
                       <td>QĐ số 512/QĐ-ĐHAG</td>
                       <td><span class="status-pill is-danger">Đã thôi học</span></td>
-                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="alert('Xem quyết định thôi học');">Xem QĐ</button></td>
+                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Xem QĐ</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -1808,13 +1812,13 @@
                   <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Thống kê tổng hợp tiến độ nghiên cứu sinh, phân loại công bố khoa học và xuất báo cáo phục vụ kiểm định chất lượng AUN-QA / MOET.</p>
                 </div>
                 <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.handleExportReport('BaoCao_KiemDinh_AUN-QA_2026.xlsx')">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.handleExportReport('BaoCao_KiemDinh_AUN-QA_2026.csv')">
                     📊 Xuất Báo Cáo Kiểm Định AUN-QA
                   </button>
-                  <button class="btn-mgmt btn-mgmt-success" onclick="DTMS_MANAGEMENT.handleExportReport('ThongKe_TienDo_TT18_BGDDT.pdf')">
+                  <button class="btn-mgmt btn-mgmt-success" onclick="DTMS_MANAGEMENT.handleExportReport('ThongKe_TienDo_TT18_BGDDT.csv')">
                     📑 Xuất Báo Cáo Thông tư 18
                   </button>
-                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.handleExportReport('DuLieu_BaCongKhai_SĐH_2026.xlsx')">
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.handleExportReport('DuLieu_BaCongKhai_SĐH_2026.csv')">
                     📥 Xuất Dữ Liệu Ba Công Khai
                   </button>
                 </div>
@@ -1831,17 +1835,17 @@
                 </div>
 
                 <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px;">
-                  <input type="text" class="mgmt-input-search" id="quick-degree-input" placeholder="Nhập Số hiệu bằng (TS-AGU-2026-089) hoặc Họ tên..." value="TS-AGU-2026-089" style="max-width:350px;" />
+                  <input type="text" class="mgmt-input-search" id="quick-degree-input" aria-label="Mã văn bằng cần tra cứu" placeholder="Nhập Số hiệu bằng (TS-AGU-2026-089) hoặc Họ tên..." value="TS-AGU-2026-089" style="max-width:350px;" />
                   <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openDegreeLookup(document.getElementById('quick-degree-input').value)">
                     🔍 Tra cứu ngay
                   </button>
-                  <button class="btn-mgmt btn-mgmt-outline-blue" data-switch-view="public">
+                  <button class="btn-mgmt btn-mgmt-outline-blue" data-switch-view="lookup">
                     🏛 Mở Console 3D
                   </button>
                 </div>
 
                 <div style="padding:14px; border-radius:8px; background:var(--bg-subtle); font-size:0.86rem; color:var(--text-secondary);">
-                  💡 Kết quả tra cứu trực tuyến có giá trị pháp lý tương đương văn bằng giấy, được mã hóa bằng Blockchain Seal của ĐHQG-HCM.
+                  Kết quả chỉ hiển thị khi dịch vụ sổ bằng trả dữ liệu hợp lệ. Kết quả tra cứu không thay thế văn bản xác nhận của đơn vị cấp bằng.
                 </div>
               </div>
 
@@ -1929,10 +1933,11 @@
             <div class="mgmt-panel" id="panel-m14">
               <div class="mgmt-action-bar">
                 <div>
-                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Ma Trận Phân Quyền 06 Vai Trò (RBAC) & Nhật Ký Hoạt Động (Audit Log)</h3>
-                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Theo dõi giám sát thời gian thực toàn bộ thao tác phê duyệt, nhập điểm, ban hành quyết định và ký số.</p>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Ma Trận Phân Quyền 07 Vai Trò (RBAC) & Nhật Ký Hoạt Động (Audit Log)</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Theo dõi lịch sử thao tác và các thay đổi trong quá trình xử lý hồ sơ.</p>
                 </div>
                 <div style="display:flex; gap:10px;">
+                  <button class="btn-mgmt btn-mgmt-outline-danger" data-role-admin-action onclick="DTMS_MANAGEMENT.resetWorkspaceData()" title="Khôi phục dữ liệu khởi tạo">🔄 Khôi phục dữ liệu</button>
                   <button class="btn-mgmt btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.openModal('modal-role-switcher')">
                     ⇄ Chuyển đổi vai trò làm việc
                   </button>
@@ -2080,29 +2085,66 @@
             <div class="constellation-graph" data-constellation-graph></div>
           </section>
 
-          <!-- 05. CÔNG KHAI (PUBLIC VIEW - LUẬN ÁN & PHÔI BẰNG 3D) -->
+          <!-- THÔNG BÁO CHUNG CẤP ĐÀO TẠO TIẾN SĨ -->
+          <section class="os-view" data-view="notifications">
+            <div class="notice-page-heading">
+              <span class="notice-eyebrow">DTMS · CẤP ĐÀO TẠO TIẾN SĨ</span>
+              <h2>Thông báo chung</h2>
+              <p>Các thông tin và mốc thời gian áp dụng chung cho nghiên cứu sinh và các đơn vị tham gia đào tạo.</p>
+            </div>
+            <div class="notice-list">
+              <article class="notice-card notice-card-featured">
+                <span class="notice-tag">LỊCH HỌC VỤ <time>09/10/2026</time></span>
+                <h3>Tiếp nhận báo cáo tiến độ nghiên cứu sinh học kỳ I</h3>
+                <p>Nghiên cứu sinh cập nhật tiến độ và minh chứng trên bàn làm việc; người hướng dẫn rà soát trước khi gửi về Phòng Đào tạo.</p>
+                <div class="notice-meta"><span>Phòng Đào tạo Sau đại học</span><strong>Hạn gửi: 30/10/2026</strong></div>
+              </article>
+              <article class="notice-card">
+                <span class="notice-tag">NHẮC VIỆC <time>06/10/2026</time></span>
+                <h3>Rà soát kế hoạch học tập và nghiên cứu năm học 2026–2027</h3>
+                <p>Các đơn vị kiểm tra kế hoạch, học phần còn thiếu và lịch dự kiến thực hiện chuyên đề của từng nghiên cứu sinh.</p>
+                <div class="notice-meta"><span>Phòng Đào tạo Sau đại học</span><strong>Áp dụng toàn cấp học</strong></div>
+              </article>
+              <article class="notice-card">
+                <span class="notice-tag">THÔNG TIN <time>01/10/2026</time></span>
+                <h3>Cập nhật hướng dẫn nộp hồ sơ và minh chứng điện tử</h3>
+                <p>Vui lòng sử dụng đúng biểu mẫu tại các phân hệ tương ứng. Tệp đính kèm cần ghi rõ mã nghiên cứu sinh và loại hồ sơ.</p>
+                <div class="notice-meta"><span>Trung tâm Quản lý Đào tạo NCS</span><strong>Đang áp dụng</strong></div>
+              </article>
+            </div>
+          </section>
+
+          <!-- 05. CÔNG KHAI: KHO LUẬN ÁN TIẾN SĨ -->
           <section class="os-view" data-view="public">
             <div style="margin-bottom:28px;">
-              <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">PUBLIC SERVICES HUB</span>
-              <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="public_title">Dịch vụ Công khai & Tra cứu</h2>
-              <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;" data-i18n="public_subtitle">Kho Luận án Tiến sĩ công khai (FR-BV05) và Console Tra cứu Phôi bằng 3D (FR-BC01).</p>
+              <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">PUBLIC DOCTORAL THESES</span>
+              <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="public_title">Kho Luận án Tiến sĩ Công khai</h2>
+              <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;" data-i18n="public_subtitle">Tra cứu và tham khảo các luận án tiến sĩ đã được công khai.</p>
             </div>
 
             <!-- THESES SUB-SECTION -->
-            <div style="margin-bottom:44px;">
+            <div id="public-theses-section" style="margin-bottom:44px;">
               <h3 style="color:var(--uni-blue-900); font-size:1.2rem; margin-bottom:14px;" data-i18n="theses_sec_title">1. Kho Luận án Tiến sĩ Công khai</h3>
               <div style="margin-bottom:16px; padding:12px 18px; border-radius:12px; background:var(--bg-card); border:1px solid var(--border-card); display:flex; align-items:center; gap:12px;">
                 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" style="color:var(--uni-blue-800);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 <input type="text" placeholder="Lọc theo tên NCS, chuyên ngành hoặc tên luận án..." style="width:100%; border:none; background:transparent; color:var(--text-main); outline:none; font-size:0.9rem;" data-i18n-placeholder="thesis_search_ph" data-thesis-search-input />
               </div>
               <div style="display:grid; gap:14px;" data-thesis-grid></div>
+              <p class="api-status" data-thesis-status role="status" aria-live="polite"></p>
             </div>
 
-            <!-- DIPLOMA VERIFIER SUB-SECTION -->
-            <div>
-              <h3 style="color:var(--uni-blue-900); font-size:1.2rem; margin-bottom:14px;" data-i18n="verifier_sec_title">2. Console Tra cứu Phôi bằng Tiến sĩ 3D</h3>
+          </section>
+
+          <!-- 06. TRA CỨU VĂN BẰNG: CONSOLE 3D -->
+          <section class="os-view" data-view="lookup">
+            <div style="margin-bottom:28px;">
+              <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">DEGREE VERIFICATION CONSOLE</span>
+              <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="lookup_title">Console Tra cứu Phôi bằng Tiến sĩ 3D</h2>
+              <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;" data-i18n="lookup_subtitle">Nhập số hiệu văn bằng và họ tên để tra cứu thông tin xác minh.</p>
+            </div>
+            <div id="diploma-verifier">
               <div class="verifier-layout">
-                <div>
+                <form data-degree-lookup-form>
                   <div class="verifier-input-group">
                     <label for="code-input" data-i18n="ver_code_label">01. Số hiệu văn bằng</label>
                     <input type="text" id="code-input" placeholder="Ví dụ: TS-AGU-2025-089" data-i18n-placeholder="ver_code_ph" data-input-code />
@@ -2111,9 +2153,11 @@
                     <label for="name-input" data-i18n="ver_name_label">02. Họ và tên người được cấp bằng</label>
                     <input type="text" id="name-input" placeholder="Ví dụ: Nguyễn Văn A" data-i18n-placeholder="ver_name_ph" data-input-name />
                   </div>
-                  <button style="width:100%; padding:14px; border-radius:10px; background:linear-gradient(135deg, var(--uni-blue-800), var(--uni-blue-600)); color:#ffffff; font-weight:800; font-size:0.9rem; box-shadow:0 6px 18px rgba(11,56,102,0.3); margin-top:8px;" data-i18n="ver_btn" data-verify-btn>
-                    Xuất phôi bằng Tiến sĩ 3D
+                  <button type="submit" style="width:100%; padding:14px; border-radius:10px; background:linear-gradient(135deg, var(--uni-blue-800), var(--uni-blue-600)); color:#ffffff; font-weight:800; font-size:0.9rem; box-shadow:0 6px 18px rgba(11,56,102,0.3); margin-top:8px;" data-i18n="ver_btn" data-verify-btn>
+                    Tra cứu văn bằng
                   </button>
+                  <p class="api-status" data-degree-status role="status" aria-live="polite"></p>
+                </form>
                 </div>
 
                 <!-- 3D Foil Certificate Render Card -->
@@ -2122,7 +2166,7 @@
             </div>
           </section>
 
-          <!-- 06. VĂN BẢN (CITATIONS VIEW) -->
+          <!-- 07. VĂN BẢN (CITATIONS VIEW) -->
           <section class="os-view" data-view="citations">
             <div style="margin-bottom:28px;">
               <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">ACADEMIC REGULATORY CITATIONS</span>
@@ -2166,17 +2210,17 @@
               <div style="padding:28px; border-radius:16px; background:var(--bg-card); border:1px solid var(--border-card); box-shadow:var(--shadow-card);">
                 <h3 style="color:var(--uni-blue-800); font-size:1.2rem; margin:0 0 14px;" data-i18n="about_card2_title">Hạ tầng ĐHQG-HCM Standard</h3>
                 <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.65;" data-i18n="about_card2_desc">
-                  Đáp ứng 100% các Thông tư 18/2021/TT-BGDĐT, Quy định 1688/QĐ-ĐHQG và Quy chế 655/QĐ-ĐHAG, 
-                  bảo đảm tính minh bạch, chính xác và bảo mật thông tin theo tiêu chuẩn Đại học Quốc gia.
+                  Hỗ trợ số hóa quy trình đào tạo theo các tài liệu được cung cấp. Quy tắc chính thức, xác thực và tích hợp cần được nhà trường kiểm chứng trước khi vận hành.
                 </p>
               </div>
             </div>
           </section>
 
         </div>
-      </div>
+      </main>
     </div>
 
+    <button class="menu-backdrop" data-menu-backdrop hidden aria-label="Đóng menu"></button>
     <!-- ==========================================================================
          MODALS CONTAINER (FORMS, UPLOADS, ROLE SWITCHERS, WORKFLOWS)
          ========================================================================== -->
@@ -2241,28 +2285,24 @@
     <div class="mgmt-modal" id="modal-login">
       <div class="mgmt-modal-dialog" style="width:min(480px, 100%);">
         <div class="mgmt-modal-header">
-          <h3>Đăng Nhập Cổng DTMS Academic OS</h3>
+          <h3>Truy cập hệ thống DTMS</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-login">✕</button>
         </div>
         <form id="form-login">
           <div class="mgmt-form-group">
-            <label for="login-username">Tên đăng nhập (Email / Mã cán bộ / Mã NCS):</label>
+            <label for="login-username">Email người dùng:</label>
             <input id="login-username" type="email" value="nvbinh_ncs@agu.edu.vn" autocomplete="username" required />
           </div>
-          <div class="mgmt-form-group">
-            <label for="login-password">Mật khẩu:</label>
-            <input id="login-password" type="password" value="agu2026" autocomplete="current-password" required />
-          </div>
           <p id="login-error" role="alert" hidden style="padding:10px 12px; border-radius:8px; color:#991b1b; background:#fef2f2; font-size:.82rem;"></p>
-          <p style="margin:0 0 14px; color:var(--text-muted); font-size:.75rem;">Tài khoản demo: nvbinh_ncs@agu.edu.vn · Mật khẩu: agu2026</p>
+          <p style="margin:0 0 14px; color:var(--text-muted); font-size:.8rem;">Nhập email gắn với hồ sơ người dùng để mở bàn làm việc tương ứng.</p>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:0.8rem;">
             <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
-              <input type="checkbox" checked /> Ghi nhớ tài khoản
+              <input type="checkbox" id="remember-email" /> Ghi nhớ email
             </label>
-            <a href="#" style="color:var(--uni-blue-800); font-weight:700;">Quên mật khẩu?</a>
+            <button type="button" class="text-link" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tài khoản chính thức / Quên mật khẩu')">Hỗ trợ tài khoản</button>
           </div>
           <button type="submit" class="btn-mgmt btn-mgmt-primary" style="width:100%; justify-content:center;">
-            Đăng Nhập Hệ Thống
+            Tiếp tục
           </button>
         </form>
       </div>
@@ -2399,25 +2439,115 @@
         <form id="form-grade-essay">
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
-              <label>Điểm Cán bộ chấm 1 (GS.TS Trần Văn Hướng):</label>
-              <input type="number" step="0.1" min="0" max="10" id="essay-score-1" value="8.5" required />
+              <label for="essay-candidate">Nghiên cứu sinh:</label>
+              <select id="essay-candidate" required>
+                <option value="">Chọn nghiên cứu sinh</option>
+                <option value="NCS. Nguyễn Văn Bình">NCS. Nguyễn Văn Bình · K2023</option>
+                <option value="NCS. Lê Thị Mai">NCS. Lê Thị Mai · K2022</option>
+                <option value="NCS. Phạm Quốc Cường">NCS. Phạm Quốc Cường · K2023</option>
+              </select>
             </div>
             <div class="mgmt-form-group">
-              <label>Điểm Cán bộ chấm 2 (TS. Lê Hoàng Nam):</label>
-              <input type="number" step="0.1" min="0" max="10" id="essay-score-2" value="9.0" required />
+              <label for="essay-work-select">Bài cần chấm:</label>
+              <select id="essay-work-select" required>
+                <option value="">Chọn bài đã nộp</option>
+                <option data-candidate="NCS. Nguyễn Văn Bình" value="Tổng quan các giải pháp sinh học xử lý nước thải chăn nuôi lợn tại vùng Mekong">Tiểu luận tổng quan · Bản nộp 02/10/2026</option>
+                <option data-candidate="NCS. Lê Thị Mai" value="Đánh giá khả năng ứng dụng công nghệ sinh học trong xử lý nước thải">Tiểu luận tổng quan · Bản nộp 05/10/2026</option>
+                <option data-candidate="NCS. Phạm Quốc Cường" value="Mô hình quản lý chất thải chăn nuôi theo hướng tuần hoàn">Tiểu luận tổng quan · Bản nộp 07/10/2026</option>
+              </select>
+            </div>
+          </div>
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label for="essay-score-1">Điểm Cán bộ chấm 1 (GS.TS Trần Văn Hướng):</label>
+              <input type="number" step="0.1" min="0" max="10" id="essay-score-1" placeholder="0–10" required />
             </div>
             <div class="mgmt-form-group">
-              <label>Điểm Cán bộ chấm 3 (TS. Nguyễn Hải Nam):</label>
-              <input type="number" step="0.1" min="0" max="10" id="essay-score-3" value="8.8" required />
+              <label for="essay-score-2">Điểm Cán bộ chấm 2 (TS. Lê Hoàng Nam):</label>
+              <input type="number" step="0.1" min="0" max="10" id="essay-score-2" placeholder="0–10" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="essay-score-3">Điểm Cán bộ chấm 3 (TS. Nguyễn Hải Nam):</label>
+              <input type="number" step="0.1" min="0" max="10" id="essay-score-3" placeholder="0–10" required />
             </div>
           </div>
           <div class="mgmt-form-group">
             <label>Nhận xét chuyên môn của Tiểu ban:</label>
-            <textarea rows="3">Tiểu luận tổng quan cập nhật đầy đủ các công trình nghiên cứu trong và ngoài nước trong 5 năm gần đây, phương pháp luận rõ ràng, đề tài có tính cấp thiết cao.</textarea>
+            <textarea id="essay-grade-comment" rows="3" placeholder="Nhập nhận xét của tiểu ban" required></textarea>
           </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
             <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-grade-essay">Hủy</button>
-            <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu Điểm & Ký Biên Bản</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">✓ Xác nhận và lưu kết quả</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="mgmt-modal" id="modal-grade-topic">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3 id="grade-topic-title">Đánh giá chuyên đề</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-grade-topic" aria-label="Đóng">✕</button>
+        </div>
+        <form id="form-grade-topic">
+          <input type="hidden" id="grade-topic-index" />
+          <div class="mgmt-form-group">
+            <label for="topic-candidate">Nghiên cứu sinh:</label>
+            <select id="topic-candidate" required>
+              <option value="">Chọn nghiên cứu sinh</option>
+              <option value="NCS. Nguyễn Văn Bình">NCS. Nguyễn Văn Bình · K2023</option>
+              <option value="NCS. Lê Thị Mai">NCS. Lê Thị Mai · K2022</option>
+              <option value="NCS. Phạm Quốc Cường">NCS. Phạm Quốc Cường · K2023</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="topic-score-input">Điểm tiểu ban (0–10):</label>
+            <input id="topic-score-input" type="number" min="0" max="10" step="0.1" placeholder="Nhập điểm" required />
+          </div>
+          <div class="mgmt-form-group">
+            <label for="topic-grade-comment">Nhận xét:</label>
+            <textarea id="topic-grade-comment" rows="3" placeholder="Nhập nhận xét của tiểu ban" required></textarea>
+          </div>
+          <div class="mgmt-modal-actions">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-grade-topic">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">✓ Xác nhận và lưu điểm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="mgmt-modal" id="modal-review-progress">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3 id="progress-review-title">Đánh giá báo cáo tiến độ</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-review-progress" aria-label="Đóng">✕</button>
+        </div>
+        <form id="form-review-progress">
+          <input type="hidden" id="progress-review-period" />
+          <div class="mgmt-form-group">
+            <label for="progress-review-candidate">Nghiên cứu sinh:</label>
+            <select id="progress-review-candidate" required>
+              <option value="">Chọn nghiên cứu sinh</option>
+              <option value="NCS. Nguyễn Văn Bình">NCS. Nguyễn Văn Bình · K2023</option>
+              <option value="NCS. Lê Thị Mai">NCS. Lê Thị Mai · K2022</option>
+              <option value="NCS. Phạm Quốc Cường">NCS. Phạm Quốc Cường · K2023</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="progress-review-result">Kết luận:</label>
+            <select id="progress-review-result" required>
+              <option value="">Chọn kết luận</option>
+              <option value="pass">Đạt tiến độ</option>
+              <option value="revision">Yêu cầu bổ sung / chỉnh sửa</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="progress-review-comment">Nhận xét của người hướng dẫn:</label>
+            <textarea id="progress-review-comment" rows="3" placeholder="Nhập nhận xét" required></textarea>
+          </div>
+          <div class="mgmt-modal-actions">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-review-progress">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">✓ Xác nhận đánh giá</button>
           </div>
         </form>
       </div>
@@ -2518,7 +2648,7 @@
             <div class="flowchart-step-badge">4</div>
             <div class="flowchart-step-content">
               <strong>Bước 4: Cập nhật Bộ đếm Chuẩn đầu ra Công bố</strong>
-              <p>Hệ thống tự động ghi nhận khi đạt đủ 02 bài báo hợp lệ và mở khóa quyền đăng ký bảo vệ luận án cấp Trường.</p>
+              <p>Bảng kiểm tổng hợp các công bố đã được thẩm định theo yêu cầu của chương trình đào tạo.</p>
               <span class="flowchart-actor-tag">Hệ thống: DTMS Automated Rule Engine</span>
             </div>
           </div>
@@ -2639,7 +2769,7 @@
           <h3>Lập / Điều Chỉnh Kế Hoạch Đào Tạo Toàn Khóa</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-edit-plan">✕</button>
         </div>
-        <form onsubmit="event.preventDefault(); DTMS_MANAGEMENT.closeModal('modal-edit-plan'); DTMS_MANAGEMENT.addAuditLog('Cập nhật kế hoạch học tập', 'Cập nhật mục tiêu và mốc thời gian học kỳ'); DTMS_MANAGEMENT.notify('Cập nhật kế hoạch thành công', 'Kế hoạch học tập và nghiên cứu đã được lưu và gửi cho NHD phê duyệt.');">
+        <form>
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
               <label>Học kỳ điều chỉnh:</label>
@@ -2677,7 +2807,7 @@
           <h3>Đề Xuất Thay Đổi / Bổ Sung Người Hướng Dẫn</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-change-supervisor">✕</button>
         </div>
-        <form onsubmit="event.preventDefault(); DTMS_MANAGEMENT.closeModal('modal-change-supervisor'); DTMS_MANAGEMENT.addAuditLog('Đề xuất thay đổi NHD', 'Gửi đơn đề xuất điều chỉnh người hướng dẫn khoa học'); DTMS_MANAGEMENT.notify('Đã gửi đề xuất', 'Đơn đề xuất thay đổi/bổ sung NHD đã gửi lên Ban Chủ nhiệm Khoa và Phòng Đào tạo.');">
+        <form>
           <div class="mgmt-form-group">
             <label>Hình thức đề xuất:</label>
             <select required>
@@ -2727,7 +2857,7 @@
           <h3>Nộp Toàn Văn Tiểu Luận Tổng Quan</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-submit-essay">✕</button>
         </div>
-        <form onsubmit="event.preventDefault(); DTMS_MANAGEMENT.closeModal('modal-submit-essay'); DTMS_MANAGEMENT.addAuditLog('Nộp Tiểu luận tổng quan', 'Nộp toàn văn Tiểu luận cho Bộ môn Kỹ thuật Môi trường'); DTMS_MANAGEMENT.notify('Nộp tiểu luận thành công', 'File Tiểu luận tổng quan đã được tải lên thành công và gửi cho Tiểu ban chấm điểm.');">
+        <form>
           <div class="mgmt-form-group">
             <label>Tên đề tài tiểu luận tổng quan:</label>
             <input type="text" value="Tổng quan các giải pháp sinh học xử lý nước thải chăn nuôi lợn tại vùng Mekong" required />
@@ -2759,7 +2889,7 @@
           <h3>Nộp Bản Đề Cương Chi Tiết & Bản Giải Trình Chỉnh Sửa</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-submit-outline">✕</button>
         </div>
-        <form onsubmit="event.preventDefault(); DTMS_MANAGEMENT.closeModal('modal-submit-outline'); DTMS_MANAGEMENT.addAuditLog('Nộp đề cương & giải trình', 'Nộp bản Đề cương nghiên cứu chi tiết đã tiếp thu ý kiến'); DTMS_MANAGEMENT.notify('Nộp đề cương thành công', 'Đề cương chi tiết và bản giải trình đã được gửi lên Hội đồng chuyên môn.');">
+        <form>
           <div class="mgmt-form-group">
             <label>Tên đề cương nghiên cứu:</label>
             <input type="text" value="Nghiên cứu giải pháp công nghệ sinh học tích hợp xử lý nước thải chăn nuôi lợn và thu hồi năng lượng tái tạo tại vùng ĐBSCL" required />
@@ -2805,7 +2935,7 @@
           <h3>Đăng Ký Chuyên Đề Tiến Sĩ Mới</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-register-topic">✕</button>
         </div>
-        <form onsubmit="event.preventDefault(); DTMS_MANAGEMENT.closeModal('modal-register-topic'); DTMS_MANAGEMENT.addAuditLog('Đăng ký Chuyên đề tiến sĩ', 'Đăng ký Chuyên đề tiến sĩ mới'); DTMS_MANAGEMENT.notify('Đăng ký thành công', 'Chuyên đề tiến sĩ đã được đăng ký và phê duyệt bởi Bộ môn.');">
+        <form>
           <div class="mgmt-form-group">
             <label>Chọn thứ tự chuyên đề:</label>
             <select required>
@@ -2856,7 +2986,7 @@
           <h3>Nộp Báo Cáo Tiến Độ Nghiên Cứu Định Kỳ (6 Tháng / Lần)</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-submit-progress">✕</button>
         </div>
-        <form onsubmit="event.preventDefault(); DTMS_MANAGEMENT.closeModal('modal-submit-progress'); DTMS_MANAGEMENT.addAuditLog('Nộp Báo cáo tiến độ', 'Nộp Báo cáo tiến độ 6 tháng định kỳ'); DTMS_MANAGEMENT.notify('Nộp báo cáo thành công', 'Báo cáo tiến độ đã được gửi cho Người hướng dẫn khoa học để đánh giá Đạt/Không đạt.');">
+        <form>
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
               <label>Kỳ báo cáo định kỳ:</label>
@@ -2905,7 +3035,7 @@
           <h3>Đề Xuất Điều Chỉnh Tên Đề Tài Luận Án Tiến Sĩ</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-change-topic-title">✕</button>
         </div>
-        <form onsubmit="event.preventDefault(); DTMS_MANAGEMENT.closeModal('modal-change-topic-title'); DTMS_MANAGEMENT.addAuditLog('Đề xuất đổi tên đề tài', 'Gửi đơn đề xuất điều chỉnh tên đề tài luận án'); DTMS_MANAGEMENT.notify('Đã gửi đề xuất', 'Đơn xin đổi tên đề tài đã chuyển tới Bộ môn và Khoa để thẩm định chuyên môn.');">
+        <form>
           <div class="mgmt-form-group">
             <label>Tên đề tài hiện tại:</label>
             <textarea rows="2" readonly style="background:#e2e8f0;">Nghiên cứu giải pháp công nghệ sinh học tích hợp xử lý nước thải chăn nuôi lợn tại vùng ĐBSCL</textarea>
@@ -2945,7 +3075,7 @@
           <h3>Upload Phiên Bản Luận Án Tiến Sĩ Mới</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-upload-thesis-version">✕</button>
         </div>
-        <form onsubmit="event.preventDefault(); DTMS_MANAGEMENT.closeModal('modal-upload-thesis-version'); DTMS_MANAGEMENT.addAuditLog('Upload phiên bản luận án', 'Upload phiên bản luận án toàn văn mới'); DTMS_MANAGEMENT.notify('Upload thành công', 'Phiên bản luận án mới đã được lưu trữ an toàn trong kho dữ liệu số.');">
+        <form>
           <div class="mgmt-form-group">
             <label>Chọn phiên bản luận án:</label>
             <select required>
@@ -2981,7 +3111,7 @@
           <h3>Nộp Luận Án Hoàn Thiện Sau Bảo Vệ &amp; Hồ Sơ Lưu Chiểu</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-submit-post-defense">✕</button>
         </div>
-        <form onsubmit="event.preventDefault(); DTMS_MANAGEMENT.closeModal('modal-submit-post-defense'); DTMS_MANAGEMENT.addAuditLog('Nộp hồ sơ sau bảo vệ', 'Nộp luận án chỉnh sửa hoàn thiện và biên nhận lưu chiểu'); DTMS_MANAGEMENT.notify('Nộp hồ sơ thành công', 'Hồ sơ đã được gửi đến Phòng Đào tạo Sau Đại học để hoàn tất thủ tục cấp bằng Tiến sĩ.');">
+        <form>
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group full-width">
               <label>File Luận án bản in chính thức hoàn thiện (PDF có chữ ký):</label>
@@ -3023,7 +3153,7 @@
           <h3>Tạo Đơn / Yêu Cầu Thay Đổi Biến Động Học Vụ</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-create-change-request">✕</button>
         </div>
-        <form onsubmit="event.preventDefault(); DTMS_MANAGEMENT.closeModal('modal-create-change-request'); DTMS_MANAGEMENT.addAuditLog('Tạo yêu cầu thay đổi học vụ', 'Gửi đơn biến động học vụ'); DTMS_MANAGEMENT.notify('Tạo yêu cầu thành công', 'Yêu cầu biến động học vụ đã được gửi lên hệ thống và chuyển đến các cấp thẩm quyền.');">
+        <form>
           <div class="mgmt-form-group">
             <label>Phân loại biến động học vụ:</label>
             <select required>
@@ -3110,7 +3240,7 @@
       </div>
 
       <div class="ai-chat-footer">
-        <input type="text" placeholder="Nhập câu hỏi của bạn..." data-i18n-placeholder="ai_input_ph" data-ai-chat-input />
+        <input type="text" placeholder="Nhập câu hỏi của bạn..." data-i18n-placeholder="ai_input_ph" data-ai-chat-input aria-label="Câu hỏi cho trợ lý hướng dẫn" />
         <button style="padding:8px 14px; border-radius:8px; background:linear-gradient(135deg, var(--uni-blue-800), var(--uni-blue-600)); color:#ffffff; font-weight:800; font-size:0.78rem;" data-i18n="ai_send" data-ai-chat-send>
           Gửi
         </button>
@@ -3125,11 +3255,33 @@
       </div>
     </div>
 
-    <!-- TOAST NOTIFICATION CONTAINER -->
-    <div style="position:fixed; bottom:24px; right:24px; z-index:1500; display:grid; gap:10px;" data-toast-region></div>
 
-    <script src="js/config.js" defer></script>
-    <script src="js/app.js" defer></script>
-    <script src="js/management.js" defer></script>
+    <div class="mgmt-modal" id="modal-candidate"><div class="mgmt-modal-dialog">
+      <div class="mgmt-modal-header"><h3 id="candidate-modal-heading">Hồ sơ NCS</h3><button type="button" class="mgmt-modal-close" data-close-modal="modal-candidate" aria-label="Đóng">✕</button></div>
+      <form id="form-candidate"><input type="hidden" id="candidate-id" /><div class="mgmt-form-grid">
+      <div class="mgmt-form-group"><label for="candidate-code">Mã nghiên cứu sinh</label><input id="candidate-code" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-name">Họ và tên</label><input id="candidate-name" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-major">Ngành đào tạo</label><input id="candidate-major" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-cohort">Khóa tuyển sinh</label><input id="candidate-cohort" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-email">Email</label><input id="candidate-email" type="email" /></div><div class="mgmt-form-group"><label for="candidate-phone">Số điện thoại</label><input id="candidate-phone" type="tel" /></div><div class="mgmt-form-group"><label for="candidate-supervisor">Người hướng dẫn</label><input id="candidate-supervisor" type="text" /></div>
+      <div class="mgmt-form-group"><label for="candidate-status">Trạng thái học vụ</label><select id="candidate-status"><option value="studying">Đang học bình thường</option><option value="extended">Gia hạn học tập</option><option value="paused">Tạm dừng học tập</option><option value="defended">Đã bảo vệ luận án</option><option value="graduated">Đã cấp bằng Tiến sĩ</option></select></div>
+      </div><div class="mgmt-modal-actions"><button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-candidate">Đóng</button><button type="submit" id="candidate-save" class="btn-mgmt btn-mgmt-primary">Lưu hồ sơ</button></div></form>
+    </div></div>
+    <div class="mgmt-modal" id="modal-confirm"><div class="mgmt-modal-dialog"><div class="mgmt-modal-header"><h3>Xác nhận thao tác</h3><button type="button" class="mgmt-modal-close" data-close-modal="modal-confirm" aria-label="Đóng">✕</button></div><p data-confirm-message></p><div class="mgmt-modal-actions"><button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-confirm">Hủy</button><button type="button" class="btn-mgmt btn-mgmt-danger" data-confirm-accept>Xác nhận</button></div></div></div>
+    <div class="mgmt-modal" id="modal-information"><div class="mgmt-modal-dialog"><div class="mgmt-modal-header"><h3>Thông tin</h3><button type="button" class="mgmt-modal-close" data-close-modal="modal-information" aria-label="Đóng">✕</button></div><div data-information-body></div></div></div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div style="position:fixed; bottom:24px; right:24px; z-index:1500; display:grid; gap:10px;" data-toast-region role="status" aria-live="polite" aria-atomic="false"></div>
+
+    <script src="js/data.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/core/config.js" defer></script>
+    <script src="js/core/api.js" defer></script>
+    <script src="js/features/collections.js" defer></script>
+    <script src="js/features/notifications.js" defer></script>
+    <script src="js/features/public-theses.js" defer></script>
+    <script src="js/features/degree-lookup.js" defer></script>
+    <script src="js/features/assistant.js" defer></script>
+    <script src="js/core/app.js" defer></script>
+    <script src="js/modules/management.js" defer></script>
   </body>
 </html>
+
+
+

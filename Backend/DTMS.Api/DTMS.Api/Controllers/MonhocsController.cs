@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using DTMS.Api.DTOs;
 using DTMS.Api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class MonhocsController : ControllerBase
 {
     private readonly DtmsDbContext _context;
@@ -45,6 +47,7 @@ public class MonhocsController : ControllerBase
 
     // PUT: api/Monhoc/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [Authorize(Roles = "ADMIN,PDT")]
     [HttpPut("{mamonhoc}")]
     public async Task<IActionResult> PutMonhoc(string? mamonhoc, Monhoc monhoc)
     {
@@ -76,6 +79,7 @@ public class MonhocsController : ControllerBase
 
     // POST: api/Monhoc
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [Authorize(Roles = "ADMIN,PDT")]
     [HttpPost]
     public async Task<ActionResult<Monhoc>> PostMonhoc(Monhoc monhoc)
     {
@@ -86,6 +90,7 @@ public class MonhocsController : ControllerBase
     }
 
     // DELETE: api/Monhoc/5
+    [Authorize(Roles = "ADMIN,PDT")]
     [HttpDelete("{mamonhoc}")]
     public async Task<IActionResult> DeleteMonhoc(string? mamonhoc)
     {

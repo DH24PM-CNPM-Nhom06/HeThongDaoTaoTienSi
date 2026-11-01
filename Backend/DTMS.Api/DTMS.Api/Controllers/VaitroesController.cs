@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using DTMS.Api.DTOs;
 using DTMS.Api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Roles = "ADMIN,PDT")]
 public class VaitroesController : ControllerBase
 {
     private readonly DtmsDbContext _context;
@@ -43,6 +45,7 @@ public class VaitroesController : ControllerBase
 
     // PUT: api/Vaitro/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [Authorize(Roles = "ADMIN")]
     [HttpPut("{mavaitro}")]
     public async Task<IActionResult> PutVaitro(string? mavaitro, Vaitro vaitro)
     {
@@ -74,6 +77,7 @@ public class VaitroesController : ControllerBase
 
     // POST: api/Vaitro
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [Authorize(Roles = "ADMIN")]
     [HttpPost]
     public async Task<ActionResult<Vaitro>> PostVaitro(Vaitro vaitro)
     {
@@ -84,6 +88,7 @@ public class VaitroesController : ControllerBase
     }
 
     // DELETE: api/Vaitro/5
+    [Authorize(Roles = "ADMIN")]
     [HttpDelete("{mavaitro}")]
     public async Task<IActionResult> DeleteVaitro(string? mavaitro)
     {
