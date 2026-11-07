@@ -1,0 +1,1002 @@
+[
+  {
+    "width": 360,
+    "modal": "modal-role-switcher",
+    "left": 8,
+    "right": 352,
+    "top": 8,
+    "bottom": 892,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-login",
+    "left": 8,
+    "right": 352,
+    "top": 282.703125,
+    "bottom": 617.28125,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-edit-profile",
+    "left": 8,
+    "right": 352,
+    "top": 105.8125,
+    "bottom": 794.1875,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-leave-request",
+    "left": 8,
+    "right": 352,
+    "top": 88.484375,
+    "bottom": 811.515625,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-assign-supervisor",
+    "left": 8,
+    "right": 352,
+    "top": 179.875,
+    "bottom": 720.125,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-grade-essay",
+    "left": 8,
+    "right": 352,
+    "top": 50.328125,
+    "bottom": 849.671875,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-grade-topic",
+    "left": 8,
+    "right": 352,
+    "top": 185.828125,
+    "bottom": 714.171875,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-review-progress",
+    "left": 8,
+    "right": 352,
+    "top": 185.828125,
+    "bottom": 714.171875,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-declare-pub",
+    "left": 8,
+    "right": 352,
+    "top": 8,
+    "bottom": 892,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-workflow-pub",
+    "left": 8,
+    "right": 352,
+    "top": 8,
+    "bottom": 892,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-workflow-defense",
+    "left": 8,
+    "right": 352,
+    "top": 8,
+    "bottom": 892,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-workflow-changes",
+    "left": 8,
+    "right": 352,
+    "top": 8,
+    "bottom": 892,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-edit-plan",
+    "left": 8,
+    "right": 352,
+    "top": 121.609375,
+    "bottom": 778.375,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-change-supervisor",
+    "left": 8,
+    "right": 352,
+    "top": 38.390625,
+    "bottom": 861.609375,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-submit-essay",
+    "left": 8,
+    "right": 352,
+    "top": 134.578125,
+    "bottom": 765.421875,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-submit-outline",
+    "left": 8,
+    "right": 352,
+    "top": 8,
+    "bottom": 892,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-register-topic",
+    "left": 8,
+    "right": 352,
+    "top": 63.78125,
+    "bottom": 836.21875,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-submit-progress",
+    "left": 8,
+    "right": 352,
+    "top": 8,
+    "bottom": 892,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-change-topic-title",
+    "left": 8,
+    "right": 352,
+    "top": 21.484375,
+    "bottom": 878.515625,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-upload-thesis-version",
+    "left": 8,
+    "right": 352,
+    "top": 122.671875,
+    "bottom": 777.3125,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-submit-post-defense",
+    "left": 8,
+    "right": 352,
+    "top": 15.078125,
+    "bottom": 884.921875,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-create-change-request",
+    "left": 8,
+    "right": 352,
+    "top": 145.09375,
+    "bottom": 754.90625,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-candidate",
+    "left": 8,
+    "right": 352,
+    "top": 8,
+    "bottom": 892,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-confirm",
+    "left": 8,
+    "right": 352,
+    "top": 346.5,
+    "bottom": 553.5,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 360,
+    "modal": "modal-information",
+    "left": 8,
+    "right": 352,
+    "top": 395.5,
+    "bottom": 504.5,
+    "scroll": 342,
+    "client": 342
+  },
+  {
+    "width": 768,
+    "modal": "modal-role-switcher",
+    "left": 24,
+    "right": 744,
+    "top": 16,
+    "bottom": 884,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-login",
+    "left": 144,
+    "right": 624,
+    "top": 292.90625,
+    "bottom": 607.078125,
+    "scroll": 478,
+    "client": 478
+  },
+  {
+    "width": 768,
+    "modal": "modal-edit-profile",
+    "left": 24,
+    "right": 744,
+    "top": 122.546875,
+    "bottom": 777.4375,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-leave-request",
+    "left": 24,
+    "right": 744,
+    "top": 118.046875,
+    "bottom": 781.953125,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-assign-supervisor",
+    "left": 24,
+    "right": 744,
+    "top": 203.34375,
+    "bottom": 696.65625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-grade-essay",
+    "left": 24,
+    "right": 744,
+    "top": 73.984375,
+    "bottom": 826.015625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-grade-topic",
+    "left": 24,
+    "right": 744,
+    "top": 222.34375,
+    "bottom": 677.640625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-review-progress",
+    "left": 24,
+    "right": 744,
+    "top": 222.34375,
+    "bottom": 677.640625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-declare-pub",
+    "left": 16,
+    "right": 752,
+    "top": 16,
+    "bottom": 884,
+    "scroll": 734,
+    "client": 734
+  },
+  {
+    "width": 768,
+    "modal": "modal-workflow-pub",
+    "left": 16,
+    "right": 752,
+    "top": 80.828125,
+    "bottom": 819.171875,
+    "scroll": 734,
+    "client": 734
+  },
+  {
+    "width": 768,
+    "modal": "modal-workflow-defense",
+    "left": 16,
+    "right": 752,
+    "top": 16,
+    "bottom": 884,
+    "scroll": 734,
+    "client": 734
+  },
+  {
+    "width": 768,
+    "modal": "modal-workflow-changes",
+    "left": 16,
+    "right": 752,
+    "top": 127.125,
+    "bottom": 772.875,
+    "scroll": 734,
+    "client": 734
+  },
+  {
+    "width": 768,
+    "modal": "modal-edit-plan",
+    "left": 24,
+    "right": 744,
+    "top": 150.5625,
+    "bottom": 749.4375,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-change-supervisor",
+    "left": 24,
+    "right": 744,
+    "top": 70.25,
+    "bottom": 829.734375,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-submit-essay",
+    "left": 24,
+    "right": 744,
+    "top": 161.828125,
+    "bottom": 738.15625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-submit-outline",
+    "left": 16,
+    "right": 752,
+    "top": 30.515625,
+    "bottom": 869.46875,
+    "scroll": 734,
+    "client": 734
+  },
+  {
+    "width": 768,
+    "modal": "modal-register-topic",
+    "left": 24,
+    "right": 744,
+    "top": 91.03125,
+    "bottom": 808.953125,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-submit-progress",
+    "left": 16,
+    "right": 752,
+    "top": 16,
+    "bottom": 884,
+    "scroll": 734,
+    "client": 734
+  },
+  {
+    "width": 768,
+    "modal": "modal-change-topic-title",
+    "left": 24,
+    "right": 744,
+    "top": 56.46875,
+    "bottom": 843.515625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-upload-thesis-version",
+    "left": 24,
+    "right": 744,
+    "top": 159.828125,
+    "bottom": 740.15625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-submit-post-defense",
+    "left": 16,
+    "right": 752,
+    "top": 49.3125,
+    "bottom": 850.6875,
+    "scroll": 734,
+    "client": 734
+  },
+  {
+    "width": 768,
+    "modal": "modal-create-change-request",
+    "left": 24,
+    "right": 744,
+    "top": 161.828125,
+    "bottom": 738.15625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-candidate",
+    "left": 24,
+    "right": 744,
+    "top": 16,
+    "bottom": 884,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-confirm",
+    "left": 24,
+    "right": 744,
+    "top": 371.5,
+    "bottom": 528.5,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 768,
+    "modal": "modal-information",
+    "left": 24,
+    "right": 744,
+    "top": 393.5,
+    "bottom": 506.5,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-role-switcher",
+    "left": 152,
+    "right": 872,
+    "top": 107.984375,
+    "bottom": 792.015625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-login",
+    "left": 272,
+    "right": 752,
+    "top": 280.390625,
+    "bottom": 619.59375,
+    "scroll": 478,
+    "client": 478
+  },
+  {
+    "width": 1024,
+    "modal": "modal-edit-profile",
+    "left": 152,
+    "right": 872,
+    "top": 208.609375,
+    "bottom": 691.375,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-leave-request",
+    "left": 152,
+    "right": 872,
+    "top": 104.53125,
+    "bottom": 795.46875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-assign-supervisor",
+    "left": 152,
+    "right": 872,
+    "top": 189.828125,
+    "bottom": 710.171875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-grade-essay",
+    "left": 152,
+    "right": 872,
+    "top": 160.046875,
+    "bottom": 739.953125,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-grade-topic",
+    "left": 152,
+    "right": 872,
+    "top": 208.828125,
+    "bottom": 691.15625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-review-progress",
+    "left": 152,
+    "right": 872,
+    "top": 208.828125,
+    "bottom": 691.15625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-declare-pub",
+    "left": 52,
+    "right": 972,
+    "top": 95.3125,
+    "bottom": 804.6875,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1024,
+    "modal": "modal-workflow-pub",
+    "left": 52,
+    "right": 972,
+    "top": 94.484375,
+    "bottom": 805.515625,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1024,
+    "modal": "modal-workflow-defense",
+    "left": 52,
+    "right": 972,
+    "top": 16,
+    "bottom": 884,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1024,
+    "modal": "modal-workflow-changes",
+    "left": 52,
+    "right": 972,
+    "top": 113.125,
+    "bottom": 786.875,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1024,
+    "modal": "modal-edit-plan",
+    "left": 152,
+    "right": 872,
+    "top": 186.828125,
+    "bottom": 713.15625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-change-supervisor",
+    "left": 152,
+    "right": 872,
+    "top": 106.53125,
+    "bottom": 793.46875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-submit-essay",
+    "left": 152,
+    "right": 872,
+    "top": 148.3125,
+    "bottom": 751.671875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-submit-outline",
+    "left": 52,
+    "right": 972,
+    "top": 66.796875,
+    "bottom": 833.203125,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1024,
+    "modal": "modal-register-topic",
+    "left": 152,
+    "right": 872,
+    "top": 127.3125,
+    "bottom": 772.6875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-submit-progress",
+    "left": 52,
+    "right": 972,
+    "top": 25.734375,
+    "bottom": 874.25,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1024,
+    "modal": "modal-change-topic-title",
+    "left": 152,
+    "right": 872,
+    "top": 42.953125,
+    "bottom": 857.03125,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-upload-thesis-version",
+    "left": 152,
+    "right": 872,
+    "top": 146.3125,
+    "bottom": 753.671875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-submit-post-defense",
+    "left": 52,
+    "right": 972,
+    "top": 85.578125,
+    "bottom": 814.40625,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1024,
+    "modal": "modal-create-change-request",
+    "left": 152,
+    "right": 872,
+    "top": 148.3125,
+    "bottom": 751.671875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-candidate",
+    "left": 152,
+    "right": 872,
+    "top": 157.828125,
+    "bottom": 742.171875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-confirm",
+    "left": 152,
+    "right": 872,
+    "top": 357.984375,
+    "bottom": 542.015625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1024,
+    "modal": "modal-information",
+    "left": 152,
+    "right": 872,
+    "top": 379.5,
+    "bottom": 520.5,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-role-switcher",
+    "left": 360,
+    "right": 1080,
+    "top": 107.984375,
+    "bottom": 792.015625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-login",
+    "left": 480,
+    "right": 960,
+    "top": 280.390625,
+    "bottom": 619.59375,
+    "scroll": 478,
+    "client": 478
+  },
+  {
+    "width": 1440,
+    "modal": "modal-edit-profile",
+    "left": 360,
+    "right": 1080,
+    "top": 208.609375,
+    "bottom": 691.375,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-leave-request",
+    "left": 360,
+    "right": 1080,
+    "top": 104.53125,
+    "bottom": 795.46875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-assign-supervisor",
+    "left": 360,
+    "right": 1080,
+    "top": 189.828125,
+    "bottom": 710.171875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-grade-essay",
+    "left": 360,
+    "right": 1080,
+    "top": 160.046875,
+    "bottom": 739.953125,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-grade-topic",
+    "left": 360,
+    "right": 1080,
+    "top": 208.828125,
+    "bottom": 691.15625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-review-progress",
+    "left": 360,
+    "right": 1080,
+    "top": 208.828125,
+    "bottom": 691.15625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-declare-pub",
+    "left": 260,
+    "right": 1180,
+    "top": 95.3125,
+    "bottom": 804.6875,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1440,
+    "modal": "modal-workflow-pub",
+    "left": 260,
+    "right": 1180,
+    "top": 94.484375,
+    "bottom": 805.515625,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1440,
+    "modal": "modal-workflow-defense",
+    "left": 260,
+    "right": 1180,
+    "top": 16,
+    "bottom": 884,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1440,
+    "modal": "modal-workflow-changes",
+    "left": 260,
+    "right": 1180,
+    "top": 113.125,
+    "bottom": 786.875,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1440,
+    "modal": "modal-edit-plan",
+    "left": 360,
+    "right": 1080,
+    "top": 186.828125,
+    "bottom": 713.15625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-change-supervisor",
+    "left": 360,
+    "right": 1080,
+    "top": 106.53125,
+    "bottom": 793.46875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-submit-essay",
+    "left": 360,
+    "right": 1080,
+    "top": 148.3125,
+    "bottom": 751.671875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-submit-outline",
+    "left": 260,
+    "right": 1180,
+    "top": 66.796875,
+    "bottom": 833.203125,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1440,
+    "modal": "modal-register-topic",
+    "left": 360,
+    "right": 1080,
+    "top": 127.3125,
+    "bottom": 772.6875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-submit-progress",
+    "left": 260,
+    "right": 1180,
+    "top": 25.734375,
+    "bottom": 874.25,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1440,
+    "modal": "modal-change-topic-title",
+    "left": 360,
+    "right": 1080,
+    "top": 42.953125,
+    "bottom": 857.03125,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-upload-thesis-version",
+    "left": 360,
+    "right": 1080,
+    "top": 146.3125,
+    "bottom": 753.671875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-submit-post-defense",
+    "left": 260,
+    "right": 1180,
+    "top": 85.578125,
+    "bottom": 814.40625,
+    "scroll": 918,
+    "client": 918
+  },
+  {
+    "width": 1440,
+    "modal": "modal-create-change-request",
+    "left": 360,
+    "right": 1080,
+    "top": 148.3125,
+    "bottom": 751.671875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-candidate",
+    "left": 360,
+    "right": 1080,
+    "top": 157.828125,
+    "bottom": 742.171875,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-confirm",
+    "left": 360,
+    "right": 1080,
+    "top": 357.984375,
+    "bottom": 542.015625,
+    "scroll": 718,
+    "client": 718
+  },
+  {
+    "width": 1440,
+    "modal": "modal-information",
+    "left": 360,
+    "right": 1080,
+    "top": 379.5,
+    "bottom": 520.5,
+    "scroll": 718,
+    "client": 718
+  }
+]

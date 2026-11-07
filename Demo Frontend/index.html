@@ -2291,10 +2291,14 @@
         <form id="form-login">
           <div class="mgmt-form-group">
             <label for="login-username">Email người dùng:</label>
-            <input id="login-username" type="email" value="nvbinh_ncs@agu.edu.vn" autocomplete="username" required />
+            <input id="login-username" type="email" value="" autocomplete="username" required />
+          </div>
+          <div class="mgmt-form-group">
+            <label for="login-password">Mật khẩu:</label>
+            <input id="login-password" type="password" value="" autocomplete="current-password" required />
           </div>
           <p id="login-error" role="alert" hidden style="padding:10px 12px; border-radius:8px; color:#991b1b; background:#fef2f2; font-size:.82rem;"></p>
-          <p style="margin:0 0 14px; color:var(--text-muted); font-size:.8rem;">Nhập email gắn với hồ sơ người dùng để mở bàn làm việc tương ứng.</p>
+          <p style="margin:0 0 14px; color:var(--text-muted); font-size:.8rem;">Đăng nhập bằng tài khoản do nhà trường cấp để mở bàn làm việc tương ứng với vai trò.</p>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:0.8rem;">
             <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
               <input type="checkbox" id="remember-email" /> Ghi nhớ email
@@ -2304,6 +2308,88 @@
           <button type="submit" class="btn-mgmt btn-mgmt-primary" style="width:100%; justify-content:center;">
             Tiếp tục
           </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Đề tài luận án (API /api/Detailuanans): đăng ký mới hoặc sửa khi chưa bị khóa -->
+    <div class="mgmt-modal" id="modal-thesis-topic">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3 id="thesis-topic-modal-title">Đăng ký đề tài luận án</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-thesis-topic" aria-label="Đóng">✕</button>
+        </div>
+        <form id="form-thesis-topic">
+          <div class="mgmt-form-group">
+            <label for="thesis-title-vn-input">Tên đề tài (Tiếng Việt):</label>
+            <textarea id="thesis-title-vn-input" rows="2" maxlength="500" required></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="thesis-title-en-input">Tên đề tài (Tiếng Anh):</label>
+            <textarea id="thesis-title-en-input" rows="2" maxlength="500" required></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="thesis-decision-input">Số quyết định điều chỉnh (nếu có):</label>
+            <input type="text" id="thesis-decision-input" maxlength="100" />
+          </div>
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label>Toàn văn luận án (nếu có), PDF/Word tối đa 50MB:</label>
+              <input type="file" id="thesis-fulltext-input" accept=".pdf,.doc,.docx" />
+            </div>
+            <div class="mgmt-form-group">
+              <label>Tóm tắt luận án (nếu có), PDF/Word tối đa 50MB:</label>
+              <input type="file" id="thesis-summary-input" accept=".pdf,.doc,.docx" />
+            </div>
+          </div>
+          <p id="thesis-topic-file-note" style="margin:0 0 12px; font-size:0.78rem; color:var(--text-muted);" hidden>Không chọn tệp mới thì giữ nguyên tệp đã nộp.</p>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-thesis-topic">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu đề tài</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Minh chứng ngoại ngữ (API /api/Chungchingoaingus): NCS nộp, PĐT duyệt -->
+    <div class="mgmt-modal" id="modal-language-cert">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3 id="language-cert-modal-title">Nộp minh chứng ngoại ngữ</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-language-cert" aria-label="Đóng">✕</button>
+        </div>
+        <form id="form-language-cert">
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label for="cert-name-input">Tên chứng chỉ:</label>
+              <input type="text" id="cert-name-input" maxlength="200" placeholder="Ví dụ: IELTS Academic" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="cert-score-input">Điểm số / bậc:</label>
+              <input type="text" id="cert-score-input" maxlength="50" placeholder="Ví dụ: 6.5" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="cert-issued-input">Ngày cấp:</label>
+              <input type="date" id="cert-issued-input" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="cert-expiry-input">Ngày hết hạn (nếu có):</label>
+              <input type="date" id="cert-expiry-input" />
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label for="cert-issuer-input">Nơi cấp:</label>
+              <input type="text" id="cert-issuer-input" maxlength="200" required />
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label>Tệp minh chứng (PDF hoặc ảnh JPG/PNG, tối đa 10MB):</label>
+              <input type="file" id="cert-file-input" accept=".pdf,.jpg,.jpeg,.png" />
+              <p id="language-cert-file-note" style="margin:6px 0 0; font-size:0.78rem; color:var(--text-muted);" hidden>Không chọn tệp mới thì giữ nguyên tệp đã nộp.</p>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-language-cert">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Gửi minh chứng</button>
+          </div>
         </form>
       </div>
     </div>
@@ -2588,12 +2674,24 @@
               <label>Chỉ số ISSN / e-ISSN:</label>
               <input type="text" placeholder="0944-1344" />
             </div>
+            <div class="mgmt-form-group">
+              <label for="pub-author-role-select">Vai trò tác giả:</label>
+              <select id="pub-author-role-select" required>
+                <option value="1">Tác giả chính (First author)</option>
+                <option value="2">Tác giả liên hệ (Corresponding)</option>
+                <option value="3">Đồng tác giả</option>
+              </select>
+            </div>
+            <div class="mgmt-form-group">
+              <label style="display:flex; align-items:center; gap:8px; font-weight:500;"><input type="checkbox" id="pub-has-supervisor-input" /> Bài báo có tên người hướng dẫn</label>
+              <label style="display:flex; align-items:center; gap:8px; font-weight:500; margin-top:6px;"><input type="checkbox" id="pub-affiliation-input" checked /> Ghi địa chỉ Trường Đại học An Giang</label>
+            </div>
             <div class="mgmt-form-group full-width">
               <label>Upload Minh chứng (Toàn văn bài báo + Thư chấp nhận Acceptance Letter):</label>
               <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
-                <input type="file" id="pub-file-input" class="dtms-file-input" style="display:none;" accept=".pdf" />
+                <input type="file" id="pub-file-input" class="dtms-file-input" style="display:none;" accept=".pdf,.jpg,.jpeg,.png" />
                 <svg width="28" height="28" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Nhấp chọn file PDF toàn văn bài báo hoặc kéo thả vào đây</p>
+                <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Nhấp chọn file PDF hoặc ảnh minh chứng (tối đa 10MB)</p>
               </label>
             </div>
           </div>
@@ -2772,24 +2870,28 @@
         <form>
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
-              <label>Học kỳ điều chỉnh:</label>
-              <select required>
+              <label for="plan-year-input">Năm học:</label>
+              <input type="text" id="plan-year-input" placeholder="Ví dụ: 2025-2026" pattern="\d{4}-\d{4}" title="Nhập theo dạng 2025-2026" maxlength="20" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="plan-semester-select">Học kỳ điều chỉnh:</label>
+              <select id="plan-semester-select" required>
                 <option value="HK4">Học kỳ 4 (04/2025 - 10/2025)</option>
                 <option value="HK5">Học kỳ 5 (10/2025 - 04/2026)</option>
                 <option value="HK6">Học kỳ 6 (04/2026 - 10/2026)</option>
               </select>
             </div>
             <div class="mgmt-form-group">
-              <label>Thời hạn dự kiến hoàn thành:</label>
-              <input type="text" value="30/09/2025" required />
+              <label for="plan-deadline-input">Thời hạn dự kiến hoàn thành:</label>
+              <input type="text" id="plan-deadline-input" value="30/09/2025" required />
             </div>
             <div class="mgmt-form-group full-width">
-              <label>Mục tiêu & Khối lượng công việc học tập / nghiên cứu:</label>
-              <textarea rows="3" required>Hoàn thành thí nghiệm thực địa giai đoạn 2, bảo vệ Chuyên đề tiến sĩ 3 và hoàn thiện bài báo gửi tạp chí quốc tế Q1.</textarea>
+              <label for="plan-goals-input">Mục tiêu & Khối lượng công việc học tập / nghiên cứu:</label>
+              <textarea id="plan-goals-input" rows="3" required>Hoàn thành thí nghiệm thực địa giai đoạn 2, bảo vệ Chuyên đề tiến sĩ 3 và hoàn thiện bài báo gửi tạp chí quốc tế Q1.</textarea>
             </div>
             <div class="mgmt-form-group full-width">
-              <label>Dự kiến sản phẩm đầu ra (Bài báo / Báo cáo):</label>
-              <input type="text" value="01 Bản thảo bài báo ISI/Scopus + 01 Báo cáo Chuyên đề 3" required />
+              <label for="plan-outputs-input">Dự kiến sản phẩm đầu ra (Bài báo / Báo cáo):</label>
+              <input type="text" id="plan-outputs-input" value="01 Bản thảo bài báo ISI/Scopus + 01 Báo cáo Chuyên đề 3" required />
             </div>
           </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
@@ -2989,15 +3091,15 @@
         <form>
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
-              <label>Kỳ báo cáo định kỳ:</label>
-              <select required>
-                <option value="Kỳ 5">Kỳ 5 (10/2025 - 04/2026)</option>
-                <option value="Kỳ 6">Kỳ 6 (04/2026 - 10/2026)</option>
+              <label for="progress-period-select">Kỳ báo cáo định kỳ:</label>
+              <select id="progress-period-select" required>
+                <option value="Kỳ 5" data-han-nop="2026-04-30">Kỳ 5 (10/2025 - 04/2026)</option>
+                <option value="Kỳ 6" data-han-nop="2026-10-31">Kỳ 6 (04/2026 - 10/2026)</option>
               </select>
             </div>
             <div class="mgmt-form-group">
               <label>Ngày nộp báo cáo:</label>
-              <input type="text" value="29/09/2026" readonly style="background:#e2e8f0;" />
+              <input type="text" value="Tự ghi nhận khi gửi" readonly style="background:#e2e8f0;" />
             </div>
             <div class="mgmt-form-group full-width">
               <label>Khối lượng công việc đã hoàn thành trong 6 tháng qua:</label>
@@ -3012,11 +3114,12 @@
               <input type="text" value="Hoàn thiện toàn văn bản thảo luận án để gửi Bộ môn và NHD duyệt trước ngày 15/02/2027." required />
             </div>
             <div class="mgmt-form-group full-width">
-              <label>File Báo cáo tiến độ đầy đủ có chữ ký của NCS (PDF):</label>
+              <label>File Báo cáo tiến độ đầy đủ có chữ ký của NCS (PDF / Word):</label>
+              <p style="margin:0 0 8px; font-size:0.78rem; color:var(--text-muted);">Máy chủ hiện lưu kỳ báo cáo, hạn nộp và tệp báo cáo. Các ô mô tả phía trên chỉ để bạn chuẩn bị nội dung, chưa được lưu lên máy chủ.</p>
               <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
-                <input type="file" id="progress-file-input" class="dtms-file-input" style="display:none;" accept=".pdf" />
+                <input type="file" id="progress-file-input" class="dtms-file-input" style="display:none;" accept=".pdf,.doc,.docx" />
                 <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Nhấp chọn file Báo cáo tiến độ có chữ ký (PDF, tối đa 15MB)</p>
+                <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Nhấp chọn file Báo cáo tiến độ có chữ ký (PDF/Word, tối đa 10MB)</p>
               </label>
             </div>
           </div>
@@ -3271,6 +3374,8 @@
 
     <script src="js/data.js" defer></script>
     <script src="js/ui.js" defer></script>
+    <!-- Backend đã bỏ stub tra cứu văn bằng: bật gọi /api/Public/diploma. Cấu hình này phải đứng trước js/core/config.js. -->
+    <script>window.DTMS_RUNTIME_CONFIG = { DEGREE_SERVICE_READY: true };</script>
     <script src="js/core/config.js" defer></script>
     <script src="js/core/api.js" defer></script>
     <script src="js/features/collections.js" defer></script>

@@ -1,0 +1,2310 @@
+{
+  "generatedAt": "2026-10-18T05:40:44.215Z",
+  "scope": "Profile action card layout and navigation; HTTP and file URLs; isolated browser contexts",
+  "results": [
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 360,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 360,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 360,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 360,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 360,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 360,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 768,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 768,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 768,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 768,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 768,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 768,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 768,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1024,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1024,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1024,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1024,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1024,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1024,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1024,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1440,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1440,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1440,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1440,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1440,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1440,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1920,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1920,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1920,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1920,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1920,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1920,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1920,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 360,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 360,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 360,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 360,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 360,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 360,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 768,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 768,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 768,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 768,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 768,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 768,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 768,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1024,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1024,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1024,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1024,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1024,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1024,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1024,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1440,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1440,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1440,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1440,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1440,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1440,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1920,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1920,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1920,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1920,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1920,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1920,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "EN",
+      "width": 1920,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "file",
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "language": "VI",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "file",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 360,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 360,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 360,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 360,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 360,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 360,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 768,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 768,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 768,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 768,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 768,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 768,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 768,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1024,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1024,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1024,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1024,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1024,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1024,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1024,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1440,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1440,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1440,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1440,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1440,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1440,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1920,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1920,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1920,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1920,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1920,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1920,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1920,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 360,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 360,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 360,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 360,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 360,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 360,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 768,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 768,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 768,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 768,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 768,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 768,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 768,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1024,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1024,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1024,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1024,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1024,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1024,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1024,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1440,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1440,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1440,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1440,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1440,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1440,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1920,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1920,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1920,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1920,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1920,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1920,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "EN",
+      "width": 1920,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "file",
+      "passed": true
+    },
+    {
+      "engine": "msedge",
+      "language": "VI",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "file",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 360,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 360,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 360,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 360,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 360,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 360,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 768,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 768,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 768,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 768,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 768,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 768,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 768,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1024,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1024,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1024,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1024,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1024,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1024,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1024,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1440,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1440,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1440,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1440,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1440,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1440,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1920,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1920,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1920,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1920,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1920,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1920,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1920,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 360,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 360,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 360,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 360,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 360,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 360,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 768,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 768,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 768,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 768,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 768,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 768,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 768,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1024,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1024,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1024,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1024,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1024,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1024,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1024,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1440,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1440,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1440,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1440,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1440,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1440,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1920,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1920,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1920,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1920,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1920,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1920,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "EN",
+      "width": 1920,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "file",
+      "passed": true
+    },
+    {
+      "engine": "firefox",
+      "language": "VI",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "file",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 360,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 360,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 360,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 360,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 360,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 360,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 768,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 768,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 768,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 768,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 768,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 768,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 768,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1024,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1024,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1024,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1024,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1024,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1024,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1024,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1440,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1440,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1440,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1440,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1440,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1440,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1920,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1920,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1920,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1920,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1920,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1920,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1920,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 360,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 360,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 360,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 360,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 360,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 360,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 768,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 768,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 768,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 768,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 768,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 768,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 768,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1024,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1024,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1024,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1024,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1024,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1024,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1024,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1440,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1440,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1440,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1440,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1440,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1440,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1920,
+      "role": "NCS",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1920,
+      "role": "NHD",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1920,
+      "role": "BM",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1920,
+      "role": "KHOA",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1920,
+      "role": "PDT",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1920,
+      "role": "BGH",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "EN",
+      "width": 1920,
+      "role": "HOIDONG",
+      "protocol": "http",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 360,
+      "role": "NCS",
+      "protocol": "file",
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "language": "VI",
+      "width": 1440,
+      "role": "NCS",
+      "protocol": "file",
+      "passed": true
+    }
+  ]
+}

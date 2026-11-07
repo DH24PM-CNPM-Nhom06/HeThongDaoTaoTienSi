@@ -1,0 +1,128 @@
+{
+  "generatedAt": "2026-10-18T05:44:39.294Z",
+  "phase": "github-presentation-and-repository-preparation",
+  "api": "Mock responses; no live backend/database acceptance",
+  "browsers": [
+    {
+      "browser": "chromium",
+      "suites": [
+        {
+          "suite": "RESULTS",
+          "source": "docs/TEST_RESULTS_chromium.json",
+          "generatedAt": "2026-10-18T05:37:50.195Z",
+          "total": 20,
+          "passed": 20
+        },
+        {
+          "suite": "INTEGRATION",
+          "source": "docs/TEST_INTEGRATION_chromium.json",
+          "generatedAt": "2026-10-18T05:37:36.391Z",
+          "total": 16,
+          "passed": 16
+        },
+        {
+          "suite": "REGRESSIONS",
+          "source": "docs/TEST_REGRESSIONS_chromium.json",
+          "generatedAt": "2026-10-18T05:38:23.754Z",
+          "total": 18,
+          "passed": 18
+        }
+      ]
+    },
+    {
+      "browser": "msedge",
+      "suites": [
+        {
+          "suite": "RESULTS",
+          "source": "docs/TEST_RESULTS_msedge.json",
+          "generatedAt": "2026-10-18T05:39:35.513Z",
+          "total": 20,
+          "passed": 20
+        },
+        {
+          "suite": "INTEGRATION",
+          "source": "docs/TEST_INTEGRATION_msedge.json",
+          "generatedAt": "2026-10-18T05:37:36.168Z",
+          "total": 16,
+          "passed": 16
+        },
+        {
+          "suite": "REGRESSIONS",
+          "source": "docs/TEST_REGRESSIONS_msedge.json",
+          "generatedAt": "2026-10-18T05:38:28.198Z",
+          "total": 18,
+          "passed": 18
+        }
+      ]
+    },
+    {
+      "browser": "firefox",
+      "suites": [
+        {
+          "suite": "RESULTS",
+          "source": "docs/TEST_RESULTS_firefox.json",
+          "generatedAt": "2026-10-18T05:43:25.748Z",
+          "total": 20,
+          "passed": 20
+        },
+        {
+          "suite": "INTEGRATION",
+          "source": "docs/TEST_INTEGRATION_firefox.json",
+          "generatedAt": "2026-10-18T05:43:18.038Z",
+          "total": 16,
+          "passed": 16
+        },
+        {
+          "suite": "REGRESSIONS",
+          "source": "docs/TEST_REGRESSIONS_firefox.json",
+          "generatedAt": "2026-10-18T05:38:38.773Z",
+          "total": 18,
+          "passed": 18
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "suites": [
+        {
+          "suite": "RESULTS",
+          "source": "docs/TEST_RESULTS_webkit.json",
+          "generatedAt": "2026-10-18T05:39:45.042Z",
+          "total": 20,
+          "passed": 20
+        },
+        {
+          "suite": "INTEGRATION",
+          "source": "docs/TEST_INTEGRATION_webkit.json",
+          "generatedAt": "2026-10-18T05:37:49.053Z",
+          "total": 16,
+          "passed": 16
+        },
+        {
+          "suite": "REGRESSIONS",
+          "source": "docs/TEST_REGRESSIONS_webkit.json",
+          "generatedAt": "2026-10-18T05:38:33.253Z",
+          "total": 18,
+          "passed": 18
+        }
+      ]
+    }
+  ],
+  "totalGroups": 216,
+  "passedGroups": 216,
+  "profile": {
+    "source": "docs/TEST_PROFILE_LAYOUT_2026-10-18.json",
+    "total": 288,
+    "passed": 288
+  },
+  "sourceCheck": {
+    "javascriptFiles": 24,
+    "htmlPages": 12,
+    "localReferences": 48,
+    "command": "node scripts/check-source.cjs"
+  },
+  "limitations": [
+    "WebKit testing does not constitute testing on Safari.",
+    "Authentication, file storage and remote services require the corresponding backend APIs."
+  ]
+}

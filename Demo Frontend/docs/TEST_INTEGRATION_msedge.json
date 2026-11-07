@@ -1,0 +1,71 @@
+{
+  "browser": "msedge",
+  "date": "2026-10-18T05:37:36.168Z",
+  "api": "mocked responses only",
+  "results": [
+    {
+      "name": "Liên hệ cá nhân: điện thoại sai, dữ liệu hợp lệ và tải lại",
+      "passed": true
+    },
+    {
+      "name": "Đơn học vụ: lưu thật trong demo, không gửi hai lần cùng lúc",
+      "passed": true
+    },
+    {
+      "name": "10 workflow: giá trị, file metadata và panel được cập nhật",
+      "passed": true
+    },
+    {
+      "name": "Đề cương: duyệt cập nhật state, bản mới vẫn chờ duyệt",
+      "passed": true
+    },
+    {
+      "name": "Công bố chưa thẩm định: xóa có xác nhận",
+      "passed": true
+    },
+    {
+      "name": "Giới hạn upload đúng 15MB / 50MB và chuyên đề cho phép bỏ tệp",
+      "passed": true
+    },
+    {
+      "name": "Lỗi ghi bộ nhớ: giữ form, rollback state, không báo thành công",
+      "passed": true
+    },
+    {
+      "name": "Chuyển VI/EN, Back/Forward và giữ lọc luận án",
+      "passed": true
+    },
+    {
+      "name": "Không có lỗi runtime trong các workflow",
+      "passed": true
+    },
+    {
+      "name": "API mô phỏng: valid",
+      "passed": true
+    },
+    {
+      "name": "API mô phỏng: empty",
+      "passed": true
+    },
+    {
+      "name": "API mô phỏng: 500",
+      "passed": true
+    },
+    {
+      "name": "API mô phỏng: invalid-json",
+      "passed": true
+    },
+    {
+      "name": "API mô phỏng: invalid-schema",
+      "passed": true
+    },
+    {
+      "name": "API mô phỏng: timeout",
+      "passed": true
+    },
+    {
+      "name": "API mô phỏng: unsafe-url",
+      "passed": true
+    }
+  ]
+}

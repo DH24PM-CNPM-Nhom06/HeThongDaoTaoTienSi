@@ -6,7 +6,7 @@
 (function initializeStudioOS(global, document) {
   "use strict";
 
-  let currentLang = localStorage.getItem("dtms-language") || "VI";
+  let currentLang = global.DTMS_DATA.getString("dtms-language") === "EN" ? "EN" : "VI";
   let activePersonaKey = "NCS";
   const originalTextNodes = new WeakMap();
   const UI_PLACEHOLDERS_EN = {
@@ -740,6 +740,10 @@
   };
 
   // LOCALIZED DATA STORE FOR PUBLIC THESES
+  let apiTheses = null;
+  let thesisLoadError = '';
+  let thesisLoading = false;
+
   const THESES_LIST = {
     VI: [
       {
@@ -747,24 +751,24 @@
         candidate: "NCS. Trần Văn Bình",
         field: "Khoa học Môi trường",
         date: "25/11/2025",
-        summaryUrl: "https://example.com/summary1.pdf",
-        fullUrl: "https://example.com/fulltext1.pdf"
+        summaryUrl: "",
+        fullUrl: ""
       },
       {
         title: "Đánh giá tính đa dạng sinh học và đề xuất giải pháp bảo tồn loài lúa hoạ (Oryza rufipogon) tại An Giang",
         candidate: "NCS. Lê Thị Mai",
         field: "Trồng trọt",
         date: "10/12/2025",
-        summaryUrl: "https://example.com/summary2.pdf",
-        fullUrl: "https://example.com/fulltext2.pdf"
+        summaryUrl: "",
+        fullUrl: ""
       },
       {
         title: "Tác động của chuyển đổi số đến hiệu quả hoạt động kinh doanh của các doanh nghiệp vừa và nhỏ vùng ĐBSCL",
         candidate: "NCS. Phạm Quốc Cường",
         field: "Quản trị Kinh doanh",
         date: "18/01/2026",
-        summaryUrl: "https://example.com/summary3.pdf",
-        fullUrl: "https://example.com/fulltext3.pdf"
+        summaryUrl: "",
+        fullUrl: ""
       }
     ],
     EN: [
@@ -773,24 +777,24 @@
         candidate: "PhD Cand. Tran Van Binh",
         field: "Environmental Science",
         date: "25/11/2025",
-        summaryUrl: "https://example.com/summary1.pdf",
-        fullUrl: "https://example.com/fulltext1.pdf"
+        summaryUrl: "",
+        fullUrl: ""
       },
       {
         title: "Assessing biodiversity and proposing conservation measures for wild rice (Oryza rufipogon) in An Giang",
         candidate: "PhD Cand. Le Thi Mai",
         field: "Agronomy",
         date: "10/12/2025",
-        summaryUrl: "https://example.com/summary2.pdf",
-        fullUrl: "https://example.com/fulltext2.pdf"
+        summaryUrl: "",
+        fullUrl: ""
       },
       {
         title: "Impact of digital transformation on business performance of SMEs in the Mekong Delta region",
         candidate: "PhD Cand. Pham Quoc Cuong",
         field: "Business Administration",
         date: "18/01/2026",
-        summaryUrl: "https://example.com/summary3.pdf",
-        fullUrl: "https://example.com/fulltext3.pdf"
+        summaryUrl: "",
+        fullUrl: ""
       }
     ]
   };
@@ -801,7 +805,11 @@
     if (!region) return;
     const item = document.createElement("div");
     item.style.cssText = "padding:12px 18px; border-radius:10px; background:#061e3d; border:1px solid #2563eb; color:#ffffff; font-size:0.84rem; box-shadow:0 10px 25px rgba(6,30,61,0.25);";
-    item.innerHTML = `<strong>${title}</strong><p style="margin:2px 0 0; color:#cbd5e1; font-size:0.78rem;">${msg}</p>`;
+    const heading = document.createElement('strong'); heading.textContent = title;
+    const message = document.createElement('p'); message.textContent = msg;
+    message.style.cssText = 'margin:2px 0 0;color:#cbd5e1;font-size:.78rem';
+    item.append(heading, message);
+    if (region.children.length >= 4) region.firstElementChild.remove();
     region.append(item);
     setTimeout(() => {
       item.style.opacity = "0";
@@ -811,7 +819,7 @@
   global.showToast = showToast;
 
   // SCREEN VIEWS SWITCHER ENGINE
-  function switchView(targetViewId) {
+  function switchView(targetViewId, updateHistory = true) {
     global.switchView = switchView;
     if (global.DTMS_MANAGEMENT && !global.DTMS_MANAGEMENT.canAccessView(targetViewId)) {
       showToast("Không có quyền truy cập", "Vai trò hiện tại chỉ được mở bàn làm việc và tra cứu công khai.");
@@ -839,11 +847,14 @@
       btn.classList.toggle("is-active", btn.dataset.dockTarget === targetViewId);
     });
 
+    if (updateHistory && location.hash !== '#' + targetViewId) history.pushState(null, '', '#' + targetViewId);
+    dockItems.forEach(btn => { if(btn.dataset.dockTarget===targetViewId)btn.setAttribute('aria-current','page');else btn.removeAttribute('aria-current'); });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
   global.switchView = switchView;
 
   function initViewRouter() {
+    global.addEventListener('popstate', () => switchView(location.hash.slice(1) || 'home', false));
     document.addEventListener("click", (e) => {
       const switchBtn = e.target.closest("[data-dock-target], [data-switch-view]");
       if (!switchBtn) return;
@@ -922,7 +933,7 @@
     // 5. Re-render dynamic data components
     renderPersonaWorkspace(activePersonaKey);
     renderConstellationGraph();
-    renderThesesList();
+    renderThesesList(filterTheses());
     global.DTMS_MANAGEMENT?.refreshLanguage?.();
     translateUnkeyedText(lang);
   }
@@ -938,7 +949,7 @@
 
     langBtn.addEventListener("click", () => {
       currentLang = currentLang === "VI" ? "EN" : "VI";
-      localStorage.setItem("dtms-language", currentLang);
+      global.DTMS_DATA.setString("dtms-language", currentLang);
       applyLanguage(currentLang);
       
       const dict = I18N_DICT[currentLang];
@@ -1025,8 +1036,8 @@
           : "The process comprises 06 stages: 01. Candidate Profile → 02. Training Plan → 03. Doctoral Topics → 04. Publications → 05. Thesis Evaluation → 06. PhD Degree Issue.";
       } else if (text.includes("điều kiện") || text.includes("bảo vệ") || text.includes("bài báo") || text.includes("requirement")) {
         return isVI
-          ? "Điều kiện bảo vệ gồm: Hoàn thành 03 chuyên đề tiến sĩ, đạt chuẩn ngoại ngữ và công bố tối thiểu 02 bài báo khoa học uy tín (WoS/Scopus/HĐGSCD điểm >= 0.75)."
-          : "Defense requirements: Complete 03 doctoral topics, meet foreign language proficiency, and publish at least 02 ISI/Scopus/VNU journal articles.";
+          ? "Bạn có thể xem bảng kiểm demo tại M10. Điều kiện chính thức, điểm công bố và quy tắc xét bảo vệ cần nhà trường xác nhận và backend đối soát. Trợ lý hiện dùng câu trả lời mẫu, chưa kết nối AI."
+          : "See the demo checklist in module M10. Official requirements must be confirmed by the university and checked by the backend. This assistant uses preset answers.";
       } else if (text.includes("tra cứu") || text.includes("văn bằng") || text.includes("bằng") || text.includes("degree") || text.includes("lookup")) {
         return isVI
           ? "Bạn hãy chọn mục Công khai trên thanh bên trái, nhập Số hiệu bằng hoặc Họ tên và bấm xuất phôi bằng 3D."
@@ -1208,47 +1219,49 @@
 
   // Render Theses List dynamically based on current lang
   function renderThesesList(filteredList) {
-    const grid = document.querySelector("[data-thesis-grid]");
-    if (!grid) return;
-
-    const list = filteredList || (THESES_LIST[currentLang] || THESES_LIST["VI"]);
-    const dict = I18N_DICT[currentLang];
-
-    if (list.length === 0) {
-      grid.innerHTML = `<div style="padding:30px; text-align:center; color:var(--text-muted); background:var(--bg-card); border-radius:12px; border:1px solid var(--border-card);">${dict.thesis_empty}</div>`;
-      return;
+    const grid=document.querySelector('[data-thesis-grid]');if(!grid)return;
+    const list=filteredList||filterTheses();
+    const isApi=Boolean(global.DTMS_CONFIG.API_BASE_URL);
+    grid.setAttribute('aria-busy',String(thesisLoading));
+    if(thesisLoading){grid.innerHTML='<p class="empty-state" role="status">Đang tải luận án từ API…</p>';return;}
+    if(thesisLoadError){grid.innerHTML='<div class="empty-state" role="alert">'+escapeHtml(thesisLoadError)+'<p><button type="button" class="btn-mgmt btn-mgmt-secondary" data-retry-theses>Thử lại</button></p></div>';return;}
+    const notice='<p class="demo-notice">'+(isApi?'Danh sách luận án lấy từ API đã cấu hình.':'Luận án mẫu minh họa; chưa có tệp tóm tắt hoặc toàn văn thật.')+'</p>';
+    if(!list.length){grid.innerHTML=notice+'<p class="empty-state">'+escapeHtml(I18N_DICT[currentLang].thesis_empty)+'</p>';return;}
+    const dict=I18N_DICT[currentLang];
+    function documentLink(url,label){
+      try {
+        const parsed=new URL(url,location.href);
+        if(!url||!['http:','https:'].includes(parsed.protocol)||parsed.hostname==='example.com')throw Error();
+        return '<a href="'+escapeHtml(parsed.href)+'" target="_blank" rel="noopener noreferrer">'+escapeHtml(label)+'</a>';
+      }catch{return '<button type="button" class="btn-mgmt btn-mgmt-secondary" disabled title="Chưa có tệp thật">'+escapeHtml(label)+' · Chưa có tệp</button>';}
     }
-
-    grid.innerHTML = list.map((t) => `
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:20px; padding:20px 24px; border-radius:12px; background:var(--bg-card); border:1px solid var(--border-card); box-shadow:var(--shadow-card);">
-        <div>
-          <h4 style="margin:0 0 6px; font-size:1.02rem; color:var(--uni-blue-900); font-weight:700;">${t.title}</h4>
-          <div style="display:flex; gap:16px; font-size:0.82rem; color:var(--text-secondary);">
-            <span>👤 ${t.candidate}</span>
-            <span>🎓 ${t.field}</span>
-            <span>📅 ${t.date}</span>
-          </div>
-        </div>
-        <div style="display:flex; gap:10px; flex:0 0 auto;">
-          <a href="${t.summaryUrl}" target="_blank" style="padding:8px 14px; border-radius:8px; background:var(--bg-subtle); border:1px solid var(--border-card); color:var(--text-main); font-size:0.78rem; font-weight:700;">${dict.thesis_summary_btn}</a>
-          <a href="${t.fullUrl}" target="_blank" style="padding:8px 14px; border-radius:8px; background:linear-gradient(135deg, var(--uni-blue-800), var(--uni-blue-600)); color:#ffffff; font-size:0.78rem; font-weight:800; box-shadow:0 4px 12px rgba(11,56,102,0.25);">${dict.thesis_full_btn}</a>
-        </div>
-      </div>
-    `).join("");
+    grid.innerHTML=notice+list.map(t=>'<article class="thesis-entry"><div><h4>'+escapeHtml(t.title)+'</h4><div class="thesis-meta"><span>👤 '+escapeHtml(t.candidate)+'</span><span>🎓 '+escapeHtml(t.field)+'</span><span>📅 '+escapeHtml(t.date)+'</span></div></div><div class="thesis-actions">'+documentLink(t.summaryUrl,dict.thesis_summary_btn)+documentLink(t.fullUrl,dict.thesis_full_btn)+'</div></article>').join('');
   }
 
   function initThesisSearch() {
-    const input = document.querySelector("[data-thesis-search-input]");
-    renderThesesList();
+    document.querySelector('[data-thesis-search-input]')?.addEventListener('input',()=>renderThesesList(filterTheses()));
+    document.querySelector('[data-thesis-grid]')?.addEventListener('click',e=>{if(e.target.closest('[data-retry-theses]'))loadPublicTheses();});
+    if(global.DTMS_CONFIG.API_BASE_URL)loadPublicTheses();else renderThesesList(filterTheses());
+  }
 
-    if (input) {
-      input.addEventListener("input", (e) => {
-        const q = e.target.value.toLowerCase().trim();
-        const baseList = THESES_LIST[currentLang] || THESES_LIST["VI"];
-        if (!q) { renderThesesList(baseList); return; }
-        renderThesesList(baseList.filter((t) => t.title.toLowerCase().includes(q) || t.candidate.toLowerCase().includes(q) || t.field.toLowerCase().includes(q)));
-      });
-    }
+  function filterTheses() {
+    const q=(document.querySelector('[data-thesis-search-input]')?.value||'').trim();
+    const fold=text=>String(text).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase();
+    const list=apiTheses===null?(THESES_LIST[currentLang]||THESES_LIST.VI):apiTheses;
+    return list.filter(t=>fold(t.title+' '+t.candidate+' '+t.field).includes(fold(q)));
+  }
+
+  async function loadPublicTheses() {
+    if(thesisLoading)return;
+    thesisLoading=true;thesisLoadError='';renderThesesList([]);
+    try {
+      const response=await global.DTMS_API.getPublicTheses();
+      const payload=response.data?.data??response.data;
+      const items=Array.isArray(payload)?payload:payload?.items;
+      if(!Array.isArray(items)||items.some(t=>!t||!['title','candidate','field','date'].every(k=>typeof t[k]==='string')))throw Error('Dữ liệu luận án từ API không đúng hợp đồng.');
+      apiTheses=items;
+    } catch(error){apiTheses=[];thesisLoadError=error.message||'Không tải được danh sách luận án.';}
+    finally{thesisLoading=false;renderThesesList(filterTheses());}
   }
 
   // Master Register Database for Diploma Verification (FR-BC01)
@@ -1337,7 +1350,7 @@
             <p style="margin:0 0 4px;">${isVI ? 'Ngành đào tạo:' : 'Major:'} <strong style="color:var(--uni-blue-800);">${majorDisplay}</strong></p>
             <p style="margin:0 0 12px;">${isVI ? 'Số hiệu bằng:' : 'Serial Code:'} <strong style="color:var(--accent-gold);">${codeDisplay}</strong> · ${isVI ? 'Sổ gốc:' : 'Master Register:'} <strong style="color:var(--accent-gold);">${regDisplay}</strong></p>
             <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:var(--text-secondary); padding-top:10px; border-top:1px dashed rgba(180,83,9,0.2);">
-              <span>✓ ${isVI ? 'Xác thực từ Sổ gốc Văn bằng DTMS (Theo QĐ ' + record.decisionNo + ')' : 'Verified from Master Register (Decision ' + record.decisionNo + ')'}</span>
+              <span>✓ ${isVI ? 'Dữ liệu mẫu trong trình duyệt (QĐ minh họa ' + record.decisionNo + ')' : 'Demo register record (Sample decision ' + record.decisionNo + ')'}</span>
               <span>${isVI ? 'Ngày cấp:' : 'Issued:'} ${record.issueDate}</span>
             </div>
           </div>
@@ -1348,14 +1361,14 @@
           isVI ? `Đã tìm thấy thông tin văn bằng cho ${nameDisplay} trong Sổ gốc.` : `Found diploma record for ${nameDisplay}.`
         );
       } else {
-        card.classList.remove("is-active");
+        card.classList.add("is-active");
         card.innerHTML = `
           <div style="padding:20px; text-align:center; background:#fff1f2; border:1px solid #fecdd3; border-radius:12px; margin-top:16px;">
             <div style="font-size:1.8rem; margin-bottom:6px;">⚠️</div>
             <h4 style="margin:0 0 6px; font-weight:800; font-size:1.05rem; color:#be123c;">${isVI ? 'KHÔNG TÌM THẤY TRONG SỔ GỐC' : 'NOT FOUND IN MASTER REGISTER'}</h4>
             <p style="margin:0; font-size:0.84rem; color:#475569; line-height:1.5;">
               ${isVI 
-                ? `Không tồn tại văn bằng khớp với thông tin <strong>"${escapeHtml(code || name)}"</strong> trong cơ sở dữ liệu Sổ gốc của Trường ĐH An Giang.` 
+                ? `Không tồn tại văn bằng khớp với thông tin <strong>"${escapeHtml(code || name)}"</strong> trong sổ văn bằng mẫu của bản demo.` 
                 : `No matching diploma found for <strong>"${escapeHtml(code || name)}"</strong> in Master Register database.`}
             </p>
           </div>

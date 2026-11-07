@@ -2,9 +2,21 @@
 
 ## Trạng thái thực tế
 
-ZIP có hai action ASP.NET Core: `POST /api/Auth/login` và `GET /api/Public/diploma`. Cả hai đang trả dữ liệu tạm, chưa xác thực DB. Không sử dụng token placeholder hoặc IsValid luôn true để công nhận người dùng/văn bằng.
+Backend DTMS.Api (ASP.NET Core, JWT) chạy tại `https://localhost:7143` khi phát triển (`dotnet dev-certs https --trust` một lần để trình duyệt tin chứng chỉ). Giao diện đã nối với các API sau; khi không có phiên đăng nhập thật (ví dụ đặt `API_BASE_URL` rỗng) giao diện giữ dữ liệu mẫu cục bộ.
 
-Frontend thực thi các luồng quản lý học vụ với dữ liệu lưu ở trình duyệt. Kết nối backend/database cần được nghiệm thu trên môi trường triển khai.
+| Chức năng | API |
+|---|---|
+| Đăng nhập | `POST /api/Auth/login` `{ Username, Password }` → `{ token, user: { hoTen, maVaiTro, roles } }`. Token lưu ở `localStorage["jwt_token"]`, gửi kèm `Authorization: Bearer`. Gặp 401 khi đang có token thì tự đăng xuất. |
+| Nhiều vai trò | `user.roles` (ví dụ GV01 → `["BM","NHD"]`). Nhiều hơn một vai trò thì hiện bộ chọn vai trò; đổi vai trò không gọi lại API vì token đã chứa đủ quyền. |
+| Hồ sơ NCS | `GET/PUT /api/Profile/me` (chỉ email và số điện thoại) |
+| Kế hoạch đào tạo | `GET/POST /api/Kehoachhoctaps`, `PUT /{id}`, `PUT /{id}/duyet` `{ cap: NHD/TBM/PDT, trangThaiDuyet: 1/-1, ykien }` (BM trên giao diện = TBM ở backend; 409 khi chưa đến lượt duyệt) |
+| Báo cáo tiến độ | `POST /api/File/upload?purpose=baocao` rồi `POST /api/Baocaotiendoes`; NHD đánh giá `PUT /{id}/nhanxet` |
+| Công bố khoa học | `GET/POST /api/Congbokhoahocs`, `PUT /{id}`, `PUT /{id}/duyet` (NHD/PĐT) |
+| Đề tài luận án | `GET/POST /api/Detailuanans`, `PUT /{id}` (tệp `purpose=luanan`, tối đa 50MB) |
+| Minh chứng ngoại ngữ | `GET/POST /api/Chungchingoaingus`, `PUT /{id}`, `PUT /{id}/duyet` (PĐT; tệp `purpose=minhchung`) |
+| Tra cứu văn bằng | `GET /api/Public/diploma` (bật bằng `DEGREE_SERVICE_READY: true` trong `index.html`) |
+
+Chưa có API nên giữ thông báo "đang phát triển": đăng ký học phần, gửi yêu cầu học vụ, đề xuất đổi người hướng dẫn, nộp đơn xét tốt nghiệp. Vai trò KHOA và BGH không có tài khoản nên không xuất hiện trong bộ chọn khi đăng nhập thật.
 
 ## Cấu hình môi trường
 
@@ -47,7 +59,7 @@ Cổng 5035/7143 trong launchSettings của ZIP chỉ là cấu hình source, ch
 
 Không tìm thấy: `isValid:false,data:null` hoặc HTTP 404. Client kiểm flag boolean, đủ trường string, ngày hợp lệ và mã/tên khớp; object bất kỳ không được coi là văn bằng hợp lệ. Hỗ trợ tên trường camelCase và PascalCase của DTO ASP.NET. Không bóc `data` trước khi kiểm `isValid`.
 
-API login trong ZIP thiếu kiểm mật khẩu, JWT có chữ ký, phiên/me/logout và quyền theo hồ sơ. Cơ chế truy cập UI hiện chọn hồ sơ theo email và vai trò; không thu hoặc lưu mật khẩu. Cần triển khai xác thực phía máy chủ trước khi quản lý tài khoản thực tế.
+Đăng nhập, quyền theo vai trò và phân quyền dữ liệu (NCS chỉ thấy dữ liệu của mình, NHD thấy NCS mình hướng dẫn) do backend kiểm tra từng request; vai trò hiển thị ở giao diện chỉ để chọn màn hình và nút thao tác. Chưa có API đăng xuất/me/đổi mật khẩu: đăng xuất chỉ xóa token ở trình duyệt.
 
 ## Luận án: API còn cần backend triển khai
 

@@ -5,6 +5,7 @@
 window.DTMS_CONFIG = Object.freeze({
   API_BASE_URL: "",
   API_TIMEOUT_MS: 8000,
+  API_CREDENTIALS: "same-origin",
   ENDPOINTS: Object.freeze({
     PUBLIC_THESES: "/api/public/theses",
   }),

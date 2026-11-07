@@ -32,6 +32,21 @@ public partial class Nguoidung
     [Column(TypeName = "datetime")]
     public DateTime? NgayTao { get; set; }
 
+    // Khóa tài khoản khi nhập sai nhiều lần
+    [Column("SoLanSaiDangNhap", TypeName = "int(11)")]
+    public int SoLanSaiDangNhap { get; set; }
+
+    [Column("KhoaDenThoiDiem", TypeName = "datetime")]
+    public DateTime? KhoaDenThoiDiem { get; set; }
+
+    // Mã băm của token đặt lại mật khẩu (không lưu token gốc)
+    [Column("ResetTokenHash")]
+    [StringLength(64)]
+    public string? ResetTokenHash { get; set; }
+
+    [Column("ResetTokenHetHan", TypeName = "datetime")]
+    public DateTime? ResetTokenHetHan { get; set; }
+
     [InverseProperty("MaNguoiDungNavigation")]
     public virtual Giangvien? Giangvien { get; set; }
 

@@ -1,4 +1,6 @@
+using DTMS.Api.Filters;
 using DTMS.Api.Models;
+using DTMS.Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +10,13 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+// Ghi nhật ký mọi thao tác ghi dữ liệu và đăng nhập
+builder.Services.AddScoped<AuditFilter>();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.AddService<AuditFilter>();
+});
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
@@ -31,6 +39,8 @@ builder.Services.AddSwaggerGen(c =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DtmsDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+builder.Services.AddTransient<EmailService>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var secretKey = jwtSettings["Key"]
@@ -73,19 +83,24 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+// Swagger và chuyển hướng HTTPS chỉ dùng khi phát triển (khi triển khai, Nginx lo HTTPS)
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseHttpsRedirection();
+    app.MapGet("/", () => Results.Redirect("/swagger")).AllowAnonymous();
+}
+else
+{
+    app.MapGet("/", () => Results.Ok("DTMS API")).AllowAnonymous();
+}
 
-// Không còn phục vụ thư mục upload công khai: tệp chỉ tải được qua /api/File/{tên}
-app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// Tự động chuyển hướng thẳng vào Swagger
-app.MapGet("/", () => Results.Redirect("/swagger")).AllowAnonymous();
 
 app.Run();

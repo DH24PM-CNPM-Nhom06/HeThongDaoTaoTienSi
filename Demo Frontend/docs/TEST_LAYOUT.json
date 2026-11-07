@@ -1,0 +1,350 @@
+{
+  "browser": "Edge 155.0.4283.45",
+  "checks": [
+    {
+      "width": 320,
+      "modal": "modal-role-switcher",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-login",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-edit-profile",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-leave-request",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-assign-supervisor",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-grade-essay",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-declare-pub",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-workflow-pub",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-workflow-defense",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-workflow-changes",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-edit-plan",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-change-supervisor",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-submit-essay",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-submit-outline",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-register-topic",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-submit-progress",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-change-topic-title",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-upload-thesis-version",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-submit-post-defense",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-create-change-request",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-candidate",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-information",
+      "passed": true
+    },
+    {
+      "width": 320,
+      "modal": "modal-confirm",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-role-switcher",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-login",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-edit-profile",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-leave-request",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-assign-supervisor",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-grade-essay",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-declare-pub",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-workflow-pub",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-workflow-defense",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-workflow-changes",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-edit-plan",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-change-supervisor",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-submit-essay",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-submit-outline",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-register-topic",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-submit-progress",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-change-topic-title",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-upload-thesis-version",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-submit-post-defense",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-create-change-request",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-candidate",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-information",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "modal": "modal-confirm",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-role-switcher",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-login",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-edit-profile",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-leave-request",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-assign-supervisor",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-grade-essay",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-declare-pub",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-workflow-pub",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-workflow-defense",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-workflow-changes",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-edit-plan",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-change-supervisor",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-submit-essay",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-submit-outline",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-register-topic",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-submit-progress",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-change-topic-title",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-upload-thesis-version",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-submit-post-defense",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-create-change-request",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-candidate",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-information",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "modal": "modal-confirm",
+      "passed": true
+    }
+  ]
+}

@@ -5,7 +5,7 @@ using DTMS.Api.Models;
 
 namespace DTMS.Api.Controllers
 {
-    // API công khai: tra cứu văn bằng, không cần đăng nhập
+    // API công khai: không cần đăng nhập
     [Route("api/[controller]")]
     [ApiController]
     [AllowAnonymous]
@@ -16,6 +16,14 @@ namespace DTMS.Api.Controllers
         public PublicController(DtmsDbContext context)
         {
             _context = context;
+        }
+
+        // GET: api/Public/theses
+        // Danh sách luận án công khai. Hiện chưa có dữ liệu được xác nhận công bố nên trả về mảng rỗng.
+        [HttpGet("theses")]
+        public IActionResult GetPublicTheses()
+        {
+            return Ok(new List<object>());
         }
 
         // GET: api/Public/diploma?code=...&name=...

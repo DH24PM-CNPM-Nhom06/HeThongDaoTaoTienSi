@@ -1,0 +1,86 @@
+{
+  "browser": "chromium",
+  "date": "2026-10-18T05:37:50.195Z",
+  "results": [
+    {
+      "name": "HTML, tài nguyên và handler tĩnh",
+      "passed": true
+    },
+    {
+      "name": "Phiên làm việc, đăng xuất, chặn vào quản trị và tải lại",
+      "passed": true
+    },
+    {
+      "name": "Nút bàn làm việc, trạng thái kết thúc phiên và ghi nhớ email tương thích dữ liệu cũ",
+      "passed": true
+    },
+    {
+      "name": "CRUD NCS, validation mã/email, lưu sau tải lại, hủy xóa",
+      "passed": true
+    },
+    {
+      "name": "Tìm không dấu, lọc rỗng, sắp xếp và phân trang",
+      "passed": true
+    },
+    {
+      "name": "Quyền handler và phạm vi danh sách NCS",
+      "passed": true
+    },
+    {
+      "name": "Kế hoạch: lưu form, duyệt đúng NHD → BM → PDT",
+      "passed": true
+    },
+    {
+      "name": "Phân công: lưu dữ liệu, chặn trùng, không tăng quota lặp",
+      "passed": true
+    },
+    {
+      "name": "Học phần: đăng ký/hủy lưu sau tải lại",
+      "passed": true
+    },
+    {
+      "name": "Tiểu luận: nhập thiếu/sai khoảng và điểm đúng",
+      "passed": true
+    },
+    {
+      "name": "Chuyên đề: điểm thấp không được đánh dấu đạt",
+      "passed": true
+    },
+    {
+      "name": "Công bố: thêm, trùng DOI, sửa, thẩm định và bảo vệ dữ liệu",
+      "passed": true
+    },
+    {
+      "name": "Tệp sai định dạng, thiếu tệp, nộp báo cáo và đánh giá",
+      "passed": true
+    },
+    {
+      "name": "Checklist không tự coi đủ 24 tín chỉ; chặn cấp bằng thiếu điều kiện",
+      "passed": true
+    },
+    {
+      "name": "Modal bàn phím: focus, Tab, Escape và trả focus",
+      "passed": true
+    },
+    {
+      "name": "Tra cứu không báo hợp lệ khi dịch vụ chưa sẵn sàng",
+      "passed": true
+    },
+    {
+      "name": "Xuất CSV và sao lưu JSON có tệp thật",
+      "passed": true
+    },
+    {
+      "name": "Responsive: 9 kích thước × 10 view + 14 module; menu mobile",
+      "passed": true
+    },
+    {
+      "name": "Không có JavaScript runtime error",
+      "passed": true
+    },
+    {
+      "name": "JSON thiếu trường/hỏng không làm crash và có bản recovery",
+      "passed": true
+    }
+  ]
+}

@@ -22,9 +22,29 @@ public partial class Ketquahocphan
     [StringLength(20)]
     public string MaMonHoc { get; set; } = null!;
 
+    // Điểm thi cũ (giữ để tương thích với dữ liệu trước đây)
     public float? DiemThi { get; set; }
 
     public bool? TrangThaiDat { get; set; }
+
+    // Thành phần điểm (hệ mười), trọng số: chuyên cần 10%, giữa kỳ 30%, thi cuối kỳ 60%
+    public float? DiemChuyenCan { get; set; }
+
+    public float? DiemGiuaKy { get; set; }
+
+    public float? DiemThiCuoiKy { get; set; }
+
+    // Kết quả tính toán tự động
+    public float? DiemTongKet { get; set; }
+
+    [StringLength(2)]
+    public string? DiemChu { get; set; }
+
+    public float? DiemHe4 { get; set; }
+
+    // Đã khóa bảng điểm: giảng viên không sửa được nữa
+    [Column(TypeName = "tinyint(1)")]
+    public bool TrangThaiKhoa { get; set; }
 
     [ForeignKey("MaMonHoc")]
     [InverseProperty("Ketquahocphans")]

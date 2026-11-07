@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using DTMS.Api.Helpers;
 using DTMS.Api.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -6,8 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DTMS.Api.Controllers
 {
-    // Đọc: NCS xem của mình; NHD xem NCS mình hướng dẫn; ADMIN/PDT/TBM xem tất cả.
-    // Ghi: ADMIN/PDT/TBM toàn quyền; NHD chỉ với NCS mình hướng dẫn; NCS không được ghi.
+    // Bảng điểm học phần.
+    // Đọc: NCS xem của mình; NHD xem NCS mình hướng dẫn; ADMIN, PDT, TBM xem tất cả.
+    // Nhập điểm: ADMIN, PDT, TBM và NHD (chỉ với NCS mình hướng dẫn). Điểm tổng kết và điểm chữ được tính tự động.
+    // Khóa bảng điểm: khi đã khóa, không ai sửa được cho đến khi PDT hoặc ADMIN mở khóa.
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles = "ADMIN,PDT,TBM,NHD,NCS")]
@@ -33,13 +36,18 @@ namespace DTMS.Api.Controllers
             }
 
             var ds = await query
-                .Select(kq => new
+                .Select(kq => new KetQuaDto
                 {
-                    kq.MaKetQua,
-                    kq.MaNcs,
-                    kq.MaMonHoc,
-                    kq.DiemThi,
-                    kq.TrangThaiDat
+                    MaKetQua = kq.MaKetQua,
+                    MaNcs = kq.MaNcs,
+                    MaMonHoc = kq.MaMonHoc,
+                    DiemChuyenCan = kq.DiemChuyenCan,
+                    DiemGiuaKy = kq.DiemGiuaKy,
+                    DiemThiCuoiKy = kq.DiemThiCuoiKy,
+                    DiemTongKet = kq.DiemTongKet,
+                    DiemChu = kq.DiemChu,
+                    DiemHe4 = kq.DiemHe4,
+                    TrangThaiKhoa = kq.TrangThaiKhoa
                 })
                 .ToListAsync();
 
@@ -48,9 +56,25 @@ namespace DTMS.Api.Controllers
 
         // GET: api/Ketquahocphans/5
         [HttpGet("{maketqua:int}")]
-        public async Task<ActionResult<Ketquahocphan>> GetKetquahocphan(int maketqua)
+        public async Task<ActionResult<KetQuaDto>> GetKetquahocphan(int maketqua)
         {
-            var kq = await _context.Ketquahocphans.FindAsync(maketqua);
+            var kq = await _context.Ketquahocphans
+                .Where(x => x.MaKetQua == maketqua)
+                .Select(x => new KetQuaDto
+                {
+                    MaKetQua = x.MaKetQua,
+                    MaNcs = x.MaNcs,
+                    MaMonHoc = x.MaMonHoc,
+                    DiemChuyenCan = x.DiemChuyenCan,
+                    DiemGiuaKy = x.DiemGiuaKy,
+                    DiemThiCuoiKy = x.DiemThiCuoiKy,
+                    DiemTongKet = x.DiemTongKet,
+                    DiemChu = x.DiemChu,
+                    DiemHe4 = x.DiemHe4,
+                    TrangThaiKhoa = x.TrangThaiKhoa
+                })
+                .FirstOrDefaultAsync();
+
             if (kq == null) return NotFound();
 
             if (!await Access.CanReadNcsAsync(_context, User, kq.MaNcs)) return NotFound();
@@ -58,54 +82,100 @@ namespace DTMS.Api.Controllers
             return Ok(kq);
         }
 
-        // POST: api/Ketquahocphans
+        // POST: api/Ketquahocphans  (nhập điểm học phần mới)
         [HttpPost]
         [Authorize(Roles = "ADMIN,PDT,TBM,NHD")]
-        public async Task<ActionResult<Ketquahocphan>> PostKetquahocphan(Ketquahocphan ketquahocphan)
+        public async Task<IActionResult> PostKetquahocphan([FromBody] NhapDiemRequest dto)
         {
-            if (!await Access.CanWriteNcsAsync(_context, User, ketquahocphan.MaNcs)) return Forbid();
+            if (!await Access.CanWriteNcsAsync(_context, User, dto.MaNcs)) return Forbid();
 
-            // Không cho client tự chỉ định khóa chính khi thêm mới
-            ketquahocphan.MaKetQua = 0;
+            if (!await _context.Nghiencuusinhs.AnyAsync(n => n.MaNcs == dto.MaNcs))
+            {
+                return BadRequest(new { Success = false, Message = "Nghiên cứu sinh không tồn tại." });
+            }
 
-            _context.Ketquahocphans.Add(ketquahocphan);
+            if (!await _context.Monhocs.AnyAsync(m => m.MaMonHoc == dto.MaMonHoc))
+            {
+                return BadRequest(new { Success = false, Message = "Môn học không tồn tại." });
+            }
+
+            if (await _context.Ketquahocphans.AnyAsync(k => k.MaNcs == dto.MaNcs && k.MaMonHoc == dto.MaMonHoc))
+            {
+                return Conflict(new { Success = false, Message = "NCS này đã có điểm cho môn học này. Hãy sửa bản ghi hiện có." });
+            }
+
+            var kq = new Ketquahocphan
+            {
+                MaNcs = dto.MaNcs,
+                MaMonHoc = dto.MaMonHoc,
+                TrangThaiKhoa = false
+            };
+            CapNhatDiem(kq, dto);
+
+            _context.Ketquahocphans.Add(kq);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetKetquahocphan), new { maketqua = ketquahocphan.MaKetQua }, ketquahocphan);
+            return CreatedAtAction(nameof(GetKetquahocphan), new { maketqua = kq.MaKetQua }, KetQuaDto.From(kq));
         }
 
-        // PUT: api/Ketquahocphans/5
+        // PUT: api/Ketquahocphans/5  (sửa điểm khi bảng điểm chưa khóa)
         [HttpPut("{maketqua:int}")]
         [Authorize(Roles = "ADMIN,PDT,TBM,NHD")]
-        public async Task<IActionResult> PutKetquahocphan(int maketqua, Ketquahocphan ketquahocphan)
+        public async Task<IActionResult> PutKetquahocphan(int maketqua, [FromBody] NhapDiemRequest dto)
         {
-            if (maketqua != ketquahocphan.MaKetQua) return BadRequest();
+            var kq = await _context.Ketquahocphans.FindAsync(maketqua);
+            if (kq == null) return NotFound();
 
-            // Kiểm tra quyền trên CẢ bản ghi cũ lẫn mã NCS mới (tránh chuyển điểm sang NCS khác)
-            var cu = await _context.Ketquahocphans.AsNoTracking().FirstOrDefaultAsync(e => e.MaKetQua == maketqua);
-            if (cu == null) return NotFound();
+            if (!await Access.CanWriteNcsAsync(_context, User, kq.MaNcs)) return Forbid();
 
-            if (!await Access.CanWriteNcsAsync(_context, User, cu.MaNcs) ||
-                !await Access.CanWriteNcsAsync(_context, User, ketquahocphan.MaNcs))
+            if (kq.TrangThaiKhoa)
             {
-                return Forbid();
+                return Conflict(new { Success = false, Message = "Bảng điểm đã khóa. Cần PDT hoặc ADMIN mở khóa trước khi sửa." });
             }
 
-            _context.Entry(ketquahocphan).State = EntityState.Modified;
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!await _context.Ketquahocphans.AnyAsync(e => e.MaKetQua == maketqua)) return NotFound();
-                throw;
-            }
+            // Mã NCS và mã môn không đổi, chỉ sửa điểm
+            CapNhatDiem(kq, dto);
+            await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(KetQuaDto.From(kq));
         }
 
-        // DELETE: api/Ketquahocphans/5  (chỉ ADMIN, PDT)
+        // PUT: api/Ketquahocphans/5/khoa  (khóa bảng điểm sau khi đã nhập đủ)
+        [HttpPut("{maketqua:int}/khoa")]
+        [Authorize(Roles = "ADMIN,PDT,TBM,NHD")]
+        public async Task<IActionResult> KhoaBangDiem(int maketqua)
+        {
+            var kq = await _context.Ketquahocphans.FindAsync(maketqua);
+            if (kq == null) return NotFound();
+
+            if (!await Access.CanWriteNcsAsync(_context, User, kq.MaNcs)) return Forbid();
+
+            if (kq.DiemTongKet == null)
+            {
+                return Conflict(new { Success = false, Message = "Chưa có điểm tổng kết, không thể khóa." });
+            }
+
+            kq.TrangThaiKhoa = true;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Success = true, Message = "Đã khóa bảng điểm và công bố kết quả." });
+        }
+
+        // PUT: api/Ketquahocphans/5/mo-khoa  (chỉ PDT, ADMIN)
+        [HttpPut("{maketqua:int}/mo-khoa")]
+        [Authorize(Roles = "ADMIN,PDT")]
+        public async Task<IActionResult> MoKhoaBangDiem(int maketqua)
+        {
+            var kq = await _context.Ketquahocphans.FindAsync(maketqua);
+            if (kq == null) return NotFound();
+
+            kq.TrangThaiKhoa = false;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Success = true, Message = "Đã mở khóa bảng điểm." });
+        }
+
+        // DELETE: api/Ketquahocphans/5  (chỉ ADMIN, PDT, và chưa khóa)
         [HttpDelete("{maketqua:int}")]
         [Authorize(Roles = "ADMIN,PDT")]
         public async Task<IActionResult> DeleteKetquahocphan(int maketqua)
@@ -113,9 +183,77 @@ namespace DTMS.Api.Controllers
             var kq = await _context.Ketquahocphans.FindAsync(maketqua);
             if (kq == null) return NotFound();
 
+            if (kq.TrangThaiKhoa)
+            {
+                return Conflict(new { Success = false, Message = "Bảng điểm đã khóa, cần mở khóa trước khi xóa." });
+            }
+
             _context.Ketquahocphans.Remove(kq);
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        // Ghi điểm thành phần, tính điểm tổng kết và quy đổi
+        private static void CapNhatDiem(Ketquahocphan kq, NhapDiemRequest dto)
+        {
+            kq.DiemChuyenCan = dto.DiemChuyenCan;
+            kq.DiemGiuaKy = dto.DiemGiuaKy;
+            kq.DiemThiCuoiKy = dto.DiemThiCuoiKy;
+            kq.DiemThi = dto.DiemThiCuoiKy;
+
+            var tong = GradeScale.TinhDiemTongKet(dto.DiemChuyenCan, dto.DiemGiuaKy, dto.DiemThiCuoiKy);
+            var (chu, he4) = GradeScale.QuyDoi(tong);
+
+            kq.DiemTongKet = tong;
+            kq.DiemChu = chu;
+            kq.DiemHe4 = he4;
+            kq.TrangThaiDat = GradeScale.LaDat(chu);
+        }
+    }
+
+    public class NhapDiemRequest
+    {
+        [Required]
+        public string MaNcs { get; set; } = null!;
+
+        [Required]
+        public string MaMonHoc { get; set; } = null!;
+
+        [Range(0, 10)]
+        public float DiemChuyenCan { get; set; }
+
+        [Range(0, 10)]
+        public float DiemGiuaKy { get; set; }
+
+        [Range(0, 10)]
+        public float DiemThiCuoiKy { get; set; }
+    }
+
+    public class KetQuaDto
+    {
+        public int MaKetQua { get; set; }
+        public string MaNcs { get; set; } = null!;
+        public string MaMonHoc { get; set; } = null!;
+        public float? DiemChuyenCan { get; set; }
+        public float? DiemGiuaKy { get; set; }
+        public float? DiemThiCuoiKy { get; set; }
+        public float? DiemTongKet { get; set; }
+        public string? DiemChu { get; set; }
+        public float? DiemHe4 { get; set; }
+        public bool TrangThaiKhoa { get; set; }
+
+        public static KetQuaDto From(Ketquahocphan kq) => new KetQuaDto
+        {
+            MaKetQua = kq.MaKetQua,
+            MaNcs = kq.MaNcs,
+            MaMonHoc = kq.MaMonHoc,
+            DiemChuyenCan = kq.DiemChuyenCan,
+            DiemGiuaKy = kq.DiemGiuaKy,
+            DiemThiCuoiKy = kq.DiemThiCuoiKy,
+            DiemTongKet = kq.DiemTongKet,
+            DiemChu = kq.DiemChu,
+            DiemHe4 = kq.DiemHe4,
+            TrangThaiKhoa = kq.TrangThaiKhoa
+        };
     }
 }

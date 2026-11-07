@@ -1,0 +1,79 @@
+{
+  "browser": "firefox",
+  "date": "2026-10-18T05:38:38.773Z",
+  "api": "mocked; not a live backend",
+  "results": [
+    {
+      "name": "Tên tệp chứa HTML không thực thi trong toast và lịch sử",
+      "passed": true
+    },
+    {
+      "name": "Mở đường dẫn trực tiếp, Back/Forward và 10 trang tách",
+      "passed": true
+    },
+    {
+      "name": "Quota đủ 4/4 không tự giảm sau reload",
+      "passed": true
+    },
+    {
+      "name": "Chấm chuyên đề lưu điểm/nhận xét và giữ sau reload",
+      "passed": true
+    },
+    {
+      "name": "Không đánh giá hồ sơ ngoài phạm vi NHD",
+      "passed": true
+    },
+    {
+      "name": "Nộp lại tiểu luận hủy hiệu lực kết quả Đạt cũ",
+      "passed": true
+    },
+    {
+      "name": "Gửi workflow kép chỉ tạo một bản ghi và dùng một khóa chính",
+      "passed": true
+    },
+    {
+      "name": "Migration yêu cầu cũ không làm mất dữ liệu",
+      "passed": true
+    },
+    {
+      "name": "Thông báo tìm không dấu, lọc và sắp xếp ngày",
+      "passed": true
+    },
+    {
+      "name": "Ba báo cáo CSV có nội dung riêng và dữ liệu hiện hành",
+      "passed": true
+    },
+    {
+      "name": "Các form và ảnh campus có nhãn/tài nguyên hợp lệ",
+      "passed": true
+    },
+    {
+      "name": "Tra cứu GET đúng hợp đồng: valid",
+      "passed": true
+    },
+    {
+      "name": "Tra cứu GET đúng hợp đồng: not-found",
+      "passed": true
+    },
+    {
+      "name": "Tra cứu GET đúng hợp đồng: invalid-schema",
+      "passed": true
+    },
+    {
+      "name": "Tra cứu GET đúng hợp đồng: mismatched",
+      "passed": true
+    },
+    {
+      "name": "Tra cứu GET đúng hợp đồng: http-error",
+      "passed": true
+    },
+    {
+      "name": "Tra cứu GET đúng hợp đồng: invalid-json",
+      "passed": true
+    },
+    {
+      "name": "24 màn hình và các modal ở 4 viewport không tràn",
+      "passed": true
+    }
+  ]
+}

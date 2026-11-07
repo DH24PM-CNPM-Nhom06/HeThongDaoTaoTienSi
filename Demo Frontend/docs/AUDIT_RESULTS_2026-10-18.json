@@ -1,0 +1,3512 @@
+{
+  "date": "2026-10-18",
+  "scope": "Read-only audit of application source; mutations only in disposable browser contexts",
+  "browsers": [
+    {
+      "engine": "chromium",
+      "available": true,
+      "version": "151.0.7922.34",
+      "snapshot": {
+        "active": "management",
+        "mainCount": 0,
+        "menuButtons": 0,
+        "tableTools": 0,
+        "thesisStatus": "Backend chưa được cấu hình. Hãy thiết lập API_BASE_URL để tải dữ liệu.",
+        "logout": false,
+        "role": "NCS"
+      },
+      "errors": [],
+      "consoleErrors": [],
+      "failed": [],
+      "layouts": [
+        {
+          "width": 360,
+          "view": "home",
+          "body": 725,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 410
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile-icon",
+              "right": 387
+            },
+            {
+              "tag": "svg",
+              "cls": {},
+              "right": 387
+            },
+            {
+              "tag": "polygon",
+              "cls": {},
+              "right": 384
+            },
+            {
+              "tag": "STRONG",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 515
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile-icon",
+              "right": 492
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "profile",
+          "body": 528,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "SPAN",
+              "cls": "role-dashboard-deadline",
+              "right": 528
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "management",
+          "body": 502,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 535
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 476
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 518
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 777
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 701
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 761
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1024
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 945
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "roles",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "roadmap",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "notifications",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "public",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "lookup",
+          "body": 361,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "citations",
+          "body": 482,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "DIV",
+              "cls": "",
+              "right": 482
+            },
+            {
+              "tag": "STRONG",
+              "cls": "",
+              "right": 459
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 458
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "about",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "module": "m01",
+          "body": 502,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m02",
+          "body": 683,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m03",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m04",
+          "body": 438,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m05",
+          "body": 381,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m06",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m07",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m08",
+          "body": 413,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m09",
+          "body": 575,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m10",
+          "body": 746,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m11",
+          "body": 435,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m12",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m13",
+          "body": 390,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m14",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 768,
+          "view": "home",
+          "body": 894,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": [
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 789
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 894
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile-icon",
+              "right": 871
+            },
+            {
+              "tag": "svg",
+              "cls": {},
+              "right": 871
+            },
+            {
+              "tag": "circle",
+              "cls": {},
+              "right": 868
+            },
+            {
+              "tag": "STRONG",
+              "cls": "",
+              "right": 871
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 871
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "view": "profile",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "management",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 947
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 870
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 930
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1194
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1115
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1177
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1459
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1386
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "view": "roles",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "roadmap",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "notifications",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "public",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "lookup",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "citations",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "about",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "module": "m01",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m02",
+          "body": 852,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m03",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m04",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m05",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m06",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m07",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m08",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m09",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m10",
+          "body": 914,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m11",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m12",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m13",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m14",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 1024,
+          "view": "home",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "profile",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "management",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1195
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1116
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1178
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1461
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1387
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1444
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1702
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1631
+            }
+          ]
+        },
+        {
+          "width": 1024,
+          "view": "roles",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "roadmap",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "notifications",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "public",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "lookup",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "citations",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "about",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "module": "m01",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m02",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m03",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m04",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m05",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m06",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m07",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m08",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m09",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m10",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m11",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m12",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m13",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m14",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1440,
+          "view": "home",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "profile",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "management",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1463
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1446
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1704
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1633
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1687
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1965
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1882
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1948
+            }
+          ]
+        },
+        {
+          "width": 1440,
+          "view": "roles",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "roadmap",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "notifications",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "public",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "lookup",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "citations",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "about",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "module": "m01",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m02",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m03",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m04",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m05",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m06",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m07",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m08",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m09",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m10",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m11",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m12",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m13",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m14",
+          "body": 1440,
+          "root": 1440
+        }
+      ]
+    },
+    {
+      "engine": "msedge",
+      "available": true,
+      "version": "155.0.4283.45",
+      "snapshot": {
+        "active": "management",
+        "mainCount": 0,
+        "menuButtons": 0,
+        "tableTools": 0,
+        "thesisStatus": "Backend chưa được cấu hình. Hãy thiết lập API_BASE_URL để tải dữ liệu.",
+        "logout": false,
+        "role": "NCS"
+      },
+      "errors": [],
+      "consoleErrors": [],
+      "failed": [],
+      "layouts": [
+        {
+          "width": 360,
+          "view": "home",
+          "body": 725,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 410
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile-icon",
+              "right": 387
+            },
+            {
+              "tag": "svg",
+              "cls": {},
+              "right": 387
+            },
+            {
+              "tag": "polygon",
+              "cls": {},
+              "right": 384
+            },
+            {
+              "tag": "STRONG",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 515
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile-icon",
+              "right": 492
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "profile",
+          "body": 528,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "SPAN",
+              "cls": "role-dashboard-deadline",
+              "right": 528
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "management",
+          "body": 502,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 535
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 476
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 518
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 777
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 701
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 761
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1024
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 945
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "roles",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "roadmap",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "notifications",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "public",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "lookup",
+          "body": 361,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "citations",
+          "body": 482,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "DIV",
+              "cls": "",
+              "right": 482
+            },
+            {
+              "tag": "STRONG",
+              "cls": "",
+              "right": 459
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 458
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "about",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "module": "m01",
+          "body": 502,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m02",
+          "body": 683,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m03",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m04",
+          "body": 438,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m05",
+          "body": 381,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m06",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m07",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m08",
+          "body": 413,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m09",
+          "body": 577,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m10",
+          "body": 747,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m11",
+          "body": 434,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m12",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m13",
+          "body": 390,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m14",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 768,
+          "view": "home",
+          "body": 894,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": [
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 789
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 894
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile-icon",
+              "right": 871
+            },
+            {
+              "tag": "svg",
+              "cls": {},
+              "right": 871
+            },
+            {
+              "tag": "circle",
+              "cls": {},
+              "right": 868
+            },
+            {
+              "tag": "STRONG",
+              "cls": "",
+              "right": 871
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 871
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "view": "profile",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "management",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 947
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 870
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 930
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1194
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1115
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1177
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1459
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1386
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "view": "roles",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "roadmap",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "notifications",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "public",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "lookup",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "citations",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "about",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "module": "m01",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m02",
+          "body": 852,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m03",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m04",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m05",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m06",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m07",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m08",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m09",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m10",
+          "body": 914,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m11",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m12",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m13",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m14",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 1024,
+          "view": "home",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "profile",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "management",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1195
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1116
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1178
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1461
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1387
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1444
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1702
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1631
+            }
+          ]
+        },
+        {
+          "width": 1024,
+          "view": "roles",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "roadmap",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "notifications",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "public",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "lookup",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "citations",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "about",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "module": "m01",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m02",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m03",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m04",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m05",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m06",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m07",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m08",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m09",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m10",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m11",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m12",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m13",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m14",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1440,
+          "view": "home",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "profile",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "management",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1463
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1446
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1704
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1633
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1687
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1965
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1882
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1948
+            }
+          ]
+        },
+        {
+          "width": 1440,
+          "view": "roles",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "roadmap",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "notifications",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "public",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "lookup",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "citations",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "about",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "module": "m01",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m02",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m03",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m04",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m05",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m06",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m07",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m08",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m09",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m10",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m11",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m12",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m13",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m14",
+          "body": 1440,
+          "root": 1440
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "available": false,
+      "error": "browserType.launch: spawn UNKNOWN\nCall log:\n\u001b[2m  - <launching> C:\\Users\\Vinh\\AppData\\Local\\ms-playwright\\firefox-1538\\firefox\\firefox.exe -no-remote -headless -profile C:\\Users\\Vinh\\AppData\\Local\\Temp\\playwright_firefoxdev_profile-B6qmmv -juggler-pipe -silent\u001b[22m\n"
+    },
+    {
+      "engine": "webkit",
+      "available": true,
+      "version": "26.5",
+      "snapshot": {
+        "active": "management",
+        "mainCount": 0,
+        "menuButtons": 0,
+        "tableTools": 0,
+        "thesisStatus": "Backend chưa được cấu hình. Hãy thiết lập API_BASE_URL để tải dữ liệu.",
+        "logout": false,
+        "role": "NCS"
+      },
+      "errors": [],
+      "consoleErrors": [],
+      "failed": [],
+      "layouts": [
+        {
+          "width": 360,
+          "view": "home",
+          "body": 725,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 410
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile-icon",
+              "right": 387
+            },
+            {
+              "tag": "svg",
+              "cls": {},
+              "right": 387
+            },
+            {
+              "tag": "polygon",
+              "cls": {},
+              "right": 384
+            },
+            {
+              "tag": "STRONG",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 515
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile-icon",
+              "right": 492
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "profile",
+          "body": 528,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "SPAN",
+              "cls": "role-dashboard-deadline",
+              "right": 528
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "management",
+          "body": 538,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 535
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 476
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 518
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 777
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 701
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 761
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1024
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 945
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "roles",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "roadmap",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "notifications",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "public",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "view": "lookup",
+          "body": 387,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "FORM",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "DIV",
+              "cls": "verifier-input-group",
+              "right": 387
+            },
+            {
+              "tag": "LABEL",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "INPUT",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "DIV",
+              "cls": "verifier-input-group",
+              "right": 387
+            },
+            {
+              "tag": "LABEL",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "INPUT",
+              "cls": "",
+              "right": 387
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "",
+              "right": 387
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "citations",
+          "body": 482,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": [
+            {
+              "tag": "DIV",
+              "cls": "",
+              "right": 482
+            },
+            {
+              "tag": "STRONG",
+              "cls": "",
+              "right": 459
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 458
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "view": "about",
+          "body": 360,
+          "root": 360,
+          "topbarWidth": 296,
+          "topbarScroll": 296,
+          "offscreen": []
+        },
+        {
+          "width": 360,
+          "module": "m01",
+          "body": 538,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m02",
+          "body": 685,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m03",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m04",
+          "body": 440,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m05",
+          "body": 382,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m06",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m07",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m08",
+          "body": 414,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m09",
+          "body": 579,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m10",
+          "body": 749,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m11",
+          "body": 435,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m12",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m13",
+          "body": 390,
+          "root": 360
+        },
+        {
+          "width": 360,
+          "module": "m14",
+          "body": 360,
+          "root": 360
+        },
+        {
+          "width": 768,
+          "view": "home",
+          "body": 894,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": [
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 789
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile",
+              "right": 894
+            },
+            {
+              "tag": "DIV",
+              "cls": "launch-tile-icon",
+              "right": 871
+            },
+            {
+              "tag": "svg",
+              "cls": {},
+              "right": 871
+            },
+            {
+              "tag": "circle",
+              "cls": {},
+              "right": 868
+            },
+            {
+              "tag": "STRONG",
+              "cls": "",
+              "right": 871
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 871
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "view": "profile",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "management",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 947
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 870
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 930
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1194
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1115
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1177
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1459
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1386
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "view": "roles",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "roadmap",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "notifications",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "public",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "lookup",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "citations",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "view": "about",
+          "body": 768,
+          "root": 768,
+          "topbarWidth": 536,
+          "topbarScroll": 536,
+          "offscreen": []
+        },
+        {
+          "width": 768,
+          "module": "m01",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m02",
+          "body": 852,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m03",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m04",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m05",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m06",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m07",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m08",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m09",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m10",
+          "body": 917,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m11",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m12",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m13",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 768,
+          "module": "m14",
+          "body": 768,
+          "root": 768
+        },
+        {
+          "width": 1024,
+          "view": "home",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "profile",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "management",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1195
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1116
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1178
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1461
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1387
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1444
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1702
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1631
+            }
+          ]
+        },
+        {
+          "width": 1024,
+          "view": "roles",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "roadmap",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "notifications",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "public",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "lookup",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "citations",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "view": "about",
+          "body": 1024,
+          "root": 1024,
+          "topbarWidth": 792,
+          "topbarScroll": 792,
+          "offscreen": []
+        },
+        {
+          "width": 1024,
+          "module": "m01",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m02",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m03",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m04",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m05",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m06",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m07",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m08",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m09",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m10",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m11",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m12",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m13",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1024,
+          "module": "m14",
+          "body": 1024,
+          "root": 1024
+        },
+        {
+          "width": 1440,
+          "view": "home",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "profile",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "management",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": [
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1463
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1446
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1704
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1633
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1687
+            },
+            {
+              "tag": "BUTTON",
+              "cls": "mgmt-tab-btn",
+              "right": 1965
+            },
+            {
+              "tag": "SPAN",
+              "cls": "",
+              "right": 1882
+            },
+            {
+              "tag": "SPAN",
+              "cls": "mgmt-tab-badge",
+              "right": 1948
+            }
+          ]
+        },
+        {
+          "width": 1440,
+          "view": "roles",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "roadmap",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "notifications",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "public",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "lookup",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "citations",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "view": "about",
+          "body": 1440,
+          "root": 1440,
+          "topbarWidth": 1208,
+          "topbarScroll": 1208,
+          "offscreen": []
+        },
+        {
+          "width": 1440,
+          "module": "m01",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m02",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m03",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m04",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m05",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m06",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m07",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m08",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m09",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m10",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m11",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m12",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m13",
+          "body": 1440,
+          "root": 1440
+        },
+        {
+          "width": 1440,
+          "module": "m14",
+          "body": 1440,
+          "root": 1440
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "name": "hash-route",
+      "evidence": "management"
+    },
+    {
+      "name": "council-hidden-active-panel",
+      "evidence": {
+        "active": "panel-m09",
+        "visible": [
+          "panel-m09"
+        ]
+      }
+    },
+    {
+      "name": "unscoped-candidate-list",
+      "evidence": [
+        "\n                      NCS-2023-ENV01\n                      NCS. Nguyễn Văn Bình\n                      Khoa học Môi trường\n                      2023-Đ2\n                      GS.TS. Trần Văn Hướng\n                      Đang học bình thường\n                      \n                        Xem & Sửa\n                      \n                    ",
+        "\n                      NCS-2022-AGR04\n                      NCS. Lê Thị Mai\n                      Trồng trọt nâng cao\n                      2022-Đ1\n                      PGS.TS. Nguyễn Thị Kim\n                      Gia hạn 06 tháng\n                      \n                        Xem & Sửa\n                      \n                    ",
+        "\n                      NCS-2021-BUS02\n                      NCS. Phạm Quốc Cường\n                      Quản trị Kinh doanh\n                      2021-Đ2\n                      PGS.TS. Trần Đình Lâm\n                      Đã bảo vệ luận án\n                      \n                        Xem & Sửa\n                      \n                    ",
+        "\n        ĐN-1082\n        Gia hạn học tập\n        06 tháng\n        Hoàn thiện thu thập mẫu hiện trường\n        15/08/2026\n        Đã duyệt bởi PDT\n        \n          📄 don_xin_gia_han_signed.pdf\n        \n      "
+      ]
+    },
+    {
+      "name": "course-unauthorized-handler",
+      "evidence": [
+        "AUDIT-COURSE"
+      ]
+    },
+    {
+      "name": "grade-topic-submit-interception",
+      "evidence": {
+        "topic": {
+          "name": "Chuyên đề 1: Tổng quan ĐTM vùng ĐBSCL",
+          "score": "8.8",
+          "status": "passed"
+        },
+        "savedAs": "modal-grade-topic"
+      }
+    },
+    {
+      "name": "progress-review-submit-interception",
+      "evidence": {
+        "report": {
+          "period": 5,
+          "status": "pass"
+        },
+        "savedAs": "modal-review-progress"
+      }
+    },
+    {
+      "name": "degree-confer-without-approval-votes-or-files",
+      "evidence": {
+        "before": {
+          "approval": false,
+          "vote": false,
+          "postDefense": false
+        },
+        "after": {
+          "date": "2026-10-18T04:06:18.759Z",
+          "decisionNo": "128/QĐ-ĐHAG",
+          "role": "BGH"
+        }
+      }
+    },
+    {
+      "name": "modal-focus-and-Escape",
+      "evidence": {
+        "focused": "topbar-user-badge",
+        "remainsOpen": true,
+        "dialogRole": null
+      }
+    },
+    {
+      "name": "profile-save-reload",
+      "evidence": {
+        "stored": "0987654321",
+        "display": "0912.345.678"
+      }
+    },
+    {
+      "name": "storage-write-failure",
+      "evidence": {
+        "before": "0912.345.678",
+        "stored": "0912.345.678",
+        "display": "0999999999",
+        "modalOpen": false,
+        "toast": "Hồ sơ đã cập nhậtThông tin cá nhân Nghiên cứu sinh đã được đồng bộ vào lưu trữ."
+      }
+    },
+    {
+      "name": "partial-state-crash",
+      "evidence": [
+        "Cannot read properties of undefined (reading 'map')",
+        "Cannot read properties of undefined (reading 'map')"
+      ]
+    },
+    {
+      "name": "toast-XSS-from-filename",
+      "evidence": {
+        "executed": true,
+        "imagesInToast": 1
+      }
+    },
+    {
+      "name": "publication-duplicates-and-file-validation",
+      "evidence": [
+        {
+          "id": "pub_1792296384142",
+          "title": "Công bố audit",
+          "journal": "Tạp chí audit",
+          "cat": "WoS (SCIE) · Q1",
+          "authorRole": "Tác giả chính (1st)",
+          "verified": false,
+          "score": 0,
+          "doi": "10.1234/audit",
+          "fileName": "invalid.exe"
+        },
+        {
+          "id": "pub_1792296384106",
+          "title": "Công bố audit",
+          "journal": "Tạp chí audit",
+          "cat": "WoS (SCIE) · Q1",
+          "authorRole": "Tác giả chính (1st)",
+          "verified": false,
+          "score": 0,
+          "doi": "10.1234/audit",
+          "fileName": "invalid.exe"
+        }
+      ]
+    },
+    {
+      "name": "malformed-degree-response",
+      "evidence": {
+        "status": "Thông tin được trả về từ máy chủ sổ gốc.",
+        "card": "Đã xác thực văn bằng"
+      }
+    },
+    {
+      "name": "standalone-pages",
+      "evidence": [
+        {
+          "name": "index",
+          "scripts": 0,
+          "images": []
+        },
+        {
+          "name": "home",
+          "scripts": 0,
+          "images": [
+            {
+              "src": "assets/images/agu-campus.png",
+              "loaded": false
+            }
+          ]
+        },
+        {
+          "name": "profile",
+          "scripts": 0,
+          "images": [],
+          "dashboard": 0
+        },
+        {
+          "name": "management",
+          "scripts": 0,
+          "images": []
+        },
+        {
+          "name": "roles",
+          "scripts": 0,
+          "images": [],
+          "personas": 0
+        },
+        {
+          "name": "roadmap",
+          "scripts": 0,
+          "images": [],
+          "roadmap": 0
+        },
+        {
+          "name": "notifications",
+          "scripts": 0,
+          "images": []
+        },
+        {
+          "name": "public",
+          "scripts": 0,
+          "images": []
+        },
+        {
+          "name": "lookup",
+          "scripts": 0,
+          "images": []
+        },
+        {
+          "name": "citations",
+          "scripts": 0,
+          "images": []
+        },
+        {
+          "name": "about",
+          "scripts": 0,
+          "images": []
+        }
+      ]
+    },
+    {
+      "name": "repeat-supervisor-assignment-and-reload",
+      "evidence": {
+        "before": 2,
+        "twice": 4,
+        "afterReload": 2
+      }
+    },
+    {
+      "name": "invalid-phone-accepted",
+      "evidence": "abc"
+    },
+    {
+      "name": "static-resources-and-structure",
+      "evidence": {
+        "duplicateIds": [],
+        "missingManagementHandlers": [],
+        "tables": 15,
+        "inlineStyles": 376,
+        "inlineActions": 89,
+        "forms": 19,
+        "unlabelledControls": 56
+      }
+    },
+    {
+      "name": "existing-tests-smoke-assertion",
+      "evidence": {
+        "expectedMain": 1,
+        "actualMain": 0,
+        "expectedTableControls": "one per table",
+        "actualTableControls": 0,
+        "logoutExists": false,
+        "candidateFormExists": false
+      }
+    }
+  ],
+  "sourceInventory": [
+    {
+      "file": "css/app.css",
+      "lines": 6,
+      "sha256": "362abcf3efb06122d7b9e6fa800ba4fa09424bb43b5d70c8d200815af2041020",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/components/app-components.css",
+      "lines": 645,
+      "sha256": "d1b69fce9fd5c05a898f26a82551bde0ca598a9c17abd5be87fc800c435e04c9",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/core/layout.css",
+      "lines": 196,
+      "sha256": "4a68d6caf43ec8d1b8e07d51b3a4eca5ba356af4f83f32c2b658ad281dba6ca0",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/core/responsive.css",
+      "lines": 21,
+      "sha256": "b5650dbe0b451bb73dc900b7ddf795de57af999fac5c6d06f3707f85d0b729ba",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/core/tokens.css",
+      "lines": 78,
+      "sha256": "52079b4e257007f17baba9834b749ab989db6ac183ce9873a1525fef3e45e7eb",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/home.css",
+      "lines": 1067,
+      "sha256": "1aa1900774ee018ab40b8667888838ff78209509eb0ed288f93ad43c9425b887",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/legacy/home.css",
+      "lines": 1067,
+      "sha256": "1aa1900774ee018ab40b8667888838ff78209509eb0ed288f93ad43c9425b887",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/legacy/responsive.css",
+      "lines": 154,
+      "sha256": "c911aa081572f88424d36846aa376f5a3f3a41f1ad3ce32fe5569f43b8f0a61e",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/legacy/style.css",
+      "lines": 596,
+      "sha256": "66507ea7e61ed716835cff78ed6a117b0cfbe448223f2b4758df0f557dec6455",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/management.css",
+      "lines": 4,
+      "sha256": "3397128df3c1ac7e7db2b7508d309d79826141868498a32ff101d371cfb9e578",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/pages/management-responsive.css",
+      "lines": 92,
+      "sha256": "3a2cc68cda241fad12fb7c2ce04f4fbc4ac6590c12af89dd6b0dc91b92c35f28",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/pages/management.css",
+      "lines": 851,
+      "sha256": "be802dbbe2f31c9872ddb8b1e204296640190fd86d60b174646ae564b773bb16",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/responsive.css",
+      "lines": 288,
+      "sha256": "ed3ca1fdcea4f5bdb7e807087ac9880565e391f10c0365e6e19f3212b32b1c51",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "css/style.css",
+      "lines": 596,
+      "sha256": "66507ea7e61ed716835cff78ed6a117b0cfbe448223f2b4758df0f557dec6455",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "index.html",
+      "lines": 3271,
+      "sha256": "5bff324775b03d24b059660a2c1ce0d87a4ab905152e4b3a0a4a59544a85a54a",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/api.js",
+      "lines": 56,
+      "sha256": "18637e55a0d7d33f4cb2d54aa8e98f47cf0ff3861a1043811431ba6fe663eb95",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/app.js",
+      "lines": 1396,
+      "sha256": "2fe5808caa943f821cab82c7be03c9b2736ac890d99adeeaae6cde085f1808d3",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/config.js",
+      "lines": 17,
+      "sha256": "0f7062005b336b7c2cb7589bf94df2b1072ecdd6efc039c1a7ffb520875276f2",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/core/api.js",
+      "lines": 71,
+      "sha256": "9037dcf93f72c4544ce47ace8539b856ec948f74ef2964db63e1b05c6cc56531",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/core/app.js",
+      "lines": 1094,
+      "sha256": "8983053ca489f4616770aeb976b08ab95089d79c8f371487332a558d44abdcf1",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/core/config.js",
+      "lines": 18,
+      "sha256": "dbf1385c7b715bb3261f75acda48e6262e478a13dd48e8cb0d6611db9a92ae6c",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/data.js",
+      "lines": 59,
+      "sha256": "660d6abbfa620f5121c078c2a78d0b24d926ea028dad933c985d18f585d99757",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/features/assistant.js",
+      "lines": 62,
+      "sha256": "2fcaa368654038799b598b87d6642e7522a9faf4bece3318e8e215f602d97be2",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/features/degree-lookup.js",
+      "lines": 53,
+      "sha256": "e530202fd0b0d9d002bb06492bc6a42b962c5a74470538d7e6c41600bdb72f3b",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/features/public-theses.js",
+      "lines": 73,
+      "sha256": "acc9e41276442615af0d4c0ef1ac9d89c8dae68a89e2eca94e8c4fe0ab655669",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/home.js",
+      "lines": 275,
+      "sha256": "989089592259fcc628cb6d3bfa42d64526ee0c17d69b1c3270535432bbae8fdf",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/legacy/home.js",
+      "lines": 276,
+      "sha256": "65898363ea158d62e6fd2c2203da62035a3ed9118173ee2216085d7e8aee1691",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/management.js",
+      "lines": 1760,
+      "sha256": "7956214efc78c3ac69939dd1fdf0fd7e23985587d6b14288e57f6bcbd2612567",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "js/modules/management.js",
+      "lines": 1740,
+      "sha256": "ad74cbbd453bf7e427f5aaa4c867d121efc515e0a9337b423a768ae2b9f1b71e",
+      "duplicateFunctions": [
+        "applyRolePermissions",
+        "renderRoleDashboard",
+        "login",
+        "notify",
+        "addAuditLog",
+        "renderAuditLogTable",
+        "switchRole",
+        "switchModuleTab",
+        "openModal",
+        "closeModal",
+        "initModalListeners"
+      ]
+    },
+    {
+      "file": "js/ui.js",
+      "lines": 226,
+      "sha256": "00267a1a6b981cb1e51a61630d7cf6b854b115dd03f8015476840b4180c1e692",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/about.html",
+      "lines": 42,
+      "sha256": "3d4ef836cff13762eac4de247d1651366aaa72d4b7dc709e9c452736c82193c3",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/citations.html",
+      "lines": 39,
+      "sha256": "936ab26f1f2cb06fa1a0c2d93d0ba461bfc3a51e39ac41460df28040879370ee",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/home.html",
+      "lines": 143,
+      "sha256": "307ad0c41f2cb54fcac4c73450322bf481ea62ef49c687002b4d9e895e735d1e",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/index.html",
+      "lines": 37,
+      "sha256": "7a8eddc3c5e7d887252f8160f6855a8c17ff2c0d9a8342e61ccd159700df1696",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/lookup.html",
+      "lines": 46,
+      "sha256": "f22fb9b1fa61777045be5e934fd79d9c069a362e511e621842caaaa8277f4611",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/management.html",
+      "lines": 1837,
+      "sha256": "d8969ec710d62dfc071658936baa1b68301f698520cfae1f7f2aac2069c1d90e",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/notifications.html",
+      "lines": 44,
+      "sha256": "9da4e7243696825077179653c2deac1fe756ba849b815411c80512ee366da56d",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/profile.html",
+      "lines": 25,
+      "sha256": "9d1d67fed7a0a28d47a743196c1c09290260223c1ca41c418c652f26bb2ef2ff",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/public.html",
+      "lines": 36,
+      "sha256": "0f480870d9ca82f98e4c59a28e52d6b04a8cb7d76ddb64424056045a75846833",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/roadmap.html",
+      "lines": 27,
+      "sha256": "b4bc794fb120fa4f2a4658547ba846def3d36eeea13e0b9660e3292bd8b450dd",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "pages/roles.html",
+      "lines": 29,
+      "sha256": "ebd290ca7af3562d41a5e45a1c33ee38f53930dfef08867b038e65e391366a32",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "scripts/check-all.cjs",
+      "lines": 14,
+      "sha256": "652792c29a5d623d01d3693cdcb57624163ea52b95503a04996d8fe2ea172975",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "scripts/check-frontend.cjs",
+      "lines": 181,
+      "sha256": "d9667ce528f0a96caf922b5b0998cf59077f6ff95d188d14c7c55fdf2f84e39e",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "scripts/check-integration.cjs",
+      "lines": 100,
+      "sha256": "0e298f44212a062ac6030cb83b6b4c0df14a741769c2f380e2538494c430f65f",
+      "duplicateFunctions": []
+    },
+    {
+      "file": "scripts/serve.cjs",
+      "lines": 20,
+      "sha256": "7221579aec6b6c1189ababbea35e6cd210ac41eab51cd7032f714c50d74c5627",
+      "duplicateFunctions": []
+    }
+  ]
+}

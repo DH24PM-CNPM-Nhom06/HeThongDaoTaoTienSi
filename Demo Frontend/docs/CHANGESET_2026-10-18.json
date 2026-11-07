@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-18",
+  "changed": [
+    "css/responsive.css",
+    "index.html",
+    "js/core/api.js",
+    "js/core/app.js",
+    "js/core/config.js",
+    "js/features/assistant.js",
+    "js/features/degree-lookup.js",
+    "js/features/public-theses.js",
+    "js/modules/management.js",
+    "pages/about.html",
+    "pages/citations.html",
+    "pages/home.html",
+    "pages/index.html",
+    "pages/lookup.html",
+    "pages/management.html",
+    "pages/notifications.html",
+    "pages/profile.html",
+    "pages/public.html",
+    "pages/roadmap.html",
+    "pages/roles.html",
+    "scripts/check-all.cjs",
+    "scripts/check-frontend.cjs",
+    "scripts/check-integration.cjs"
+  ],
+  "added": [
+    "js/features/collections.js",
+    "js/features/notifications.js",
+    "scripts/check-regressions.cjs"
+  ],
+  "backup": "D:/Project/HeThongQuanLyHocVuHocVienSauDaiHoc-main/DTMS-backups/frontend-before-repair-20261018-112148.zip",
+  "reportTools": [
+    "scripts/build-report.py"
+  ],
+  "documents": [
+    "README.md",
+    "js/README.md",
+    "API-INTEGRATION.md",
+    "docs/BACKEND_INTEGRATION.md",
+    "docs/TESTING.md",
+    "docs/FRONTEND_AUDIT.md",
+    "docs/FRONTEND_TASKS.md",
+    "TODO.md",
+    "PROGRESS.md",
+    "docs/BAO_CAO_HOAN_THIEN_FRONTEND_2026-10-18.md"
+  ]
+}

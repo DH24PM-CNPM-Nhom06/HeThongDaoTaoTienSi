@@ -1,0 +1,393 @@
+{
+  "date": "2026-10-18",
+  "total": 64,
+  "done": 55,
+  "partial": 6,
+  "backend": 3,
+  "issues": [
+    {
+      "id": "SYS-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-02",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-03",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-04",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-05",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-06",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-07",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-08",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-09",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-10",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-11",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-12",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-13",
+      "level": "Nhỏ",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "SYS-14",
+      "level": "Nhỏ",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "AUTH-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "AUTH-02",
+      "level": "Trung bình",
+      "state": "partial",
+      "note": "Nhớ email và hỗ trợ đã xong; đăng ký/reset thật cần API tài khoản."
+    },
+    {
+      "id": "HOME-01",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "PROFILE-01",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "NOTICE-01",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "PUBLIC-01",
+      "level": "Trung bình",
+      "state": "partial",
+      "note": "Client, tìm/lọc và demo đã xong; API luận án chưa có trong ZIP."
+    },
+    {
+      "id": "PUBLIC-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "PUBLIC-03",
+      "level": "Nhỏ",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "LOOKUP-01",
+      "level": "Nghiêm trọng",
+      "state": "partial",
+      "note": "Adapter GET/DTO đã sửa; dịch vụ bị khóa mặc định vì server còn stub."
+    },
+    {
+      "id": "LOOKUP-02",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "LOOKUP-03",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "ROADMAP-01",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "ABOUT-01",
+      "level": "Nhỏ",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "PAGES-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "PAGES-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "PAGES-03",
+      "level": "Nhỏ",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M01-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M01-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M01-03",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M02-01",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M03-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M03-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M03-03",
+      "level": "Nhỏ",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M04-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M04-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M05-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M05-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M06-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M06-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M07-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M07-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M07-03",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M08-01",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M08-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M09-01",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M09-02",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M10-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M10-02",
+      "level": "Trung bình",
+      "state": "partial",
+      "note": "Phiếu và điều kiện demo hoạt động; phiên hội đồng/quyết định chính thức cần backend."
+    },
+    {
+      "id": "M11-01",
+      "level": "Nghiêm trọng",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M11-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M12-01",
+      "level": "Trung bình",
+      "state": "partial",
+      "note": "Đơn mới hiển thị và lưu được; luồng ban hành quyết định cần backend/quy tắc thẩm quyền."
+    },
+    {
+      "id": "M13-01",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M13-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M14-01",
+      "level": "Nhỏ",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "M14-02",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "BE-01",
+      "level": "Nghiêm trọng",
+      "state": "backend",
+      "note": "Backend login còn trả user/token tạm; cần xác thực và phiên thật."
+    },
+    {
+      "id": "BE-02",
+      "level": "Nghiêm trọng",
+      "state": "backend",
+      "note": "Backend diploma luôn IsValid=true; cần truy vấn sổ gốc và nhánh không tìm thấy."
+    },
+    {
+      "id": "BE-03",
+      "level": "Trung bình",
+      "state": "backend",
+      "note": "Cần API học vụ/tệp/thông báo/công khai và môi trường test."
+    },
+    {
+      "id": "QA-01",
+      "level": "Trung bình",
+      "state": "done",
+      "note": "Đã sửa và kiểm thử phần frontend/demo."
+    },
+    {
+      "id": "QA-02",
+      "level": "Trung bình",
+      "state": "partial",
+      "note": "Đã chạy Firefox portable; Safari thật và backend/database chưa có môi trường nghiệm thu."
+    }
+  ]
+}
