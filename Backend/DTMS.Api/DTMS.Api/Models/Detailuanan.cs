@@ -39,6 +39,15 @@ public partial class Detailuanan
     [StringLength(500)]
     public string? FileTomTat { get; set; }
 
+    // Tiểu luận và đề cương (mục đăng ký chuyên đề của NCS)
+    [Column("FileTieuLuan")]
+    [StringLength(500)]
+    public string? FileTieuLuan { get; set; }
+
+    [Column("FileDeCuong")]
+    [StringLength(500)]
+    public string? FileDeCuong { get; set; }
+
     public bool? TrangThaiKhoa { get; set; }
 
     [ForeignKey("MaNcs")]

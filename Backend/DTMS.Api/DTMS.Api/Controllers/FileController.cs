@@ -25,6 +25,7 @@ namespace DTMS.Api.Controllers
                 ["baocao"] = (new[] { ".pdf", ".doc", ".docx" }, MaxBaoCao),
                 ["minhchung"] = (new[] { ".pdf", ".jpg", ".jpeg", ".png" }, MaxBaoCao),
                 ["luanan"] = (new[] { ".pdf", ".doc", ".docx" }, MaxLuanAn),
+                ["bienban"] = (new[] { ".pdf", ".doc", ".docx" }, MaxBaoCao),
             };
 
         private static readonly Dictionary<string, string> ContentTypes =
@@ -50,7 +51,7 @@ namespace DTMS.Api.Controllers
         }
 
         // POST: api/File/upload?purpose=baocao&maNcs=NCS01
-        // purpose: baocao | minhchung | luanan
+        // purpose: baocao | minhchung | luanan | bienban
         // maNcs: bắt buộc với ADMIN, PDT, TBM, NHD; NCS tự động dùng mã của chính mình.
         [HttpPost("upload")]
         [RequestSizeLimit(MaxLuanAn)]
@@ -64,7 +65,7 @@ namespace DTMS.Api.Controllers
 
             if (string.IsNullOrWhiteSpace(purpose) || !Purposes.TryGetValue(purpose.Trim(), out var rule))
             {
-                return BadRequest(new { Success = false, Message = "Mục đích tệp không hợp lệ (baocao, minhchung, luanan)." });
+                return BadRequest(new { Success = false, Message = "Mục đích tệp không hợp lệ (baocao, minhchung, luanan, bienban)." });
             }
 
             var ext = Path.GetExtension(file.FileName).ToLowerInvariant();

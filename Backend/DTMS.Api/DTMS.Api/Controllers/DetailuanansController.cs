@@ -72,6 +72,8 @@ namespace DTMS.Api.Controllers
                 SoQddieuChinh = dto.SoQddieuChinh,
                 FileToanVan = dto.FileToanVan,
                 FileTomTat = dto.FileTomTat,
+                FileTieuLuan = dto.FileTieuLuan,
+                FileDeCuong = dto.FileDeCuong,
                 LanChinhSua = 0,
                 TrangThaiKhoa = false
             };
@@ -106,6 +108,8 @@ namespace DTMS.Api.Controllers
             d.SoQddieuChinh = dto.SoQddieuChinh;
             d.FileToanVan = dto.FileToanVan;
             d.FileTomTat = dto.FileTomTat;
+            d.FileTieuLuan = dto.FileTieuLuan;
+            d.FileDeCuong = dto.FileDeCuong;
 
             await _context.SaveChangesAsync();
             return NoContent();
@@ -155,6 +159,8 @@ namespace DTMS.Api.Controllers
 
         public string? FileToanVan { get; set; }
         public string? FileTomTat { get; set; }
+        public string? FileTieuLuan { get; set; }
+        public string? FileDeCuong { get; set; }
     }
 
     public class KhoaDeTaiRequest
