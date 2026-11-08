@@ -27,6 +27,11 @@ public partial class Nguoidung
     [StringLength(20)]
     public string? SoDienThoai { get; set; }
 
+    // Cơ quan công tác hiện tại (thông tin liên lạc, người dùng tự cập nhật)
+    [Column("CoQuanCongTac")]
+    [StringLength(200)]
+    public string? CoQuanCongTac { get; set; }
+
     public bool? LaHoatDong { get; set; }
 
     [Column(TypeName = "datetime")]

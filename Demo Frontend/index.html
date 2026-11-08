@@ -44,7 +44,6 @@
             <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M8 11h6M11 8v6"/></svg><span>Tra cứu</span>
           </button>
           <button type="button" class="dock-item" data-dock-target="home" data-tooltip="Trang chủ" aria-label="Trang chủ"><span class="dock-symbol" aria-hidden="true">⌂</span><span>Trang chủ</span></button>
-          <button type="button" class="dock-item" data-dock-target="roles" data-tooltip="Vai trò" aria-label="Vai trò"><span class="dock-symbol" aria-hidden="true">♙</span><span>Vai trò</span></button>
           <button type="button" class="dock-item" data-dock-target="roadmap" data-tooltip="Lộ trình" aria-label="Lộ trình"><span class="dock-symbol" aria-hidden="true">↗</span><span>Lộ trình</span></button>
           <button type="button" class="dock-item" data-dock-target="citations" data-tooltip="Văn bản" aria-label="Văn bản"><span class="dock-symbol" aria-hidden="true">§</span><span>Văn bản</span></button>
           <button type="button" class="dock-item" data-dock-target="about" data-tooltip="Giới thiệu" aria-label="Giới thiệu"><span class="dock-symbol" aria-hidden="true">ⓘ</span><span>Giới thiệu</span></button>
@@ -76,16 +75,6 @@
               🌐 VI | EN
             </button>
 
-            <!-- Active User Display & Role Quick Switcher -->
-            <div id="topbar-user-badge" class="topbar-user-badge" onclick="DTMS_MANAGEMENT.openModal('modal-role-switcher')" title="Nhấp để chuyển đổi vai trò" role="button" tabindex="0">
-              <span id="topbar-avatar" class="topbar-avatar">NB</span>
-              <span id="topbar-user-name" class="topbar-user-name">NCS. Nguyễn Văn Bình</span>
-              <span id="topbar-role-badge" class="role-pill-badge">NCS</span>
-            </div>
-
-            <button class="btn-mgmt btn-mgmt-outline-blue btn-mgmt-sm" data-role-switcher onclick="DTMS_MANAGEMENT.openModal('modal-role-switcher')" title="Chuyển đổi vai trò làm việc">
-              ⇄ Đổi vai trò
-            </button>
 
             <button class="btn-login-os" onclick="DTMS_MANAGEMENT.openWorkspace()">
               <span data-workspace-label>Bàn làm việc</span>
@@ -98,7 +87,7 @@
         <div class="os-stage">
           
           <!-- 01. TRANG CHỦ (HOME VIEW) -->
-          <section class="os-view" data-view="home">
+          <section class="os-view" data-view="home" style="margin-left:44px;margin-right:44px;">
             <div class="home-hero-grid">
               <div>
                 <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:9999px; background:var(--uni-blue-50); border:1px solid var(--uni-blue-100); color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; margin-bottom:16px;" data-i18n="home_tag">
@@ -132,22 +121,10 @@
                 </div>
 
                 <div class="home-metrics-grid">
-                  <div class="metric-card">
-                    <strong>14</strong>
-                    <span>Phân hệ Nghiệp vụ</span>
-                  </div>
-                  <div class="metric-card">
-                    <strong>06</strong>
-                    <span>Vai trò RBAC</span>
-                  </div>
-                  <div class="metric-card">
-                    <strong>100%</strong>
-                    <span>Chuyển đổi số</span>
-                  </div>
-                  <div class="metric-card">
-                    <strong>24/7</strong>
-                    <span>Tra cứu Phôi bằng</span>
-                  </div>
+                  <div class="metric-card"><strong>14</strong><span>Phân hệ Nghiệp vụ</span></div>
+                  <div class="metric-card"><strong>06</strong><span>Vai trò RBAC</span></div>
+                  <div class="metric-card"><strong>100%</strong><span>Chuyển đổi số</span></div>
+                  <div class="metric-card"><strong>24/7</strong><span>Tra cứu Phôi bằng</span></div>
                 </div>
               </div>
 
@@ -172,7 +149,7 @@
                 <span data-i18n="launchpad_title">Truy cập Nhanh các Phân hệ Chuyên biệt:</span>
               </h3>
 
-              <div class="quick-launchpad-grid" style="grid-template-columns: repeat(6, 1fr);">
+              <div class="quick-launchpad-grid">
                 <!-- Management tile -->
                 <div class="launch-tile" data-switch-view="management" style="border:2px solid var(--uni-blue-600); background:#f0f7ff;">
                   <div class="launch-tile-icon" style="background:var(--uni-blue-800); color:#ffffff;">
@@ -180,14 +157,6 @@
                   </div>
                   <strong style="color:var(--uni-blue-900);">Quản lý Học vụ</strong>
                   <span style="color:var(--uni-blue-800); font-weight:700;">14 Phân hệ Nghiệp vụ</span>
-                </div>
-
-                <div class="launch-tile" data-switch-view="roles">
-                  <div class="launch-tile-icon">
-                    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-3-3.87M9 21v-2a4 4 0 0 1 3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
-                  </div>
-                  <strong data-i18n="tile2_title">Đối tượng</strong>
-                  <span data-i18n="tile2_sub">Bàn làm việc 7 Vai trò</span>
                 </div>
 
                 <div class="launch-tile" data-switch-view="roadmap">
@@ -228,7 +197,7 @@
           <!-- ==========================================================================
                02. HỆ THỐNG QUẢN LÝ HỌC VỤ & ĐÀO TẠO TIẾN SĨ (14 PHÂN HỆ NGHIỆP VỤ)
                ========================================================================== -->
-          <section class="os-view profile-view" data-view="profile">
+          <section class="os-view profile-view" data-view="profile" style="margin-left:44px;margin-right:44px;">
             <div class="profile-page-heading">
               <span class="notice-eyebrow">DTMS · PROFILE</span>
               <h1>Hồ sơ và tổng quan cá nhân</h1>
@@ -237,7 +206,7 @@
             <div data-role-dashboard-mount></div>
           </section>
 
-          <section class="os-view is-active" data-view="management">
+          <section class="os-view is-active" data-view="management" style="margin-left:44px;margin-right:44px;">
             <!-- Header bar of Management Studio -->
             <div class="mgmt-top-header">
               <div class="mgmt-header-title">
@@ -246,22 +215,6 @@
                   Bàn làm việc · Nghiệp vụ đào tạo
                 </h2>
                 <p>Nền tảng số hóa quản trị đầy đủ các quy trình học vụ, chuyên đề, tiến độ, thẩm định công bố WoS/Scopus và cấp bằng Tiến sĩ theo Thông tư 18/2021/TT-BGDĐT.</p>
-              </div>
-
-              <!-- Active user card in management -->
-              <div class="mgmt-user-badge-group">
-                <div class="active-user-card" id="mgmt-active-user-display" onclick="DTMS_MANAGEMENT.openModal('modal-role-switcher')" style="cursor:pointer;" title="Nhấp để đổi vai trò đăng nhập">
-                  <div class="active-user-avatar">NB</div>
-                  <div class="active-user-info">
-                    <strong>NCS. Nguyễn Văn Bình</strong>
-                    <span>Nghiên cứu sinh Khóa 2023 · Khoa NN-TNTN</span>
-                  </div>
-                  <span class="role-pill-badge">NCS</span>
-                </div>
-
-                <button class="btn-mgmt btn-mgmt-outline-blue btn-mgmt-sm" onclick="DTMS_MANAGEMENT.openModal('modal-role-switcher')">
-                  ⇄ Đổi Vai trò
-                </button>
               </div>
             </div>
 
@@ -420,36 +373,36 @@
                       <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                       1. Thông tin Cá nhân Nghiên cứu sinh
                     </h3>
-                    <span class="status-pill is-success">Hồ sơ học vụ</span>
+                    <span class="status-pill">Chưa có dữ liệu</span>
                   </div>
 
                   <div class="mgmt-detail-row">
                     <span>Họ và tên:</span>
-                    <strong id="profile-display-name">NCS. Nguyễn Văn Bình</strong>
+                    <strong id="profile-display-name">—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Ngày sinh & Giới tính:</span>
-                    <span>18/06/1993 · Nam</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Số CCCD / Định danh:</span>
-                    <span>089093001234 (Cấp ngày: 12/03/2021)</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Số điện thoại:</span>
-                    <strong id="profile-display-phone">0912.345.678</strong>
+                    <strong id="profile-display-phone">—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Email học thuật:</span>
-                    <strong id="profile-display-email">nvbinh_ncs@agu.edu.vn</strong>
+                    <strong id="profile-display-email">—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Cơ quan công tác:</span>
-                    <span id="profile-display-workplace">Viện Nghiên cứu Biến đổi Khí hậu ĐBSCL</span>
+                    <span id="profile-display-workplace">—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Địa chỉ liên hệ:</span>
-                    <span>Số 18 Ung Văn Khiêm, TP. Long Xuyên, An Giang</span>
+                    <span>—</span>
                   </div>
                 </div>
 
@@ -460,36 +413,36 @@
                       <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                       2. Hồ sơ Đào tạo & Trạng thái Học vụ
                     </h3>
-                    <span class="status-pill is-blue">Đang học tập</span>
+                    <span class="status-pill">Chưa có dữ liệu</span>
                   </div>
 
                   <div class="mgmt-detail-row">
                     <span>Mã số Nghiên cứu sinh:</span>
-                    <strong style="color:var(--uni-blue-800);">NCS-2023-ENV01</strong>
+                    <strong style="color:var(--uni-blue-800);">—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Chuyên ngành đào tạo:</span>
-                    <strong id="profile-display-major">Khoa học Môi trường (Mã: 9440301)</strong>
+                    <strong id="profile-display-major">—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Khóa tuyển sinh:</span>
-                    <span id="profile-display-cohort">Khóa 2023 (Đợt 2 - Tháng 10/2023)</span>
+                    <span id="profile-display-cohort">—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Quyết định công nhận NCS:</span>
-                    <span>Số 412/QĐ-ĐHAG ký ngày 15/10/2023</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Loại hình đào tạo:</span>
-                    <span>Tập trung liên tục (03 năm)</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Thời hạn đào tạo chuẩn:</span>
-                    <span>15/10/2023 – 15/10/2026 (theo hồ sơ đào tạo)</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Thời hạn tối đa (kể cả gia hạn):</span>
-                    <span>Thời gian tối đa: 48 tháng; đối chiếu quyết định gia hạn</span>
+                    <span>—</span>
                   </div>
                 </div>
               </div>
@@ -508,41 +461,7 @@
                       <th>Thao tác</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>NCS-2023-ENV01</strong></td>
-                      <td>NCS. Nguyễn Văn Bình</td>
-                      <td>Khoa học Môi trường</td>
-                      <td>2023-Đ2</td>
-                      <td>GS.TS. Trần Văn Hướng</td>
-                      <td><span class="status-pill is-success">Đang học bình thường</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.openModal('modal-edit-profile')">Xem & Sửa</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>NCS-2022-AGR04</strong></td>
-                      <td>NCS. Lê Thị Mai</td>
-                      <td>Trồng trọt nâng cao</td>
-                      <td>2022-Đ1</td>
-                      <td>PGS.TS. Nguyễn Thị Kim</td>
-                      <td><span class="status-pill is-warning">Gia hạn 06 tháng</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Chi tiết hồ sơ')">Xem & Sửa</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>NCS-2021-BUS02</strong></td>
-                      <td>NCS. Phạm Quốc Cường</td>
-                      <td>Quản trị Kinh doanh</td>
-                      <td>2021-Đ2</td>
-                      <td>PGS.TS. Trần Đình Lâm</td>
-                      <td><span class="status-pill is-blue">Đã bảo vệ luận án</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Chi tiết hồ sơ')">Xem & Sửa</button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody></tbody>
                 </table>
               </div>
 
@@ -571,19 +490,7 @@
                         <th>Minh chứng</th>
                       </tr>
                     </thead>
-                    <tbody id="leave-history-tbody">
-                      <tr>
-                        <td><strong>ĐN-2025-081</strong></td>
-                        <td><span class="status-pill is-purple">Gia hạn học tập</span></td>
-                        <td>06 tháng (Đến 15/04/2027)</td>
-                        <td>Đang hoàn thiện phản biện bài báo quốc tế WoS Q1</td>
-                        <td>14/09/2025</td>
-                        <td><span class="status-pill is-success">Đã duyệt (QĐ 218/QĐ-ĐHAG)</span></td>
-                        <td>
-                          <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 File đơn</button>
-                        </td>
-                      </tr>
-                    </tbody>
+                    <tbody id="leave-history-tbody"></tbody>
                   </table>
                 </div>
               </div>
@@ -650,28 +557,7 @@
                         <th>Trạng thái</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>Học phần chung & chuyên ngành</td>
-                        <td><strong>12 TC</strong></td>
-                        <td><span class="status-pill is-success">Hoàn thành 12/12</span></td>
-                      </tr>
-                      <tr>
-                        <td>Tiểu luận tổng quan</td>
-                        <td><strong>02 TC</strong></td>
-                        <td><span class="status-pill is-success">Đạt (8.77 điểm)</span></td>
-                      </tr>
-                      <tr>
-                        <td>03 Chuyên đề Tiến sĩ</td>
-                        <td><strong>06 TC</strong></td>
-                        <td><span class="status-pill is-success">Hoàn thành 3/3</span></td>
-                      </tr>
-                      <tr>
-                        <td>Nghiên cứu & Luận án Tiến sĩ</td>
-                        <td><strong>70 TC</strong></td>
-                        <td><span class="status-pill is-warning">Đang thực hiện</span></td>
-                      </tr>
-                    </tbody>
+                    <tbody></tbody>
                   </table>
                 </div>
 
@@ -691,44 +577,7 @@
                           <th>Kết quả</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td><strong>HK 1</strong></td>
-                          <td>Hoàn thành học phần nâng cao & Tiểu luận</td>
-                          <td>03/2024</td>
-                          <td><span class="status-pill is-success">Đạt 100%</span></td>
-                        </tr>
-                        <tr>
-                          <td><strong>HK 2</strong></td>
-                          <td>Bảo vệ Đề cương & Chuyên đề 1</td>
-                          <td>09/2024</td>
-                          <td><span class="status-pill is-success">Đạt 100%</span></td>
-                        </tr>
-                        <tr>
-                          <td><strong>HK 3</strong></td>
-                          <td>Bảo vệ Chuyên đề 2 & Nộp bài báo 1</td>
-                          <td>03/2025</td>
-                          <td><span class="status-pill is-success">Đạt 100%</span></td>
-                        </tr>
-                        <tr>
-                          <td><strong>HK 4</strong></td>
-                          <td>Chuyên đề 3 & Xuất bản Scopus Q1</td>
-                          <td>09/2025</td>
-                          <td><span class="status-pill is-blue">Đang thực hiện (85%)</span></td>
-                        </tr>
-                        <tr>
-                          <td><strong>HK 5</strong></td>
-                          <td>Trình Bộ môn & Phản biện độc lập</td>
-                          <td>03/2026</td>
-                          <td><span class="status-pill is-warning">Kế hoạch</span></td>
-                        </tr>
-                        <tr>
-                          <td><strong>HK 6</strong></td>
-                          <td>Bảo vệ Luận án cấp Trường & Cấp bằng</td>
-                          <td>09/2026</td>
-                          <td><span class="status-pill is-warning">Kế hoạch</span></td>
-                        </tr>
-                      </tbody>
+                      <tbody></tbody>
                     </table>
                   </div>
                 </div>
@@ -797,41 +646,7 @@
                       <th>Thao tác</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>GS.TS. Trần Văn Hướng</strong></td>
-                      <td>Giáo sư · Tiến sĩ</td>
-                      <td>Khoa Nông nghiệp - TNTN (Trường ĐHAG)</td>
-                      <td>Công nghệ xử lý nước & sinh thái vùng lũ</td>
-                      <td><strong>2 / 3 NCS</strong></td>
-                      <td><span class="status-pill is-success">Hợp lệ (Còn 1 chỉ tiêu)</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-supervisor-detail>Chi tiết</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>PGS.TS. Lê Văn Tuấn</strong></td>
-                      <td>Phó Giáo sư · Tiến sĩ</td>
-                      <td>Trường ĐH Khoa học Tự nhiên ĐHQG-HCM</td>
-                      <td>Hóa học Môi trường & Màng sinh học</td>
-                      <td><strong>2 / 2 NCS</strong></td>
-                      <td><span class="status-pill is-warning">Đạt ngưỡng định mức</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-supervisor-detail>Chi tiết</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>TS. Nguyễn Hải Nam</strong></td>
-                      <td>Tiến sĩ (5 năm kinh nghiệm)</td>
-                      <td>Viện Môi trường & Tài nguyên ĐHQG-HCM</td>
-                      <td>Kinh tế tuần hoàn trong nông nghiệp</td>
-                      <td><strong>1 / 1 NCS</strong></td>
-                      <td><span class="status-pill is-warning">Đạt ngưỡng định mức</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-supervisor-detail>Chi tiết</button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody></tbody>
                 </table>
               </div>
             </div>
@@ -897,65 +712,7 @@
                       <th>Trạng thái / Đăng ký</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>ENV801</strong></td>
-                      <td>Phương pháp nghiên cứu khoa học nâng cao</td>
-                      <td>3 TC</td>
-                      <td>GS.TS. Trần Văn Hướng</td>
-                      <td>9.0</td>
-                      <td>8.8</td>
-                      <td><strong>8.86</strong></td>
-                      <td><span class="role-pill-badge">A</span></td>
-                      <td><span class="status-pill is-success">Đã hoàn thành</span></td>
-                    </tr>
-                    <tr>
-                      <td><strong>ENV802</strong></td>
-                      <td>Độc học môi trường và an toàn sinh thái</td>
-                      <td>3 TC</td>
-                      <td>PGS.TS. Lê Văn Tuấn</td>
-                      <td>8.5</td>
-                      <td>9.0</td>
-                      <td><strong>8.85</strong></td>
-                      <td><span class="role-pill-badge">A</span></td>
-                      <td><span class="status-pill is-success">Đã hoàn thành</span></td>
-                    </tr>
-                    <tr>
-                      <td><strong>ENV803</strong></td>
-                      <td>Quản lý chất thải rắn & công nghệ tuần hoàn</td>
-                      <td>3 TC</td>
-                      <td>TS. Nguyễn Hải Nam</td>
-                      <td>9.0</td>
-                      <td>8.5</td>
-                      <td><strong>8.65</strong></td>
-                      <td><span class="role-pill-badge">B+</span></td>
-                      <td><span class="status-pill is-success">Đã hoàn thành</span></td>
-                    </tr>
-                    <tr>
-                      <td><strong>ENV804</strong></td>
-                      <td>Mô hình hóa các quá trình môi trường</td>
-                      <td>3 TC</td>
-                      <td>TS. Lê Hoàng Nam</td>
-                      <td>9.5</td>
-                      <td>9.0</td>
-                      <td><strong>9.15</strong></td>
-                      <td><span class="role-pill-badge">A+</span></td>
-                      <td><span class="status-pill is-success">Đã hoàn thành</span></td>
-                    </tr>
-                    <tr>
-                      <td><strong>ENV809</strong></td>
-                      <td>Chuyên đề chọn lọc: Kinh tế sinh thái ĐBSCL (Tự chọn)</td>
-                      <td>3 TC</td>
-                      <td>PGS.TS. Nguyễn Thị Kim</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.handleToggleCourse('ENV809', this)">+ Đăng ký</button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody></tbody>
                 </table>
               </div>
 
@@ -996,36 +753,36 @@
                 <div class="mgmt-card">
                   <div class="mgmt-card-header">
                     <h3>1. Tiểu luận Tổng quan (Literature Review)</h3>
-                    <span class="status-pill is-success">Đã bảo vệ (Đạt)</span>
+                    <span class="status-pill">Chưa có dữ liệu</span>
                   </div>
 
                   <div class="mgmt-detail-row">
                     <span>Tên tiểu luận:</span>
-                    <strong>Tổng quan các giải pháp sinh học xử lý nước thải chăn nuôi lợn tại vùng Mekong</strong>
+                    <strong>—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Ngày bảo vệ trước Bộ môn:</span>
-                    <span>15/02/2024</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
-                    <span>Điểm Cán bộ chấm 1 (GS.TS Trần Văn Hướng):</span>
-                    <span>8.5 / 10</span>
+                    <span>Điểm Cán bộ chấm 1:</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
-                    <span>Điểm Cán bộ chấm 2 (TS. Lê Hoàng Nam):</span>
-                    <span>9.0 / 10</span>
+                    <span>Điểm Cán bộ chấm 2:</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
-                    <span>Điểm Cán bộ chấm 3 (TS. Nguyễn Hải Nam):</span>
-                    <span>8.8 / 10</span>
+                    <span>Điểm Cán bộ chấm 3:</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Điểm trung bình thống nhất:</span>
-                    <strong style="color:var(--uni-blue-800); font-size:1.1rem;" id="essay-avg-score">8.77 / 10</strong>
+                    <strong style="color:var(--uni-blue-800); font-size:1.1rem;" id="essay-avg-score">—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Biên bản đánh giá Tiểu luận:</span>
-                    <span>Số BB-TL01/ĐHAG (Đã ký số)</span>
+                    <span>—</span>
                   </div>
                   <div style="margin-top:14px; display:flex; gap:8px;">
                     <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Tải Tiểu luận</button>
@@ -1038,28 +795,28 @@
                 <div class="mgmt-card">
                   <div class="mgmt-card-header">
                     <h3>2. Đề cương Chi tiết & Bản Giải trình Chỉnh sửa</h3>
-                    <span class="status-pill is-success">Đã thông qua chính thức</span>
+                    <span class="status-pill">Chưa có dữ liệu</span>
                   </div>
 
                   <div class="mgmt-detail-row">
                     <span>Tên đề cương nghiên cứu:</span>
-                    <strong>Nghiên cứu giải pháp công nghệ sinh học tích hợp xử lý nước thải chăn nuôi lợn...</strong>
+                    <strong>—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Ngày bảo vệ Đề cương:</span>
-                    <span>18/04/2024 (Hội đồng 05 thành viên)</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Kết quả bỏ phiếu:</span>
-                    <strong>5/5 Phiếu Tán thành (100%)</strong>
+                    <strong>—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Bản giải trình tiếp thu góp ý:</span>
-                    <span>Đã nộp ngày 02/05/2024 (Chủ tịch HĐ xác nhận đạt)</span>
+                    <span>—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Quyết định giao đề tài chính thức:</span>
-                    <span>Số 289/QĐ-ĐHAG ký ngày 20/05/2024</span>
+                    <span>—</span>
                   </div>
                   <div style="margin-top:14px; display:flex; gap:8px;">
                     <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📑 Tải Đề cương</button>
@@ -1101,61 +858,11 @@
                       <th>Thao tác</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Chuyên đề 1</strong></td>
-                      <td>Đánh giá hiện trạng ô nhiễm nguồn nước mặt nông thôn ĐBSCL do chăn nuôi</td>
-                      <td>2 TC</td>
-                      <td>GS.TS. Trần Văn Hướng</td>
-                      <td>12/08/2024</td>
-                      <td><strong id="topic-score-1">9.0/10</strong></td>
-                      <td><span class="status-pill is-success" id="topic-status-1">Đã đánh giá (Đạt)</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeTopic(1)">✎ Chấm điểm</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Biên bản</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>Chuyên đề 2</strong></td>
-                      <td>Ứng dụng công nghệ màng sinh học và thực vật thủy sinh xử lý nước thải</td>
-                      <td>2 TC</td>
-                      <td>PGS.TS. Lê Văn Tuấn</td>
-                      <td>15/01/2025</td>
-                      <td><strong id="topic-score-2">8.8/10</strong></td>
-                      <td><span class="status-pill is-success" id="topic-status-2">Đã đánh giá (Đạt)</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeTopic(2)">✎ Chấm điểm</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Biên bản</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>Chuyên đề 3</strong></td>
-                      <td>Đánh giá vòng đời (LCA) và hiệu quả kinh tế - kỹ thuật của mô hình xử lý</td>
-                      <td>2 TC</td>
-                      <td>TS. Nguyễn Hải Nam</td>
-                      <td>20/06/2025</td>
-                      <td><strong id="topic-score-3">9.2/10</strong></td>
-                      <td><span class="status-pill is-success" id="topic-status-3">Đã đánh giá (Đạt)</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeTopic(3)">✎ Chấm điểm</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Biên bản</button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody></tbody>
                 </table>
               </div>
               <div class="grade-history" data-topic-grade-history aria-live="polite"></div>
 
-              <!-- Topic completion banner -->
-              <div class="mgmt-card" style="background:#ecfdf5; border:1px solid #a7f3d0;">
-                <div style="display:flex; align-items:center; gap:14px;">
-                  <span style="width:36px; height:36px; border-radius:50%; background:#059669; color:#fff; display:grid; place-items:center; font-weight:800;">✓</span>
-                  <div>
-                    <h4 style="margin:0 0 2px 0; color:#065f46; font-size:1.05rem;">Hoàn thành 100% Khối lượng 03 Chuyên đề Tiến sĩ</h4>
-                    <p style="margin:0; font-size:0.84rem; color:#047857;">Tổng số tín chỉ chuyên đề: 6/6 TC. Điểm trung bình chuyên đề: 9.0/10. Biên bản đã lưu trữ đầy đủ tại Khoa và Phòng Đào tạo.</p>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <!-- MODULE 07: QUẢN LÝ TIẾN ĐỘ NGHIÊN CỨU & CẢNH BÁO QUÁ HẠN -->
@@ -1175,21 +882,6 @@
                 </div>
               </div>
 
-              <!-- Overdue Alert Warning Box -->
-              <div class="mgmt-card" style="margin-bottom:20px; background:#fef2f2; border:1px solid #fecaca;">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-                  <div style="display:flex; align-items:center; gap:12px;">
-                    <span style="font-size:1.6rem;">⚠️</span>
-                    <div>
-                      <strong style="color:#991b1b; display:block;">HỆ THỐNG CẢNH BÁO TIẾN ĐỘ TỰ ĐỘNG (OVERDUE DETECTOR)</strong>
-                      <span style="color:#b91c1c; font-size:0.84rem;">NCS. Lê Văn Hải (Mã: NCS-2022-AGR02) đã quá hạn nộp Báo cáo Tiến độ Kỳ 4 là 18 ngày!</span>
-                    </div>
-                  </div>
-                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-danger" onclick="DTMS_MANAGEMENT.queueReminder()">
-                    Nhắc nhở ngay
-                  </button>
-                </div>
-              </div>
 
               <!-- 6-Month Progress Reports Table -->
               <div class="mgmt-table-wrapper">
@@ -1205,56 +897,7 @@
                       <th>Thao tác</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Kỳ 1</strong></td>
-                      <td>10/2023 – 04/2024</td>
-                      <td>Học phần tiến sĩ & Thu thập mẫu ban đầu</td>
-                      <td>10/04/2024</td>
-                      <td><span class="status-pill is-success" id="progress-status-period-1">Đạt tiến độ</span></td>
-                      <td id="progress-comment-period-1">NCS chủ động, hoàn thành tốt các môn học nâng cao.</td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeProgressReport(1, 'pass')">Đạt</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">File</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>Kỳ 2</strong></td>
-                      <td>04/2024 – 10/2024</td>
-                      <td>Bảo vệ đề cương & Vận hành mô hình lab 1</td>
-                      <td>08/10/2024</td>
-                      <td><span class="status-pill is-success" id="progress-status-period-2">Đạt tiến độ</span></td>
-                      <td id="progress-comment-period-2">Số liệu thí nghiệm đạt độ tin cậy, hoàn thành CĐ 1.</td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeProgressReport(2, 'pass')">Đạt</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">File</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>Kỳ 3</strong></td>
-                      <td>10/2024 – 04/2025</td>
-                      <td>Phân tích hóa lý, viết bản thảo bài báo quốc tế 1</td>
-                      <td>12/04/2025</td>
-                      <td><span class="status-pill is-success" id="progress-status-period-3">Đạt tiến độ</span></td>
-                      <td id="progress-comment-period-3">Bài báo 1 đã nộp vào tạp chí Water Research (Scopus Q1).</td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeProgressReport(3, 'pass')">Đạt</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">File</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>Kỳ 4</strong></td>
-                      <td>04/2025 – 10/2025</td>
-                      <td>Đánh giá mô hình thực địa & Viết bài báo 2</td>
-                      <td>25/09/2025</td>
-                      <td><span class="status-pill is-success" id="progress-status-period-4">Đạt tiến độ</span></td>
-                      <td id="progress-comment-period-4">Đã hoàn thành phân tích LCA, chuẩn bị viết toàn văn luận án.</td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.handleGradeProgressReport(4, 'pass')">Đạt</button>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">File</button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody></tbody>
                 </table>
               </div>
               <div class="grade-history" data-progress-review-history aria-live="polite"></div>
@@ -1303,34 +946,7 @@
                       <th>Thao tác</th>
                     </tr>
                   </thead>
-                  <tbody id="pub-table-tbody">
-                    <tr>
-                      <td>
-                        <strong>Performance of integrated bio-filter and constructed wetland for piggery wastewater treatment in the Mekong Delta</strong><br/>
-                        <span style="font-size:0.75rem; color:var(--text-muted); font-family:monospace;">DOI: 10.1016/j.envsci.2025.109824</span>
-                      </td>
-                      <td>Environmental Science & Pollution Research<br/><span style="font-size:0.75rem; color:var(--text-muted);">ISSN: 0944-1344</span></td>
-                      <td><span class="status-pill is-blue">WoS (SCIE) · Q1</span></td>
-                      <td>Tác giả chính (1st Author)</td>
-                      <td><span class="status-pill is-success">Đã thẩm định hợp lệ</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Minh chứng</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Life cycle assessment of decentralized domestic and livestock wastewater solutions in rural Southwest Vietnam</strong><br/>
-                        <span style="font-size:0.75rem; color:var(--text-muted); font-family:monospace;">DOI: 10.1016/j.jclepro.2025.141201</span>
-                      </td>
-                      <td>Journal of Cleaner Production<br/><span style="font-size:0.75rem; color:var(--text-muted);">ISSN: 0959-6526</span></td>
-                      <td><span class="status-pill is-blue">Scopus · Q2</span></td>
-                      <td>Tác giả liên hệ (Corresponding)</td>
-                      <td><span class="status-pill is-success">Đã thẩm định hợp lệ</span></td>
-                      <td>
-                        <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Minh chứng</button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody id="pub-table-tbody"></tbody>
                 </table>
               </div>
             </div>
@@ -1381,7 +997,7 @@
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Người hướng dẫn chính:</span>
-                    <strong>GS.TS. Trần Văn Hướng (ĐH An Giang)</strong>
+                    <strong>—</strong>
                   </div>
                 </div>
 
@@ -1440,32 +1056,7 @@
                         <th>Thao tác</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td><strong>v1.0</strong></td>
-                        <td>Bản thảo trình Bộ môn</td>
-                        <td>15/10/2025</td>
-                        <td>14.2 MB (PDF)</td>
-                        <td>Bản thảo phục vụ sinh hoạt chuyên môn Bộ môn</td>
-                        <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Tải về</button></td>
-                      </tr>
-                      <tr>
-                        <td><strong>v2.0</strong></td>
-                        <td>Bản gửi Phản biện độc lập</td>
-                        <td>15/11/2025</td>
-                        <td>15.6 MB (PDF)</td>
-                        <td>Bản đã tiếp thu ý kiến của Bộ môn gửi 02 Phản biện độc lập</td>
-                        <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Tải về</button></td>
-                      </tr>
-                      <tr>
-                        <td><strong>v3.0</strong></td>
-                        <td>Bản bảo vệ chính thức cấp Trường</td>
-                        <td>10/01/2026</td>
-                        <td>16.1 MB (PDF)</td>
-                        <td>Bản in chính thức phục vụ Hội đồng Đánh giá luận án</td>
-                        <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Tải bản chính</button></td>
-                      </tr>
-                    </tbody>
+                    <tbody></tbody>
                   </table>
                 </div>
               </div>
@@ -1513,20 +1104,7 @@
                           <th>Kết luận</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td><strong>PB-ĐL-01</strong></td>
-                          <td>Chuyên gia ngoài trường (ĐHQG-HCM)</td>
-                          <td>25/11/2025</td>
-                          <td><span class="status-pill is-success">Đồng ý cho bảo vệ</span></td>
-                        </tr>
-                        <tr>
-                          <td><strong>PB-ĐL-02</strong></td>
-                          <td>Chuyên gia đầu ngành (ĐH Cần Thơ)</td>
-                          <td>28/11/2025</td>
-                          <td><span class="status-pill is-success">Đồng ý cho bảo vệ</span></td>
-                        </tr>
-                      </tbody>
+                      <tbody></tbody>
                     </table>
                   </div>
                 </div>
@@ -1577,57 +1155,7 @@
                         <th>Đánh giá bỏ phiếu</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td><span class="role-pill-badge" style="background:#dbeafe; color:#1e40af;">Chủ tịch</span></td>
-                        <td><strong>PGS.TS. Võ Văn Thắng</strong></td>
-                        <td>Phó Giáo sư · Tiến sĩ</td>
-                        <td>Trường Đại học An Giang</td>
-                        <td><span class="status-pill is-success">Tán thành (Xuất sắc)</span></td>
-                      </tr>
-                      <tr>
-                        <td><span class="role-pill-badge" style="background:#fef3c7; color:#92400e;">Phản biện 1</span></td>
-                        <td><strong>PGS.TS. Trần Đình Lâm</strong></td>
-                        <td>Phó Giáo sư · Tiến sĩ</td>
-                        <td>Trường ĐH Bách Khoa ĐHQG-HCM</td>
-                        <td><span class="status-pill is-success">Tán thành (Xuất sắc)</span></td>
-                      </tr>
-                      <tr>
-                        <td><span class="role-pill-badge" style="background:#fef3c7; color:#92400e;">Phản biện 2</span></td>
-                        <td><strong>PGS.TS. Nguyễn Văn Toàn</strong></td>
-                        <td>Phó Giáo sư · Tiến sĩ</td>
-                        <td>Trường Đại học Cần Thơ</td>
-                        <td><span class="status-pill is-success">Tán thành (Đạt)</span></td>
-                      </tr>
-                      <tr>
-                        <td><span class="role-pill-badge" style="background:#f3e8ff; color:#6b21a8;">Phản biện 3</span></td>
-                        <td><strong>TS. Hoàng Minh Quân</strong></td>
-                        <td>Tiến sĩ</td>
-                        <td>Viện Môi trường ĐHQG-HCM</td>
-                        <td><span class="status-pill is-success">Tán thành (Xuất sắc)</span></td>
-                      </tr>
-                      <tr>
-                        <td><span class="role-pill-badge" style="background:#e0e7ff; color:#3730a3;">Thư ký</span></td>
-                        <td><strong>TS. Lê Hoàng Nam</strong></td>
-                        <td>Tiến sĩ</td>
-                        <td>Trường Đại học An Giang</td>
-                        <td><span class="status-pill is-success">Tán thành (Xuất sắc)</span></td>
-                      </tr>
-                      <tr>
-                        <td><span class="role-pill-badge">Ủy viên</span></td>
-                        <td><strong>TS. Vũ Đức Toàn</strong></td>
-                        <td>Tiến sĩ</td>
-                        <td>Trường ĐH Bách Khoa ĐHQG-HCM</td>
-                        <td><span class="status-pill is-success">Tán thành (Đạt)</span></td>
-                      </tr>
-                      <tr>
-                        <td><span class="role-pill-badge">Ủy viên</span></td>
-                        <td><strong>PGS.TS. Nguyễn Thị Kim</strong></td>
-                        <td>Phó Giáo sư · Tiến sĩ</td>
-                        <td>Trường Đại học An Giang</td>
-                        <td><span class="status-pill is-success">Tán thành (Xuất sắc)</span></td>
-                      </tr>
-                    </tbody>
+                    <tbody></tbody>
                   </table>
                 </div>
               </div>
@@ -1659,7 +1187,7 @@
                   <div>
                     <span style="font-size:0.75rem; font-weight:800; color:#b45309; text-transform:uppercase;">VĂN BẰNG TIẾN SĨ CHÍNH THỨC (DOCTOR OF PHILOSOPHY)</span>
                     <h4 style="margin:4px 0 0 0; color:#92400e; font-size:1.35rem;">
-                      Công Nhận Học Vị &amp; Cấp Bằng Tiến Sĩ cho NCS. Nguyễn Văn Bình
+                      Công Nhận Học Vị &amp; Cấp Bằng Tiến Sĩ cho —
                     </h4>
                     <p style="margin:4px 0 0 0; font-size:0.85rem; color:#b45309;">
                       Số hiệu văn bằng: <strong>TS-AGU-2026-089</strong> · Số vào sổ gốc: <strong>SG-TS-2026-012</strong> · Quyết định: <strong>128/QĐ-ĐHAG</strong>
@@ -1758,48 +1286,7 @@
                       <th>Thao tác</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>BD-2025-01</strong></td>
-                      <td>NCS. Lê Thị Mai</td>
-                      <td><span class="status-pill is-purple">Gia hạn thời gian</span></td>
-                      <td>Gia hạn thêm 06 tháng để hoàn thiện công bố quốc tế</td>
-                      <td>12/03/2025</td>
-                      <td>QĐ số 118/QĐ-ĐHAG</td>
-                      <td><span class="status-pill is-success">Đã ban hành QĐ</span></td>
-                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Xem QĐ</button></td>
-                    </tr>
-                    <tr>
-                      <td><strong>BD-2024-04</strong></td>
-                      <td>NCS. Nguyễn Văn Bình</td>
-                      <td><span class="status-pill is-blue">Đổi tên đề tài</span></td>
-                      <td>Bổ sung cụm từ "và thu hồi năng lượng tái tạo" vào tên đề tài</td>
-                      <td>15/04/2024</td>
-                      <td>QĐ số 289/QĐ-ĐHAG</td>
-                      <td><span class="status-pill is-success">Đã phê duyệt</span></td>
-                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Biên bản</button></td>
-                    </tr>
-                    <tr>
-                      <td><strong>BD-2024-09</strong></td>
-                      <td>NCS. Trần Hoàng Nam</td>
-                      <td><span class="status-pill is-warning">Tạm dừng học tập</span></td>
-                      <td>Tạm dừng 01 học kỳ vì lý do sức khỏe và điều trị y tế</td>
-                      <td>20/09/2024</td>
-                      <td>QĐ số 402/QĐ-ĐHAG</td>
-                      <td><span class="status-pill is-success">Đã tiếp nhận lại</span></td>
-                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Chi tiết</button></td>
-                    </tr>
-                    <tr>
-                      <td><strong>BD-2023-02</strong></td>
-                      <td>NCS. Phạm Văn Hùng</td>
-                      <td><span class="status-pill is-danger">Buộc thôi học</span></td>
-                      <td>Quá thời hạn đào tạo tối đa 06 năm không hoàn thành luận án</td>
-                      <td>10/11/2023</td>
-                      <td>QĐ số 512/QĐ-ĐHAG</td>
-                      <td><span class="status-pill is-danger">Đã thôi học</span></td>
-                      <td><button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">Xem QĐ</button></td>
-                    </tr>
-                  </tbody>
+                  <tbody></tbody>
                 </table>
               </div>
             </div>
@@ -1835,7 +1322,7 @@
                 </div>
 
                 <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px;">
-                  <input type="text" class="mgmt-input-search" id="quick-degree-input" aria-label="Mã văn bằng cần tra cứu" placeholder="Nhập Số hiệu bằng (TS-AGU-2026-089) hoặc Họ tên..." value="TS-AGU-2026-089" style="max-width:350px;" />
+                  <input type="text" class="mgmt-input-search" id="quick-degree-input" aria-label="Mã văn bằng cần tra cứu" placeholder="Nhập Số hiệu bằng (TS-AGU-2026-089) hoặc Họ tên..." style="max-width:350px;" />
                   <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openDegreeLookup(document.getElementById('quick-degree-input').value)">
                     🔍 Tra cứu ngay
                   </button>
@@ -1938,9 +1425,6 @@
                 </div>
                 <div style="display:flex; gap:10px;">
                   <button class="btn-mgmt btn-mgmt-outline-danger" data-role-admin-action onclick="DTMS_MANAGEMENT.resetWorkspaceData()" title="Khôi phục dữ liệu khởi tạo">🔄 Khôi phục dữ liệu</button>
-                  <button class="btn-mgmt btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.openModal('modal-role-switcher')">
-                    ⇄ Chuyển đổi vai trò làm việc
-                  </button>
                   <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.handleExportAuditLog()">
                     📥 Xuất Audit Log (CSV)
                   </button>
@@ -1967,62 +1451,7 @@
                         <th>Cấp Bằng &amp; Quyết định</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td><strong>NCS (Nghiên cứu sinh)</strong></td>
-                        <td><span class="status-pill is-success">Xem / Tạo đơn</span></td>
-                        <td><span class="status-pill is-success">Đăng ký / Xem</span></td>
-                        <td><span class="status-pill is-success">Nộp bản thảo</span></td>
-                        <td><span class="status-pill is-success">Khai báo / Upload</span></td>
-                        <td><span class="status-pill is-success">Nộp luận án</span></td>
-                        <td><span class="status-pill is-blue">Tra cứu / Nhận bằng</span></td>
-                      </tr>
-                      <tr>
-                        <td><strong>NHD (Người hướng dẫn)</strong></td>
-                        <td><span class="status-pill is-success">Duyệt kế hoạch</span></td>
-                        <td><span class="status-pill is-blue">Xem điểm</span></td>
-                        <td><span class="status-pill is-success">Đánh giá Đạt/Không</span></td>
-                        <td><span class="status-pill is-success">Xác nhận bài báo</span></td>
-                        <td><span class="status-pill is-success">Ký số cho bảo vệ</span></td>
-                        <td><span class="status-pill is-blue">Xem hồ sơ</span></td>
-                      </tr>
-                      <tr>
-                        <td><strong>BM (Trưởng Bộ môn)</strong></td>
-                        <td><span class="status-pill is-blue">Xem hồ sơ</span></td>
-                        <td><span class="status-pill is-blue">Xem kết quả</span></td>
-                        <td><span class="status-pill is-success">Tổ chức chấm CĐ</span></td>
-                        <td><span class="status-pill is-blue">Thẩm tra nội dung</span></td>
-                        <td><span class="status-pill is-success">Thông qua cấp BM</span></td>
-                        <td><span class="status-pill is-blue">Xem quyết nghị</span></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Khoa (Ban Chủ nhiệm Khoa)</strong></td>
-                        <td><span class="status-pill is-success">Duyệt đơn gia hạn</span></td>
-                        <td><span class="status-pill is-blue">Quản lý toàn khoa</span></td>
-                        <td><span class="status-pill is-success">Phê duyệt kết quả</span></td>
-                        <td><span class="status-pill is-success">Xác nhận điều kiện</span></td>
-                        <td><span class="status-pill is-success">Đề xuất Hội đồng</span></td>
-                        <td><span class="status-pill is-blue">Theo dõi cấp bằng</span></td>
-                      </tr>
-                      <tr>
-                        <td><strong>PĐT (Phòng Đào tạo SĐH)</strong></td>
-                        <td><span class="status-pill is-success">Quản trị toàn bộ</span></td>
-                        <td><span class="status-pill is-success">Quản lý tín chỉ</span></td>
-                        <td><span class="status-pill is-success">Lưu trữ biên bản</span></td>
-                        <td><span class="status-pill is-success">Thẩm định WoS</span></td>
-                        <td><span class="status-pill is-success">Phản biện độc lập</span></td>
-                        <td><span class="status-pill is-success">Quản lý Sổ gốc</span></td>
-                      </tr>
-                      <tr>
-                        <td><strong>BGH (Ban Giám hiệu)</strong></td>
-                        <td><span class="status-pill is-success">Ký QĐ trúng tuyển</span></td>
-                        <td><span class="status-pill is-blue">Giám sát chất lượng</span></td>
-                        <td><span class="status-pill is-blue">Xem báo cáo</span></td>
-                        <td><span class="status-pill is-blue">Xem thống kê</span></td>
-                        <td><span class="status-pill is-success">Ký QĐ Hội đồng</span></td>
-                        <td><span class="status-pill is-success">Ký QĐ Cấp Bằng</span></td>
-                      </tr>
-                    </tbody>
+                    <tbody></tbody>
                   </table>
                 </div>
               </div>
@@ -2049,9 +1478,7 @@
                         <th>Trạng thái</th>
                       </tr>
                     </thead>
-                    <tbody id="audit-log-tbody">
-                      <!-- Rendered dynamically by DTMS_MANAGEMENT -->
-                    </tbody>
+                    <tbody id="audit-log-tbody"></tbody>
                   </table>
                 </div>
               </div>
@@ -2059,22 +1486,8 @@
 
           </section>
 
-          <!-- 03. ĐỐI TƯỢNG (ROLES VIEW - 7 PERSONAS) -->
-          <section class="os-view" data-view="roles">
-            <div>
-              <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">PERSONA WORKSPACE STUDIO</span>
-              <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="roles_title">Đối tượng & Bàn làm việc 07 Vai trò</h2>
-              <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;" data-i18n="roles_subtitle">Trực quan hóa chỉ số tải trọng công việc và danh mục nhiệm vụ chính cho từng cá nhân, đơn vị.</p>
-            </div>
-
-            <div class="persona-grid">
-              <div class="persona-nav-list" data-persona-nav></div>
-              <div class="persona-workspace-display" data-persona-display></div>
-            </div>
-          </section>
-
           <!-- 04. QUY TRÌNH (ROADMAP VIEW) -->
-          <section class="os-view" data-view="roadmap">
+          <section class="os-view" data-view="roadmap" style="margin-left:44px;margin-right:44px;">
             <div>
               <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">ROADMAP STAGE GRAPH</span>
               <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="roadmap_title">Quy trình Lộ trình 06 Giai đoạn</h2>
@@ -2086,36 +1499,17 @@
           </section>
 
           <!-- THÔNG BÁO CHUNG CẤP ĐÀO TẠO TIẾN SĨ -->
-          <section class="os-view" data-view="notifications">
+          <section class="os-view" data-view="notifications" style="margin-left:44px;margin-right:44px;">
             <div class="notice-page-heading">
               <span class="notice-eyebrow">DTMS · CẤP ĐÀO TẠO TIẾN SĨ</span>
               <h2>Thông báo chung</h2>
               <p>Các thông tin và mốc thời gian áp dụng chung cho nghiên cứu sinh và các đơn vị tham gia đào tạo.</p>
             </div>
-            <div class="notice-list">
-              <article class="notice-card notice-card-featured">
-                <span class="notice-tag">LỊCH HỌC VỤ <time>09/10/2026</time></span>
-                <h3>Tiếp nhận báo cáo tiến độ nghiên cứu sinh học kỳ I</h3>
-                <p>Nghiên cứu sinh cập nhật tiến độ và minh chứng trên bàn làm việc; người hướng dẫn rà soát trước khi gửi về Phòng Đào tạo.</p>
-                <div class="notice-meta"><span>Phòng Đào tạo Sau đại học</span><strong>Hạn gửi: 30/10/2026</strong></div>
-              </article>
-              <article class="notice-card">
-                <span class="notice-tag">NHẮC VIỆC <time>06/10/2026</time></span>
-                <h3>Rà soát kế hoạch học tập và nghiên cứu năm học 2026–2027</h3>
-                <p>Các đơn vị kiểm tra kế hoạch, học phần còn thiếu và lịch dự kiến thực hiện chuyên đề của từng nghiên cứu sinh.</p>
-                <div class="notice-meta"><span>Phòng Đào tạo Sau đại học</span><strong>Áp dụng toàn cấp học</strong></div>
-              </article>
-              <article class="notice-card">
-                <span class="notice-tag">THÔNG TIN <time>01/10/2026</time></span>
-                <h3>Cập nhật hướng dẫn nộp hồ sơ và minh chứng điện tử</h3>
-                <p>Vui lòng sử dụng đúng biểu mẫu tại các phân hệ tương ứng. Tệp đính kèm cần ghi rõ mã nghiên cứu sinh và loại hồ sơ.</p>
-                <div class="notice-meta"><span>Trung tâm Quản lý Đào tạo NCS</span><strong>Đang áp dụng</strong></div>
-              </article>
-            </div>
+            <div class="notice-list"></div>
           </section>
 
           <!-- 05. CÔNG KHAI: KHO LUẬN ÁN TIẾN SĨ -->
-          <section class="os-view" data-view="public">
+          <section class="os-view" data-view="public" style="margin-left:44px;margin-right:44px;">
             <div style="margin-bottom:28px;">
               <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">PUBLIC DOCTORAL THESES</span>
               <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="public_title">Kho Luận án Tiến sĩ Công khai</h2>
@@ -2136,7 +1530,7 @@
           </section>
 
           <!-- 06. TRA CỨU VĂN BẰNG: CONSOLE 3D -->
-          <section class="os-view" data-view="lookup">
+          <section class="os-view" data-view="lookup" style="margin-left:44px;margin-right:44px;">
             <div style="margin-bottom:28px;">
               <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">DEGREE VERIFICATION CONSOLE</span>
               <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="lookup_title">Console Tra cứu Phôi bằng Tiến sĩ 3D</h2>
@@ -2167,7 +1561,7 @@
           </section>
 
           <!-- 07. VĂN BẢN (CITATIONS VIEW) -->
-          <section class="os-view" data-view="citations">
+          <section class="os-view" data-view="citations" style="margin-left:44px;margin-right:44px;">
             <div style="margin-bottom:28px;">
               <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">ACADEMIC REGULATORY CITATIONS</span>
               <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="citations_title">Văn bản & Căn cứ Pháp lý</h2>
@@ -2191,7 +1585,7 @@
           </section>
 
           <!-- 07. GIỚI THIỆU (ABOUT VIEW) -->
-          <section class="os-view" data-view="about">
+          <section class="os-view" data-view="about" style="margin-left:44px;margin-right:44px;">
             <div style="margin-bottom:28px;">
               <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">SYSTEM OVERVIEW</span>
               <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="about_title">Giới thiệu Hệ thống DTMS</h2>
@@ -2225,61 +1619,6 @@
          MODALS CONTAINER (FORMS, UPLOADS, ROLE SWITCHERS, WORKFLOWS)
          ========================================================================== -->
 
-    <!-- Modal 1: Login & Role Switcher Modal -->
-    <div class="mgmt-modal" id="modal-role-switcher">
-      <div class="mgmt-modal-dialog">
-        <div class="mgmt-modal-header">
-          <h3>⇄ Bàn Làm Việc Phân Quyền (RBAC Role Switcher)</h3>
-          <button class="mgmt-modal-close" data-close-modal="modal-role-switcher">✕</button>
-        </div>
-        <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:18px;">
-          Chọn vai trò bạn muốn trải nghiệm thao tác trong hệ thống quản trị đào tạo tiến sĩ DTMS:
-        </p>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
-          <div style="padding:14px; border-radius:8px; background:var(--bg-subtle); border:1px solid var(--border-card); cursor:pointer;" onclick="DTMS_MANAGEMENT.switchRole('NCS'); DTMS_MANAGEMENT.closeModal('modal-role-switcher');">
-            <span class="role-pill-badge" style="margin-bottom:6px;">NCS</span>
-            <strong style="display:block; color:var(--uni-blue-900);">NCS. Nguyễn Văn Bình</strong>
-            <span style="font-size:0.75rem; color:var(--text-secondary);">Nghiên cứu sinh Khóa 2023</span>
-          </div>
-
-          <div style="padding:14px; border-radius:8px; background:var(--bg-subtle); border:1px solid var(--border-card); cursor:pointer;" onclick="DTMS_MANAGEMENT.switchRole('NHD'); DTMS_MANAGEMENT.closeModal('modal-role-switcher');">
-            <span class="role-pill-badge" style="margin-bottom:6px;">NHD</span>
-            <strong style="display:block; color:var(--uni-blue-900);">GS.TS. Trần Văn Hướng</strong>
-            <span style="font-size:0.75rem; color:var(--text-secondary);">Người hướng dẫn khoa học chính</span>
-          </div>
-
-          <div style="padding:14px; border-radius:8px; background:var(--bg-subtle); border:1px solid var(--border-card); cursor:pointer;" onclick="DTMS_MANAGEMENT.switchRole('BM'); DTMS_MANAGEMENT.closeModal('modal-role-switcher');">
-            <span class="role-pill-badge" style="margin-bottom:6px;">Bộ môn</span>
-            <strong style="display:block; color:var(--uni-blue-900);">TS. Lê Hoàng Nam</strong>
-            <span style="font-size:0.75rem; color:var(--text-secondary);">Trưởng Bộ môn Kỹ thuật Môi trường</span>
-          </div>
-
-          <div style="padding:14px; border-radius:8px; background:var(--bg-subtle); border:1px solid var(--border-card); cursor:pointer;" onclick="DTMS_MANAGEMENT.switchRole('KHOA'); DTMS_MANAGEMENT.closeModal('modal-role-switcher');">
-            <span class="role-pill-badge" style="margin-bottom:6px;">Khoa</span>
-            <strong style="display:block; color:var(--uni-blue-900);">PGS.TS. Nguyễn Thị Kim</strong>
-            <span style="font-size:0.75rem; color:var(--text-secondary);">Phó Trưởng Khoa Nông nghiệp - TNTN</span>
-          </div>
-
-          <div style="padding:14px; border-radius:8px; background:var(--bg-subtle); border:1px solid var(--border-card); cursor:pointer;" onclick="DTMS_MANAGEMENT.switchRole('PDT'); DTMS_MANAGEMENT.closeModal('modal-role-switcher');">
-            <span class="role-pill-badge" style="margin-bottom:6px;">Phòng Đào tạo</span>
-            <strong style="display:block; color:var(--uni-blue-900);">ThS. Phạm Minh Đăng</strong>
-            <span style="font-size:0.75rem; color:var(--text-secondary);">Chuyên viên QLĐT Sau đại học</span>
-          </div>
-
-          <div style="padding:14px; border-radius:8px; background:var(--bg-subtle); border:1px solid var(--border-card); cursor:pointer;" onclick="DTMS_MANAGEMENT.switchRole('BGH'); DTMS_MANAGEMENT.closeModal('modal-role-switcher');">
-            <span class="role-pill-badge" style="margin-bottom:6px;">Ban Giám hiệu</span>
-            <strong style="display:block; color:var(--uni-blue-900);">PGS.TS. Võ Văn Thắng</strong>
-            <span style="font-size:0.75rem; color:var(--text-secondary);">Hiệu trưởng Trường Đại học An Giang</span>
-          </div>
-
-          <div style="padding:14px; border-radius:8px; background:var(--bg-subtle); border:1px solid var(--border-card); cursor:pointer;" onclick="DTMS_MANAGEMENT.switchRole('HOIDONG'); DTMS_MANAGEMENT.closeModal('modal-role-switcher');">
-            <span class="role-pill-badge" style="margin-bottom:6px;">Hội đồng</span>
-            <strong style="display:block; color:var(--uni-blue-900);">PGS.TS. Nguyễn Minh Châu</strong>
-            <span style="font-size:0.75rem; color:var(--text-secondary);">Ủy viên Hội đồng đánh giá luận án</span>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Modal Login -->
     <div class="mgmt-modal" id="modal-login">
@@ -2291,7 +1630,7 @@
         <form id="form-login">
           <div class="mgmt-form-group">
             <label for="login-username">Email người dùng:</label>
-            <input id="login-username" type="email" value="" autocomplete="username" required />
+            <input id="login-username" type="email" autocomplete="username" required />
           </div>
           <div class="mgmt-form-group">
             <label for="login-password">Mật khẩu:</label>
@@ -2405,23 +1744,23 @@
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
               <label>Họ và tên NCS:</label>
-              <input type="text" value="Nguyễn Văn Bình" readonly style="background:#e2e8f0;" />
+              <input type="text" readonly style="background:#e2e8f0;" />
             </div>
             <div class="mgmt-form-group">
               <label>Mã số NCS:</label>
-              <input type="text" value="NCS-2023-ENV01" readonly style="background:#e2e8f0;" />
+              <input type="text" readonly style="background:#e2e8f0;" />
             </div>
             <div class="mgmt-form-group">
               <label>Số điện thoại:</label>
-              <input type="text" id="profile-phone-input" value="0912.345.678" required />
+              <input type="text" id="profile-phone-input" required />
             </div>
             <div class="mgmt-form-group">
               <label>Email liên hệ:</label>
-              <input type="email" id="profile-email-input" value="nvbinh_ncs@agu.edu.vn" required />
+              <input type="email" id="profile-email-input" required />
             </div>
             <div class="mgmt-form-group full-width">
               <label>Cơ quan công tác hiện tại:</label>
-              <input type="text" id="profile-workplace-input" value="Viện Nghiên cứu Biến đổi Khí hậu ĐBSCL" required />
+              <input type="text" id="profile-workplace-input" required />
             </div>
           </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
@@ -2482,30 +1821,25 @@
           <div class="mgmt-form-group">
             <label>Nghiên cứu sinh được phân công:</label>
             <select id="assign-ncs-select">
-              <option value="Nguyễn Văn Bình (Khoa học Môi trường)">NCS. Nguyễn Văn Bình (Khoa học Môi trường K2023)</option>
-              <option value="Lê Thị Mai (Trồng trọt)">NCS. Lê Thị Mai (Trồng trọt K2022)</option>
-              <option value="Trần Quốc Huy (Khoa học Môi trường)">NCS. Trần Quốc Huy (Khoa học Môi trường K2024)</option>
+              <option value="— (Khoa học Môi trường)">Chưa có dữ liệu</option>
+              <option value="— (Trồng trọt)">— (Trồng trọt K2022)</option>
             </select>
           </div>
           <div class="mgmt-form-group">
             <label>Người hướng dẫn 1 (Chính):</label>
             <select id="assign-nhd-main-select">
-              <option value="GS.TS. Trần Văn Hướng">GS.TS. Trần Văn Hướng (Đang hướng dẫn 2/3 - Còn 1 chỉ tiêu)</option>
-              <option value="PGS.TS. Lê Văn Tuấn">PGS.TS. Lê Văn Tuấn (Đang hướng dẫn 2/2)</option>
-              <option value="TS. Nguyễn Hải Nam">TS. Nguyễn Hải Nam (Đang hướng dẫn 1/1)</option>
+              <option value="—">— (Đang hướng dẫn 2/3 - Còn 1 chỉ tiêu)</option>
             </select>
           </div>
           <div class="mgmt-form-group">
             <label>Người hướng dẫn 2 (Đồng hướng dẫn - nếu có):</label>
             <select id="assign-nhd-sub-select">
               <option value="">Không có NHD phụ</option>
-              <option value="PGS.TS. Lê Văn Tuấn">PGS.TS. Lê Văn Tuấn (ĐH Khoa học Tự nhiên ĐHQG-HCM)</option>
-              <option value="TS. Nguyễn Hải Nam">TS. Nguyễn Hải Nam (Viện Môi trường ĐHQG-HCM)</option>
             </select>
           </div>
           <div class="mgmt-form-group">
             <label>Số Quyết định phân công của Hiệu trưởng:</label>
-            <input type="text" id="assign-decision-input" value="450/QĐ-ĐHAG" required />
+            <input type="text" id="assign-decision-input" required />
           </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
             <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-assign-supervisor">Hủy</button>
@@ -2528,32 +1862,26 @@
               <label for="essay-candidate">Nghiên cứu sinh:</label>
               <select id="essay-candidate" required>
                 <option value="">Chọn nghiên cứu sinh</option>
-                <option value="NCS. Nguyễn Văn Bình">NCS. Nguyễn Văn Bình · K2023</option>
-                <option value="NCS. Lê Thị Mai">NCS. Lê Thị Mai · K2022</option>
-                <option value="NCS. Phạm Quốc Cường">NCS. Phạm Quốc Cường · K2023</option>
               </select>
             </div>
             <div class="mgmt-form-group">
               <label for="essay-work-select">Bài cần chấm:</label>
               <select id="essay-work-select" required>
                 <option value="">Chọn bài đã nộp</option>
-                <option data-candidate="NCS. Nguyễn Văn Bình" value="Tổng quan các giải pháp sinh học xử lý nước thải chăn nuôi lợn tại vùng Mekong">Tiểu luận tổng quan · Bản nộp 02/10/2026</option>
-                <option data-candidate="NCS. Lê Thị Mai" value="Đánh giá khả năng ứng dụng công nghệ sinh học trong xử lý nước thải">Tiểu luận tổng quan · Bản nộp 05/10/2026</option>
-                <option data-candidate="NCS. Phạm Quốc Cường" value="Mô hình quản lý chất thải chăn nuôi theo hướng tuần hoàn">Tiểu luận tổng quan · Bản nộp 07/10/2026</option>
               </select>
             </div>
           </div>
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
-              <label for="essay-score-1">Điểm Cán bộ chấm 1 (GS.TS Trần Văn Hướng):</label>
+              <label for="essay-score-1">Điểm Cán bộ chấm 1 (—):</label>
               <input type="number" step="0.1" min="0" max="10" id="essay-score-1" placeholder="0–10" required />
             </div>
             <div class="mgmt-form-group">
-              <label for="essay-score-2">Điểm Cán bộ chấm 2 (TS. Lê Hoàng Nam):</label>
+              <label for="essay-score-2">Điểm Cán bộ chấm 2:</label>
               <input type="number" step="0.1" min="0" max="10" id="essay-score-2" placeholder="0–10" required />
             </div>
             <div class="mgmt-form-group">
-              <label for="essay-score-3">Điểm Cán bộ chấm 3 (TS. Nguyễn Hải Nam):</label>
+              <label for="essay-score-3">Điểm Cán bộ chấm 3:</label>
               <input type="number" step="0.1" min="0" max="10" id="essay-score-3" placeholder="0–10" required />
             </div>
           </div>
@@ -2581,9 +1909,9 @@
             <label for="topic-candidate">Nghiên cứu sinh:</label>
             <select id="topic-candidate" required>
               <option value="">Chọn nghiên cứu sinh</option>
-              <option value="NCS. Nguyễn Văn Bình">NCS. Nguyễn Văn Bình · K2023</option>
-              <option value="NCS. Lê Thị Mai">NCS. Lê Thị Mai · K2022</option>
-              <option value="NCS. Phạm Quốc Cường">NCS. Phạm Quốc Cường · K2023</option>
+              <option value="—">— · K2023</option>
+              <option value="—">— · K2022</option>
+              <option value="—">— · K2023</option>
             </select>
           </div>
           <div class="mgmt-form-group">
@@ -2614,9 +1942,9 @@
             <label for="progress-review-candidate">Nghiên cứu sinh:</label>
             <select id="progress-review-candidate" required>
               <option value="">Chọn nghiên cứu sinh</option>
-              <option value="NCS. Nguyễn Văn Bình">NCS. Nguyễn Văn Bình · K2023</option>
-              <option value="NCS. Lê Thị Mai">NCS. Lê Thị Mai · K2022</option>
-              <option value="NCS. Phạm Quốc Cường">NCS. Phạm Quốc Cường · K2023</option>
+              <option value="—">— · K2023</option>
+              <option value="—">— · K2022</option>
+              <option value="—">— · K2023</option>
             </select>
           </div>
           <div class="mgmt-form-group">
@@ -2883,7 +2211,7 @@
             </div>
             <div class="mgmt-form-group">
               <label for="plan-deadline-input">Thời hạn dự kiến hoàn thành:</label>
-              <input type="text" id="plan-deadline-input" value="30/09/2025" required />
+              <input type="text" id="plan-deadline-input" required />
             </div>
             <div class="mgmt-form-group full-width">
               <label for="plan-goals-input">Mục tiêu & Khối lượng công việc học tập / nghiên cứu:</label>
@@ -2891,7 +2219,7 @@
             </div>
             <div class="mgmt-form-group full-width">
               <label for="plan-outputs-input">Dự kiến sản phẩm đầu ra (Bài báo / Báo cáo):</label>
-              <input type="text" id="plan-outputs-input" value="01 Bản thảo bài báo ISI/Scopus + 01 Báo cáo Chuyên đề 3" required />
+              <input type="text" id="plan-outputs-input" required />
             </div>
           </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
@@ -2921,14 +2249,12 @@
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
               <label>Người hướng dẫn hiện tại:</label>
-              <input type="text" value="GS.TS. Trần Văn Hướng" readonly style="background:#e2e8f0;" />
+              <input type="text" readonly style="background:#e2e8f0;" />
             </div>
             <div class="mgmt-form-group">
               <label>Người hướng dẫn đề xuất mới/bổ sung:</label>
               <select required>
-                <option value="PGS.TS. Lê Văn Tuấn">PGS.TS. Lê Văn Tuấn (ĐH Khoa học Tự nhiên ĐHQG-HCM)</option>
-                <option value="TS. Nguyễn Hải Nam">TS. Nguyễn Hải Nam (Viện Môi trường ĐHQG-HCM)</option>
-                <option value="PGS.TS. Nguyễn Thị Kim">PGS.TS. Nguyễn Thị Kim (ĐH An Giang)</option>
+                <option value="—">— (ĐH An Giang)</option>
               </select>
             </div>
           </div>
@@ -2962,11 +2288,11 @@
         <form>
           <div class="mgmt-form-group">
             <label>Tên đề tài tiểu luận tổng quan:</label>
-            <input type="text" value="Tổng quan các giải pháp sinh học xử lý nước thải chăn nuôi lợn tại vùng Mekong" required />
+            <input type="text" required />
           </div>
           <div class="mgmt-form-group">
             <label>Tóm tắt nội dung (Abstract):</label>
-            <textarea rows="3" required>Tiểu luận phân tích và tổng hợp 68 công trình nghiên cứu về công nghệ màng sinh học, thực vật thủy sinh và giải pháp kinh tế tuần hoàn trong xử lý nước thải chăn nuôi lợn quy mô trang trại...</textarea>
+            <textarea rows="3" required placeholder="Nhập tóm tắt nội dung tiểu luận..."></textarea>
           </div>
           <div class="mgmt-form-group">
             <label>File toàn văn Tiểu luận (PDF, tối đa 20MB):</label>
@@ -2994,16 +2320,16 @@
         <form>
           <div class="mgmt-form-group">
             <label>Tên đề cương nghiên cứu:</label>
-            <input type="text" value="Nghiên cứu giải pháp công nghệ sinh học tích hợp xử lý nước thải chăn nuôi lợn và thu hồi năng lượng tái tạo tại vùng ĐBSCL" required />
+            <input type="text" required />
           </div>
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
               <label>Đối tượng & Phạm vi nghiên cứu:</label>
-              <input type="text" value="Nước thải chăn nuôi lợn tại An Giang & Cần Thơ" required />
+              <input type="text" required />
             </div>
             <div class="mgmt-form-group">
               <label>Phương pháp nghiên cứu chính:</label>
-              <input type="text" value="Thực nghiệm mô hình lab, màng bio-carrier và phân tích LCA" required />
+              <input type="text" required />
             </div>
           </div>
           <div class="mgmt-form-group">
@@ -3054,10 +2380,8 @@
             <div class="mgmt-form-group">
               <label>Cán bộ phụ trách hướng dẫn:</label>
               <select required>
-                <option value="GS.TS. Trần Văn Hướng">GS.TS. Trần Văn Hướng</option>
-                <option value="PGS.TS. Lê Văn Tuấn">PGS.TS. Lê Văn Tuấn</option>
-                <option value="TS. Nguyễn Hải Nam">TS. Nguyễn Hải Nam</option>
-                <option value="TS. Lê Hoàng Nam">TS. Lê Hoàng Nam</option>
+                <option value="—">—</option>
+                <option value="—">—</option>
               </select>
             </div>
             <div class="mgmt-form-group">
@@ -3093,13 +2417,11 @@
             <div class="mgmt-form-group">
               <label for="progress-period-select">Kỳ báo cáo định kỳ:</label>
               <select id="progress-period-select" required>
-                <option value="Kỳ 5" data-han-nop="2026-04-30">Kỳ 5 (10/2025 - 04/2026)</option>
-                <option value="Kỳ 6" data-han-nop="2026-10-31">Kỳ 6 (04/2026 - 10/2026)</option>
               </select>
             </div>
             <div class="mgmt-form-group">
               <label>Ngày nộp báo cáo:</label>
-              <input type="text" value="Tự ghi nhận khi gửi" readonly style="background:#e2e8f0;" />
+              <input type="text" readonly style="background:#e2e8f0;" />
             </div>
             <div class="mgmt-form-group full-width">
               <label>Khối lượng công việc đã hoàn thành trong 6 tháng qua:</label>
@@ -3107,11 +2429,11 @@
             </div>
             <div class="mgmt-form-group full-width">
               <label>Những khó khăn, vướng mắc &amp; đề xuất hỗ trợ:</label>
-              <input type="text" value="Cần thêm hóa chất tinh khiết phân tích HPLC tại phòng thí nghiệm trung tâm." />
+              <input type="text" />
             </div>
             <div class="mgmt-form-group full-width">
               <label>Kế hoạch nghiên cứu chi tiết 6 tháng tới:</label>
-              <input type="text" value="Hoàn thiện toàn văn bản thảo luận án để gửi Bộ môn và NHD duyệt trước ngày 15/02/2027." required />
+              <input type="text" required />
             </div>
             <div class="mgmt-form-group full-width">
               <label>File Báo cáo tiến độ đầy đủ có chữ ký của NCS (PDF / Word):</label>
@@ -3141,19 +2463,19 @@
         <form>
           <div class="mgmt-form-group">
             <label>Tên đề tài hiện tại:</label>
-            <textarea rows="2" readonly style="background:#e2e8f0;">Nghiên cứu giải pháp công nghệ sinh học tích hợp xử lý nước thải chăn nuôi lợn tại vùng ĐBSCL</textarea>
+            <textarea rows="2" readonly style="background:#e2e8f0;">—</textarea>
           </div>
           <div class="mgmt-form-group">
             <label>Tên đề tài mới đề xuất (Tiếng Việt):</label>
-            <textarea rows="2" required placeholder="Nhập tên đề tài mới đề xuất...">Nghiên cứu giải pháp công nghệ sinh học tích hợp xử lý nước thải chăn nuôi lợn và thu hồi năng lượng tái tạo tại vùng Đồng bằng sông Cửu Long</textarea>
+            <textarea rows="2" required placeholder="Nhập tên đề tài mới đề xuất..."></textarea>
           </div>
           <div class="mgmt-form-group">
             <label>Tên đề tài mới đề xuất (Tiếng Anh):</label>
-            <textarea rows="2" required placeholder="Thesis title in English...">Research on integrated biotechnological solutions for piggery wastewater treatment and renewable energy recovery in the Mekong Delta region</textarea>
+            <textarea rows="2" required placeholder="Thesis title in English..."></textarea>
           </div>
           <div class="mgmt-form-group">
             <label>Lý do điều chỉnh tên đề tài:</label>
-            <textarea rows="2" required>Bổ sung phần thu hồi năng lượng sinh học nhằm phản ánh chính xác kết quả thực nghiệm và tăng tính ứng dụng thực tiễn của luận án.</textarea>
+            <textarea rows="2" required></textarea>
           </div>
           <div class="mgmt-form-group">
             <label>Biên bản họp Bộ môn đồng thuận (PDF):</label>
@@ -3234,11 +2556,11 @@
             </div>
             <div class="mgmt-form-group">
               <label>Giấy biên nhận nộp Thư viện Trường ĐH An Giang:</label>
-              <input type="text" value="BN-TV089/2026 (Ngày: 20/01/2026)" required />
+              <input type="text" required />
             </div>
             <div class="mgmt-form-group">
               <label>Giấy biên nhận nộp Thư viện Quốc gia Việt Nam:</label>
-              <input type="text" value="NL-892/NLV (Ngày: 25/01/2026)" required />
+              <input type="text" required />
             </div>
           </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
@@ -3375,7 +2697,7 @@
     <script src="js/data.js" defer></script>
     <script src="js/ui.js" defer></script>
     <!-- Backend đã bỏ stub tra cứu văn bằng: bật gọi /api/Public/diploma. Cấu hình này phải đứng trước js/core/config.js. -->
-    <script>window.DTMS_RUNTIME_CONFIG = { DEGREE_SERVICE_READY: true };</script>
+    <script>window.DTMS_RUNTIME_CONFIG = { DEGREE_SERVICE_READY: false };</script>
     <script src="js/core/config.js" defer></script>
     <script src="js/core/api.js" defer></script>
     <script src="js/features/collections.js" defer></script>

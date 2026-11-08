@@ -11,79 +11,79 @@
     NCS: {
       id: "usr_ncs",
       code: "NCS",
-      name: "NCS. Nguyễn Văn Bình",
+      name: "",
       title: "Nghiên cứu sinh Khóa 2023",
       unit: "Khoa Nông nghiệp - TNTN",
       major: "Khoa học Môi trường (Mã: 9440301)",
       avatarText: "NB",
-      email: "nvbinh_ncs@agu.edu.vn",
-      phone: "0912.345.678"
+      email: "",
+      phone: ""
     },
     NHD: {
       id: "usr_nhd",
       code: "NHD",
-      name: "GS.TS. Trần Văn Hướng",
+      name: "",
       title: "Người hướng dẫn khoa học chính",
       unit: "Bộ môn Kỹ thuật Môi trường",
       major: "Khoa học & Kỹ thuật Môi trường",
       avatarText: "TH",
-      email: "tvhuong@agu.edu.vn",
-      phone: "0903.888.999"
+      email: "",
+      phone: ""
     },
     BM: {
       id: "usr_bm",
       code: "BM",
-      name: "TS. Lê Hoàng Nam",
+      name: "",
       title: "Trưởng Bộ môn Kỹ thuật Môi trường",
       unit: "Khoa Nông nghiệp - TNTN",
       major: "Quản lý Tài nguyên Nước",
       avatarText: "LN",
-      email: "lhnam@agu.edu.vn",
-      phone: "0908.777.666"
+      email: "",
+      phone: ""
     },
     KHOA: {
       id: "usr_khoa",
       code: "KHOA",
-      name: "PGS.TS. Nguyễn Thị Kim",
+      name: "",
       title: "Phó Trưởng Khoa Nông nghiệp - TNTN",
       unit: "Ban Chủ nhiệm Khoa NN-TNTN",
       major: "Nông nghiệp Công nghệ cao",
       avatarText: "NK",
-      email: "ntkim@agu.edu.vn",
-      phone: "0918.555.444"
+      email: "",
+      phone: ""
     },
     PDT: {
       id: "usr_pdt",
       code: "PDT",
-      name: "ThS. Phạm Minh Đăng",
+      name: "",
       title: "Chuyên viên QLĐT Sau Đại học",
       unit: "Phòng Đào tạo Sau Đại học",
       major: "Quản lý Giáo dục Đại học",
       avatarText: "PĐ",
-      email: "pmdang_pdt@agu.edu.vn",
-      phone: "0296.384.6666"
+      email: "",
+      phone: ""
     },
     BGH: {
       id: "usr_bgh",
       code: "BGH",
-      name: "PGS.TS. Võ Văn Thắng",
+      name: "",
       title: "Hiệu trưởng Trường ĐH An Giang",
       unit: "Ban Giám hiệu Trường ĐH An Giang",
       major: "Chủ tịch Hội đồng Khoa học",
       avatarText: "VT",
-      email: "vvthang@agu.edu.vn",
-      phone: "0296.384.1111"
+      email: "",
+      phone: ""
     },
     HOIDONG: {
       id: "usr_council",
       code: "HOIDONG",
-      name: "PGS.TS. Nguyễn Minh Châu",
+      name: "",
       title: "Ủy viên Hội đồng đánh giá luận án",
       unit: "Hội đồng đánh giá cấp Trường",
       major: "Khoa học Môi trường",
       avatarText: "MC",
-      email: "hoidong@agu.edu.vn",
-      phone: "0296.384.2222"
+      email: "",
+      phone: ""
     }
   };
 
@@ -128,24 +128,8 @@
     HOIDONG: ["m09", "m10"]
   };
 
-  const ROLE_DASHBOARDS = {
-    NCS: { stage: "Giai đoạn nghiên cứu", metrics: [["Tiến độ đào tạo", "68%"], ["Tín chỉ đã đạt", "18 / 24"], ["Báo cáo kỳ này", "Còn 12 ngày"]], actions: [["Nộp báo cáo tiến độ", "m07"], ["Khai báo công bố khoa học", "m08"], ["Xem kế hoạch đào tạo", "m02"]], queue: "Báo cáo tiến độ học kỳ 7 cần nộp trước ngày 11/10/2026.", deadline: "Hoàn thiện bản thảo Chuyên đề 3 · 18/10/2026" },
-    NHD: { stage: "Hướng dẫn và đánh giá NCS", metrics: [["NCS đang hướng dẫn", "06"], ["Hồ sơ chờ duyệt", "03"], ["Báo cáo cần đánh giá", "02"]], actions: [["Đánh giá báo cáo tiến độ", "m07"], ["Duyệt kế hoạch đào tạo", "m02"], ["Thẩm định công bố khoa học", "m08"]], queue: "Có 2 báo cáo tiến độ và 1 kế hoạch đang chờ ý kiến của thầy.", deadline: "Đánh giá báo cáo của NCS Trần Minh Anh · 03/10/2026" },
-    BM: { stage: "Điều phối chuyên môn cấp Bộ môn", metrics: [["NCS thuộc bộ môn", "18"], ["Hồ sơ chờ xác nhận", "04"], ["Mốc sắp đến hạn", "03"]], actions: [["Xác nhận kế hoạch", "m02"], ["Theo dõi chuyên đề", "m06"], ["Rà soát tiến độ", "m07"]], queue: "4 hồ sơ đào tạo cần rà soát và xác nhận ở cấp Bộ môn.", deadline: "Chốt danh sách đánh giá chuyên đề đợt tháng 10 · 06/10/2026" },
-    KHOA: { stage: "Điều hành đào tạo cấp Khoa", metrics: [["NCS toàn Khoa", "42"], ["Hồ sơ chờ thông qua", "05"], ["Cảnh báo tiến độ", "03"]], actions: [["Rà soát hồ sơ NCS", "m01"], ["Rà soát đề cương nghiên cứu", "m05"], ["Xem báo cáo tổng hợp", "m13"]], queue: "5 hồ sơ đề cương và luận án chờ Khoa xem xét.", deadline: "Phiên họp xét đề cương nghiên cứu · 08/10/2026" },
-    PDT: { stage: "Quản lý đào tạo sau đại học", metrics: [["NCS đang đào tạo", "126"], ["Hồ sơ chờ thẩm định", "12"], ["Đủ điều kiện bảo vệ", "08"]], actions: [["Thẩm định hồ sơ", "m01"], ["Kiểm tra điều kiện bảo vệ", "m10"], ["Lập báo cáo đào tạo", "m13"]], queue: "12 hồ sơ đang chờ thẩm định tại Phòng Đào tạo.", deadline: "Hoàn tất danh sách đủ điều kiện bảo vệ đợt 2 · 12/10/2026" },
-    BGH: { stage: "Giám sát và phê duyệt cấp Trường", metrics: [["NCS toàn Trường", "126"], ["Quyết định chờ ký", "03"], ["Hồ sơ bảo vệ", "08"]], actions: [["Xem hồ sơ trình ký", "m10"], ["Theo dõi cấp bằng", "m11"], ["Xem thống kê toàn Trường", "m13"]], queue: "3 quyết định hội đồng và bảo vệ đang trình ký.", deadline: "Ký quyết định thành lập Hội đồng · 05/10/2026" },
-    HOIDONG: { stage: "Đánh giá luận án được phân công", metrics: [["Hồ sơ được giao", "02"], ["Phiếu đánh giá đã gửi", "01 / 02"], ["Phiên bảo vệ sắp tới", "01"]], actions: [["Xem luận án được phân công", "m09"], ["Nhập phiếu đánh giá", "m10"]], queue: "Còn 1 phiếu nhận xét luận án chưa được gửi.", deadline: "Gửi nhận xét luận án NCS Lê Quốc Huy · 09/10/2026" }
-  };
-  const ROLE_DASHBOARDS_EN = {
-    NCS: { stage: "Research stage", metrics: [["Training progress", "68%"], ["Credits earned", "18 / 24"], ["Current report", "Due in 12 days"]], actions: [["Submit progress report", "m07"], ["Declare publication", "m08"], ["View study plan", "m02"]], queue: "Your semester 7 progress report is due on 11 Oct 2026.", deadline: "Complete doctoral topic 3 draft · 18 Oct 2026" },
-    NHD: { stage: "Supervision and candidate review", metrics: [["Candidates supervised", "06"], ["Pending reviews", "03"], ["Reports to review", "02"]], actions: [["Review progress reports", "m07"], ["Approve study plan", "m02"], ["Review publications", "m08"]], queue: "Two progress reports and one study plan are awaiting your review.", deadline: "Review Tran Minh Anh's report · 03 Oct 2026" },
-    BM: { stage: "Department coordination", metrics: [["Candidates in department", "18"], ["Pending confirmations", "04"], ["Upcoming milestones", "03"]], actions: [["Confirm study plan", "m02"], ["Track doctoral topics", "m06"], ["Review progress", "m07"]], queue: "Four academic records need department review.", deadline: "Confirm the October topic review list · 06 Oct 2026" },
-    KHOA: { stage: "Faculty-level academic management", metrics: [["Candidates in faculty", "42"], ["Pending approvals", "05"], ["Progress alerts", "03"]], actions: [["Review candidate files", "m01"], ["Review research outlines", "m05"], ["View summary reports", "m13"]], queue: "Five proposals and thesis records are awaiting faculty review.", deadline: "Research proposal review meeting · 08 Oct 2026" },
-    PDT: { stage: "Graduate academic affairs", metrics: [["Active candidates", "126"], ["Records awaiting review", "12"], ["Eligible for defense", "08"]], actions: [["Review candidate records", "m01"], ["Check defense requirements", "m10"], ["Create academic report", "m13"]], queue: "Twelve records are awaiting Graduate Academic Affairs review.", deadline: "Finalize the defense eligibility list · 12 Oct 2026" },
-    BGH: { stage: "University-level oversight and approval", metrics: [["Candidates university-wide", "126"], ["Decisions to sign", "03"], ["Defense records", "08"]], actions: [["Review decisions", "m10"], ["Track degree issuance", "m11"], ["View university reports", "m13"]], queue: "Three council and defense decisions are awaiting signature.", deadline: "Sign the council appointment decision · 05 Oct 2026" },
-    HOIDONG: { stage: "Assigned thesis reviews", metrics: [["Assigned records", "02"], ["Reviews submitted", "01 / 02"], ["Upcoming defense sessions", "01"]], actions: [["View assigned theses", "m09"], ["Enter evaluation", "m10"]], queue: "One thesis review is still outstanding.", deadline: "Submit the review for Le Quoc Huy · 09 Oct 2026" }
-  };
+  const ROLE_DASHBOARDS = Object.fromEntries(Object.keys(ROLE_MODULES).map(role => [role, { stage: "", metrics: [], actions: [], queue: "" }]));
+  const ROLE_DASHBOARDS_EN = Object.fromEntries(Object.keys(ROLE_MODULES).map(role => [role, { stage: "", metrics: [], actions: [], queue: "" }]));
 
   const ACTION_ACCESS = [
     { selector: '[onclick*="modal-edit-profile"]', roles: ["NCS", "PDT"], label: "Cập nhật hồ sơ NCS" },
@@ -180,7 +164,6 @@
     { selector: '[onclick*="handleConferDegree"]', roles: ["BGH"], label: "Phê duyệt cấp bằng" },
     { selector: '[onclick*="modal-create-change-request"]', roles: ["NCS"], label: "Tạo yêu cầu thay đổi học vụ" },
     { selector: '[onclick*="modal-login"]', roles: ["NCS", "NHD", "BM", "KHOA", "PDT", "BGH", "HOIDONG"], label: null },
-    { selector: '[onclick*="modal-role-switcher"]', roles: ["NCS", "NHD", "BM", "KHOA", "PDT", "BGH", "HOIDONG"], label: null },
     { selector: '[onclick*="handleExportAuditLog"]', roles: ["PDT"], label: null },
     { selector: '[onclick*="refreshAuditLog"]', roles: ["PDT"], label: null },
     { selector: '[onclick*="handleConferDegree"]', roles: ["BGH"], label: null },
@@ -211,79 +194,27 @@
   }
 
   // 1. DATA STORE: LOCALSTORAGE PERSISTENCE ENGINE & DATASETS
-  const STORAGE_KEY = "DTMS_MANAGEMENT_APP_STATE_V2";
+  const STORAGE_KEY = "DTMS_MANAGEMENT_APP_STATE_V3";
 
   const INITIAL_STATE = {
-    candidates: [
-      { id: 'ncs-01', code: 'NCS-2023-ENV01', name: 'Nguyễn Văn Bình', major: 'Khoa học Môi trường', cohort: '2023-Đ2', supervisor: 'GS.TS. Trần Văn Hướng', status: 'studying', email: 'nvbinh_ncs@agu.edu.vn', phone: '0912.345.678', seeded: true },
-      { id: 'ncs-02', code: 'NCS-2022-AGR04', name: 'Lê Thị Mai', major: 'Trồng trọt nâng cao', cohort: '2022-Đ1', supervisor: 'PGS.TS. Nguyễn Thị Kim', status: 'extended', email: '', phone: '', seeded: true },
-      { id: 'ncs-03', code: 'NCS-2021-BUS02', name: 'Phạm Quốc Cường', major: 'Quản trị Kinh doanh', cohort: '2021-Đ2', supervisor: 'PGS.TS. Trần Đình Lâm', status: 'defended', email: '', phone: '', seeded: true }
-    ],
+    candidates: [],
     assignments: {},
     reminders: [],
     plan: {},
     workflowSubmissions: [],
-    profile: {
-      phone: "0912.345.678",
-      email: "nvbinh_ncs@agu.edu.vn",
-      workplace: "Khoa Nông nghiệp - TNTN",
-      monthsUsed: 36,
-      maxMonths: 48
-    },
-    advisorsQuota: {
-      "GS.TS. Trần Văn Hướng": { title: "GS", max: 4, count: 2 },
-      "PGS.TS. Lê Văn Tuấn": { title: "PGS", max: 3, count: 2 },
-      "TS. Nguyễn Hải Nam": { title: "TS", max: 3, count: 1 },
-      "PGS.TS. Nguyễn Thị Kim": { title: "PGS", max: 3, count: 2 },
-      "TS. Lê Hoàng Nam": { title: "TS", max: 3, count: 2 }
-    },
+    profile: { phone: "", email: "", workplace: "", monthsUsed: 0, maxMonths: 0 },
+    advisorsQuota: {},
     planStage: 0, // 0: Chờ NHD, 1: Chờ BM, 2: Chờ PDT, 3: Đã duyệt hoàn tất
-    essayResult: { avg: "8.77", s1: 8.5, s2: 9.0, s3: 8.8, status: "pass" },
+    essayResult: { avg: "—", s1: null, s2: null, s3: null, status: "pending" },
     essayResults: {},
     topicAssessments: {},
     progressReviews: {},
-    outlineStatus: "Đã duyệt",
-    topics: [
-      { name: "Chuyên đề 1: Tổng quan ĐTM vùng ĐBSCL", score: "8.8", status: "passed" },
-      { name: "Chuyên đề 2: Phương pháp đánh giá rủi ro độc chất", score: "8.5", status: "passed" },
-      { name: "Chuyên đề 3: Đánh giá vòng đời LCA", score: "9.1", status: "passed" }
-    ],
-    publications: [
-      {
-        id: "pub_01",
-        title: "Assessment of Microplastic Pollution in Mekong Delta Estuarine Waters",
-        journal: "Environmental Science & Technology",
-        cat: "Scopus Q1",
-        authorRole: "Tác giả chính (1st)",
-        verified: true,
-        score: 1.0,
-        doi: "10.1016/j.envsci.2025.109"
-      },
-      {
-        id: "pub_02",
-        title: "Heavy Metal Accumulation in Sediment of An Giang Inland Waterways",
-        journal: "AGU Journal of Science",
-        cat: "Bài báo WoS/Scopus",
-        authorRole: "Tác giả chính (1st)",
-        verified: true,
-        score: 0.75,
-        doi: "10.1016/j.envsci.2025.202"
-      }
-    ],
-    leaveRequests: [
-      { id: "ĐN-1082", type: "Gia hạn học tập", duration: "06 tháng", reason: "Hoàn thiện thu thập mẫu hiện trường", date: "15/08/2026", status: "Đã duyệt bởi PDT", fileName: "don_xin_gia_han_signed.pdf" }
-    ],
-    progressReports: [
-      { period: 1, status: "pass" }, { period: 2, status: "pass" }, { period: 3, status: "pass" },
-      { period: 4, status: "pass" }, { period: 5, status: "pass" }, { period: 6, status: "pass" }
-    ],
-    auditLogs: [
-      { time: "29/09/2026 13:15:20", user: "ThS. Phạm Minh Đăng", role: "PDT", action: "Thẩm định bài báo", target: "Paper Scopus Q1 (Water Research)", ip: "172.16.10.45", status: "Thành công" },
-      { time: "29/09/2026 11:42:05", user: "GS.TS. Trần Văn Hướng", role: "NHD", action: "Đánh giá Báo cáo tiến độ", target: "Kỳ 6 - Đạt yêu cầu", ip: "172.16.12.18", status: "Thành công" },
-      { time: "29/09/2026 09:20:11", user: "NCS. Nguyễn Văn Bình", role: "NCS", action: "Nộp bản thảo Chuyên đề 3", target: "Chuyên đề 3: Đánh giá vòng đời LCA", ip: "115.78.22.90", status: "Thành công" },
-      { time: "28/09/2026 16:05:44", user: "PGS.TS. Võ Văn Thắng", role: "BGH", action: "Ký Quyết định Hội đồng", target: "HĐ Đánh giá Luận án TS-2026-089", ip: "172.16.1.10", status: "Thành công" },
-      { time: "28/09/2026 14:30:00", user: "TS. Lê Hoàng Nam", role: "BM", action: "Nhập điểm Tiểu luận", target: "Tiểu luận tổng quan: 8.77 điểm", ip: "172.16.15.22", status: "Thành công" }
-    ]
+    outlineStatus: "Chưa có dữ liệu",
+    topics: [],
+    publications: [],
+    leaveRequests: [],
+    progressReports: [],
+    auditLogs: []
   };
 
   function getAppState() {
@@ -299,7 +230,7 @@
     const raw = global.DTMS_DATA.getString(STORAGE_KEY);
     let hasCanonicalWorkflows = false;
     try { hasCanonicalWorkflows = Boolean(raw && Object.hasOwn(JSON.parse(raw), 'workflowSubmissions')); } catch {}
-    if (!hasCanonicalWorkflows) state.workflowSubmissions = global.DTMS_DATA.read('DTMS_WORKFLOW_SUBMISSIONS_V1', []);
+    if (!hasCanonicalWorkflows) state.workflowSubmissions = []; 
     state.workflowSubmissions = state.workflowSubmissions.filter(item => item && typeof item === 'object' && typeof item.workflow === 'string' && typeof item.title === 'string').map(item => ({ ...item, candidateId: item.candidateId || 'ncs-01' }));
     for (const field of ['essayResults', 'topicAssessments', 'progressReviews']) {
       state[field] = Object.fromEntries(Object.entries(state[field] || {}).filter(([, record]) => record && typeof record === 'object' && typeof record.candidate === 'string'));
@@ -331,14 +262,14 @@
     if (!requireRoles(['PDT'])) return;
     confirmAction('Khôi phục dữ liệu khởi tạo? Hồ sơ, công bố và yêu cầu bạn đã thêm sẽ bị thay thế. Hãy tải bản sao JSON trước nếu cần giữ dữ liệu.', () => {
       if (!saveAppState(global.DTMS_DATA.clone(INITIAL_STATE))) return;
-      global.DTMS_DATA.remove('DTMS_WORKFLOW_SUBMISSIONS_V1');
+      global.DTMS_DATA.remove('DTMS_WORKFLOW_SUBMISSIONS_V2');
       global.location.reload();
     });
   }
 
   let APP_STATE = getAppState();
   AUDIT_LOGS = APP_STATE.auditLogs || AUDIT_LOGS;
-  APP_STATE.advisorsQuota = { ...INITIAL_STATE.advisorsQuota, ...(APP_STATE.advisorsQuota || {}) };
+  APP_STATE.advisorsQuota = APP_STATE.advisorsQuota || {};
   lastSavedState = global.DTMS_DATA.clone(APP_STATE);
 
   function applyRolePermissions() {
@@ -388,14 +319,8 @@
     const isEnglish = global.DTMS_DATA.getString("dtms-language") === "EN";
     const dashboards = isEnglish ? ROLE_DASHBOARDS_EN : ROLE_DASHBOARDS;
     const data = dashboards[roleKey] || dashboards.NCS;
-    const latest=[...APP_STATE.progressReports].sort((a,b)=>b.period-a.period)[0];
-    const pending=APP_STATE.progressReports.filter(report=>report.status==='pending').length;
-    const metrics=roleKey==='NCS'
-      ? [[isEnglish?'Credits earned':'Tín chỉ đã đạt',earnedCourseCredits()+' / 24'],[isEnglish?'Topics passed':'Chuyên đề đã đạt',APP_STATE.topics.filter(t=>t.status==='passed').length+' / 3'],[isEnglish?'Latest report':'Báo cáo gần nhất',latest?'Kỳ '+latest.period+' · '+(latest.status==='pass'?'Đạt':latest.status==='pending'?'Chờ duyệt':'Cần sửa'):'Chưa có']]
-      : [[isEnglish?'Candidates in scope':'NCS được quản lý',candidateScope().length],[isEnglish?'Pending reports':'Báo cáo chờ đánh giá',pending],[isEnglish?'Pending publications':'Công bố chờ thẩm định',APP_STATE.publications.filter(p=>!p.verified).length]];
-    const queue = isEnglish
-      ? 'Choose a task below to update academic records and track training progress.'
-      : 'Chọn nghiệp vụ bên dưới để cập nhật hồ sơ và theo dõi tiến độ đào tạo.';
+    const metrics = [];
+    const queue = isEnglish ? "No records are available." : "Chưa có dữ liệu để hiển thị.";
     const allowedModules = ROLE_MODULES[roleKey] || ROLE_MODULES.NCS;
     const roleActions = data.actions.filter(([, moduleId]) => allowedModules.includes(moduleId));
     const roleNames = isEnglish
@@ -408,7 +333,7 @@
     const profileRoleLabel = document.querySelector("[data-profile-role-label]");
     if (profileRoleLabel) profileRoleLabel.textContent = isEnglish ? `Information, progress and tasks for your role: ${roleNames[roleKey]}.` : `Thông tin, tiến độ và nhiệm vụ theo vai trò: ${roleNames[roleKey]}.`;
     dashboard.innerHTML = `
-      <div class="role-dashboard-heading"><div><span class="role-dashboard-eyebrow">${isEnglish ? "YOUR WORKSPACE" : "BÀN LÀM VIỆC CỦA BẠN"} · ${currentUser.code}</span><h2 id="role-dashboard-title">${isEnglish ? "Welcome," : "Xin chào,"} ${escapeHtml(currentUser.name)}</h2><p>${escapeHtml(isEnglish ? roleNames[roleKey] : currentUser.title)} · ${data.stage}</p></div><span class="role-dashboard-date">${isEnglish ? "Academic year 2026–2027" : "Năm học 2026–2027"}</span></div>
+      <div class="role-dashboard-heading"><div><span class="role-dashboard-eyebrow">${isEnglish ? "YOUR WORKSPACE" : "BÀN LÀM VIỆC CỦA BẠN"} · ${currentUser.code}</span><h2 id="role-dashboard-title">${isEnglish ? "Welcome," : "Xin chào,"} ${escapeHtml(currentUser.name)}</h2><p>${escapeHtml(isEnglish ? roleNames[roleKey] : currentUser.title)}</p></div><span class="role-dashboard-date">${isEnglish ? "Academic year 2026–2027" : "Năm học 2026–2027"}</span></div>
       <div class="role-dashboard-metrics">${metrics.map(([label, value]) => `<article class="role-dashboard-metric"><span>${label}</span><strong>${escapeHtml(String(value))}</strong></article>`).join("")}</div>
       <article class="role-dashboard-priority">
         <div><span class="role-dashboard-eyebrow">${isEnglish ? "ACADEMIC RECORDS" : "HỒ SƠ HỌC VỤ"}</span><h3>${queue}</h3></div>
@@ -428,7 +353,7 @@
         </div>
       </section>`;
     dashboard.querySelectorAll("[data-dashboard-module]").forEach((button) => button.addEventListener("click", () => { global.switchView("management"); switchModuleTab(button.dataset.dashboardModule); }));
-    const submissions = global.DTMS_DATA.read('DTMS_WORKFLOW_SUBMISSIONS_V1', []);
+    const submissions = APP_STATE.workflowSubmissions || [];
     if (submissions.length) {
       const history = document.createElement("section");
       history.className = "role-dashboard-panel";
@@ -473,7 +398,7 @@
       global.switchView('management');
       notify('Đăng nhập thành công', 'Xin chào ' + (data.user.hoTen || email) + '. Bạn có thể tiếp tục xử lý các nghiệp vụ theo vai trò của mình.');
       // Tài khoản nhiều vai trò (vd GV01: BM và NHD): cho chọn vai trò làm việc ngay sau đăng nhập.
-      if (roles.length > 1) openModal('modal-role-switcher');
+
       syncFromServer();
     } catch (err) {
       showError(err.detail || err.message || 'Không thể đăng nhập. Vui lòng thử lại.');
@@ -587,27 +512,11 @@
     if (topName) topName.textContent = user.hoTen;
     const activeName = document.querySelector("#mgmt-active-user-display .active-user-info strong");
     if (activeName) activeName.textContent = user.hoTen;
+    const dashboardName = document.getElementById("role-dashboard-title");
+    if (dashboardName) dashboardName.textContent = (global.DTMS_DATA.getString("dtms-language") === "EN" ? "Welcome, " : "Xin chào, ") + user.hoTen;
   }
 
-  // Hộp chọn vai trò chỉ liệt kê vai trò của tài khoản (KHOA, BGH không có tài khoản nên không xuất hiện).
-  function applyRoleSwitcherAccess() {
-    const modal = document.getElementById("modal-role-switcher");
-    if (!modal) return;
-    const allowed = allowedRoles();
-    const user = allowed ? sessionUser() : null;
-    modal.querySelectorAll('[onclick*="switchRole("]').forEach((card) => {
-      const key = card.getAttribute("onclick").match(/switchRole\('([A-Z]+)'/)?.[1];
-      card.hidden = Boolean(allowed && key && !allowed.includes(key));
-      const name = card.querySelector("strong");
-      if (name && user && key && !card.hidden) name.textContent = user.hoTen || name.textContent;
-    });
-    const intro = modal.querySelector("p");
-    if (intro && allowed) {
-      intro.textContent = allowed.length > 1
-        ? "Tài khoản của bạn có nhiều vai trò. Chọn vai trò muốn làm việc; có thể đổi lại bất cứ lúc nào ở thanh trên."
-        : "Tài khoản của bạn chỉ có một vai trò.";
-    }
-  }
+  // Vai trò làm việc được xác định từ tài khoản đã đăng nhập.
 
   // 4. TAB SWITCHER FOR 14 MODULES
   function switchModuleTab(moduleId) {
@@ -645,7 +554,6 @@
     if (modalId === "modal-upload-thesis-version" && backendSession()) { openThesisUpload(); return; }
     if (backendSession() && !openingForEdit) prepareFreshServerForm(modalId);
     const modal = document.getElementById(modalId);
-    if (modalId === "modal-role-switcher") applyRoleSwitcherAccess();
     if (modalId === "modal-edit-profile") {
       ["phone", "email", "workplace"].forEach(key => { document.getElementById(`profile-${key}-input`).value = APP_STATE.profile[key]; });
       if (backendSession() && SERVER.profile) {
@@ -902,11 +810,11 @@
       status: isPass ? "pass" : "fail"
     };
     APP_STATE.essayResults[`${candidate}|${workTitle}`] = record;
-    if (candidate === "NCS. Nguyễn Văn Bình") APP_STATE.essayResult = record;
+    if (currentUser.code === "NCS") APP_STATE.essayResult = record;
     if (!saveAppState(APP_STATE)) return;
 
     const avgEl = document.getElementById("essay-avg-score");
-    if (avgEl && candidate === "NCS. Nguyễn Văn Bình") {
+    if (avgEl && currentUser.code === "NCS") {
       avgEl.textContent = `${avg} (${isPass ? "ĐẠT" : "KHÔNG ĐẠT - Dưới 7.0"})`;
       avgEl.style.color = isPass ? "var(--uni-blue-900)" : "#dc2626";
     }
@@ -1474,13 +1382,7 @@
     const loginForm = document.getElementById("form-login");
     if (loginForm) loginForm.addEventListener("submit", login);
 
-    const topbarUserBadge = document.getElementById("topbar-user-badge");
-    topbarUserBadge?.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        openModal("modal-role-switcher");
-      }
-    });
+
 
     // Tab buttons event
     document.addEventListener("click", e => {
@@ -1592,7 +1494,7 @@
 
   function updateSessionControls() {
     const signedOut = Boolean(global.DTMS_DATA.getString('dtms-signed-out', '', true));
-    document.querySelectorAll('[data-logout], [data-role-switcher], #topbar-user-badge').forEach(control => { control.hidden = signedOut; });
+    document.querySelectorAll('[data-logout], #topbar-user-badge').forEach(control => { control.hidden = signedOut; });
     const label = document.querySelector('[data-workspace-label]');
     const isEnglish = global.DTMS_DATA.getString('dtms-language') === 'EN';
     if (label) label.textContent = signedOut ? (isEnglish ? 'Access workspace' : 'Truy cập hệ thống') : (isEnglish ? 'Workspace' : 'Bàn làm việc');
@@ -1861,7 +1763,7 @@
 
   function backupData() {
     if(!requireRoles(['PDT']))return;
-    downloadBlob(JSON.stringify({ state:APP_STATE, submissions:global.DTMS_DATA.read('DTMS_WORKFLOW_SUBMISSIONS_V1',[]), exportedAt:new Date().toISOString() },null,2),'DTMS_Backup.json','application/json');
+    downloadBlob(JSON.stringify({ state:APP_STATE, submissions:global.DTMS_DATA.read('DTMS_WORKFLOW_SUBMISSIONS_V2',[]), exportedAt:new Date().toISOString() },null,2),'DTMS_Backup.json','application/json');
   }
 
   function initEnhancements() {
@@ -1941,13 +1843,13 @@
       gradedAt: new Date().toISOString()
     };
     APP_STATE.topicAssessments[`${candidate}|topic-${topicIdx}`] = record;
-    if (candidate === "NCS. Nguyễn Văn Bình" && APP_STATE.topics[topicIdx - 1]) {
+    if (currentUser.code === "NCS" && APP_STATE.topics[topicIdx - 1]) {
       APP_STATE.topics[topicIdx - 1].score = record.score;
       APP_STATE.topics[topicIdx - 1].status = passed ? "passed" : "failed";
     }
     if (!saveAppState(APP_STATE)) return;
-    const scoreEl = candidate === "NCS. Nguyễn Văn Bình" && document.getElementById(`topic-score-${topicIdx}`);
-    const statusEl = candidate === "NCS. Nguyễn Văn Bình" && document.getElementById(`topic-status-${topicIdx}`);
+    const scoreEl = currentUser.code === "NCS" && document.getElementById(`topic-score-${topicIdx}`);
+    const statusEl = currentUser.code === "NCS" && document.getElementById(`topic-status-${topicIdx}`);
     if (scoreEl) scoreEl.textContent = `${record.score}/10`;
     if (statusEl) {
       statusEl.className = `status-pill ${passed ? "is-success" : "is-warning"}`;
@@ -1984,7 +1886,7 @@
     }
     const record = { period, candidate, result, comment, reviewer: currentUser.name, reviewedAt: new Date().toISOString() };
     APP_STATE.progressReviews[`${candidate}|period-${period}`] = record;
-    if (candidate === "NCS. Nguyễn Văn Bình") {
+    if (currentUser.code === "NCS") {
       const reportObj = APP_STATE.progressReports.find((report) => report.period === period);
       if (reportObj) {
         reportObj.status = result;

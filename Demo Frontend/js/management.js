@@ -11,79 +11,79 @@
     NCS: {
       id: "usr_ncs",
       code: "NCS",
-      name: "NCS. Nguyễn Văn Bình",
+      name: "",
       title: "Nghiên cứu sinh Khóa 2023",
       unit: "Khoa Nông nghiệp - TNTN",
       major: "Khoa học Môi trường (Mã: 9440301)",
       avatarText: "NB",
-      email: "nvbinh_ncs@agu.edu.vn",
-      phone: "0912.345.678"
+      email: "",
+      phone: ""
     },
     NHD: {
       id: "usr_nhd",
       code: "NHD",
-      name: "GS.TS. Trần Văn Hướng",
+      name: "",
       title: "Người hướng dẫn khoa học chính",
       unit: "Bộ môn Kỹ thuật Môi trường",
       major: "Khoa học & Kỹ thuật Môi trường",
       avatarText: "TH",
-      email: "tvhuong@agu.edu.vn",
-      phone: "0903.888.999"
+      email: "",
+      phone: ""
     },
     BM: {
       id: "usr_bm",
       code: "BM",
-      name: "TS. Lê Hoàng Nam",
+      name: "",
       title: "Trưởng Bộ môn Kỹ thuật Môi trường",
       unit: "Khoa Nông nghiệp - TNTN",
       major: "Quản lý Tài nguyên Nước",
       avatarText: "LN",
-      email: "lhnam@agu.edu.vn",
-      phone: "0908.777.666"
+      email: "",
+      phone: ""
     },
     KHOA: {
       id: "usr_khoa",
       code: "KHOA",
-      name: "PGS.TS. Nguyễn Thị Kim",
+      name: "",
       title: "Phó Trưởng Khoa Nông nghiệp - TNTN",
       unit: "Ban Chủ nhiệm Khoa NN-TNTN",
       major: "Nông nghiệp Công nghệ cao",
       avatarText: "NK",
-      email: "ntkim@agu.edu.vn",
-      phone: "0918.555.444"
+      email: "",
+      phone: ""
     },
     PDT: {
       id: "usr_pdt",
       code: "PDT",
-      name: "ThS. Phạm Minh Đăng",
+      name: "",
       title: "Chuyên viên QLĐT Sau Đại học",
       unit: "Phòng Đào tạo Sau Đại học",
       major: "Quản lý Giáo dục Đại học",
       avatarText: "PĐ",
-      email: "pmdang_pdt@agu.edu.vn",
-      phone: "0296.384.6666"
+      email: "",
+      phone: ""
     },
     BGH: {
       id: "usr_bgh",
       code: "BGH",
-      name: "PGS.TS. Võ Văn Thắng",
+      name: "",
       title: "Hiệu trưởng Trường ĐH An Giang",
       unit: "Ban Giám hiệu Trường ĐH An Giang",
       major: "Chủ tịch Hội đồng Khoa học",
       avatarText: "VT",
-      email: "vvthang@agu.edu.vn",
-      phone: "0296.384.1111"
+      email: "",
+      phone: ""
     },
     HOIDONG: {
       id: "usr_council",
       code: "HOIDONG",
-      name: "PGS.TS. Nguyễn Minh Châu",
+      name: "",
       title: "Ủy viên Hội đồng đánh giá luận án",
       unit: "Hội đồng đánh giá cấp Trường",
       major: "Khoa học Môi trường",
       avatarText: "MC",
-      email: "hoidong@agu.edu.vn",
-      phone: "0296.384.2222"
+      email: "",
+      phone: ""
     }
   };
 
@@ -153,7 +153,6 @@
     { selector: '[onclick*="handleConferDegree"]', roles: ["BGH"], label: "Phê duyệt cấp bằng" },
     { selector: '[onclick*="modal-create-change-request"]', roles: ["NCS"], label: "Tạo yêu cầu thay đổi học vụ" },
     { selector: '[onclick*="modal-login"]', roles: ["NCS", "NHD", "BM", "KHOA", "PDT", "BGH", "HOIDONG"], label: null },
-    { selector: '[onclick*="modal-role-switcher"]', roles: ["NCS", "NHD", "BM", "KHOA", "PDT", "BGH", "HOIDONG"], label: null },
     { selector: '[onclick*="handleExportAuditLog"]', roles: ["PDT"], label: null },
     { selector: '[onclick*="refreshAuditLog"]', roles: ["PDT"], label: null },
     { selector: '[onclick*="handleConferDegree"]', roles: ["BGH"], label: null },
@@ -183,75 +182,23 @@
   }
 
   // 1. DATA STORE: LOCALSTORAGE PERSISTENCE ENGINE & DATASETS
-  const STORAGE_KEY = "DTMS_MANAGEMENT_APP_STATE_V2";
+  const STORAGE_KEY = "DTMS_MANAGEMENT_APP_STATE_V3";
 
   const INITIAL_STATE = {
-    candidates: [
-      { id: 'ncs-01', code: 'NCS-2023-ENV01', name: 'Nguyễn Văn Bình', major: 'Khoa học Môi trường', cohort: '2023-Đ2', supervisor: 'GS.TS. Trần Văn Hướng', status: 'studying', email: 'nvbinh_ncs@agu.edu.vn', phone: '0912.345.678', seeded: true },
-      { id: 'ncs-02', code: 'NCS-2022-AGR04', name: 'Lê Thị Mai', major: 'Trồng trọt nâng cao', cohort: '2022-Đ1', supervisor: 'PGS.TS. Nguyễn Thị Kim', status: 'extended', email: '', phone: '', seeded: true },
-      { id: 'ncs-03', code: 'NCS-2021-BUS02', name: 'Phạm Quốc Cường', major: 'Quản trị Kinh doanh', cohort: '2021-Đ2', supervisor: 'PGS.TS. Trần Đình Lâm', status: 'defended', email: '', phone: '', seeded: true }
-    ],
+    candidates: [],
     assignments: {},
     reminders: [],
     plan: {},
-    profile: {
-      phone: "0912.345.678",
-      email: "nvbinh_ncs@agu.edu.vn",
-      workplace: "Khoa Nông nghiệp - TNTN",
-      monthsUsed: 36,
-      maxMonths: 48
-    },
-    advisorsQuota: {
-      "GS.TS. Trần Văn Hướng": { title: "GS", max: 4, count: 2 },
-      "PGS.TS. Lê Văn Tuấn": { title: "PGS", max: 3, count: 2 },
-      "TS. Nguyễn Hải Nam": { title: "TS", max: 3, count: 1 },
-      "PGS.TS. Nguyễn Thị Kim": { title: "PGS", max: 3, count: 2 },
-      "TS. Lê Hoàng Nam": { title: "TS", max: 3, count: 2 }
-    },
+    profile: { phone: "", email: "", workplace: "", monthsUsed: 0, maxMonths: 0 },
+    advisorsQuota: {},
     planStage: 0, // 0: Chờ NHD, 1: Chờ BM, 2: Chờ PDT, 3: Đã duyệt hoàn tất
-    essayResult: { avg: "8.77", s1: 8.5, s2: 9.0, s3: 8.8, status: "pass" },
-    outlineStatus: "Đã duyệt",
-    topics: [
-      { name: "Chuyên đề 1: Tổng quan ĐTM vùng ĐBSCL", score: "8.8", status: "passed" },
-      { name: "Chuyên đề 2: Phương pháp đánh giá rủi ro độc chất", score: "8.5", status: "passed" },
-      { name: "Chuyên đề 3: Đánh giá vòng đời LCA", score: "9.1", status: "passed" }
-    ],
-    publications: [
-      {
-        id: "pub_01",
-        title: "Assessment of Microplastic Pollution in Mekong Delta Estuarine Waters",
-        journal: "Environmental Science & Technology",
-        cat: "Scopus Q1",
-        authorRole: "Tác giả chính (1st)",
-        verified: true,
-        score: 1.0,
-        doi: "10.1016/j.envsci.2025.109"
-      },
-      {
-        id: "pub_02",
-        title: "Heavy Metal Accumulation in Sediment of An Giang Inland Waterways",
-        journal: "AGU Journal of Science",
-        cat: "Bài báo WoS/Scopus",
-        authorRole: "Tác giả chính (1st)",
-        verified: true,
-        score: 0.75,
-        doi: "10.1016/j.envsci.2025.202"
-      }
-    ],
-    leaveRequests: [
-      { id: "ĐN-1082", type: "Gia hạn học tập", duration: "06 tháng", reason: "Hoàn thiện thu thập mẫu hiện trường", date: "15/08/2026", status: "Đã duyệt bởi PDT", fileName: "don_xin_gia_han_signed.pdf" }
-    ],
-    progressReports: [
-      { period: 1, status: "pass" }, { period: 2, status: "pass" }, { period: 3, status: "pass" },
-      { period: 4, status: "pass" }, { period: 5, status: "pass" }, { period: 6, status: "pass" }
-    ],
-    auditLogs: [
-      { time: "29/09/2026 13:15:20", user: "ThS. Phạm Minh Đăng", role: "PDT", action: "Thẩm định bài báo", target: "Paper Scopus Q1 (Water Research)", ip: "172.16.10.45", status: "Thành công" },
-      { time: "29/09/2026 11:42:05", user: "GS.TS. Trần Văn Hướng", role: "NHD", action: "Đánh giá Báo cáo tiến độ", target: "Kỳ 6 - Đạt yêu cầu", ip: "172.16.12.18", status: "Thành công" },
-      { time: "29/09/2026 09:20:11", user: "NCS. Nguyễn Văn Bình", role: "NCS", action: "Nộp bản thảo Chuyên đề 3", target: "Chuyên đề 3: Đánh giá vòng đời LCA", ip: "115.78.22.90", status: "Thành công" },
-      { time: "28/09/2026 16:05:44", user: "PGS.TS. Võ Văn Thắng", role: "BGH", action: "Ký Quyết định Hội đồng", target: "HĐ Đánh giá Luận án TS-2026-089", ip: "172.16.1.10", status: "Thành công" },
-      { time: "28/09/2026 14:30:00", user: "TS. Lê Hoàng Nam", role: "BM", action: "Nhập điểm Tiểu luận", target: "Tiểu luận tổng quan: 8.77 điểm", ip: "172.16.15.22", status: "Thành công" }
-    ]
+    essayResult: { avg: "—", s1: null, s2: null, s3: null, status: "pending" },
+    outlineStatus: "Chưa có dữ liệu",
+    topics: [],
+    publications: [],
+    leaveRequests: [],
+    progressReports: [],
+    auditLogs: []
   };
 
   function getAppState() {
@@ -284,14 +231,14 @@
     if (!requireRoles(['PDT'])) return;
     confirmAction('Khôi phục toàn bộ dữ liệu mẫu? Hồ sơ, công bố và yêu cầu demo bạn đã thêm sẽ bị thay thế. Tải bản sao JSON trước nếu cần giữ.', () => {
       if (!saveAppState(global.DTMS_DATA.clone(INITIAL_STATE))) return;
-      if (!global.DTMS_DATA.write('DTMS_WORKFLOW_SUBMISSIONS_V1', [])) return;
+      if (!global.DTMS_DATA.write('DTMS_WORKFLOW_SUBMISSIONS_V2', [])) return;
       global.location.reload();
     });
   }
 
   let APP_STATE = getAppState();
   AUDIT_LOGS = APP_STATE.auditLogs || AUDIT_LOGS;
-  APP_STATE.advisorsQuota = { ...INITIAL_STATE.advisorsQuota, ...(APP_STATE.advisorsQuota || {}) };
+  APP_STATE.advisorsQuota = APP_STATE.advisorsQuota || {};
   lastSavedState = global.DTMS_DATA.clone(APP_STATE);
 
   function applyRolePermissions() {
@@ -341,12 +288,8 @@
     const data = dashboards[roleKey] || dashboards.NCS;
     const latest=[...APP_STATE.progressReports].sort((a,b)=>b.period-a.period)[0];
     const pending=APP_STATE.progressReports.filter(report=>report.status==='pending').length;
-    const metrics=roleKey==='NCS'
-      ? [[isEnglish?'Credits earned':'Tín chỉ đã đạt',earnedCourseCredits()+' / 24'],[isEnglish?'Topics passed':'Chuyên đề đã đạt',APP_STATE.topics.filter(t=>t.status==='passed').length+' / 3'],[isEnglish?'Latest report':'Báo cáo gần nhất',latest?'Kỳ '+latest.period+' · '+(latest.status==='pass'?'Đạt':latest.status==='pending'?'Chờ duyệt':'Cần sửa'):'Chưa có']]
-      : [[isEnglish?'Demo candidates in scope':'NCS trong phạm vi demo',candidateScope().length],[isEnglish?'Pending reports':'Báo cáo chờ đánh giá',pending],[isEnglish?'Pending publications':'Công bố chờ thẩm định',APP_STATE.publications.filter(p=>!p.verified).length]];
-    const queue = isEnglish
-      ? 'Choose an available module to review or update the saved demo records.'
-      : 'Chọn phân hệ được cấp quyền để xem và cập nhật hồ sơ demo đã lưu trên thiết bị này.';
+    const metrics=[];
+    const queue = isEnglish ? 'No records are available.' : 'Chưa có dữ liệu để hiển thị.';
     const allowedModules = ROLE_MODULES[roleKey] || ROLE_MODULES.NCS;
     const roleActions = data.actions.filter(([, moduleId]) => allowedModules.includes(moduleId));
     const roleNames = isEnglish
@@ -360,9 +303,9 @@
       <summary class="role-dashboard-summary">${isEnglish?'Dashboard · expand / collapse':'Bảng điều khiển · mở / thu gọn'}</summary>
       <div class="role-dashboard-heading"><div><span class="role-dashboard-eyebrow">${isEnglish ? "DASHBOARD" : "BẢNG ĐIỀU KHIỂN"} · ${currentUser.code}</span><h2>${isEnglish ? "Welcome," : "Xin chào,"} ${escapeHtml(currentUser.name)}</h2><p>${escapeHtml(isEnglish ? roleNames[roleKey] : currentUser.title)} · ${data.stage}</p></div><span class="role-dashboard-date">${isEnglish ? "Academic year 2026–2027" : "Năm học 2026–2027"}</span></div>
       <div class="role-dashboard-metrics">${metrics.map(([label, value]) => `<article class="role-dashboard-metric"><span>${label}</span><strong>${escapeHtml(String(value))}</strong></article>`).join("")}</div>
-      <div class="role-dashboard-grid"><article class="role-dashboard-panel role-dashboard-priority"><span class="role-dashboard-eyebrow">${isEnglish ? "DEMO WORKSPACE" : "HỒ SƠ DEMO"}</span><h3>${queue}</h3><p>${isEnglish ? "Official deadlines must come from the backend." : "Mốc hạn nghiệp vụ chính thức cần lấy từ backend."}</p></article><article class="role-dashboard-panel"><span class="role-dashboard-eyebrow">${isEnglish ? "QUICK ACCESS" : "TRUY CẬP NGHIỆP VỤ"}</span><div class="role-dashboard-actions">${roleActions.map(([label, module]) => `<button type="button" data-dashboard-module="${module}">${label}<span aria-hidden="true">→</span></button>`).join("")}</div></article></div>`;
+      <div class="role-dashboard-grid"><article class="role-dashboard-panel role-dashboard-priority"><span class="role-dashboard-eyebrow">${isEnglish ? "WORKSPACE" : "HỒ SƠ"}</span><h3>${queue}</h3><p>${isEnglish ? "No academic records are available." : "Chưa có dữ liệu nghiệp vụ."}</p></article><article class="role-dashboard-panel"><span class="role-dashboard-eyebrow">${isEnglish ? "QUICK ACCESS" : "TRUY CẬP NGHIỆP VỤ"}</span><div class="role-dashboard-actions">${roleActions.map(([label, module]) => `<button type="button" data-dashboard-module="${module}">${label}<span aria-hidden="true">→</span></button>`).join("")}</div></article></div>`;
     dashboard.querySelectorAll("[data-dashboard-module]").forEach((button) => button.addEventListener("click", () => switchModuleTab(button.dataset.dashboardModule)));
-    const submissions = global.DTMS_DATA.read('DTMS_WORKFLOW_SUBMISSIONS_V1', []);
+    const submissions = global.DTMS_DATA.read('DTMS_WORKFLOW_SUBMISSIONS_V2', []);
     if (submissions.length) {
       const history = document.createElement("section");
       history.className = "role-dashboard-panel";
@@ -372,20 +315,29 @@
     }
   }
 
-  function login(event) {
+  async function login(event) {
     event.preventDefault();
-    const email = document.getElementById('login-username').value.trim().toLowerCase();
-    const match = Object.entries(USERS_ROLE_STORE).find(([, user]) => user.email.toLowerCase() === email);
+    const username = document.getElementById('login-username').value.trim();
+    const password = document.getElementById('login-password').value;
     const error = document.getElementById('login-error');
-    if (!match) { error.hidden = false; error.textContent = 'Email này không thuộc danh sách tài khoản demo. Chọn vai trò mẫu ở nút Đổi vai trò.'; return; }
+    const submit = event.currentTarget.querySelector('[type="submit"]');
     error.hidden = true;
-    if (document.getElementById('remember-demo-email').checked) global.DTMS_DATA.write('dtms-demo-email', email);
-    else global.DTMS_DATA.remove('dtms-demo-email');
-    global.DTMS_DATA.remove('dtms-signed-out', true);
-    switchRole(match[0]);
-    closeModal('modal-login');
-    global.switchView('management');
-    notify('Đã mở phiên demo', 'Phiên chỉ dùng thử trên trình duyệt, chưa được máy chủ xác thực.');
+    submit.disabled = true;
+    try {
+      const result = await global.DTMS_API.login(username, password);
+      const roleKey = USERS_ROLE_STORE[result.user.maVaiTro] ? result.user.maVaiTro : result.user.roles.find(role => USERS_ROLE_STORE[role]);
+      if (!roleKey) throw new Error('Tài khoản chưa được gán vai trò được hỗ trợ.');
+      global.DTMS_DATA.setString('dtms-auth-user', JSON.stringify({ ...result.user, maVaiTro: roleKey, username }), true);
+      global.DTMS_DATA.remove('dtms-signed-out', true);
+      switchRole(roleKey, false, result.user);
+      closeModal('modal-login');
+      global.switchView('management');
+    } catch (err) {
+      error.textContent = err.message || 'Không đăng nhập được. Vui lòng thử lại.';
+      error.hidden = false;
+    } finally {
+      submit.disabled = false;
+    }
   }
 
   // Helper: Toast message
@@ -442,9 +394,13 @@
   }
 
   // 3. SWITCH ACTIVE USER & ROLE
-  function switchRole(roleKey, quiet = false) {
+  function switchRole(roleKey, quiet = false, authenticatedUser = null) {
     if (!USERS_ROLE_STORE[roleKey]) return;
-    currentUser = USERS_ROLE_STORE[roleKey];
+    currentUser = { ...USERS_ROLE_STORE[roleKey], ...(authenticatedUser ? {
+      name: authenticatedUser.hoTen || authenticatedUser.HoTen || authenticatedUser.username || "",
+      email: authenticatedUser.username || authenticatedUser.email || "",
+      id: authenticatedUser.id || authenticatedUser.maNguoiDung || ""
+    } : {}) };
     global.DTMS_DATA.setString("dtms-role", roleKey, true);
     if (!quiet) global.DTMS_DATA.remove("dtms-signed-out", true);
     document.querySelectorAll(".mgmt-modal.is-open").forEach(modal => modal.classList.remove("is-open"));
@@ -474,7 +430,7 @@
     renderRoleDashboard();
     renderCandidates();
     renderWorkflowUI();
-    if (!global.DTMS_DATA.getString('dtms-signed-out', "", true)) document.querySelector('.demo-notice').textContent='CHẾ ĐỘ DEMO · Dữ liệu mẫu lưu trong trình duyệt; chưa kết nối database, chưa có xác thực máy chủ. Tệp chỉ lưu tên và thông tin.';
+    if (!global.DTMS_DATA.getString('dtms-signed-out', "", true)) document.querySelector('.demo-notice').textContent='Dữ liệu nghiệp vụ được tải từ hệ thống sau khi đăng nhập.';
     if (!quiet) global.switchView("management");
   }
 
@@ -974,7 +930,7 @@
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <div>
             <h4 style="margin:0; font-size:1.05rem; font-weight:800; color:var(--uni-blue-900);">${isEnglish ? "THESIS DEFENSE ELIGIBILITY CHECKLIST" : "BẢNG KIỂM ĐIỀU KIỆN BẢO VỆ LUẬN ÁN (CHECKLIST THÔNG TƯ 18)"}</h4>
-            <p style="margin:2px 0 0; font-size:0.8rem; color:var(--text-secondary);">${isEnglish ? "Calculated from the candidate's saved training record." : "Đối soát dữ liệu demo NCS Nguyễn Văn Bình. Quy tắc cần backend và nhà trường xác nhận."}</p>
+            <p style="margin:2px 0 0; font-size:0.8rem; color:var(--text-secondary);">${isEnglish ? "Calculated from the candidate's saved training record." : "Đối soát dữ liệu hồ sơ từ hệ thống."}</p>
           </div>
           <span class="status-pill ${passedCount === 6 ? 'is-success' : 'is-warning'}" style="font-size:0.9rem; padding:6px 14px;">
             ${passedCount === 6 ? (isEnglish ? '✓ ELIGIBLE (6/6)' : '✓ 6/6 ĐỦ ĐIỀU KIỆN BẢO VỆ') : (isEnglish ? `⚠️ NOT ELIGIBLE (${passedCount}/6)` : `⚠️ CHƯA ĐỦ ĐIỀU KIỆN (${passedCount}/6 ĐẠT)`)}
@@ -1181,7 +1137,7 @@
       }
     });
     const title = modal.querySelector(".mgmt-modal-header h3")?.textContent.trim() || modal.id;
-    const submissionsKey = "DTMS_WORKFLOW_SUBMISSIONS_V1";
+    const submissionsKey = "DTMS_WORKFLOW_SUBMISSIONS_V2";
     const submissions = global.DTMS_DATA.read(submissionsKey, []);
     const item = {
       id: `WF-${Date.now()}`,
@@ -1312,20 +1268,16 @@
       }
     });
 
-    const savedRoleKey = Object.keys(USERS_ROLE_STORE).find((roleKey) => USERS_ROLE_STORE[roleKey] === currentUser) || "NCS";
-    switchRole(savedRoleKey, true);
+    let signedInUser = null;
+    try { signedInUser = JSON.parse(global.DTMS_DATA.getString('dtms-auth-user', '', true) || 'null'); } catch (_) { signedInUser = null; }
+    if (!signedInUser) global.DTMS_DATA.setString('dtms-signed-out', 'true', true);
+    const savedRoleKey = signedInUser?.maVaiTro && USERS_ROLE_STORE[signedInUser.maVaiTro] ? signedInUser.maVaiTro : "NCS";
+    switchRole(savedRoleKey, true, signedInUser);
     if (global.switchView) global.switchView(global.DTMS_DATA.getString("dtms-signed-out", "", true) ? "home" : (location.hash.slice(1) || "management"));
 
     const loginForm = document.getElementById("form-login");
     if (loginForm) loginForm.addEventListener("submit", login);
 
-    const topbarUserBadge = document.getElementById("topbar-user-badge");
-    topbarUserBadge?.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        openModal("modal-role-switcher");
-      }
-    });
 
     // Tab buttons event
     document.addEventListener("click", e => {
@@ -1413,14 +1365,16 @@
   }
 
   function logout() {
+    global.DTMS_API.logout();
+    global.DTMS_DATA.remove('dtms-auth-user', true);
     global.DTMS_DATA.remove('dtms-role', true);
     global.DTMS_DATA.setString('dtms-signed-out', 'true', true);
     document.querySelectorAll('.mgmt-modal.is-open').forEach(modal=>modal.classList.remove('is-open'));
     document.getElementById('login-password').value='';
     document.querySelector('[data-logout]').hidden=true;
-    document.querySelector('.demo-notice').textContent='Đã thoát phiên demo. Dữ liệu mẫu vẫn được giữ trong trình duyệt. Mở Phiên demo để tiếp tục.';
+    const notice=document.querySelector('.demo-notice');if(notice)notice.textContent='Đã đăng xuất.';
     global.switchView('home');
-    notify('Đã đăng xuất demo','Dữ liệu đã lưu được giữ nguyên.');
+    notify('Đã đăng xuất','Phiên làm việc đã kết thúc.');
   }
 
   function confirmAction(message, callback) {
@@ -1614,7 +1568,7 @@
     });
     const progress=document.querySelector('#panel-m07 table tbody');
     if(progress)progress.innerHTML=APP_STATE.progressReports.map(report=>`<tr><td>Kỳ ${report.period}</td><td>Báo cáo định kỳ 6 tháng (demo)</td><td>${report.values?workflowValues('modal-submit-progress',report.values):'Dữ liệu báo cáo mẫu; chưa có tệp thật.'}</td><td>${report.submittedAt?escapeHtml(new Date(report.submittedAt).toLocaleDateString('vi-VN')):'Mẫu'}</td><td><span id="progress-status-period-${report.period}" class="status-pill ${report.status==='pass'?'is-success':'is-warning'}">${report.status==='pass'?'Đạt tiến độ':report.status==='pending'?'Chờ đánh giá':'Cần chỉnh sửa'}</span></td><td>${report.status==='pass'?'Đã ghi nhận kết quả demo':'Chờ NHD/BM đánh giá'}</td><td>${['NHD','BM'].includes(currentUser.code)?`<div class="candidate-actions"><button class="btn-mgmt btn-mgmt-sm btn-mgmt-success" data-grade-period="${report.period}" data-result="pass">Đạt</button><button class="btn-mgmt btn-mgmt-sm btn-mgmt-warning" data-grade-period="${report.period}" data-result="revise">Cần sửa</button></div>`:'Chưa có tệp thật'}</td></tr>`).join('');
-    const submissions=global.DTMS_DATA.read('DTMS_WORKFLOW_SUBMISSIONS_V1',[]);
+    const submissions=global.DTMS_DATA.read('DTMS_WORKFLOW_SUBMISSIONS_V2',[]);
     const workflowModules={'modal-edit-plan':'m02','modal-change-supervisor':'m03','modal-submit-essay':'m05','modal-submit-outline':'m05','modal-register-topic':'m06','modal-submit-progress':'m07','modal-change-topic-title':'m09','modal-upload-thesis-version':'m09','modal-submit-post-defense':'m11','modal-create-change-request':'m12'};
     for(const [workflow,moduleId] of Object.entries(workflowModules)) {
       const panel=document.getElementById('panel-'+moduleId);
@@ -1670,7 +1624,7 @@
 
   function backupDemo() {
     if(!requireRoles(['PDT']))return;
-    downloadBlob(JSON.stringify({ state:APP_STATE, submissions:global.DTMS_DATA.read('DTMS_WORKFLOW_SUBMISSIONS_V1',[]), exportedAt:new Date().toISOString() },null,2),'DTMS_DEMO_Backup.json','application/json');
+    downloadBlob(JSON.stringify({ state:APP_STATE, submissions:global.DTMS_DATA.read('DTMS_WORKFLOW_SUBMISSIONS_V2',[]), exportedAt:new Date().toISOString() },null,2),'DTMS_DEMO_Backup.json','application/json');
   }
 
   function initEnhancements() {
@@ -1712,7 +1666,7 @@
     document.querySelectorAll('[onclick*="queueReminder"]').forEach(b=>b.dataset.privRoles='NHD,PDT');
     document.querySelectorAll('[onclick*="modal-declare-pub"]').forEach(button=>button.addEventListener('click',()=>{const form=document.getElementById('form-declare-pub');delete form.dataset.editingId;form.reset();},true));
     document.querySelectorAll('[onclick*="Đồng bộ bảng điểm"]').forEach(b=>b.dataset.privRoles='PDT');
-    const remembered=global.DTMS_DATA.read('dtms-demo-email','');if(remembered){document.getElementById('login-username').value=remembered;document.getElementById('remember-demo-email').checked=true;}
+
     document.querySelectorAll('[data-today]').forEach(input=>{const now=new Date();input.value=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,10);});
     document.querySelectorAll('[data-close-modal]').forEach(b=>{if(!b.getAttribute('aria-label'))b.setAttribute('aria-label','Đóng hộp thoại');});
     const checks=document.querySelectorAll('#panel-m09 .mgmt-checklist .mgmt-check-item');

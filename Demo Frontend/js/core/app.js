@@ -312,7 +312,7 @@
       ver_code_label: "01. Số hiệu văn bằng",
       ver_code_ph: "Ví dụ: TS-AGU-2025-089",
       ver_name_label: "02. Họ và tên người được cấp bằng",
-      ver_name_ph: "Ví dụ: Nguyễn Văn Bình",
+      ver_name_ph: "Ví dụ: Nguyễn Văn A",
       ver_btn: "Tra cứu & Xuất phôi bằng 3D",
       ver_toast_title: "Xác thực phôi bằng thành công",
       ver_toast_msg: "Đã trích xuất thông tin phôi bằng Tiến sĩ cho ",
@@ -1075,7 +1075,6 @@
     initViewRouter();
     initLanguageSwitcher();
     initContactHub();
-    initPersonaSimulator();
     initConstellationGraph();
   });
 })(window, document);

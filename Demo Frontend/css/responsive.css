@@ -150,3 +150,9 @@ tr[data-empty-row] td { padding: 28px; text-align: center; }
   .mgmt-table { min-width: 0; font-size: 9pt; }
   .mgmt-card, .mgmt-table-wrapper { break-inside: avoid; box-shadow: none; }
 }
+
+/* Preserve the original desktop gutter on every screen view. */
+@media screen and (min-width: 769px) {
+  .os-stage { padding-left: 0 !important; padding-right: 0 !important; }
+  .os-stage > .os-view { margin-left: 44px !important; margin-right: 44px !important; }
+}

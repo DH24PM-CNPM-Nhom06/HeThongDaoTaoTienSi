@@ -29,11 +29,17 @@ namespace DTMS.Api.Controllers
             var nd = await _context.Nguoidungs.FirstOrDefaultAsync(u => u.MaNguoiDung == uid.Value);
             if (nd == null) return NotFound();
 
-            // Họ tên lấy từ hồ sơ NCS hoặc giảng viên (tách riêng để tránh truy vấn lồng phức tạp)
+            // Họ tên và mã NCS lấy từ hồ sơ (chỉ đọc, do nhà trường quản lý)
+            var maNcs = await _context.Nghiencuusinhs
+                .Where(n => n.MaNguoiDung == nd.MaNguoiDung)
+                .Select(n => n.MaNcs)
+                .FirstOrDefaultAsync();
+
             var hoTen = await _context.Nghiencuusinhs
                 .Where(n => n.MaNguoiDung == nd.MaNguoiDung)
                 .Select(n => n.HoTen)
                 .FirstOrDefaultAsync();
+
             if (hoTen == null)
             {
                 hoTen = await _context.Giangviens
@@ -42,18 +48,19 @@ namespace DTMS.Api.Controllers
                     .FirstOrDefaultAsync();
             }
 
-            var ketQua = new
+            return Ok(new
             {
                 nd.MaNguoiDung,
                 nd.TenDangNhap,
                 nd.Email,
                 nd.SoDienThoai,
-                HoTen = hoTen
-            };
-            return Ok(ketQua);
+                CoQuanCongTac = nd.CoQuanCongTac,
+                HoTen = hoTen,
+                MaNcs = maNcs
+            });
         }
 
-        // PUT: api/Profile/me  (chỉ cập nhật email và số điện thoại)
+        // PUT: api/Profile/me  (email, số điện thoại, cơ quan công tác)
         [HttpPut("me")]
         public async Task<IActionResult> UpdateMe([FromBody] UpdateProfileRequest dto)
         {
@@ -70,7 +77,9 @@ namespace DTMS.Api.Controllers
             }
 
             nd.Email = email;
-            nd.SoDienThoai = dto.SoDienThoai?.Trim();
+            nd.SoDienThoai = string.IsNullOrWhiteSpace(dto.SoDienThoai) ? null : dto.SoDienThoai.Trim();
+            nd.CoQuanCongTac = string.IsNullOrWhiteSpace(dto.CoQuanCongTac) ? null : dto.CoQuanCongTac.Trim();
+
             await _context.SaveChangesAsync();
 
             return Ok(new { Success = true, Message = "Cập nhật thông tin liên lạc thành công." });
@@ -90,5 +99,8 @@ namespace DTMS.Api.Controllers
 
         [StringLength(20)]
         public string? SoDienThoai { get; set; }
+
+        [StringLength(200)]
+        public string? CoQuanCongTac { get; set; }
     }
 }

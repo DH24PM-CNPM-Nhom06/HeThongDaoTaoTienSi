@@ -300,7 +300,7 @@
       ver_code_label: "01. Số hiệu văn bằng",
       ver_code_ph: "Ví dụ: TS-AGU-2025-089",
       ver_name_label: "02. Họ và tên người được cấp bằng",
-      ver_name_ph: "Ví dụ: Nguyễn Văn Bình",
+      ver_name_ph: "Ví dụ: Nguyễn Văn A",
       ver_btn: "Tra cứu & Xuất phôi bằng 3D",
       ver_toast_title: "Xác thực phôi bằng thành công",
       ver_toast_msg: "Đã trích xuất thông tin phôi bằng Tiến sĩ cho ",
@@ -744,60 +744,7 @@
   let thesisLoadError = '';
   let thesisLoading = false;
 
-  const THESES_LIST = {
-    VI: [
-      {
-        title: "Nghiên cứu giải pháp sinh học xử lý nước thải chăn nuôi lợn quy mô trang trại tại vùng ĐBSCL",
-        candidate: "NCS. Trần Văn Bình",
-        field: "Khoa học Môi trường",
-        date: "25/11/2025",
-        summaryUrl: "",
-        fullUrl: ""
-      },
-      {
-        title: "Đánh giá tính đa dạng sinh học và đề xuất giải pháp bảo tồn loài lúa hoạ (Oryza rufipogon) tại An Giang",
-        candidate: "NCS. Lê Thị Mai",
-        field: "Trồng trọt",
-        date: "10/12/2025",
-        summaryUrl: "",
-        fullUrl: ""
-      },
-      {
-        title: "Tác động của chuyển đổi số đến hiệu quả hoạt động kinh doanh của các doanh nghiệp vừa và nhỏ vùng ĐBSCL",
-        candidate: "NCS. Phạm Quốc Cường",
-        field: "Quản trị Kinh doanh",
-        date: "18/01/2026",
-        summaryUrl: "",
-        fullUrl: ""
-      }
-    ],
-    EN: [
-      {
-        title: "Research on biological solutions for farm-scale piggery wastewater treatment in the Mekong Delta",
-        candidate: "PhD Cand. Tran Van Binh",
-        field: "Environmental Science",
-        date: "25/11/2025",
-        summaryUrl: "",
-        fullUrl: ""
-      },
-      {
-        title: "Assessing biodiversity and proposing conservation measures for wild rice (Oryza rufipogon) in An Giang",
-        candidate: "PhD Cand. Le Thi Mai",
-        field: "Agronomy",
-        date: "10/12/2025",
-        summaryUrl: "",
-        fullUrl: ""
-      },
-      {
-        title: "Impact of digital transformation on business performance of SMEs in the Mekong Delta region",
-        candidate: "PhD Cand. Pham Quoc Cuong",
-        field: "Business Administration",
-        date: "18/01/2026",
-        summaryUrl: "",
-        fullUrl: ""
-      }
-    ]
-  };
+  const THESES_LIST = { VI: [], EN: [] };
 
   // Toast Utility
   function showToast(title, msg) {
@@ -1225,7 +1172,7 @@
     grid.setAttribute('aria-busy',String(thesisLoading));
     if(thesisLoading){grid.innerHTML='<p class="empty-state" role="status">Đang tải luận án từ API…</p>';return;}
     if(thesisLoadError){grid.innerHTML='<div class="empty-state" role="alert">'+escapeHtml(thesisLoadError)+'<p><button type="button" class="btn-mgmt btn-mgmt-secondary" data-retry-theses>Thử lại</button></p></div>';return;}
-    const notice='<p class="demo-notice">'+(isApi?'Danh sách luận án lấy từ API đã cấu hình.':'Luận án mẫu minh họa; chưa có tệp tóm tắt hoặc toàn văn thật.')+'</p>';
+    const notice='<p class="demo-notice">'+(isApi?'Danh sách luận án lấy từ API đã cấu hình.':'Chưa có luận án công khai.')+'</p>';
     if(!list.length){grid.innerHTML=notice+'<p class="empty-state">'+escapeHtml(I18N_DICT[currentLang].thesis_empty)+'</p>';return;}
     const dict=I18N_DICT[currentLang];
     function documentLink(url,label){
@@ -1265,38 +1212,7 @@
   }
 
   // Master Register Database for Diploma Verification (FR-BC01)
-  const MASTER_DIPLOMA_REGISTER = [
-    {
-      code: "TS-AGU-2025-089",
-      name: "Nguyễn Văn Bình",
-      nameEn: "Nguyen Van Binh",
-      major: "Khoa học Môi trường",
-      majorEn: "Environmental Science",
-      registerNo: "SG-TS-2025-012",
-      issueDate: "20/01/2026",
-      decisionNo: "128/QĐ-ĐHAG"
-    },
-    {
-      code: "TS-AGU-2024-042",
-      name: "Trần Thị Mai",
-      nameEn: "Tran Thi Mai",
-      major: "Quản lý Tài nguyên Nước",
-      majorEn: "Water Resources Management",
-      registerNo: "SG-TS-2024-088",
-      issueDate: "15/11/2024",
-      decisionNo: "410/QĐ-ĐHAG"
-    },
-    {
-      code: "TS-AGU-2023-015",
-      name: "Lê Hoàng Nam",
-      nameEn: "Le Hoang Nam",
-      major: "Nông nghiệp Công nghệ cao",
-      majorEn: "High-Tech Agriculture",
-      registerNo: "SG-TS-2023-031",
-      issueDate: "10/09/2023",
-      decisionNo: "205/QĐ-ĐHAG"
-    }
-  ];
+  const MASTER_DIPLOMA_REGISTER = [];
 
   function escapeHtml(str) {
     if (typeof str !== 'string') return str || '';
@@ -1368,7 +1284,7 @@
             <h4 style="margin:0 0 6px; font-weight:800; font-size:1.05rem; color:#be123c;">${isVI ? 'KHÔNG TÌM THẤY TRONG SỔ GỐC' : 'NOT FOUND IN MASTER REGISTER'}</h4>
             <p style="margin:0; font-size:0.84rem; color:#475569; line-height:1.5;">
               ${isVI 
-                ? `Không tồn tại văn bằng khớp với thông tin <strong>"${escapeHtml(code || name)}"</strong> trong sổ văn bằng mẫu của bản demo.` 
+                ? `Không tồn tại văn bằng khớp với thông tin <strong>"${escapeHtml(code || name)}"</strong> trong hệ thống.` 
                 : `No matching diploma found for <strong>"${escapeHtml(code || name)}"</strong> in Master Register database.`}
             </p>
           </div>

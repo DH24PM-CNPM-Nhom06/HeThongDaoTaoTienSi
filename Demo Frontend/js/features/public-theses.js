@@ -1,10 +1,6 @@
 (function initializePublicTheses(global, document) {
   "use strict";
-  const initialTheses = [
-    { title: "Nghiên cứu giải pháp sinh học xử lý nước thải chăn nuôi vùng Đồng bằng sông Cửu Long", candidate: "Nguyễn Văn Bình", field: "Khoa học Môi trường", date: "2025-11-25", summaryUrl: "", fullUrl: "" },
-    { title: "Đánh giá đa dạng sinh học và giải pháp bảo tồn lúa hoang tại An Giang", candidate: "Lê Thị Mai", field: "Trồng trọt", date: "2025-12-10", summaryUrl: "", fullUrl: "" },
-    { title: "Tác động của chuyển đổi số đến doanh nghiệp vừa và nhỏ vùng Đồng bằng sông Cửu Long", candidate: "Phạm Quốc Cường", field: "Quản trị Kinh doanh", date: "2026-01-18", summaryUrl: "", fullUrl: "" },
-  ];
+  const initialTheses = [];
   let list, state = "idle", grid, status;
   function safeLink(url) {
     if (typeof url !== "string" || !url.trim()) return "";
