@@ -48,6 +48,17 @@ public partial class Detailuanan
     [StringLength(500)]
     public string? FileDeCuong { get; set; }
 
+    // Trạng thái phê duyệt đề tài: 0 chờ duyệt, 1 đã duyệt, -1 từ chối
+    [Column("TrangThaiDuyet", TypeName = "tinyint(4)")]
+    public sbyte TrangThaiDuyet { get; set; }
+
+    [Column("NgayDuyet", TypeName = "datetime")]
+    public DateTime? NgayDuyet { get; set; }
+
+    [Column("GhiChuDuyet")]
+    [StringLength(500)]
+    public string? GhiChuDuyet { get; set; }
+
     public bool? TrangThaiKhoa { get; set; }
 
     [ForeignKey("MaNcs")]

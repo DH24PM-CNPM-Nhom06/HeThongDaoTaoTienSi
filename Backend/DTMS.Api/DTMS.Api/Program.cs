@@ -41,6 +41,7 @@ builder.Services.AddDbContext<DtmsDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddTransient<EmailService>();
+builder.Services.AddHostedService<DTMS.Api.Services.NhacNopBaoCaoService>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var secretKey = jwtSettings["Key"]

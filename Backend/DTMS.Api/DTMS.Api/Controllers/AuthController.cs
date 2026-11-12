@@ -18,7 +18,7 @@ namespace DTMS.Api.Controllers
     public class AuthController : ControllerBase
     {
         // Thứ tự ưu tiên khi chọn vai trò chính hiển thị (mã CSDL)
-        private static readonly string[] RolePriority = { "ADMIN", "PDT", "TBM", "NHD", "PBDL", "NCS" };
+        private static readonly string[] RolePriority = { "ADMIN", "PDT", "BGH", "KHOA", "TBM", "NHD", "PBDL", "NCS" };
 
         private const string ThongBaoSai = "Sai tài khoản hoặc mật khẩu.";
         private static readonly Regex MatKhauHopLe = new Regex(@"^(?=.*[A-Za-z])(?=.*\d).{8,}$");
@@ -135,8 +135,10 @@ namespace DTMS.Api.Controllers
 
             hoTen ??= user.TenDangNhap;
 
+            // Vai trò ngoài danh sách ưu tiên vẫn được đưa vào, sau các vai trò chuẩn
             var displayRoles = RolePriority
                 .Where(r => roles.Contains(r))
+                .Concat(roles.Where(r => !RolePriority.Contains(r)))
                 .Select(ToFrontendRole)
                 .Distinct()
                 .ToList();
@@ -161,7 +163,7 @@ namespace DTMS.Api.Controllers
                 {
                     MaNguoiDung = user.MaNguoiDung,
                     HoTen = hoTen,
-                    MaVaiTro = displayRoles[0],
+                    MaVaiTro = displayRoles.Count > 0 ? displayRoles[0] : roles[0],
                     Roles = displayRoles
                 }
             });

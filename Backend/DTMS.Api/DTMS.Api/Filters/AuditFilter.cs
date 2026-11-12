@@ -13,10 +13,12 @@ namespace DTMS.Api.Filters
     public class AuditFilter : IAsyncActionFilter
     {
         private readonly DtmsDbContext _db;
+        private readonly ILogger<AuditFilter> _logger;
 
-        public AuditFilter(DtmsDbContext db)
+        public AuditFilter(DtmsDbContext db, ILogger<AuditFilter> logger)
         {
             _db = db;
+            _logger = logger;
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -60,9 +62,10 @@ namespace DTMS.Api.Filters
                     INSERT INTO nhatky_thaotac (ThoiDiem, MaNguoiDung, TenDangNhap, HanhDong, DuongDan, MaTrangThai, DiaChi)
                     VALUES ({thoiDiem}, {maNguoiDung}, {tenDangNhap}, {method}, {duongDan}, {status}, {diaChi})");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Lỗi ghi nhật ký không được làm hỏng nghiệp vụ chính
+                // Không làm hỏng nghiệp vụ chính, nhưng không im lặng: ghi lỗi để quản trị viên xử lý
+                _logger.LogError(ex, "Không ghi được nhật ký thao tác {Method} {Path}", method, duongDan);
             }
         }
     }

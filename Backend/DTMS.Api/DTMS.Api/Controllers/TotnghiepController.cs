@@ -1,5 +1,4 @@
-﻿using DTMS.Api.DTOs;
-using DTMS.Api.Helpers;
+﻿using DTMS.Api.Helpers;
 using DTMS.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DTMS.Api.Controllers
 {
-    // Xét điều kiện tốt nghiệp (mục 3.2.2). Phòng Đào tạo chạy xét khi cần, và duyệt hàng loạt.
+    // Xét điều kiện tốt nghiệp (tài liệu mục 3.2.2, nhóm 7).
+    // Số tín chỉ yêu cầu theo đối tượng đầu vào: cấu hình Totnghiep:TinChiTheoDoiTuong.
     // Chỉ ADMIN và PDT được sử dụng.
     [Route("api/[controller]")]
     [ApiController]
@@ -27,17 +27,18 @@ namespace DTMS.Api.Controllers
         [HttpGet("xet")]
         public async Task<IActionResult> XetTotNghiep()
         {
-            var ds = new List<KetQuaXetTotNghiepDto>();
-            var (tinChiYeuCau, canNgoaiNgu) = ThamSo();
+            var canNgoaiNgu = _configuration.GetValue<bool>("Totnghiep:CanChungChiNgoaiNgu", true);
 
             var danhSach = await _context.Nghiencuusinhs
-                .Select(n => new { n.MaNcs, n.HoTen, n.MaNganh })
+                .Select(n => new { n.MaNcs, n.HoTen, n.MaNganh, n.DoiTuongDauVao })
                 .ToListAsync();
 
-            var daXet = await _context.Hoanthienvatotnghieps.Select(h => h.MaNcs).ToListAsync();
+            var daCongNhan = await _context.Hoanthienvatotnghieps.Select(h => h.MaNcs).ToListAsync();
 
+            var ds = new List<KetQuaXetTotNghiepDto>();
             foreach (var ncs in danhSach)
             {
+                var tinChiYeuCau = TinChiYeuCau(ncs.DoiTuongDauVao);
                 var (duDieuKien, tinChiDat, lyDo) = await AcademicCalc.KiemTraTotNghiepAsync(
                     _context, ncs.MaNcs, tinChiYeuCau, canNgoaiNgu);
 
@@ -46,10 +47,11 @@ namespace DTMS.Api.Controllers
                     MaNcs = ncs.MaNcs,
                     HoTen = ncs.HoTen,
                     MaNganh = ncs.MaNganh,
+                    DoiTuongDauVao = ncs.DoiTuongDauVao,
                     TinChiDat = tinChiDat,
                     TinChiYeuCau = tinChiYeuCau,
                     DuDieuKien = duDieuKien,
-                    DaCongNhan = daXet.Contains(ncs.MaNcs),
+                    DaCongNhan = daCongNhan.Contains(ncs.MaNcs),
                     LyDo = lyDo
                 });
             }
@@ -58,7 +60,7 @@ namespace DTMS.Api.Controllers
         }
 
         // POST: api/Totnghiep/duyet-hang-loat
-        // Chỉ công nhận những NCS đủ điều kiện tại thời điểm duyệt và chưa được công nhận trước đó
+        // Chỉ công nhận NCS đủ điều kiện tại thời điểm duyệt và chưa được công nhận trước đó
         [HttpPost("duyet-hang-loat")]
         public async Task<IActionResult> DuyetHangLoat([FromBody] DuyetTotNghiepRequest request)
         {
@@ -67,7 +69,7 @@ namespace DTMS.Api.Controllers
                 return BadRequest(new { Success = false, Message = "Chưa chọn nghiên cứu sinh nào." });
             }
 
-            var (tinChiYeuCau, canNgoaiNgu) = ThamSo();
+            var canNgoaiNgu = _configuration.GetValue<bool>("Totnghiep:CanChungChiNgoaiNgu", true);
 
             await using var giaoDich = await _context.Database.BeginTransactionAsync();
 
@@ -76,15 +78,21 @@ namespace DTMS.Api.Controllers
 
             foreach (var ma in request.MaNcs.Distinct())
             {
-                var (duDieuKien, _, _) = await AcademicCalc.KiemTraTotNghiepAsync(_context, ma, tinChiYeuCau, canNgoaiNgu);
+                var doiTuong = await _context.Nghiencuusinhs
+                    .Where(n => n.MaNcs == ma)
+                    .Select(n => n.DoiTuongDauVao)
+                    .FirstOrDefaultAsync();
+
+                var (duDieuKien, _, _) = await AcademicCalc.KiemTraTotNghiepAsync(
+                    _context, ma, TinChiYeuCau(doiTuong), canNgoaiNgu);
+
                 if (!duDieuKien)
                 {
                     khongDuDieuKien.Add(ma);
                     continue;
                 }
 
-                var daCoBanGhi = await _context.Hoanthienvatotnghieps.AnyAsync(h => h.MaNcs == ma);
-                if (daCoBanGhi) continue;
+                if (await _context.Hoanthienvatotnghieps.AnyAsync(h => h.MaNcs == ma)) continue;
 
                 _context.Hoanthienvatotnghieps.Add(new Hoanthienvatotnghiep { MaNcs = ma });
                 congNhan.Add(ma);
@@ -102,11 +110,11 @@ namespace DTMS.Api.Controllers
             });
         }
 
-        private (int TinChiYeuCau, bool CanNgoaiNgu) ThamSo()
+        // Tín chỉ yêu cầu theo đối tượng đầu vào; không có cấu hình thì dùng mức chung
+        private int TinChiYeuCau(sbyte doiTuongDauVao)
         {
-            var tinChi = _configuration.GetValue<int>("Totnghiep:TinChiToiThieu", 90);
-            var ngoaiNgu = _configuration.GetValue<bool>("Totnghiep:CanChungChiNgoaiNgu", true);
-            return (tinChi, ngoaiNgu);
+            var mucChung = _configuration.GetValue<int>("Totnghiep:TinChiToiThieu", 90);
+            return _configuration.GetValue<int?>($"Totnghiep:TinChiTheoDoiTuong:{doiTuongDauVao}") ?? mucChung;
         }
     }
 
@@ -115,6 +123,7 @@ namespace DTMS.Api.Controllers
         public string MaNcs { get; set; } = null!;
         public string HoTen { get; set; } = null!;
         public string MaNganh { get; set; } = null!;
+        public sbyte DoiTuongDauVao { get; set; }
         public int TinChiDat { get; set; }
         public int TinChiYeuCau { get; set; }
         public bool DuDieuKien { get; set; }

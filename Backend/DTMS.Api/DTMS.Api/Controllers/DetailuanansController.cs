@@ -75,7 +75,10 @@ namespace DTMS.Api.Controllers
                 FileTieuLuan = dto.FileTieuLuan,
                 FileDeCuong = dto.FileDeCuong,
                 LanChinhSua = 0,
-                TrangThaiKhoa = false
+                TrangThaiKhoa = false,
+                // Cán bộ đăng ký thay thì coi như đã duyệt; NCS đăng ký thì chờ duyệt
+                TrangThaiDuyet = (sbyte)(LaQuanTri() ? 1 : 0),
+                NgayDuyet = LaQuanTri() ? DateTime.Now : null
             };
 
             _context.Detailuanans.Add(d);
@@ -101,6 +104,16 @@ namespace DTMS.Api.Controllers
                 {
                     return Conflict(new { Success = false, Message = "Đề tài đã bị khóa, không thể sửa." });
                 }
+
+                if (d.TrangThaiDuyet == 1)
+                {
+                    return Conflict(new { Success = false, Message = "Đề tài đã được phê duyệt, không thể sửa." });
+                }
+
+                // Đề tài bị từ chối thì sửa xong phải gửi duyệt lại
+                d.TrangThaiDuyet = 0;
+                d.NgayDuyet = null;
+                d.GhiChuDuyet = null;
             }
 
             d.TenDeTaiVn = dto.TenDeTaiVn;
@@ -113,6 +126,32 @@ namespace DTMS.Api.Controllers
 
             await _context.SaveChangesAsync();
             return NoContent();
+        }
+
+        // PUT: api/Detailuanans/5/duyet  (chỉ ADMIN, PDT phê duyệt hoặc từ chối đề tài)
+        [HttpPut("{made:int}/duyet")]
+        [Authorize(Roles = "ADMIN,PDT")]
+        public async Task<IActionResult> DuyetDeTai(int made, [FromBody] DuyetDeTaiRequest dto)
+        {
+            if (dto.TrangThaiDuyet != 1 && dto.TrangThaiDuyet != -1)
+            {
+                return BadRequest(new { Success = false, Message = "Trạng thái duyệt chỉ nhận 1 (phê duyệt) hoặc -1 (từ chối)." });
+            }
+
+            var d = await _context.Detailuanans.FindAsync(made);
+            if (d == null) return NotFound();
+
+            d.TrangThaiDuyet = dto.TrangThaiDuyet;
+            d.NgayDuyet = DateTime.Now;
+            d.GhiChuDuyet = dto.GhiChu;
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                Success = true,
+                Message = dto.TrangThaiDuyet == 1 ? "Đã phê duyệt đề tài." : "Đã từ chối đề tài.",
+                TrangThaiDuyet = d.TrangThaiDuyet
+            });
         }
 
         // PUT: api/Detailuanans/5/khoa  (chỉ ADMIN, PDT)
@@ -161,6 +200,12 @@ namespace DTMS.Api.Controllers
         public string? FileTomTat { get; set; }
         public string? FileTieuLuan { get; set; }
         public string? FileDeCuong { get; set; }
+    }
+
+    public class DuyetDeTaiRequest
+    {
+        public sbyte TrangThaiDuyet { get; set; }     // 1: phê duyệt, -1: từ chối
+        public string? GhiChu { get; set; }
     }
 
     public class KhoaDeTaiRequest

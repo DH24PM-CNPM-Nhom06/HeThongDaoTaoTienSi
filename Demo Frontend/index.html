@@ -76,6 +76,11 @@
             </button>
 
 
+            <button type="button" id="topbar-user-badge" class="topbar-user-badge" onclick="DTMS_MANAGEMENT.openWorkspace()" aria-label="Người dùng đang đăng nhập">
+              <span class="topbar-avatar" id="topbar-avatar" aria-hidden="true"></span>
+              <span class="topbar-user-name" id="topbar-user-name"></span>
+              <span class="role-pill-badge" id="topbar-role-badge"></span>
+            </button>
             <button class="btn-login-os" onclick="DTMS_MANAGEMENT.openWorkspace()">
               <span data-workspace-label>Bàn làm việc</span>
               <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
@@ -215,6 +220,9 @@
                   Bàn làm việc · Nghiệp vụ đào tạo
                 </h2>
                 <p>Nền tảng số hóa quản trị đầy đủ các quy trình học vụ, chuyên đề, tiến độ, thẩm định công bố WoS/Scopus và cấp bằng Tiến sĩ theo Thông tư 18/2021/TT-BGDĐT.</p>
+              </div>
+              <div class="mgmt-user-badge-group">
+                <div class="active-user-card" id="mgmt-active-user-display" aria-live="polite"></div>
               </div>
             </div>
 
@@ -418,7 +426,7 @@
 
                   <div class="mgmt-detail-row">
                     <span>Mã số Nghiên cứu sinh:</span>
-                    <strong style="color:var(--uni-blue-800);">—</strong>
+                    <strong id="profile-display-id" style="color:var(--uni-blue-800);">—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Chuyên ngành đào tạo:</span>
@@ -430,7 +438,7 @@
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Quyết định công nhận NCS:</span>
-                    <span>—</span>
+                    <span id="profile-display-decision">—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Loại hình đào tạo:</span>

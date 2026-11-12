@@ -11,79 +11,37 @@
     NCS: {
       id: "usr_ncs",
       code: "NCS",
-      name: "",
-      title: "Nghiên cứu sinh Khóa 2023",
-      unit: "Khoa Nông nghiệp - TNTN",
-      major: "Khoa học Môi trường (Mã: 9440301)",
-      avatarText: "NB",
-      email: "",
-      phone: ""
+      name: ""
     },
     NHD: {
       id: "usr_nhd",
       code: "NHD",
-      name: "",
-      title: "Người hướng dẫn khoa học chính",
-      unit: "Bộ môn Kỹ thuật Môi trường",
-      major: "Khoa học & Kỹ thuật Môi trường",
-      avatarText: "TH",
-      email: "",
-      phone: ""
+      name: ""
     },
     BM: {
       id: "usr_bm",
       code: "BM",
-      name: "",
-      title: "Trưởng Bộ môn Kỹ thuật Môi trường",
-      unit: "Khoa Nông nghiệp - TNTN",
-      major: "Quản lý Tài nguyên Nước",
-      avatarText: "LN",
-      email: "",
-      phone: ""
+      name: ""
     },
     KHOA: {
       id: "usr_khoa",
       code: "KHOA",
-      name: "",
-      title: "Phó Trưởng Khoa Nông nghiệp - TNTN",
-      unit: "Ban Chủ nhiệm Khoa NN-TNTN",
-      major: "Nông nghiệp Công nghệ cao",
-      avatarText: "NK",
-      email: "",
-      phone: ""
+      name: ""
     },
     PDT: {
       id: "usr_pdt",
       code: "PDT",
-      name: "",
-      title: "Chuyên viên QLĐT Sau Đại học",
-      unit: "Phòng Đào tạo Sau Đại học",
-      major: "Quản lý Giáo dục Đại học",
-      avatarText: "PĐ",
-      email: "",
-      phone: ""
+      name: ""
     },
     BGH: {
       id: "usr_bgh",
       code: "BGH",
-      name: "",
-      title: "Hiệu trưởng Trường ĐH An Giang",
-      unit: "Ban Giám hiệu Trường ĐH An Giang",
-      major: "Chủ tịch Hội đồng Khoa học",
-      avatarText: "VT",
-      email: "",
-      phone: ""
+      name: ""
     },
     HOIDONG: {
       id: "usr_council",
       code: "HOIDONG",
-      name: "",
-      title: "Ủy viên Hội đồng đánh giá luận án",
-      unit: "Hội đồng đánh giá cấp Trường",
-      major: "Khoa học Môi trường",
-      avatarText: "MC",
-      email: "",
-      phone: ""
+      name: ""
     }
   };
 
@@ -303,6 +261,13 @@
     renderServerViews(); // nút theo vai trò của các vùng dữ liệu máy chủ
   }
 
+  function formatAcademicYear(isEnglish) {
+    const now = new Date();
+    const year = now.getFullYear();
+    const startYear = now.getMonth() >= 8 ? year : year - 1;
+    return isEnglish ? `Academic year ${startYear}–${startYear + 1}` : `Năm học ${startYear}–${startYear + 1}`;
+  }
+
   function renderRoleDashboard() {
     const header = document.querySelector(".mgmt-top-header");
     const mount = document.querySelector("[data-role-dashboard-mount]");
@@ -315,7 +280,9 @@
       dashboard.setAttribute("aria-labelledby", "role-dashboard-title");
       mount.append(dashboard);
     }
-    const roleKey = Object.keys(USERS_ROLE_STORE).find((key) => USERS_ROLE_STORE[key] === currentUser) || "NCS";
+    const authenticatedUser = backendSession() ? sessionUser() : null;
+    dashboard.hidden = !(authenticatedUser && authenticatedUser.hoTen);
+    const roleKey = Object.keys(USERS_ROLE_STORE).find((key) => USERS_ROLE_STORE[key] === currentUser) || authenticatedUser?.maVaiTro || "NCS";
     const isEnglish = global.DTMS_DATA.getString("dtms-language") === "EN";
     const dashboards = isEnglish ? ROLE_DASHBOARDS_EN : ROLE_DASHBOARDS;
     const data = dashboards[roleKey] || dashboards.NCS;
@@ -328,12 +295,16 @@
       : { NCS: "Nghiên cứu sinh", NHD: "Người hướng dẫn khoa học", BM: "Trưởng Bộ môn", KHOA: "Ban Chủ nhiệm Khoa", PDT: "Phòng Đào tạo", BGH: "Ban Giám hiệu", HOIDONG: "Hội đồng đánh giá" };
     const title = header.querySelector(".mgmt-header-title h2");
     const subtitle = header.querySelector(".mgmt-header-title p");
-    if (title) title.textContent = `${isEnglish ? "Workspace" : "Bàn làm việc"} · ${roleNames[roleKey]}`;
-    if (subtitle) subtitle.textContent = isEnglish ? `Records and actions available to ${roleNames[roleKey]}.` : `Các hồ sơ, nhiệm vụ và thao tác được phân quyền cho ${roleNames[roleKey]}.`;
+    if (title) title.textContent = authenticatedUser ? `${isEnglish ? "Workspace" : "Bàn làm việc"} · ${roleNames[roleKey]}` : (isEnglish ? "Workspace" : "Bàn làm việc");
+    if (subtitle) subtitle.textContent = authenticatedUser
+      ? (isEnglish ? `Records and actions available to ${roleNames[roleKey]}.` : `Các hồ sơ, nhiệm vụ và thao tác được phân quyền cho ${roleNames[roleKey]}.`)
+      : (isEnglish ? "Sign in to view your workspace." : "Đăng nhập để xem bàn làm việc của bạn.");
     const profileRoleLabel = document.querySelector("[data-profile-role-label]");
-    if (profileRoleLabel) profileRoleLabel.textContent = isEnglish ? `Information, progress and tasks for your role: ${roleNames[roleKey]}.` : `Thông tin, tiến độ và nhiệm vụ theo vai trò: ${roleNames[roleKey]}.`;
+    if (profileRoleLabel) profileRoleLabel.textContent = authenticatedUser
+      ? (isEnglish ? `Information, progress and tasks for your role: ${roleNames[roleKey]}.` : `Thông tin, tiến độ và nhiệm vụ theo vai trò: ${roleNames[roleKey]}.`)
+      : (isEnglish ? "Sign in to view your profile, progress and tasks." : "Đăng nhập để xem hồ sơ, tiến độ và nhiệm vụ của bạn.");
     dashboard.innerHTML = `
-      <div class="role-dashboard-heading"><div><span class="role-dashboard-eyebrow">${isEnglish ? "YOUR WORKSPACE" : "BÀN LÀM VIỆC CỦA BẠN"} · ${currentUser.code}</span><h2 id="role-dashboard-title">${isEnglish ? "Welcome," : "Xin chào,"} ${escapeHtml(currentUser.name)}</h2><p>${escapeHtml(isEnglish ? roleNames[roleKey] : currentUser.title)}</p></div><span class="role-dashboard-date">${isEnglish ? "Academic year 2026–2027" : "Năm học 2026–2027"}</span></div>
+      <div class="role-dashboard-heading"><div><span class="role-dashboard-eyebrow">${isEnglish ? "YOUR WORKSPACE" : "BÀN LÀM VIỆC CỦA BẠN"} · ${roleKey}</span><h2 id="role-dashboard-title">${isEnglish ? "Welcome," : "Xin chào,"} ${escapeHtml(authenticatedUser?.hoTen || "")}</h2><p>${escapeHtml(roleNames[roleKey] || roleKey)}</p></div><span class="role-dashboard-date">${formatAcademicYear(isEnglish)}</span></div>
       <div class="role-dashboard-metrics">${metrics.map(([label, value]) => `<article class="role-dashboard-metric"><span>${label}</span><strong>${escapeHtml(String(value))}</strong></article>`).join("")}</div>
       <article class="role-dashboard-priority">
         <div><span class="role-dashboard-eyebrow">${isEnglish ? "ACADEMIC RECORDS" : "HỒ SƠ HỌC VỤ"}</span><h3>${queue}</h3></div>
@@ -390,7 +361,13 @@
       // Lưu tài khoản và các vai trò được phép TRƯỚC khi switchRole (switchRole kiểm tra theo danh sách này).
       const roles = data.user.roles.filter((code) => Object.prototype.hasOwnProperty.call(USERS_ROLE_STORE, code));
       if (!roles.includes(roleKey)) roles.unshift(roleKey);
-      global.DTMS_DATA.setString(SESSION_USER_KEY, JSON.stringify({ hoTen: data.user.hoTen || '', maVaiTro: roleKey, roles }));
+      global.DTMS_DATA.setString(SESSION_USER_KEY, JSON.stringify({
+        maNguoiDung: data.user.maNguoiDung ?? data.user.MaNguoiDung ?? null,
+        hoTen: data.user.hoTen || '',
+        email,
+        maVaiTro: roleKey,
+        roles
+      }));
       resetServerData();
       switchRole(roleKey); // switchRole ghi sessionStorage["dtms-role"]
       passwordInput.value = '';
@@ -470,6 +447,9 @@
       return;
     }
     currentUser = USERS_ROLE_STORE[roleKey];
+    const identity = backendSession() ? sessionUser() : null;
+    currentUser.name = identity?.hoTen || "";
+    if (identity?.maNguoiDung) currentUser.id = identity.maNguoiDung;
     global.DTMS_DATA.setString("dtms-role", roleKey, true);
     if (!quiet) global.DTMS_DATA.remove("dtms-signed-out", true);
     document.querySelectorAll(".mgmt-modal.is-open").forEach(modal => modal.classList.remove("is-open"));
@@ -480,19 +460,21 @@
     const topRole = document.getElementById("topbar-role-badge");
     const activeDisplay = document.getElementById("mgmt-active-user-display");
 
-    if (topAvatar) topAvatar.textContent = currentUser.avatarText;
-    if (topName) topName.textContent = currentUser.name;
-    if (topRole) topRole.textContent = currentUser.code;
+    const hasIdentity = Boolean(identity?.hoTen);
+    if (topAvatar) topAvatar.textContent = "";
+    if (topName) topName.textContent = "";
+    if (topRole) topRole.textContent = hasIdentity ? currentUser.code : "";
 
     if (activeDisplay) {
-      activeDisplay.innerHTML = `
-        <div class="active-user-avatar">${currentUser.avatarText}</div>
+      activeDisplay.hidden = !hasIdentity;
+      activeDisplay.innerHTML = hasIdentity ? `
+        <div class="active-user-avatar"></div>
         <div class="active-user-info">
-          <strong>${escapeHtml(currentUser.name)}</strong>
-          <span>${escapeHtml(currentUser.title)} · ${escapeHtml(currentUser.unit)}</span>
+          <strong></strong>
+          <span></span>
         </div>
-        <span class="role-pill-badge">${currentUser.code}</span>
-      `;
+        <span class="role-pill-badge">${escapeHtml(currentUser.code)}</span>
+      ` : "";
     }
 
     applyRolePermissions();
@@ -504,16 +486,27 @@
     if (!quiet) global.switchView("management");
   }
 
-  // Thanh trên và thẻ người dùng hiển thị họ tên thật từ backend thay cho tên mẫu của vai trò.
+  // Thanh trên và thẻ người dùng lấy danh tính từ phiên đăng nhập thật.
   function applyRealIdentity() {
     const user = backendSession() ? sessionUser() : null;
     if (!user || !user.hoTen) return;
+    const fullName = String(user.hoTen).trim();
+    const nameParts = fullName.split(/\s+/).filter(Boolean);
+    const avatarText = nameParts.length > 1
+      ? `${nameParts[0][0]}${nameParts[nameParts.length - 1][0]}`.toLocaleUpperCase("vi-VN")
+      : (nameParts[0] || "").slice(0, 2).toLocaleUpperCase("vi-VN");
     const topName = document.getElementById("topbar-user-name");
-    if (topName) topName.textContent = user.hoTen;
+    if (topName) topName.textContent = fullName;
+    const topAvatar = document.getElementById("topbar-avatar");
+    if (topAvatar) topAvatar.textContent = avatarText;
     const activeName = document.querySelector("#mgmt-active-user-display .active-user-info strong");
-    if (activeName) activeName.textContent = user.hoTen;
+    if (activeName) activeName.textContent = fullName;
+    const activeAvatar = document.querySelector("#mgmt-active-user-display .active-user-avatar");
+    if (activeAvatar) activeAvatar.textContent = avatarText;
+    const activeDetails = document.querySelector("#mgmt-active-user-display .active-user-info span");
+    if (activeDetails) activeDetails.textContent = "";
     const dashboardName = document.getElementById("role-dashboard-title");
-    if (dashboardName) dashboardName.textContent = (global.DTMS_DATA.getString("dtms-language") === "EN" ? "Welcome, " : "Xin chào, ") + user.hoTen;
+    if (dashboardName) dashboardName.textContent = (global.DTMS_DATA.getString("dtms-language") === "EN" ? "Welcome, " : "Xin chào, ") + fullName;
   }
 
   // Vai trò làm việc được xác định từ tài khoản đã đăng nhập.
@@ -1493,8 +1486,13 @@
   }
 
   function updateSessionControls() {
-    const signedOut = Boolean(global.DTMS_DATA.getString('dtms-signed-out', '', true));
-    document.querySelectorAll('[data-logout], #topbar-user-badge').forEach(control => { control.hidden = signedOut; });
+    const signedOut = Boolean(global.DTMS_DATA.getString('dtms-signed-out', '', true)) || !backendSession();
+    const hasIdentity = Boolean(sessionUser()?.hoTen);
+    document.querySelectorAll('[data-logout]').forEach(control => { control.hidden = signedOut; });
+    const userBadge = document.getElementById('topbar-user-badge');
+    if (userBadge) userBadge.hidden = signedOut || !hasIdentity;
+    const activeDisplay = document.getElementById('mgmt-active-user-display');
+    if (activeDisplay) activeDisplay.hidden = signedOut || !hasIdentity;
     const label = document.querySelector('[data-workspace-label]');
     const isEnglish = global.DTMS_DATA.getString('dtms-language') === 'EN';
     if (label) label.textContent = signedOut ? (isEnglish ? 'Access workspace' : 'Truy cập hệ thống') : (isEnglish ? 'Workspace' : 'Bàn làm việc');
@@ -1670,17 +1668,13 @@
   }
 
   function renderWorkflowUI() {
-    const own=APP_STATE.candidates.find(c=>c.id==='ncs-01');
-    for(const key of ['phone','email','workplace']) {
-      const display=document.getElementById('profile-display-'+key);
-      if(display)display.textContent=APP_STATE.profile[key];
-    }
-    if(own) {
-      const form=document.getElementById('form-edit-profile');
-      form.querySelector('input[readonly]').value=own.name;
-      document.getElementById('profile-display-name').textContent='NCS. '+own.name;
-      document.getElementById('profile-display-major').textContent=own.major;
-      document.getElementById('profile-display-cohort').textContent=own.cohort;
+    if(!backendSession()) {
+      for(const key of ['name','phone','email','workplace','id','major','cohort','decision','study-type','duration','max-duration']) {
+        const display=document.getElementById('profile-display-'+key);
+        if(display)display.textContent='—';
+      }
+      const profileNameInput=document.querySelector('#form-edit-profile input[readonly]');
+      if(profileNameInput)profileNameInput.value='';
     }
     const selectedCandidate = document.getElementById('assign-ncs-select').value;
     document.getElementById('assign-ncs-select').replaceChildren(...APP_STATE.candidates.map(candidate=>new Option(candidate.name+' · '+candidate.code,candidate.id)));
@@ -2117,10 +2111,41 @@
   function renderServerProfile() {
     const profile = SERVER.profile;
     if (!profile) return;
+    const fullName = profile.hoTen || profile.HoTen || sessionUser()?.hoTen || "—";
+    const candidateCode = profile.maNcs || profile.MaNcs || "—";
+    const majorCode = profile.maNganh || profile.MaNganh || "—";
+    const admissionDecision = profile.soQdtrungTuyen || profile.SoQdtrungTuyen || "—";
+    const admissionDate = String(profile.ngayNhapHoc || profile.NgayNhapHoc || "").match(/^(\d{4})/);
+    const cohort = admissionDate ? `Khóa ${admissionDate[1]}` : "—";
+    const displayValues = {
+      "profile-display-name": fullName,
+      "profile-display-id": candidateCode,
+      "profile-display-major": majorCode,
+      "profile-display-cohort": cohort,
+      "profile-display-decision": admissionDecision,
+      "profile-display-workplace": profile.coQuanCongTac || profile.CoQuanCongTac || "—"
+    };
+    Object.entries(displayValues).forEach(([id, value]) => {
+      const element = byId(id);
+      if (element) element.textContent = value;
+    });
+    const profileNameInput = document.querySelector('#form-edit-profile input[readonly]');
+    if (profileNameInput) profileNameInput.value = fullName === "—" ? "" : fullName;
     const phone = byId("profile-display-phone");
     const email = byId("profile-display-email");
-    if (phone) phone.textContent = profile.soDienThoai || "—";
-    if (email) email.textContent = profile.email || "—";
+    if (phone) phone.textContent = profile.soDienThoai || profile.SoDienThoai || "—";
+    if (email) email.textContent = profile.email || profile.Email || "—";
+    const activeDetails = document.querySelector("#mgmt-active-user-display .active-user-info span");
+    if (activeDetails) {
+      const workplace = profile.coQuanCongTac || profile.CoQuanCongTac;
+      const roleLabels = {
+        NCS: "Nghiên cứu sinh", NHD: "Người hướng dẫn khoa học", BM: "Trưởng Bộ môn",
+        KHOA: "Ban Chủ nhiệm Khoa", PDT: "Phòng Đào tạo", BGH: "Ban Giám hiệu", HOIDONG: "Hội đồng đánh giá"
+      };
+      const roleLabel = roleLabels[currentUser.code] || currentUser.code;
+      const identityDetails = [roleLabel, cohort !== "—" ? cohort : "", candidateCode !== "—" ? `Mã NCS: ${candidateCode}` : "", workplace || ""].filter(Boolean);
+      activeDetails.textContent = identityDetails.join(" · ") || profile.email || profile.Email || "";
+    }
   }
 
   async function submitServerProfile(event) {

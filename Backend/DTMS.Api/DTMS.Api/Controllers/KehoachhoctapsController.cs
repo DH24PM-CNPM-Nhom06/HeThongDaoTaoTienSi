@@ -56,7 +56,7 @@ namespace DTMS.Api.Controllers
         // POST: api/Kehoachhoctaps  (NCS nộp kế hoạch cho chính mình; ADMIN/PDT nhập hộ)
         [HttpPost]
         [Authorize(Roles = "NCS,ADMIN,PDT")]
-        public async Task<IActionResult> PostKehoachhoctap([FromBody] KehoachhoctapDto dto)
+        public async Task<IActionResult> PostKehoachhoctap([FromBody] KehoachRequest dto)
         {
             string? maNcs;
             if (User.IsInRole("ADMIN") || User.IsInRole("PDT"))
@@ -113,7 +113,7 @@ namespace DTMS.Api.Controllers
         // NCS chỉ sửa được khi NHD chưa duyệt. Sửa xong kế hoạch được gửi lại từ đầu.
         [HttpPut("{id:int}")]
         [Authorize(Roles = "NCS,ADMIN,PDT")]
-        public async Task<IActionResult> PutKehoachhoctap(int id, [FromBody] KehoachhoctapDto dto)
+        public async Task<IActionResult> PutKehoachhoctap(int id, [FromBody] KehoachRequest dto)
         {
             var kh = await _context.Kehoachhoctaps.FindAsync(id);
             if (kh == null) return NotFound(new { Success = false, Message = "Không tìm thấy kế hoạch." });
@@ -124,9 +124,12 @@ namespace DTMS.Api.Controllers
                 var own = await Access.CurrentNcsAsync(_context, User);
                 if (own == null || kh.MaNcs != own) return NotFound();
 
-                if (kh.DuyetNhd == 1)
+                // Kế hoạch được sửa khi: chưa được NHD đồng ý, hoặc đã bị TBM/PDT từ chối (cần nộp lại).
+                // Đang chờ TBM/PDT xử lý (NHD đã đồng ý, chưa có từ chối) thì không sửa được.
+                bool dangChoDuyet = kh.DuyetNhd == 1 && kh.DuyetTbm != -1 && kh.DuyetPdt != -1;
+                if (dangChoDuyet)
                 {
-                    return Conflict(new { Success = false, Message = "Kế hoạch đã được NHD duyệt, không thể sửa." });
+                    return Conflict(new { Success = false, Message = "Kế hoạch đang chờ Bộ môn/Phòng Đào tạo xử lý, chưa thể sửa." });
                 }
 
                 kh.DuyetNhd = 0;
@@ -145,6 +148,18 @@ namespace DTMS.Api.Controllers
             {
                 return BadRequest(new { Success = false, Message = "Môn học không tồn tại trong hệ thống." });
             }
+
+            // Lưu lịch sử phiên bản trước khi thay đổi
+            _context.KehoachLichsus.Add(new KehoachLichsu
+            {
+                MaKeHoach = kh.MaKeHoach,
+                NamHoc = kh.NamHoc,
+                HocKy = kh.HocKy,
+                MaMonHoc = kh.MaMonHoc,
+                NoiDungKeHoach = kh.NoiDungKeHoach,
+                NgayLuu = DateTime.Now,
+                NguoiLuu = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value
+            });
 
             kh.NamHoc = dto.NamHoc;
             kh.HocKy = dto.HocKy;
@@ -262,5 +277,26 @@ namespace DTMS.Api.Controllers
         public string Cap { get; set; } = null!;          // "NHD", "TBM" hoặc "PDT"
         public sbyte TrangThaiDuyet { get; set; }         // 1: đồng ý, -1: từ chối
         public string? Ykien { get; set; }                // chỉ dùng ở cấp NHD
+    }
+
+    // Dữ liệu NCS gửi khi nộp hoặc sửa kế hoạch.
+    // MaNcs không bắt buộc: NCS luôn là chính mình, chỉ ADMIN/PDT cần gửi MaNcs.
+    public class KehoachRequest
+    {
+        public string? MaNcs { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.StringLength(20)]
+        public string NamHoc { get; set; } = null!;
+
+        [System.ComponentModel.DataAnnotations.Required]
+        public sbyte HocKy { get; set; }
+
+        [System.ComponentModel.DataAnnotations.StringLength(20)]
+        public string? MaMonHoc { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.StringLength(500)]
+        public string NoiDungKeHoach { get; set; } = null!;
     }
 }

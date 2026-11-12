@@ -4,14 +4,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DTMS.Api.Helpers
 {
-    // Tập trung logic "ai được xem / ghi dữ liệu của NCS nào".
-    // Đọc vai trò từ token (User.IsInRole), nên người có nhiều vai trò vẫn đúng.
+    // Phân quyền theo phạm vi dữ liệu (tài liệu phân tích thiết kế):
+    // ADMIN, PDT, BGH: xem toàn bộ (BGH chỉ xem, không ghi).
+    // TBM, KHOA: chỉ xem và ghi NCS thuộc các ngành trong bảng phamvi_don_vi của giảng viên đó.
+    // NHD: NCS đang hướng dẫn. PBDL: NCS được phân công phản biện. NCS: hồ sơ của mình.
     public static class Access
     {
-        // ADMIN, PDT, TBM xem và quản lý toàn bộ NCS
+        // Xem toàn bộ dữ liệu NCS
         public static bool LaToanQuyen(ClaimsPrincipal user)
         {
-            return user.IsInRole("ADMIN") || user.IsInRole("PDT") || user.IsInRole("TBM");
+            return user.IsInRole("ADMIN") || user.IsInRole("PDT") || user.IsInRole("BGH");
+        }
+
+        // Được ghi dữ liệu học vụ của mọi NCS
+        public static bool LaQuanTri(ClaimsPrincipal user)
+        {
+            return user.IsInRole("ADMIN") || user.IsInRole("PDT");
+        }
+
+        // Chỉ xem và ghi trong phạm vi ngành được giao
+        public static bool LaCanBoPhamVi(ClaimsPrincipal user)
+        {
+            return user.IsInRole("TBM") || user.IsInRole("KHOA");
         }
 
         private static int? UserId(ClaimsPrincipal user)
@@ -40,6 +54,29 @@ namespace DTMS.Api.Helpers
                 .Where(g => g.MaNguoiDung == uid.Value)
                 .Select(g => g.MaGv)
                 .FirstOrDefaultAsync();
+        }
+
+        // Các ngành mà giảng viên hiện tại được giao phụ trách (bảng phamvi_don_vi)
+        public static async Task<List<string>> PhamViNganhAsync(DtmsDbContext db, ClaimsPrincipal user)
+        {
+            var maGv = await CurrentGvAsync(db, user);
+            if (maGv == null) return new List<string>();
+
+            return await db.Database
+                .SqlQuery<string>($"SELECT MaNganh FROM phamvi_don_vi WHERE MaGV = {maGv}")
+                .ToListAsync();
+        }
+
+        // NCS thuộc phạm vi ngành của TBM/KHOA
+        public static async Task<List<string>> NcsTrongPhamViAsync(DtmsDbContext db, ClaimsPrincipal user)
+        {
+            var nganhs = await PhamViNganhAsync(db, user);
+            if (nganhs.Count == 0) return new List<string>();
+
+            return await db.Nghiencuusinhs
+                .Where(n => nganhs.Contains(n.MaNganh))
+                .Select(n => n.MaNcs)
+                .ToListAsync();
         }
 
         // Danh sách NCS mà giảng viên hiện tại đang hướng dẫn
@@ -76,8 +113,7 @@ namespace DTMS.Api.Helpers
             return ds.Contains(maNcs);
         }
 
-        // null = xem được tất cả; ngược lại là danh sách MaNcs được phép xem.
-        // NCS: hồ sơ của mình. NHD: NCS đang hướng dẫn. PBDL: NCS được phân công phản biện.
+        // null = xem được tất cả; ngược lại là danh sách MaNcs được phép xem
         public static async Task<List<string>?> ReadableNcsAsync(DtmsDbContext db, ClaimsPrincipal user)
         {
             if (LaToanQuyen(user)) return null;
@@ -96,6 +132,10 @@ namespace DTMS.Api.Helpers
             {
                 ds.AddRange(await AssignedNcsForReviewerAsync(db, user));
             }
+            if (LaCanBoPhamVi(user))
+            {
+                ds.AddRange(await NcsTrongPhamViAsync(db, user));
+            }
             return ds.Distinct().ToList();
         }
 
@@ -105,15 +145,22 @@ namespace DTMS.Api.Helpers
             return ds == null || ds.Contains(maNcs);
         }
 
-        // Ghi điểm, đánh giá: ADMIN/PDT/TBM toàn quyền; NHD chỉ với NCS mình hướng dẫn
+        // Ghi dữ liệu học vụ: ADMIN/PDT mọi NCS; TBM/KHOA trong phạm vi ngành; NHD NCS mình hướng dẫn.
+        // BGH chỉ xem, không ghi.
         public static async Task<bool> CanWriteNcsAsync(DtmsDbContext db, ClaimsPrincipal user, string maNcs)
         {
-            if (LaToanQuyen(user)) return true;
+            if (LaQuanTri(user)) return true;
+
+            if (LaCanBoPhamVi(user))
+            {
+                var trongPhamVi = await NcsTrongPhamViAsync(db, user);
+                if (trongPhamVi.Contains(maNcs)) return true;
+            }
+
             return await SupervisesAsync(db, user, maNcs);
         }
 
         // Danh sách mã hội đồng người dùng được xem. null = xem tất cả.
-        // Hội đồng của các NCS mình có quyền xem, cộng với hội đồng mình là thành viên (PBDL).
         public static async Task<List<int>?> VisibleHoiDongIdsAsync(DtmsDbContext db, ClaimsPrincipal user)
         {
             if (LaToanQuyen(user)) return null;

@@ -56,7 +56,33 @@ namespace DTMS.Api.Helpers
                 if (!coChungChi) lyDo.Add("Chưa có chứng chỉ ngoại ngữ được duyệt còn hiệu lực");
             }
 
+            // Công bố khoa học (tài liệu mục 3.4): 1 bài WoS/Scopus, hoặc 2 bài HĐGSNN từ 0,75 điểm,
+            // NCS là tác giả chính và bài có địa chỉ trường
+            if (!await CoCongBoHopLeAsync(db, maNcs))
+            {
+                lyDo.Add("Chưa đủ công bố khoa học hợp lệ (1 bài WoS/Scopus hoặc 2 bài HĐGSNN từ 0,75 điểm)");
+            }
+
             return (lyDo.Count == 0, tk.TinChiDat, lyDo);
+        }
+
+        public static async Task<bool> CoCongBoHopLeAsync(DtmsDbContext db, string maNcs)
+        {
+            var cb = await db.Congbokhoahocs
+                .Where(c => c.MaNcs == maNcs && c.TrangThaiDuyet == 1 && c.VaiTroTacGia == 1 && c.DiaChiTruong)
+                .Select(c => new { c.PhanLoai, c.DiemTapChi })
+                .ToListAsync();
+
+            bool coWosHoacScopus = cb.Any(c =>
+                c.PhanLoai.Contains("WoS", StringComparison.OrdinalIgnoreCase) ||
+                c.PhanLoai.Contains("Scopus", StringComparison.OrdinalIgnoreCase));
+
+            int soHdgsnn = cb.Count(c =>
+                (c.PhanLoai.Contains("HĐGSNN", StringComparison.OrdinalIgnoreCase) ||
+                 c.PhanLoai.Contains("HDGSNN", StringComparison.OrdinalIgnoreCase)) &&
+                c.DiemTapChi >= 0.75f);
+
+            return coWosHoacScopus || soHdgsnn >= 2;
         }
     }
 }
