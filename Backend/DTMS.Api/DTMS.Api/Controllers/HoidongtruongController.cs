@@ -98,7 +98,7 @@ namespace DTMS.Api.Controllers
             var soThanhVien = await _context.Thanhvienhoidongs.CountAsync(tv => tv.MaHoiDong == maHoiDong);
             var daBo = await _context.PhieuBoPhieus.CountAsync(p => p.MaHoiDong == maHoiDong);
 
-            if (daBo < soThanhVien)
+            if (soThanhVien == 0 || daBo < soThanhVien)
             {
                 return Ok(new { DaBoPhieu = daBo, TongThanhVien = soThanhVien, Message = "Chưa đủ phiếu, chưa có kết quả." });
             }

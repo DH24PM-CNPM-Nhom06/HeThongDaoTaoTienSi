@@ -1,18 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace DTMS.Api.Models;
 
 // Học phần tiên quyết: MaMonHoc yêu cầu MaTienQuyet phải đạt trước
 [Table("monhoc_tienquyet")]
+[PrimaryKey(nameof(MaMonHoc), nameof(MaTienQuyet))]
 public partial class MonhocTienquyet
 {
-    [Key]
     [StringLength(20)]
     public string MaMonHoc { get; set; } = null!;
 
-    [Key]
     [StringLength(20)]
     public string MaTienQuyet { get; set; } = null!;
 }

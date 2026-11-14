@@ -32,7 +32,7 @@ namespace DTMS.Api.Controllers
             var dat = await DaDatBaoVeAsync(maNcs);
             var hoan = await _context.Hoanthienvatotnghieps.FirstOrDefaultAsync(h => h.MaNcs == maNcs);
 
-            var coLuuChieu = hoan?.BienNhanTvqg != null;
+            var coLuuChieu = !string.IsNullOrWhiteSpace(hoan?.BienNhanTvqg);
             var coCongKhai = hoan?.NgayCongKhaiWeb != null;
             var daCapBang = hoan?.NgayCapBang != null;
 
@@ -85,10 +85,15 @@ namespace DTMS.Api.Controllers
                 return Conflict(new { Success = false, Message = "Chưa đạt bảo vệ cấp Trường, không thể lưu chiểu." });
             }
 
+            if (string.IsNullOrWhiteSpace(dto.BienNhanTvqg))
+            {
+                return BadRequest(new { Success = false, Message = "Thiếu biên nhận lưu chiểu Thư viện Quốc gia." });
+            }
+
             var hoan = await _context.Hoanthienvatotnghieps.FirstOrDefaultAsync(h => h.MaNcs == maNcs);
             if (hoan == null) return Conflict(new { Success = false, Message = "Hồ sơ chưa được tạo." });
 
-            hoan.BienNhanTvqg = dto.BienNhanTvqg;
+            hoan.BienNhanTvqg = dto.BienNhanTvqg.Trim();
             hoan.BienNhanTvtruong = dto.BienNhanTvtruong;
             await _context.SaveChangesAsync();
             return Ok(new { Success = true, Message = "Đã ghi nhận lưu chiểu." });
@@ -99,8 +104,17 @@ namespace DTMS.Api.Controllers
         [Authorize(Roles = "ADMIN,PDT")]
         public async Task<IActionResult> CongKhai(string maNcs)
         {
+            if (!await DaDatBaoVeAsync(maNcs))
+            {
+                return Conflict(new { Success = false, Message = "Chưa đạt bảo vệ cấp Trường, không thể công khai." });
+            }
+
             var hoan = await _context.Hoanthienvatotnghieps.FirstOrDefaultAsync(h => h.MaNcs == maNcs);
             if (hoan == null) return Conflict(new { Success = false, Message = "Hồ sơ chưa được tạo." });
+            if (string.IsNullOrWhiteSpace(hoan.BienNhanTvqg))
+            {
+                return Conflict(new { Success = false, Message = "Chưa hoàn thành lưu chiểu Thư viện Quốc gia." });
+            }
 
             hoan.NgayCongKhaiWeb = DateOnly.FromDateTime(DateTime.Today);
             await _context.SaveChangesAsync();
@@ -120,7 +134,7 @@ namespace DTMS.Api.Controllers
             var hoan = await _context.Hoanthienvatotnghieps.FirstOrDefaultAsync(h => h.MaNcs == maNcs);
             if (hoan == null) return Conflict(new { Success = false, Message = "Hồ sơ chưa được tạo." });
 
-            if (!await DaDatBaoVeAsync(maNcs) || hoan.BienNhanTvqg == null || hoan.NgayCongKhaiWeb == null)
+            if (!await DaDatBaoVeAsync(maNcs) || string.IsNullOrWhiteSpace(hoan.BienNhanTvqg) || hoan.NgayCongKhaiWeb == null)
             {
                 return Conflict(new { Success = false, Message = "Chưa đủ điều kiện ký cấp bằng (bảo vệ đạt, đã lưu chiểu, đã công khai)." });
             }

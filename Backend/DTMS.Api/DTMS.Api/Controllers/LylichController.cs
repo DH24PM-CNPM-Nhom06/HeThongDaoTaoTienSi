@@ -30,21 +30,30 @@ namespace DTMS.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> DanhSach([FromQuery] string? maNguoi, [FromQuery] string? vaiTro)
         {
-            var (maCuaToi, vaiTroCuaToi) = await MaCuaToiAsync();
-            if (maCuaToi == null) return Forbid();
-
             bool quanTri = User.IsInRole("PDT") || User.IsInRole("ADMIN");
-            string xem = maCuaToi;
-            string vt = vaiTroCuaToi;
+            var (maCuaToi, vaiTroCuaToi) = await MaCuaToiAsync();
+            string xem;
+            string vt;
 
-            if (!string.IsNullOrWhiteSpace(maNguoi) && quanTri)
+            if (quanTri && !string.IsNullOrWhiteSpace(maNguoi))
             {
-                xem = maNguoi;
-                vt = string.IsNullOrWhiteSpace(vaiTro) ? vaiTroCuaToi : vaiTro.ToUpperInvariant();
+                // PDT/ADMIN không nhất thiết có hồ sơ NCS/GV riêng.
+                vt = (vaiTro ?? string.Empty).Trim().ToUpperInvariant();
+                if (vt != "NCS" && vt != "GV")
+                    return BadRequest(new { Success = false, Message = "Khi xem người khác, vaiTro phải là NCS hoặc GV." });
+
+                xem = maNguoi.Trim();
             }
-            else if (!string.IsNullOrWhiteSpace(maNguoi) && maNguoi != maCuaToi)
+            else
             {
-                return Forbid();
+                // Người không phải PDT/ADMIN chỉ được xem đúng hồ sơ của mình.
+                if (maCuaToi == null) return Forbid();
+                if (!string.IsNullOrWhiteSpace(maNguoi) && maNguoi.Trim() != maCuaToi) return Forbid();
+                if (!string.IsNullOrWhiteSpace(vaiTro) && vaiTro.Trim().ToUpperInvariant() != vaiTroCuaToi)
+                    return Forbid();
+
+                xem = maCuaToi;
+                vt = vaiTroCuaToi;
             }
 
             var ds = await _context.LylichKhoahocs
@@ -92,14 +101,16 @@ namespace DTMS.Api.Controllers
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Xoa(int id)
         {
-            var (maCuaToi, _) = await MaCuaToiAsync();
-            if (maCuaToi == null) return Forbid();
-
+            bool quanTri = User.IsInRole("PDT") || User.IsInRole("ADMIN");
             var muc = await _context.LylichKhoahocs.FindAsync(id);
             if (muc == null) return NotFound();
 
-            bool quanTri = User.IsInRole("PDT") || User.IsInRole("ADMIN");
-            if (muc.MaNguoi != maCuaToi && !quanTri) return NotFound();
+            if (!quanTri)
+            {
+                var (maCuaToi, vaiTroCuaToi) = await MaCuaToiAsync();
+                if (maCuaToi == null) return Forbid();
+                if (muc.MaNguoi != maCuaToi || muc.VaiTro != vaiTroCuaToi) return NotFound();
+            }
 
             _context.LylichKhoahocs.Remove(muc);
             await _context.SaveChangesAsync();

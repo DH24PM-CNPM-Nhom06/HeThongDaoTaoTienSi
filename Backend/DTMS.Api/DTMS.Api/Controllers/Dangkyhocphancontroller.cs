@@ -126,9 +126,17 @@ namespace DTMS.Api.Controllers
             var dk = await _context.DangKyHocphans.FindAsync(id);
             if (dk == null || dk.MaNcs != maNcs) return NotFound();
 
+            var maNganh = await _context.Nghiencuusinhs
+                .Where(n => n.MaNcs == maNcs)
+                .Select(n => n.MaNganh)
+                .FirstOrDefaultAsync();
+            if (maNganh == null) return Forbid();
+
             var homNay = DateOnly.FromDateTime(DateTime.Today);
             bool dotMo = await _context.DotDangKyHocphans.AnyAsync(d =>
-                d.NamHoc == dk.NamHoc && d.HocKy == dk.HocKy && d.TuNgay <= homNay && homNay <= d.DenNgay);
+                d.NamHoc == dk.NamHoc && d.HocKy == dk.HocKy
+                && d.TuNgay <= homNay && homNay <= d.DenNgay
+                && (d.MaNganh == null || d.MaNganh == maNganh));
             if (!dotMo)
             {
                 return Conflict(new { Success = false, Message = "Đã hết đợt đăng ký, không thể hủy học phần." });
