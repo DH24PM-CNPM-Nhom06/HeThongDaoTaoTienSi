@@ -1,5 +1,11 @@
 # Tích hợp API DTMS — bản 18/10/2026
 
+> **Bổ sung 14/11/2026 (Giai đoạn 1, theo DOCX hướng dẫn tích hợp backend phiên bản hiện tại 12/11/2026 + code backend `Backend_2`):**
+> - `GET /api/public/theses` **đã có trong backend** (`PublicController`) và frontend đã ánh xạ field theo DOCX §10 (`title = tenDeTaiVn || tenDeTaiEn`, `candidate = hoTen`, `field = maNganh`, `date = ngayBaoVe`); hai link tóm tắt/toàn văn được ẩn vì API không trả. Đoạn "chưa tồn tại trong ZIP" bên dưới đã lỗi thời.
+> - Tra cứu văn bằng `GET /api/Public/diploma` là API thật (truy vấn DB, không còn stub) nên `DEGREE_SERVICE_READY` đã bật `true` trong `index.html`. Kiểm chứng live với tài khoản test vẫn cần backend đang chạy.
+> - Đã thêm: quên mật khẩu (`POST /api/Auth/quen-mat-khau`, modal trong `index.html` + trang mới `reset.html` gọi `POST /api/Auth/dat-lai-mat-khau`), duyệt đề tài PDT (`PUT /api/Detailuanans/{id}/duyet`), hồ sơ gửi đủ `coQuanCongTac` (`PUT /api/Profile/me`).
+> - Các dòng "Hai action login/diploma còn là stub" và "Chưa có API: đăng ký học phần, yêu cầu học vụ…" bên dưới đã lỗi thời so với backend hiện tại; xem báo cáo phân tích `BAO-CAO-PHAN-TICH-TICH-HOP-DTMS.md` §4 để biết trạng thái mới nhất.
+
 ## Trạng thái thực tế
 
 Backend DTMS.Api (ASP.NET Core, JWT) chạy tại `https://localhost:7143` khi phát triển (`dotnet dev-certs https --trust` một lần để trình duyệt tin chứng chỉ). Giao diện đã nối với các API sau; khi không có phiên đăng nhập thật (ví dụ đặt `API_BASE_URL` rỗng) giao diện giữ dữ liệu mẫu cục bộ.
