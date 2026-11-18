@@ -79,6 +79,16 @@ namespace DTMS.Api.Controllers
                 return BadRequest(new { Success = false, Message = "Nghiên cứu sinh không tồn tại." });
             }
 
+            var namHocChuanHoa = dto.NamHoc?.Trim();
+            if (string.IsNullOrWhiteSpace(namHocChuanHoa) ||
+                !HocPhanRules.NamHocHopLe(namHocChuanHoa) ||
+                !HocPhanRules.HocKyHopLe(dto.HocKy))
+                return BadRequest(new { Success = false, Message = "Năm học hoặc học kỳ không hợp lệ." });
+            dto.NamHoc = namHocChuanHoa;
+            dto.MaMonHoc = string.IsNullOrWhiteSpace(dto.MaMonHoc) ? null : dto.MaMonHoc.Trim();
+            if (dto.MaMonHoc != null && dto.MaMonHoc.Length > 20)
+                return BadRequest(new { Success = false, Message = "Mã môn học quá dài." });
+
             if (string.IsNullOrWhiteSpace(dto.NoiDungKeHoach))
             {
                 return BadRequest(new { Success = false, Message = "Vui lòng nhập nội dung kế hoạch." });
@@ -132,11 +142,17 @@ namespace DTMS.Api.Controllers
                     return Conflict(new { Success = false, Message = "Kế hoạch đang chờ Bộ môn/Phòng Đào tạo xử lý, chưa thể sửa." });
                 }
 
-                kh.DuyetNhd = 0;
-                kh.DuyetTbm = 0;
-                kh.DuyetPdt = 0;
-                kh.YkienNhd = null;
             }
+
+            var namHocChuanHoa = dto.NamHoc?.Trim();
+            if (string.IsNullOrWhiteSpace(namHocChuanHoa) ||
+                !HocPhanRules.NamHocHopLe(namHocChuanHoa) ||
+                !HocPhanRules.HocKyHopLe(dto.HocKy))
+                return BadRequest(new { Success = false, Message = "Năm học hoặc học kỳ không hợp lệ." });
+            dto.NamHoc = namHocChuanHoa;
+            dto.MaMonHoc = string.IsNullOrWhiteSpace(dto.MaMonHoc) ? null : dto.MaMonHoc.Trim();
+            if (dto.MaMonHoc != null && dto.MaMonHoc.Length > 20)
+                return BadRequest(new { Success = false, Message = "Mã môn học quá dài." });
 
             if (string.IsNullOrWhiteSpace(dto.NoiDungKeHoach))
             {
@@ -148,6 +164,13 @@ namespace DTMS.Api.Controllers
             {
                 return BadRequest(new { Success = false, Message = "Môn học không tồn tại trong hệ thống." });
             }
+
+            // Bất kỳ người sửa nào (kể cả PDT/ADMIN) thay đổi nội dung đã xét duyệt
+            // đều phải gửi lại từ đầu, không được giữ phê duyệt của phiên bản cũ.
+            var coThayDoi = kh.NamHoc != dto.NamHoc || kh.HocKy != dto.HocKy ||
+                             kh.MaMonHoc != dto.MaMonHoc || kh.NoiDungKeHoach != dto.NoiDungKeHoach;
+            if (!coThayDoi)
+                return Ok(new { Success = true, Message = "Không có thay đổi nội dung kế hoạch." });
 
             // Lưu lịch sử phiên bản trước khi thay đổi
             _context.KehoachLichsus.Add(new KehoachLichsu
@@ -161,6 +184,10 @@ namespace DTMS.Api.Controllers
                 NguoiLuu = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value
             });
 
+            kh.DuyetNhd = 0;
+            kh.DuyetTbm = 0;
+            kh.DuyetPdt = 0;
+            kh.YkienNhd = null;
             kh.NamHoc = dto.NamHoc;
             kh.HocKy = dto.HocKy;
             kh.MaMonHoc = dto.MaMonHoc;
@@ -221,6 +248,10 @@ namespace DTMS.Api.Controllers
                     break;
 
                 case "TBM":
+                    // Không chỉ kiểm tra Role=TBM; NCS còn phải thuộc phạm vi ngành được giao.
+                    var ncsTrongPhamVi = await Access.NcsTrongPhamViAsync(_context, User);
+                    if (!ncsTrongPhamVi.Contains(kh.MaNcs)) return Forbid();
+
                     if (kh.DuyetNhd != 1)
                     {
                         return Conflict(new { Success = false, Message = "Cần NHD duyệt trước khi Bộ môn duyệt." });
@@ -289,7 +320,7 @@ namespace DTMS.Api.Controllers
         [System.ComponentModel.DataAnnotations.StringLength(20)]
         public string NamHoc { get; set; } = null!;
 
-        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Range(1, 3)]
         public sbyte HocKy { get; set; }
 
         [System.ComponentModel.DataAnnotations.StringLength(20)]

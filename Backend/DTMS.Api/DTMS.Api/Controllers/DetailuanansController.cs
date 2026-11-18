@@ -15,10 +15,12 @@ namespace DTMS.Api.Controllers
     public class DetailuanansController : ControllerBase
     {
         private readonly DtmsDbContext _context;
+        private readonly IConfiguration _fileConfig;
 
-        public DetailuanansController(DtmsDbContext context)
+        public DetailuanansController(DtmsDbContext context, IConfiguration fileConfig)
         {
             _context = context;
+            _fileConfig = fileConfig;
         }
 
         // GET: api/Detailuanans
@@ -63,6 +65,12 @@ namespace DTMS.Api.Controllers
             {
                 return BadRequest(new { Success = false, Message = "Nghiên cứu sinh không tồn tại." });
             }
+
+            if (!(StoredFileRules.ValidReference(dto.FileToanVan, maNcs, "luanan", _fileConfig) &&
+                  StoredFileRules.ValidReference(dto.FileTomTat, maNcs, "luanan", _fileConfig) &&
+                  StoredFileRules.ValidReference(dto.FileTieuLuan, maNcs, "luanan", _fileConfig) &&
+                  StoredFileRules.ValidReference(dto.FileDeCuong, maNcs, "luanan", _fileConfig)))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
 
             var d = new Detailuanan
             {
@@ -115,6 +123,12 @@ namespace DTMS.Api.Controllers
                 d.NgayDuyet = null;
                 d.GhiChuDuyet = null;
             }
+
+            if (!(StoredFileRules.ValidReference(dto.FileToanVan, d.MaNcs, "luanan", _fileConfig, d.FileToanVan) &&
+                  StoredFileRules.ValidReference(dto.FileTomTat, d.MaNcs, "luanan", _fileConfig, d.FileTomTat) &&
+                  StoredFileRules.ValidReference(dto.FileTieuLuan, d.MaNcs, "luanan", _fileConfig, d.FileTieuLuan) &&
+                  StoredFileRules.ValidReference(dto.FileDeCuong, d.MaNcs, "luanan", _fileConfig, d.FileDeCuong)))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
 
             d.TenDeTaiVn = dto.TenDeTaiVn;
             d.TenDeTaiEn = dto.TenDeTaiEn;

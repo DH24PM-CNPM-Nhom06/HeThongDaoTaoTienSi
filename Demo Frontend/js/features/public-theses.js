@@ -52,8 +52,20 @@
       }
       const response = await global.DTMS_API.getPublicTheses();
       const body = response && Object.hasOwn(response, "data") ? response.data : response;
-      const values = Array.isArray(body) ? body : body?.items;
-      if (!Array.isArray(values) || values.some(item => !item || !["title", "candidate", "field", "date"].every(key => typeof item[key] === "string" && item[key].trim())
+      const raw = Array.isArray(body) ? body : body?.items;
+      if (!Array.isArray(raw)) throw new Error("Danh sách luận án không đúng hợp đồng API.");
+      // Backend trả { maNcs, hoTen, maNganh, tenDeTaiVn, tenDeTaiEn, ngayBaoVe } (DOCX §10):
+      // ánh xạ về dạng giao diện { title, candidate, field, date } trước khi kiểm hợp đồng.
+      // summaryUrl/fullUrl không có trong API nên hai liên kết này được ẩn.
+      const values = raw.map(item => ({
+        title: item.tenDeTaiVn || item.tenDeTaiEn || item.title || "",
+        candidate: item.hoTen || item.candidate || "",
+        field: item.maNganh || item.field || "Chưa cập nhật",
+        date: item.ngayBaoVe || item.date || "",
+        summaryUrl: item.summaryUrl,
+        fullUrl: item.fullUrl
+      }));
+      if (values.some(item => !item || !["title", "candidate", "field", "date"].every(key => typeof item[key] === "string" && item[key].trim())
         || !dateValue(item.date) || ["summaryUrl", "fullUrl"].some(key => item[key] != null && typeof item[key] !== "string"))) {
         throw new Error("Danh sách luận án không đúng hợp đồng API.");
       }
@@ -62,9 +74,8 @@
       status.textContent = values.length ? "Dữ liệu luận án được trả về từ máy chủ." : "Chưa có luận án công khai.";
     } catch (error) {
       if (error && [401, 403, 404].includes(error.status)) {
-        // Backend chưa triển khai /api/public/theses: hiển thị "chưa có dữ liệu" thay vì báo lỗi.
-        // Backend có FallbackPolicy bắt đăng nhập nên đường dẫn chưa tồn tại có thể trả 401 cho người chưa đăng nhập;
-        // với danh sách công khai đó không phải "hết phiên", nên không hiện thông báo hết phiên làm việc.
+        // Danh sách công khai không truy cập được (vd chưa có dữ liệu): hiển thị "chưa có dữ liệu" thay vì báo lỗi.
+        // Với danh sách công khai, 401 không phải "hết phiên", nên không hiện thông báo hết phiên làm việc.
         list.setItems([]);
         state = "ready";
         status.textContent = "Chưa có dữ liệu luận án công khai.";

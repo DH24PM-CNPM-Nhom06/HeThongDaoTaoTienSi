@@ -9,10 +9,10 @@
 
     public class DiplomaDetailDto
     {
-        public string SoHieuBang { get; set; } = string.Empty;
+        public string? SoHieuBang { get; set; }
         public string HoTen { get; set; } = string.Empty;
         public string NganhDaoTao { get; set; } = string.Empty;
-        public string SoVaoSoGoc { get; set; } = string.Empty;
-        public string NgayCap { get; set; } = string.Empty;
+        public string? SoVaoSoGoc { get; set; }
+        public string? NgayCap { get; set; }
     }
 }

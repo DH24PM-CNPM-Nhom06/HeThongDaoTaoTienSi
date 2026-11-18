@@ -56,6 +56,7 @@
           404: "Không tìm thấy dữ liệu được yêu cầu.",
           409: "Dữ liệu đã tồn tại hoặc đã được cập nhật. Vui lòng tải lại.",
           422: "Thông tin gửi lên chưa hợp lệ. Vui lòng kiểm tra biểu mẫu.",
+          423: "Tài khoản tạm khóa. Vui lòng thử lại sau.",
         };
         // Lỗi kiểm tra dữ liệu của ASP.NET ([ApiController]) nằm trong result.errors: { Trường: ["thông báo"] }
         const validationMessages = result?.errors && typeof result.errors === "object" ? Object.values(result.errors).flat().filter(item => typeof item === "string") : [];
@@ -163,10 +164,26 @@
     if (!response.ok) throw new ApiError(response.status === 404 ? "Không tìm thấy tệp hoặc bạn không có quyền tải tệp này." : "Không tải được tệp.", response.status);
     return { blob: await response.blob(), fileName: fileUrl.split("/").pop() };
   }
+  // Xuất Excel cảnh báo học vụ: GET /api/Hocvu/canhbao/xuat trả file .xlsx kèm tên trong Content-Disposition.
+  async function exportWarnings() {
+    const token = getToken();
+    let response;
+    try {
+      response = await fetch(config.API_BASE_URL + "/api/Hocvu/canhbao/xuat", { headers: token ? { Authorization: "Bearer " + token } : {}, credentials: config.API_CREDENTIALS });
+    } catch { throw new ApiError("Không thể kết nối máy chủ để xuất báo cáo."); }
+    if (response.status === 401) { clearToken(); global.dispatchEvent(new CustomEvent("dtms:unauthorized")); throw new ApiError("Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại.", 401); }
+    if (!response.ok) throw new ApiError("Không xuất được báo cáo cảnh báo.", response.status);
+    const disposition = response.headers.get("content-disposition") || "";
+    const match = /filename\*?=(?:UTF-8''|")?([^";]+)/i.exec(disposition);
+    const fileName = match ? decodeURIComponent(match[1].replace(/"/g, "")) : "canhbao_hocvu.xlsx";
+    return { blob: await response.blob(), fileName };
+  }
 
   const resources = {
     getProfile: () => request("/api/Profile/me"),
     updateProfile: body => request("/api/Profile/me", json("PUT", body)),
+    forgotPassword: email => request("/api/Auth/quen-mat-khau", { method: "POST", skipAuth: true, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) }),
+    resetPassword: (token, newPassword) => request("/api/Auth/dat-lai-mat-khau", { method: "POST", skipAuth: true, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token, newPassword }) }),
     listPlans: async () => asList(await request("/api/Kehoachhoctaps")),
     createPlan: body => request("/api/Kehoachhoctaps", json("POST", body)),
     updatePlan: (id, body) => request("/api/Kehoachhoctaps/" + encodeURIComponent(id), json("PUT", body)),
@@ -181,10 +198,80 @@
     listThesisTopics: async () => asList(await request("/api/Detailuanans")),
     createThesisTopic: body => request("/api/Detailuanans", json("POST", body)),
     updateThesisTopic: (id, body) => request("/api/Detailuanans/" + encodeURIComponent(id), json("PUT", body)),
+    approveThesisTopic: (id, trangThaiDuyet, ghiChu) => request("/api/Detailuanans/" + encodeURIComponent(id) + "/duyet", json("PUT", { trangThaiDuyet, ghiChu: ghiChu || null })),
     listLanguageCertificates: async () => asList(await request("/api/Chungchingoaingus")),
     createLanguageCertificate: body => request("/api/Chungchingoaingus", json("POST", body)),
     updateLanguageCertificate: (id, body) => request("/api/Chungchingoaingus/" + encodeURIComponent(id), json("PUT", body)),
     approveLanguageCertificate: (id, trangThaiDuyet) => request("/api/Chungchingoaingus/" + encodeURIComponent(id) + "/duyet", json("PUT", { trangThaiDuyet })),
+    // Điểm học phần: GET trả KetQuaDto (không có tên môn/số tín chỉ — giao diện join thêm Monhocs).
+    listScores: async () => asList(await request("/api/Ketquahocphans")),
+    createScore: body => request("/api/Ketquahocphans", json("POST", body)),
+    updateScore: (id, body) => request("/api/Ketquahocphans/" + encodeURIComponent(id), json("PUT", body)),
+    lockScore: id => request("/api/Ketquahocphans/" + encodeURIComponent(id) + "/khoa", { method: "PUT" }),
+    unlockScore: id => request("/api/Ketquahocphans/" + encodeURIComponent(id) + "/mo-khoa", { method: "PUT" }),
+    // Đăng ký học phần: POST/DELETE chỉ NCS (mã NCS lấy từ token); GET trả entity DangKyHocphan.
+    listRegistrations: async (namHoc, hocKy) => {
+      const query = new URLSearchParams();
+      if (namHoc) query.set("namHoc", namHoc);
+      if (hocKy != null) query.set("hocKy", String(hocKy));
+      const suffix = query.toString();
+      return asList(await request("/api/Dangkyhocphan" + (suffix ? "?" + suffix : "")));
+    },
+    registerCourse: body => request("/api/Dangkyhocphan", json("POST", body)),
+    cancelRegistration: id => request("/api/Dangkyhocphan/" + encodeURIComponent(id), { method: "DELETE" }),
+    listRegistrationPeriods: async () => asList(await request("/api/Dangkyhocphan/dot")),
+    createRegistrationPeriod: body => request("/api/Dangkyhocphan/dot", json("POST", body)),
+    // Môn học / ngành đào tạo (scaffold, GET trả DTO; PUT/POST/DELETE chỉ ADMIN/PDT).
+    listSubjects: async () => asList(await request("/api/Monhocs")),
+    listMajors: async () => asList(await request("/api/Nganhdaotaos")),
+    // Yêu cầu học vụ: POST chỉ NCS; GET list không kèm bước duyệt, GET chi tiết kèm { yeuCau, buocDuyet }.
+    listRequests: async () => asList(await request("/api/Yeucauhocvu")),
+    getRequestDetail: id => request("/api/Yeucauhocvu/" + encodeURIComponent(id)),
+    createRequest: body => request("/api/Yeucauhocvu", json("POST", body)),
+    approveRequest: (id, body) => request("/api/Yeucauhocvu/" + encodeURIComponent(id) + "/duyet", json("PUT", body)),
+    // Hồ sơ NCS: GET trả NghiencuusinhDto (không có email/SĐT/hạn đào tạo); POST/PUT nhận entity.
+    listCandidates: async () => asList(await request("/api/Nghiencuusinhs")),
+    getCandidate: maNcs => request("/api/Nghiencuusinhs/" + encodeURIComponent(maNcs)),
+    createCandidate: body => request("/api/Nghiencuusinhs", json("POST", body)),
+    updateCandidate: (maNcs, body) => request("/api/Nghiencuusinhs/" + encodeURIComponent(maNcs), json("PUT", body)),
+    deleteCandidate: maNcs => request("/api/Nghiencuusinhs/" + encodeURIComponent(maNcs), { method: "DELETE" }),
+    importCandidates: list => request("/api/NcsImport", json("POST", list)),
+    // Giảng viên: NCS/PBDL chỉ thấy dạng công khai (không có email/SĐT/định mức).
+    listLecturers: async () => asList(await request("/api/Giangviens")),
+    listMajors: async () => asList(await request("/api/Nganhdaotaos")),
+    // Phân công NHD: POST/PUT/DELETE chỉ ADMIN/PDT; backend kiểm tra định mức (GS tối đa 4, còn lại 3).
+    listAssignments: async () => asList(await request("/api/Phanconghuongdans")),
+    createAssignment: body => request("/api/Phanconghuongdans", json("POST", body)),
+    deleteAssignment: id => request("/api/Phanconghuongdans/" + encodeURIComponent(id), { method: "DELETE" }),
+    // Đánh giá giai đoạn: POST bắt buộc MaHoiDong (hội đồng phải đúng loại); GET trả LoaiDanhGia dạng số 1/2/3.
+    listAssessments: async maNcs => asList(await request("/api/Danhgiagiaidoan" + (maNcs ? "?maNcs=" + encodeURIComponent(maNcs) : ""))),
+    createAssessment: body => request("/api/Danhgiagiaidoan", json("POST", body)),
+    // CTĐT / đối chiếu tiến độ: GET Ctdt trả kèm tên môn + số tín chỉ; Doichieu trả mã môn hoàn thành/còn thiếu.
+    listCtdt: async maNganh => asList(await request("/api/Ctdt" + (maNganh ? "?maNganh=" + encodeURIComponent(maNganh) : ""))),
+    getComparison: maNcs => request("/api/Doichieu/" + encodeURIComponent(maNcs)),
+    // Học vụ: cảnh báo + thống kê + xuất Excel (blob, xem exportWarnings).
+    listWarnings: async () => asList(await request("/api/Hocvu/canhbao")),
+    getStats: () => request("/api/Hocvu/thongke"),
+    exportWarnings,
+    // Xét tốt nghiệp: chỉ ADMIN/PDT; điều kiện đủ do backend kiểm tra lại tại thời điểm duyệt.
+    getGraduationReview: async () => asList(await request("/api/Totnghiep/xet")),
+    approveGraduationBulk: body => request("/api/Totnghiep/duyet-hang-loat", json("POST", body)),
+    // Hội đồng trường (LoaiHoiDong = 4): bỏ phiếu 1 người 1 phiếu, đạt khi ≥ 50%.
+    checkCouncil: id => request("/api/Hoidongtruong/" + encodeURIComponent(id) + "/kiem-tra"),
+    castVote: (id, dongY) => request("/api/Hoidongtruong/" + encodeURIComponent(id) + "/bo-phieu", json("POST", { dongY })),
+    getCouncilResult: id => request("/api/Hoidongtruong/" + encodeURIComponent(id) + "/ket-qua"),
+    // Phản biện độc lập: PBDL chỉ sửa nhận xét của chính mình; KetQua chưa có thang định nghĩa (dùng 0/1/2 như Danhgiagiaidoan).
+    listReviewers: async () => asList(await request("/api/Phanbiendoclaps")),
+    updateReviewerComment: (id, body) => request("/api/Phanbiendoclaps/" + encodeURIComponent(id) + "/nhanxet", json("PUT", body)),
+    createReviewer: body => request("/api/Phanbiendoclaps", json("POST", body)),
+    // Cấp bằng: GET trả các cờ DatBaoVe/DaLuuChieu/DaCongKhai/SanSangKyCapBang; ký bằng chỉ BGH.
+    getDegreeStatus: maNcs => request("/api/Capbang/" + encodeURIComponent(maNcs)),
+    submitExplanation: (maNcs, fileUrl) => request("/api/Capbang/" + encodeURIComponent(maNcs) + "/giai-trinh", json("POST", { fileUrl })),
+    recordDeposit: (maNcs, body) => request("/api/Capbang/" + encodeURIComponent(maNcs) + "/luu-chieu", json("POST", body)),
+    publishThesis: maNcs => request("/api/Capbang/" + encodeURIComponent(maNcs) + "/cong-khai", json("POST", {})),
+    conferDegree: (maNcs, body) => request("/api/Capbang/" + encodeURIComponent(maNcs) + "/cap-bang", json("PUT", body)),
+    // Biến động học vụ: chỉ đọc danh sách (POST/PUT chỉ ADMIN/PDT và LoaiBienDong chưa có mã định nghĩa).
+    listFluctuations: async () => asList(await request("/api/Biendonghocvus")),
   };
 
   global.DTMS_API = Object.freeze({ request, getPublicTheses, verifyDegree, submit, login, logout, getToken, uploadFile, downloadFile, checkUpload, ApiError, ...resources });

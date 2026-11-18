@@ -15,10 +15,12 @@ namespace DTMS.Api.Controllers
     public class DanhgiahocthuatsController : ControllerBase
     {
         private readonly DtmsDbContext _context;
+        private readonly IConfiguration _fileConfig;
 
-        public DanhgiahocthuatsController(DtmsDbContext context)
+        public DanhgiahocthuatsController(DtmsDbContext context, IConfiguration fileConfig)
         {
             _context = context;
+            _fileConfig = fileConfig;
         }
 
         // GET: api/Danhgiahocthuats
@@ -71,6 +73,11 @@ namespace DTMS.Api.Controllers
         {
             if (!await Access.CanWriteNcsAsync(_context, User, danhgiahocthuat.MaNcs)) return Forbid();
 
+            if (!(StoredFileRules.ValidReference(danhgiahocthuat.FileBaoCao, danhgiahocthuat.MaNcs, "baocao", _fileConfig) &&
+                  StoredFileRules.ValidReference(danhgiahocthuat.FileBienBan, danhgiahocthuat.MaNcs, "bienban", _fileConfig) &&
+                  StoredFileRules.ValidReference(danhgiahocthuat.FileGiaiTrinh, danhgiahocthuat.MaNcs, "bienban", _fileConfig)))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
+
             danhgiahocthuat.MaDanhGia = 0;
 
             _context.Danhgiahocthuats.Add(danhgiahocthuat);
@@ -88,12 +95,19 @@ namespace DTMS.Api.Controllers
 
             var cu = await _context.Danhgiahocthuats.AsNoTracking().FirstOrDefaultAsync(e => e.MaDanhGia == madanhgia);
             if (cu == null) return NotFound();
+            if (!string.Equals(danhgiahocthuat.MaNcs, cu.MaNcs, StringComparison.Ordinal))
+                return BadRequest(new { Success = false, Message = "Không được đổi NCS sở hữu bản ghi qua PUT." });
 
             if (!await Access.CanWriteNcsAsync(_context, User, cu.MaNcs) ||
                 !await Access.CanWriteNcsAsync(_context, User, danhgiahocthuat.MaNcs))
             {
                 return Forbid();
             }
+
+            if (!(StoredFileRules.ValidReference(danhgiahocthuat.FileBaoCao, danhgiahocthuat.MaNcs, "baocao", _fileConfig, cu.FileBaoCao) &&
+                  StoredFileRules.ValidReference(danhgiahocthuat.FileBienBan, danhgiahocthuat.MaNcs, "bienban", _fileConfig, cu.FileBienBan) &&
+                  StoredFileRules.ValidReference(danhgiahocthuat.FileGiaiTrinh, danhgiahocthuat.MaNcs, "bienban", _fileConfig, cu.FileGiaiTrinh)))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
 
             _context.Entry(danhgiahocthuat).State = EntityState.Modified;
             try

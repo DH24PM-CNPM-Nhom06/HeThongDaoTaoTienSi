@@ -14,10 +14,12 @@ namespace DTMS.Api.Controllers
     public class ChungchingoaingusController : ControllerBase
     {
         private readonly DtmsDbContext _context;
+        private readonly IConfiguration _fileConfig;
 
-        public ChungchingoaingusController(DtmsDbContext context)
+        public ChungchingoaingusController(DtmsDbContext context, IConfiguration fileConfig)
         {
             _context = context;
+            _fileConfig = fileConfig;
         }
 
         // GET: api/Chungchingoaingus
@@ -63,6 +65,9 @@ namespace DTMS.Api.Controllers
                 return BadRequest(new { Success = false, Message = "Nghiên cứu sinh không tồn tại." });
             }
 
+            if (!(StoredFileRules.ValidReference(dto.FileMinhChung, maNcs, "minhchung", _fileConfig, required: true)))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
+
             var cc = new Chungchingoaingu
             {
                 MaNcs = maNcs,
@@ -101,6 +106,10 @@ namespace DTMS.Api.Controllers
 
                 cc.TrangThaiDuyet = 0; // sửa xong phải duyệt lại
             }
+
+            if (!StoredFileRules.ValidReference(dto.FileMinhChung, cc.MaNcs, "minhchung", _fileConfig,
+                    cc.FileMinhChung, required: true))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
 
             cc.TenChungChi = dto.TenChungChi;
             cc.DiemSo = dto.DiemSo;

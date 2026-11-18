@@ -1076,6 +1076,7 @@
     initLanguageSwitcher();
     initContactHub();
     initConstellationGraph();
+    initPersonaSimulator();
   });
 })(window, document);
 

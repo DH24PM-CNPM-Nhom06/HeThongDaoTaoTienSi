@@ -1,4 +1,4 @@
-﻿using DTMS.Api.Helpers;
+using DTMS.Api.Helpers;
 using DTMS.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +40,7 @@ namespace DTMS.Api.Controllers
 
         // POST: api/Danhgiagiaidoan  (ghi kết quả đánh giá một giai đoạn)
         [HttpPost]
-        [Authorize(Roles = "ADMIN,PDT,TBM,NHD")]
+        [Authorize(Roles = "ADMIN,PDT,TBM,KHOA,NHD")]
         public async Task<IActionResult> Ghi([FromBody] GhiDanhGiaRequest dto)
         {
             if (!LaLoaiHopLe(dto.LoaiDanhGia))
@@ -84,6 +84,12 @@ namespace DTMS.Api.Controllers
                 return BadRequest(new { Success = false, Message = "Hội đồng không đúng loại đánh giá này." });
             }
 
+            // Ngăn ghi đánh giá NCS A bằng hội đồng đã thành lập cho NCS B.
+            if (hoiDong.MaNcs != dto.MaNcs)
+            {
+                return BadRequest(new { Success = false, Message = "Hội đồng không thuộc nghiên cứu sinh cần đánh giá." });
+            }
+
             var loiThanhPhan = await KiemTraThanhPhanAsync(dto.MaNcs, dto.MaHoiDong.Value, dto.LoaiDanhGia);
             if (loiThanhPhan != null) return Conflict(new { Success = false, Message = loiThanhPhan });
 
@@ -97,6 +103,9 @@ namespace DTMS.Api.Controllers
                     return Conflict(new { Success = false, Message = $"NCS đã đủ {toiDa} chuyên đề." });
                 }
             }
+
+            if (!StoredFileRules.ValidReference(dto.FileBienBan, dto.MaNcs, "bienban", _configuration))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
 
             var ghi = new Danhgiahocthuat
             {

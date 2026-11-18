@@ -6,8 +6,8 @@ namespace DTMS.Api.DTOs
     public class BaocaotiendoDto
     {
         public int MaBaoCao { get; set; }
-        public string MaNcs { get; set; }
-        public string KyBaoCao { get; set; }
+        public string MaNcs { get; set; } = string.Empty;
+        public string KyBaoCao { get; set; } = string.Empty;
         public DateOnly HanNop { get; set; }
         public DateTime? NgayNop { get; set; }
         public string? FileBaoCao { get; set; }
@@ -21,6 +21,6 @@ namespace DTMS.Api.DTOs
     public class NhanXetNhdDto
     {
         public sbyte? DanhGiaNhd { get; set; }
-        public string NhanXetNhd { get; set; }
+        public required string NhanXetNhd { get; set; }
     }
 }

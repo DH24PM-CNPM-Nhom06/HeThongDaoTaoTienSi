@@ -1,4 +1,4 @@
-﻿using DTMS.Api.Helpers;
+using DTMS.Api.Helpers;
 using DTMS.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -70,6 +70,11 @@ namespace DTMS.Api.Controllers
         [Authorize(Roles = "ADMIN,PDT")]
         public async Task<IActionResult> Them([FromBody] CtdtRequest dto)
         {
+            if (string.IsNullOrWhiteSpace(dto.MaNganh) || string.IsNullOrWhiteSpace(dto.MaMonHoc))
+                return BadRequest(new { Success = false, Message = "Mã ngành và mã môn học không được rỗng." });
+            dto.MaNganh = dto.MaNganh.Trim();
+            dto.MaMonHoc = dto.MaMonHoc.Trim();
+
             if (dto.DoiTuongDauVao != 1 && dto.DoiTuongDauVao != 2)
             {
                 return BadRequest(new { Success = false, Message = "Đối tượng đầu vào chỉ nhận 1 hoặc 2." });
@@ -118,6 +123,30 @@ namespace DTMS.Api.Controllers
             var c = await _context.CtdtHocphans.FindAsync(id);
             if (c == null) return NotFound();
 
+            // Ngăn xóa CTĐT khi NCS đúng ngành + đối tượng đã có đăng ký học phần.
+            // Bảng dangky_hocphan không có FK đến CTĐT nên không thể dựa vào DB tự chặn.
+            var daSuDung = await (
+                from dk in _context.DangKyHocphans
+                join ncs in _context.Nghiencuusinhs on dk.MaNcs equals ncs.MaNcs
+                where dk.MaMonHoc == c.MaMonHoc &&
+                      ncs.MaNganh == c.MaNganh &&
+                      ncs.DoiTuongDauVao == c.DoiTuongDauVao
+                select dk.MaDangKy
+            ).AnyAsync();
+            if (daSuDung)
+                return Conflict(new { Success = false, Message = "Không thể xóa môn khỏi CTĐT vì đã có NCS đăng ký học phần này." });
+
+            var daCoKeHoach = await (
+                from kh in _context.Kehoachhoctaps
+                join ncs in _context.Nghiencuusinhs on kh.MaNcs equals ncs.MaNcs
+                where kh.MaMonHoc == c.MaMonHoc &&
+                      ncs.MaNganh == c.MaNganh &&
+                      ncs.DoiTuongDauVao == c.DoiTuongDauVao
+                select kh.MaKeHoach
+            ).AnyAsync();
+            if (daCoKeHoach)
+                return Conflict(new { Success = false, Message = "Không thể xóa môn khỏi CTĐT vì đã có kế hoạch học tập liên quan." });
+
             _context.CtdtHocphans.Remove(c);
             await _context.SaveChangesAsync();
             return NoContent();
@@ -126,9 +155,13 @@ namespace DTMS.Api.Controllers
 
     public class CtdtRequest
     {
+        [System.ComponentModel.DataAnnotations.Required, System.ComponentModel.DataAnnotations.StringLength(20)]
         public string MaNganh { get; set; } = null!;
+        [System.ComponentModel.DataAnnotations.Range(1, 2)]
         public sbyte DoiTuongDauVao { get; set; }
+        [System.ComponentModel.DataAnnotations.Required, System.ComponentModel.DataAnnotations.StringLength(20)]
         public string MaMonHoc { get; set; } = null!;
+        [System.ComponentModel.DataAnnotations.Required, System.ComponentModel.DataAnnotations.StringLength(20)]
         public string LoaiHocPhan { get; set; } = null!;
     }
 }

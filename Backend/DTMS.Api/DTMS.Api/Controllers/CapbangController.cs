@@ -1,4 +1,4 @@
-﻿using DTMS.Api.Helpers;
+using DTMS.Api.Helpers;
 using DTMS.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +69,10 @@ namespace DTMS.Api.Controllers
             {
                 return Conflict(new { Success = false, Message = "Hồ sơ chưa được tạo. Liên hệ phòng đào tạo." });
             }
+
+            if (!StoredFileRules.ValidReference(dto.FileUrl, maNcs, "bienban", _configuration,
+                    hoan.FileGiaiTrinhSauBv, required: true))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
 
             hoan.FileGiaiTrinhSauBv = dto.FileUrl;
             await _context.SaveChangesAsync();

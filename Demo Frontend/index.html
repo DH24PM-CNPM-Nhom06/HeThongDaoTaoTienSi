@@ -81,6 +81,8 @@
               <span class="topbar-user-name" id="topbar-user-name"></span>
               <span class="role-pill-badge" id="topbar-role-badge"></span>
             </button>
+            <!-- Bộ chọn vai trò (DOCX §2, §12): chỉ hiện khi tài khoản có từ 2 vai trò trở lên (vd GV01: BM, NHD). -->
+            <select id="topbar-role-select" class="topbar-role-select" aria-label="Vai trò làm việc" title="Vai trò làm việc" style="background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.3); border-radius:8px; padding:6px 8px; font-size:.85rem;" hidden></select>
             <button class="btn-login-os" onclick="DTMS_MANAGEMENT.openWorkspace()">
               <span data-workspace-label>Bàn làm việc</span>
               <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
@@ -127,7 +129,7 @@
 
                 <div class="home-metrics-grid">
                   <div class="metric-card"><strong>14</strong><span>Phân hệ Nghiệp vụ</span></div>
-                  <div class="metric-card"><strong>06</strong><span>Vai trò RBAC</span></div>
+                  <div class="metric-card"><strong>07</strong><span>Vai trò RBAC</span></div>
                   <div class="metric-card"><strong>100%</strong><span>Chuyển đổi số</span></div>
                   <div class="metric-card"><strong>24/7</strong><span>Tra cứu Phôi bằng</span></div>
                 </div>
@@ -377,11 +379,11 @@
                 <!-- Personal Info Card -->
                 <div class="mgmt-card">
                   <div class="mgmt-card-header">
-                    <h3>
+                    <h3 id="profile-personal-title">
                       <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                       1. Thông tin Cá nhân Nghiên cứu sinh
                     </h3>
-                    <span class="status-pill">Chưa có dữ liệu</span>
+                    <span class="status-pill" id="profile-personal-pill">Chưa có dữ liệu</span>
                   </div>
 
                   <div class="mgmt-detail-row">
@@ -390,11 +392,11 @@
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Ngày sinh & Giới tính:</span>
-                    <span>—</span>
+                    <span id="profile-display-birth">—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Số CCCD / Định danh:</span>
-                    <span>—</span>
+                    <span id="profile-display-citizen">—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Số điện thoại:</span>
@@ -410,18 +412,18 @@
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Địa chỉ liên hệ:</span>
-                    <span>—</span>
+                    <span id="profile-display-address">—</span>
                   </div>
                 </div>
 
                 <!-- Academic Training Profile Card -->
                 <div class="mgmt-card">
                   <div class="mgmt-card-header">
-                    <h3>
+                    <h3 id="profile-training-title">
                       <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                       2. Hồ sơ Đào tạo & Trạng thái Học vụ
                     </h3>
-                    <span class="status-pill">Chưa có dữ liệu</span>
+                    <span class="status-pill" id="profile-training-pill">Chưa có dữ liệu</span>
                   </div>
 
                   <div class="mgmt-detail-row">
@@ -442,15 +444,15 @@
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Loại hình đào tạo:</span>
-                    <span>—</span>
+                    <span id="profile-display-audience">—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Thời hạn đào tạo chuẩn:</span>
-                    <span>—</span>
+                    <span id="profile-display-deadline-std">—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Thời hạn tối đa (kể cả gia hạn):</span>
-                    <span>—</span>
+                    <span id="profile-display-deadline-max">—</span>
                   </div>
                 </div>
               </div>
@@ -712,12 +714,13 @@
                       <th>Mã HP</th>
                       <th>Tên học phần</th>
                       <th>Số TC</th>
-                      <th>Giảng viên giảng dạy</th>
-                      <th>Quá trình (30%)</th>
-                      <th>Thi (70%)</th>
+                      <th>Chuyên cần (10%)</th>
+                      <th>Giữa kỳ (30%)</th>
+                      <th>Cuối kỳ (60%)</th>
                       <th>Tổng kết</th>
                       <th>Điểm chữ</th>
-                      <th>Trạng thái / Đăng ký</th>
+                      <th>Hệ 4</th>
+                      <th>Trạng thái</th>
                     </tr>
                   </thead>
                   <tbody></tbody>
@@ -761,12 +764,12 @@
                 <div class="mgmt-card">
                   <div class="mgmt-card-header">
                     <h3>1. Tiểu luận Tổng quan (Literature Review)</h3>
-                    <span class="status-pill">Chưa có dữ liệu</span>
+                    <span class="status-pill" id="essay-card-status">Chưa có dữ liệu</span>
                   </div>
 
                   <div class="mgmt-detail-row">
                     <span>Tên tiểu luận:</span>
-                    <strong>—</strong>
+                    <strong id="essay-title-display">—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Ngày bảo vệ trước Bộ môn:</span>
@@ -790,7 +793,7 @@
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Biên bản đánh giá Tiểu luận:</span>
-                    <span>—</span>
+                    <span id="essay-minutes-display">—</span>
                   </div>
                   <div style="margin-top:14px; display:flex; gap:8px;">
                     <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Tải Tiểu luận</button>
@@ -803,12 +806,12 @@
                 <div class="mgmt-card">
                   <div class="mgmt-card-header">
                     <h3>2. Đề cương Chi tiết & Bản Giải trình Chỉnh sửa</h3>
-                    <span class="status-pill">Chưa có dữ liệu</span>
+                    <span class="status-pill" id="outline-card-status">Chưa có dữ liệu</span>
                   </div>
 
                   <div class="mgmt-detail-row">
                     <span>Tên đề cương nghiên cứu:</span>
-                    <strong>—</strong>
+                    <strong id="outline-title-display">—</strong>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Ngày bảo vệ Đề cương:</span>
@@ -937,7 +940,7 @@
                       Đạt 2 / 2 bài báo chuẩn quốc tế (01 WoS Q1 + 01 Scopus Q2) — ĐẠT 100% CHUẨN ĐẦU RA
                     </h4>
                   </div>
-                  <span class="status-pill is-success" style="font-size:0.85rem; padding:6px 14px;">✓ ĐỦ ĐIỀU KIỆN CÔNG BỐ ĐỂ BẢO VỆ</span>
+                  <span id="pub-total-score-display" class="status-pill is-success" style="font-size:0.85rem; padding:6px 14px;">✓ ĐỦ ĐIỀU KIỆN CÔNG BỐ ĐỂ BẢO VỆ</span>
                 </div>
               </div>
 
@@ -1440,6 +1443,7 @@
               </div>
 
               <!-- RBAC Matrix Table -->
+              <p style="margin:0 0 16px; color:var(--text-muted); font-size:.85rem;">Nhật ký hệ thống trên máy chủ chưa có API đọc: bảng dưới đây hiển thị nhật ký thao tác ghi trên thiết bị này. Muốn xem nhật ký máy chủ cần backend bổ sung API đọc audit log.</p>
               <div class="mgmt-card" style="margin-bottom:24px;">
                 <div class="mgmt-card-header">
                   <h3>1. Ma Trận Phân Quyền Theo 06 Vai Trò (Role-Based Access Control)</h3>
@@ -1514,6 +1518,7 @@
               <p>Các thông tin và mốc thời gian áp dụng chung cho nghiên cứu sinh và các đơn vị tham gia đào tạo.</p>
             </div>
             <div class="notice-list"></div>
+            <p style="margin-top:16px; color:var(--text-muted); font-size:.85rem;">Tính năng thông báo đang phát triển: máy chủ chưa có API thông báo nên trang này chưa có nội dung để hiển thị.</p>
           </section>
 
           <!-- 05. CÔNG KHAI: KHO LUẬN ÁN TIẾN SĨ -->
@@ -1650,11 +1655,126 @@
             <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
               <input type="checkbox" id="remember-email" /> Ghi nhớ email
             </label>
-            <button type="button" class="text-link" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tài khoản chính thức / Quên mật khẩu')">Hỗ trợ tài khoản</button>
+            <button type="button" class="text-link" onclick="DTMS_MANAGEMENT.openModal('modal-forgot-password')">Quên mật khẩu?</button>
           </div>
           <button type="submit" class="btn-mgmt btn-mgmt-primary" style="width:100%; justify-content:center;">
             Tiếp tục
           </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Quên mật khẩu (API /api/Auth/quen-mat-khau): gửi hướng dẫn đặt lại qua email -->
+    <div class="mgmt-modal" id="modal-forgot-password">
+      <div class="mgmt-modal-dialog" style="width:min(480px, 100%);">
+        <div class="mgmt-modal-header">
+          <h3>Quên mật khẩu</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-forgot-password">✕</button>
+        </div>
+        <form id="form-forgot-password">
+          <div class="mgmt-form-group">
+            <label for="forgot-email">Email đã đăng ký:</label>
+            <input id="forgot-email" type="email" autocomplete="email" required />
+          </div>
+          <p id="forgot-status" role="status" style="margin:0 0 14px; color:var(--text-muted); font-size:.8rem;">Nhập email tài khoản. Hệ thống gửi hướng dẫn đặt lại mật khẩu nếu email tồn tại.</p>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-forgot-password">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Gửi hướng dẫn</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Nhập điểm học phần (API /api/Ketquahocphans) -->
+    <div class="mgmt-modal" id="modal-enter-score">
+      <div class="mgmt-modal-dialog" style="width:min(520px, 100%);">
+        <div class="mgmt-modal-header">
+          <h3>Nhập điểm học phần</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-enter-score">✕</button>
+        </div>
+        <form id="form-enter-score">
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label for="score-ncs-select">Nghiên cứu sinh:</label>
+              <select id="score-ncs-select" required></select>
+            </div>
+            <div class="mgmt-form-group">
+              <label for="score-subject-select">Học phần:</label>
+              <select id="score-subject-select" required></select>
+            </div>
+            <div class="mgmt-form-group">
+              <label for="score-cc-input">Chuyên cần (10%):</label>
+              <input id="score-cc-input" type="number" min="0" max="10" step="0.1" placeholder="0–10" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="score-gk-input">Giữa kỳ (30%):</label>
+              <input id="score-gk-input" type="number" min="0" max="10" step="0.1" placeholder="0–10" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="score-ck-input">Cuối kỳ (60%):</label>
+              <input id="score-ck-input" type="number" min="0" max="10" step="0.1" placeholder="0–10" required />
+            </div>
+          </div>
+          <p style="color:var(--text-muted); font-size:.8rem;">Điểm tổng kết, điểm chữ và điểm hệ 4 do máy chủ tự tính. Bảng điểm đã khóa thì mở khóa trước khi sửa.</p>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-enter-score">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu điểm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bỏ phiếu kín hội đồng trường (API /api/Hoidongtruong/{id}/bo-phieu) -->
+    <div class="mgmt-modal" id="modal-cast-vote">
+      <div class="mgmt-modal-dialog" style="width:min(480px, 100%);">
+        <div class="mgmt-modal-header">
+          <h3>Bỏ phiếu kín hội đồng trường</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-cast-vote">✕</button>
+        </div>
+        <form id="form-cast-vote">
+          <div class="mgmt-form-group">
+            <label for="vote-council-id">Mã hội đồng (theo quyết định thành lập):</label>
+            <input id="vote-council-id" type="number" min="1" step="1" required />
+          </div>
+          <div class="mgmt-form-group">
+            <label>Kết quả bỏ phiếu của bạn:</label>
+            <label style="display:flex; gap:8px; align-items:center; margin:6px 0;"><input type="radio" name="vote-choice" value="yes" required /> Tán thành</label>
+            <label style="display:flex; gap:8px; align-items:center; margin:6px 0;"><input type="radio" name="vote-choice" value="no" /> Không tán thành</label>
+          </div>
+          <p style="color:var(--text-muted); font-size:.8rem;">Mỗi thành viên chỉ bỏ 1 phiếu. Đạt khi ≥ 50% thành viên tán thành.</p>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-cast-vote">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Ghi nhận phiếu</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Nhận xét phản biện độc lập (API /api/Phanbiendoclaps/{id}/nhanxet) -->
+    <div class="mgmt-modal" id="modal-reviewer-comment">
+      <div class="mgmt-modal-dialog" style="width:min(520px, 100%);">
+        <div class="mgmt-modal-header">
+          <h3>Nhận xét phản biện độc lập</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-reviewer-comment">✕</button>
+        </div>
+        <form id="form-reviewer-comment">
+          <div class="mgmt-form-group">
+            <label for="reviewer-result-select">Kết luận nhận xét:</label>
+            <select id="reviewer-result-select" required>
+              <option value="">Chọn kết luận</option>
+              <option value="1">Thông qua</option>
+              <option value="2">Thông qua có chỉnh sửa</option>
+              <option value="0">Không thông qua</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="reviewer-file-input">Tệp nhận xét (PDF/ảnh, tối đa 10MB):</label>
+            <input id="reviewer-file-input" type="file" accept=".pdf,.jpg,.jpeg,.png" />
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-reviewer-comment">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu nhận xét</button>
+          </div>
         </form>
       </div>
     </div>
@@ -1897,6 +2017,11 @@
             <label>Nhận xét chuyên môn của Tiểu ban:</label>
             <textarea id="essay-grade-comment" rows="3" placeholder="Nhập nhận xét của tiểu ban" required></textarea>
           </div>
+          <div class="mgmt-form-group">
+            <label for="essay-council-input">Mã hội đồng/tiểu ban (theo quyết định thành lập):</label>
+            <input type="number" min="1" step="1" id="essay-council-input" placeholder="VD: 12" />
+            <small style="color:var(--text-muted);">API đánh giá yêu cầu mã hội đồng đúng loại tiểu luận.</small>
+          </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
             <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-grade-essay">Hủy</button>
             <button type="submit" class="btn-mgmt btn-mgmt-primary">✓ Xác nhận và lưu kết quả</button>
@@ -1923,12 +2048,21 @@
             </select>
           </div>
           <div class="mgmt-form-group">
+            <label for="topic-name-input">Tên chuyên đề:</label>
+            <input id="topic-name-input" type="text" placeholder="VD: Chuyên đề 1 — Tổng quan tài liệu" />
+          </div>
+          <div class="mgmt-form-group">
             <label for="topic-score-input">Điểm tiểu ban (0–10):</label>
             <input id="topic-score-input" type="number" min="0" max="10" step="0.1" placeholder="Nhập điểm" required />
           </div>
           <div class="mgmt-form-group">
             <label for="topic-grade-comment">Nhận xét:</label>
             <textarea id="topic-grade-comment" rows="3" placeholder="Nhập nhận xét của tiểu ban" required></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="topic-council-input">Mã hội đồng/tiểu ban (theo quyết định thành lập):</label>
+            <input type="number" min="1" step="1" id="topic-council-input" placeholder="VD: 12" />
+            <small style="color:var(--text-muted);">API đánh giá yêu cầu mã hội đồng đúng loại chuyên đề.</small>
           </div>
           <div class="mgmt-modal-actions">
             <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-grade-topic">Hủy</button>
@@ -2203,7 +2337,7 @@
           <h3>Lập / Điều Chỉnh Kế Hoạch Đào Tạo Toàn Khóa</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-edit-plan">✕</button>
         </div>
-        <form>
+        <form id="form-edit-plan">
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
               <label for="plan-year-input">Năm học:</label>
@@ -2245,10 +2379,10 @@
           <h3>Đề Xuất Thay Đổi / Bổ Sung Người Hướng Dẫn</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-change-supervisor">✕</button>
         </div>
-        <form>
+        <form id="form-change-supervisor">
           <div class="mgmt-form-group">
-            <label>Hình thức đề xuất:</label>
-            <select required>
+            <label for="change-supervisor-mode">Hình thức đề xuất:</label>
+            <select id="change-supervisor-mode" required>
               <option value="change">Thay đổi Người hướng dẫn chính</option>
               <option value="add">Bổ sung thêm Người hướng dẫn 2 (Đồng hướng dẫn)</option>
               <option value="remove">Rút tên Người hướng dẫn phụ</option>
@@ -2256,24 +2390,24 @@
           </div>
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group">
-              <label>Người hướng dẫn hiện tại:</label>
-              <input type="text" readonly style="background:#e2e8f0;" />
+              <label for="change-supervisor-current">Người hướng dẫn hiện tại:</label>
+              <input id="change-supervisor-current" type="text" readonly style="background:#e2e8f0;" />
             </div>
             <div class="mgmt-form-group">
-              <label>Người hướng dẫn đề xuất mới/bổ sung:</label>
-              <select required>
-                <option value="—">— (ĐH An Giang)</option>
+              <label for="change-supervisor-new">Người hướng dẫn đề xuất mới/bổ sung:</label>
+              <select id="change-supervisor-new">
+                <option value="">Chọn người hướng dẫn mới</option>
               </select>
             </div>
           </div>
           <div class="mgmt-form-group">
-            <label>Lý do đề xuất thay đổi/bổ sung:</label>
-            <textarea rows="3" placeholder="Nêu rõ lý do học thuật, sức khỏe hoặc điều chỉnh chuyên sâu phạm vi đề tài..." required></textarea>
+            <label for="change-supervisor-reason">Lý do đề xuất thay đổi/bổ sung:</label>
+            <textarea id="change-supervisor-reason" rows="3" placeholder="Nêu rõ lý do học thuật, sức khỏe hoặc điều chỉnh chuyên sâu phạm vi đề tài..." required></textarea>
           </div>
           <div class="mgmt-form-group">
             <label>Đính kèm Biên bản đồng thuận giữa các bên (PDF):</label>
             <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
-              <input type="file" class="dtms-file-input" style="display:none;" accept=".pdf" />
+              <input type="file" id="change-supervisor-file" class="dtms-file-input" style="display:none;" accept=".pdf" />
               <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               <p class="file-name-display" style="margin:0; font-size:0.85rem;">Tải lên biên bản thỏa thuận đồng thuận (PDF)</p>
             </label>
@@ -2544,7 +2678,7 @@
           <h3>Nộp Luận Án Hoàn Thiện Sau Bảo Vệ &amp; Hồ Sơ Lưu Chiểu</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-submit-post-defense">✕</button>
         </div>
-        <form>
+        <form id="form-submit-post-defense">
           <div class="mgmt-form-grid">
             <div class="mgmt-form-group full-width">
               <label>File Luận án bản in chính thức hoàn thiện (PDF có chữ ký):</label>
@@ -2563,12 +2697,12 @@
               </label>
             </div>
             <div class="mgmt-form-group">
-              <label>Giấy biên nhận nộp Thư viện Trường ĐH An Giang:</label>
-              <input type="text" required />
+              <label for="post-defense-receipt-school">Giấy biên nhận nộp Thư viện Trường ĐH An Giang:</label>
+              <input id="post-defense-receipt-school" type="text" />
             </div>
             <div class="mgmt-form-group">
-              <label>Giấy biên nhận nộp Thư viện Quốc gia Việt Nam:</label>
-              <input type="text" required />
+              <label for="post-defense-receipt-national">Giấy biên nhận nộp Thư viện Quốc gia Việt Nam:</label>
+              <input id="post-defense-receipt-national" type="text" />
             </div>
           </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
@@ -2586,26 +2720,34 @@
           <h3>Tạo Đơn / Yêu Cầu Thay Đổi Biến Động Học Vụ</h3>
           <button class="mgmt-modal-close" data-close-modal="modal-create-change-request">✕</button>
         </div>
-        <form>
+        <form id="form-create-change-request">
           <div class="mgmt-form-group">
-            <label>Phân loại biến động học vụ:</label>
-            <select required>
-              <option value="Đổi người hướng dẫn">Thay đổi / Bổ sung Người hướng dẫn khoa học</option>
-              <option value="Đổi tên đề tài">Thay đổi tên đề tài nghiên cứu</option>
-              <option value="Tạm dừng học tập">Xin tạm dừng học tập / Nghỉ học tạm thời</option>
-              <option value="Gia hạn thời gian">Gia hạn thời gian đào tạo (6 - 12 tháng)</option>
-              <option value="Chuyển cơ sở">Chuyển cơ sở đào tạo / Chuyển ngành</option>
-              <option value="Buộc thôi học">Xử lý buộc thôi học (do quá hạn tối đa hoặc vi phạm)</option>
+            <label for="change-request-type">Phân loại biến động học vụ:</label>
+            <select id="change-request-type" required>
+              <option value="DOI_NHD">Thay đổi / Bổ sung Người hướng dẫn khoa học</option>
+              <option value="DOI_TEN_DE_TAI">Thay đổi tên đề tài nghiên cứu</option>
+              <option value="TAM_DUNG">Xin tạm dừng học tập / Nghỉ học tạm thời</option>
+              <option value="GIA_HAN">Gia hạn thời gian đào tạo (6 - 12 tháng)</option>
+              <option value="CHUYEN_CO_SO">Chuyển cơ sở đào tạo / Chuyển ngành</option>
+              <option value="BUOC_THOI_HOC">Xử lý buộc thôi học (do quá hạn tối đa hoặc vi phạm)</option>
             </select>
           </div>
+          <div class="mgmt-form-group" id="change-request-advisor-group" hidden>
+            <label for="change-request-new-advisor">Người hướng dẫn mới:</label>
+            <select id="change-request-new-advisor"></select>
+          </div>
+          <div class="mgmt-form-group" id="change-request-months-group" hidden>
+            <label for="change-request-months">Số tháng gia hạn (6–12):</label>
+            <input id="change-request-months" type="number" min="6" max="12" step="1" placeholder="VD: 6" />
+          </div>
           <div class="mgmt-form-group">
-            <label>Nội dung chi tiết yêu cầu &amp; Căn cứ đề nghị:</label>
-            <textarea rows="3" required placeholder="Trình bày lý do, thời gian, cơ sở thực hiện..."></textarea>
+            <label for="change-request-content">Nội dung chi tiết yêu cầu &amp; Căn cứ đề nghị:</label>
+            <textarea id="change-request-content" rows="3" required placeholder="Trình bày lý do, thời gian, cơ sở thực hiện..."></textarea>
           </div>
           <div class="mgmt-form-group">
             <label>Tệp minh chứng đính kèm (PDF):</label>
             <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
-              <input type="file" class="dtms-file-input" style="display:none;" accept=".pdf" />
+              <input type="file" id="change-request-file" class="dtms-file-input" style="display:none;" accept=".pdf" />
               <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               <p class="file-name-display" style="margin:0; font-size:0.85rem;">Nhấp chọn file đơn và minh chứng hợp lệ</p>
             </label>
@@ -2694,6 +2836,16 @@
       <form id="form-candidate"><input type="hidden" id="candidate-id" /><div class="mgmt-form-grid">
       <div class="mgmt-form-group"><label for="candidate-code">Mã nghiên cứu sinh</label><input id="candidate-code" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-name">Họ và tên</label><input id="candidate-name" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-major">Ngành đào tạo</label><input id="candidate-major" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-cohort">Khóa tuyển sinh</label><input id="candidate-cohort" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-email">Email</label><input id="candidate-email" type="email" /></div><div class="mgmt-form-group"><label for="candidate-phone">Số điện thoại</label><input id="candidate-phone" type="tel" /></div><div class="mgmt-form-group"><label for="candidate-supervisor">Người hướng dẫn</label><input id="candidate-supervisor" type="text" /></div>
       <div class="mgmt-form-group"><label for="candidate-status">Trạng thái học vụ</label><select id="candidate-status"><option value="studying">Đang học bình thường</option><option value="extended">Gia hạn học tập</option><option value="paused">Tạm dừng học tập</option><option value="defended">Đã bảo vệ luận án</option><option value="graduated">Đã cấp bằng Tiến sĩ</option></select></div>
+      <div class="mgmt-form-group"><label for="candidate-dob">Ngày sinh</label><input id="candidate-dob" type="date" /></div>
+      <div class="mgmt-form-group"><label for="candidate-gender">Giới tính</label><select id="candidate-gender"><option value="true">Nam</option><option value="false">Nữ</option></select></div>
+      <div class="mgmt-form-group"><label for="candidate-entry-type">Đối tượng đầu vào</label><select id="candidate-entry-type"><option value="1">Đối tượng 1 (90 TC)</option><option value="2">Đối tượng 2 (120 TC)</option></select></div>
+      <div class="mgmt-form-group"><label for="candidate-decision">Số QĐ trúng tuyển</label><input id="candidate-decision" type="text" /></div>
+      <div class="mgmt-form-group"><label for="candidate-admission-date">Ngày nhập học</label><input id="candidate-admission-date" type="date" /></div>
+      <div class="mgmt-form-group"><label for="candidate-deadline-standard">Hạn đào tạo chuẩn</label><input id="candidate-deadline-standard" type="date" /></div>
+      <div class="mgmt-form-group"><label for="candidate-deadline-max">Hạn đào tạo tối đa</label><input id="candidate-deadline-max" type="date" /></div>
+      <div class="mgmt-form-group"><label for="candidate-username">Tên đăng nhập (tài khoản mới)</label><input id="candidate-username" type="text" /></div>
+      <div class="mgmt-form-group"><label for="candidate-temp-password">Mật khẩu tạm (tối thiểu 8 ký tự, có chữ và số)</label><input id="candidate-temp-password" type="password" autocomplete="new-password" /></div>
+      <p id="candidate-server-note" hidden style="grid-column:1/-1; color:var(--text-muted); font-size:.82rem; margin:0;"></p>
       </div><div class="mgmt-modal-actions"><button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-candidate">Đóng</button><button type="submit" id="candidate-save" class="btn-mgmt btn-mgmt-primary">Lưu hồ sơ</button></div></form>
     </div></div>
     <div class="mgmt-modal" id="modal-confirm"><div class="mgmt-modal-dialog"><div class="mgmt-modal-header"><h3>Xác nhận thao tác</h3><button type="button" class="mgmt-modal-close" data-close-modal="modal-confirm" aria-label="Đóng">✕</button></div><p data-confirm-message></p><div class="mgmt-modal-actions"><button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-confirm">Hủy</button><button type="button" class="btn-mgmt btn-mgmt-danger" data-confirm-accept>Xác nhận</button></div></div></div>
@@ -2705,7 +2857,7 @@
     <script src="js/data.js" defer></script>
     <script src="js/ui.js" defer></script>
     <!-- Backend đã bỏ stub tra cứu văn bằng: bật gọi /api/Public/diploma. Cấu hình này phải đứng trước js/core/config.js. -->
-    <script>window.DTMS_RUNTIME_CONFIG = { DEGREE_SERVICE_READY: false };</script>
+    <script>window.DTMS_RUNTIME_CONFIG = { DEGREE_SERVICE_READY: true };</script>
     <script src="js/core/config.js" defer></script>
     <script src="js/core/api.js" defer></script>
     <script src="js/features/collections.js" defer></script>

@@ -15,10 +15,12 @@ namespace DTMS.Api.Controllers
     public class PhanbiendoclapsController : ControllerBase
     {
         private readonly DtmsDbContext _context;
+        private readonly IConfiguration _fileConfig;
 
-        public PhanbiendoclapsController(DtmsDbContext context)
+        public PhanbiendoclapsController(DtmsDbContext context, IConfiguration fileConfig)
         {
             _context = context;
+            _fileConfig = fileConfig;
         }
 
         // GET: api/Phanbiendoclaps
@@ -82,6 +84,10 @@ namespace DTMS.Api.Controllers
             var maGv = await Access.CurrentGvAsync(_context, User);
             if (maGv == null || pb.MaGv != maGv) return Forbid();
 
+            if (!StoredFileRules.ValidReference(dto.FileNhanXet, pb.MaNcs, "bienban", _fileConfig,
+                    pb.FileNhanXet))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
+
             pb.KetQua = dto.KetQua;
             pb.FileNhanXet = dto.FileNhanXet;
             pb.NgayNhan = DateOnly.FromDateTime(DateTime.Now);
@@ -97,6 +103,15 @@ namespace DTMS.Api.Controllers
         public async Task<IActionResult> PutPhanbiendoclap(int maphanbien, Phanbiendoclap phanbiendoclap)
         {
             if (maphanbien != phanbiendoclap.MaPhanBien) return BadRequest();
+
+            var original = await _context.Phanbiendoclaps.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.MaPhanBien == maphanbien);
+            if (original == null) return NotFound();
+            if (!string.Equals(phanbiendoclap.MaNcs, original.MaNcs, StringComparison.Ordinal))
+                return BadRequest(new { Success = false, Message = "Không được đổi NCS sở hữu bản ghi qua PUT." });
+            if (!StoredFileRules.ValidReference(phanbiendoclap.FileNhanXet, phanbiendoclap.MaNcs,
+                    "bienban", _fileConfig, original.FileNhanXet))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
 
             _context.Entry(phanbiendoclap).State = EntityState.Modified;
             try
@@ -117,6 +132,10 @@ namespace DTMS.Api.Controllers
         [Authorize(Roles = "ADMIN,PDT")]
         public async Task<ActionResult<Phanbiendoclap>> PostPhanbiendoclap(Phanbiendoclap phanbiendoclap)
         {
+            if (!StoredFileRules.ValidReference(phanbiendoclap.FileNhanXet, phanbiendoclap.MaNcs,
+                    "bienban", _fileConfig))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
+
             phanbiendoclap.MaPhanBien = 0;
 
             _context.Phanbiendoclaps.Add(phanbiendoclap);

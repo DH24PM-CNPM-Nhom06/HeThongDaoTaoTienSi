@@ -13,10 +13,12 @@ namespace DTMS.Api.Controllers
     public class BaocaotiendoesController : ControllerBase
     {
         private readonly DtmsDbContext _context;
+        private readonly IConfiguration _fileConfig;
 
-        public BaocaotiendoesController(DtmsDbContext context)
+        public BaocaotiendoesController(DtmsDbContext context, IConfiguration fileConfig)
         {
             _context = context;
+            _fileConfig = fileConfig;
         }
 
         // GET: api/Baocaotiendoes
@@ -96,6 +98,10 @@ namespace DTMS.Api.Controllers
                 return BadRequest(new { Success = false, Message = "Vui lòng nhập kỳ báo cáo." });
             }
 
+            if (!(StoredFileRules.ValidReference(dto.FileBaoCao, maNcs, "baocao", _fileConfig) &&
+                  StoredFileRules.ValidReference(dto.FileMinhChung, maNcs, "minhchung", _fileConfig)))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
+
             var bc = new Baocaotiendo
             {
                 MaNcs = maNcs,
@@ -144,6 +150,14 @@ namespace DTMS.Api.Controllers
         {
             if (mabaocao != baocaotiendo.MaBaoCao) return BadRequest();
 
+            var original = await _context.Baocaotiendos.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.MaBaoCao == mabaocao);
+            if (original == null) return NotFound();
+            if (!string.Equals(baocaotiendo.MaNcs, original.MaNcs, StringComparison.Ordinal))
+                return BadRequest(new { Success = false, Message = "Không được đổi NCS sở hữu bản ghi qua PUT." });
+            if (!(StoredFileRules.ValidReference(baocaotiendo.FileBaoCao, baocaotiendo.MaNcs, "baocao", _fileConfig, original.FileBaoCao) &&
+                  StoredFileRules.ValidReference(baocaotiendo.FileMinhChung, baocaotiendo.MaNcs, "minhchung", _fileConfig, original.FileMinhChung)))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
             _context.Entry(baocaotiendo).State = EntityState.Modified;
             try
             {

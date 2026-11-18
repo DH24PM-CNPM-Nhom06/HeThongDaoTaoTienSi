@@ -106,7 +106,7 @@ namespace DTMS.Api.Services
         {
             var so = await db.Database
                 .SqlQuery<long>($"SELECT COUNT(*) AS Value FROM nhatky_thaotac WHERE HanhDong = {hanhDong} AND DuongDan = {khoa}")
-                .FirstOrDefaultAsync(ct);
+                .SingleAsync(ct);
             return so > 0;
         }
 

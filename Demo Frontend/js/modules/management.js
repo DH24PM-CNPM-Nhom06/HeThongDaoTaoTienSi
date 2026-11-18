@@ -86,9 +86,6 @@
     HOIDONG: ["m09", "m10"]
   };
 
-  const ROLE_DASHBOARDS = Object.fromEntries(Object.keys(ROLE_MODULES).map(role => [role, { stage: "", metrics: [], actions: [], queue: "" }]));
-  const ROLE_DASHBOARDS_EN = Object.fromEntries(Object.keys(ROLE_MODULES).map(role => [role, { stage: "", metrics: [], actions: [], queue: "" }]));
-
   const ACTION_ACCESS = [
     { selector: '[onclick*="modal-edit-profile"]', roles: ["NCS", "PDT"], label: "Cập nhật hồ sơ NCS" },
     { selector: '[onclick*="Xem hồ sơ NCS"]', roles: ["NHD", "BM", "KHOA", "PDT", "BGH"], label: "Mở hồ sơ NCS" },
@@ -284,12 +281,48 @@
     dashboard.hidden = !(authenticatedUser && authenticatedUser.hoTen);
     const roleKey = Object.keys(USERS_ROLE_STORE).find((key) => USERS_ROLE_STORE[key] === currentUser) || authenticatedUser?.maVaiTro || "NCS";
     const isEnglish = global.DTMS_DATA.getString("dtms-language") === "EN";
-    const dashboards = isEnglish ? ROLE_DASHBOARDS_EN : ROLE_DASHBOARDS;
-    const data = dashboards[roleKey] || dashboards.NCS;
-    const metrics = [];
     const queue = isEnglish ? "No records are available." : "Chưa có dữ liệu để hiển thị.";
     const allowedModules = ROLE_MODULES[roleKey] || ROLE_MODULES.NCS;
-    const roleActions = data.actions.filter(([, moduleId]) => allowedModules.includes(moduleId));
+    // Nghiệp vụ theo vai trò lấy từ chính các tab phân hệ (M01–M14), không hardcode
+    // danh sách riêng — trước đây ROLE_DASHBOARDS luôn rỗng nên dashboard báo "0 chức năng".
+    const roleActions = [...document.querySelectorAll(".mgmt-tab-btn")]
+      .filter((btn) => allowedModules.includes(btn.dataset.targetModule))
+      .map((btn) => [(btn.querySelector("span")?.textContent || btn.dataset.targetModule).trim(), btn.dataset.targetModule]);
+    // Số liệu + thẻ hồ sơ học vụ lấy từ dữ liệu máy chủ khi đã đăng nhập thật.
+    const metrics = [];
+    let priorityTitle = queue;
+    let priorityDetail = isEnglish ? "Track your academic and research progress" : "Theo dõi học tập và nghiên cứu";
+    if (backendSession() && SERVER.loaded) {
+      const profile = SERVER.profile || null;
+      if (profile) {
+        const code = pick(profile, "maNcs", "MaNcs");
+        const major = pick(profile, "maNganh", "MaNganh");
+        const year = String(pick(profile, "ngayNhapHoc", "NgayNhapHoc") || "").match(/^(\d{4})/)?.[1];
+        priorityTitle = [code, major, year ? (isEnglish ? `Cohort ${year}` : `Khóa ${year}`) : ""].filter(Boolean).join(" · ")
+          || (pick(profile, "hoTen", "HoTen") || queue);
+      }
+      if (roleKey === "NCS") {
+        const passedCredits = earnedCourseCredits();
+        const graded = SERVER.scores.filter((s) => Number.isFinite(Number(pick(s, "diemTongKet", "DiemTongKet"))));
+        const totalCredits = graded.reduce((sum, s) => sum + subjectCredits(pick(s, "maMonHoc", "MaMonHoc")), 0);
+        const gpa = totalCredits ? (graded.reduce((sum, s) => sum + Number(pick(s, "diemTongKet", "DiemTongKet")) * subjectCredits(pick(s, "maMonHoc", "MaMonHoc")), 0) / totalCredits).toFixed(2) : null;
+        metrics.push([isEnglish ? "Credits earned" : "Tín chỉ đã đạt", `${passedCredits} / 24`]);
+        metrics.push([isEnglish ? "Average score" : "Điểm trung bình", gpa ? `${gpa} / 10` : (isEnglish ? "No scores yet" : "Chưa có điểm")]);
+        metrics.push([isEnglish ? "Academic requests" : "Yêu cầu học vụ", String(SERVER.requests.length)]);
+        priorityDetail = isEnglish
+          ? `Credits earned ${passedCredits}/24${gpa ? ` · GPA ${gpa}` : ""}`
+          : `Tín chỉ đã đạt ${passedCredits}/24${gpa ? ` · GPA ${gpa}` : ""}`;
+      } else if ((roleKey === "PDT" || roleKey === "BGH" || roleKey === "KHOA") && SERVER.stats) {
+        const stats = SERVER.stats;
+        metrics.push([isEnglish ? "Total candidates" : "Tổng số NCS", String(pick(stats, "tongSoNcs", "TongSoNcs") ?? "—")]);
+        metrics.push([isEnglish ? "On warning" : "Đang cảnh báo", String(pick(stats, "soNcsCanhBao", "SoNcsCanhBao") ?? "—")]);
+        metrics.push([isEnglish ? "Low GPA" : "GPA thấp", String(pick(stats, "soGpaThap", "SoGpaThap") ?? "—")]);
+        priorityTitle = `${isEnglish ? "Total candidates" : "Tổng số NCS"}: ${pick(stats, "tongSoNcs", "TongSoNcs") ?? "—"} · ${isEnglish ? "on warning" : "cảnh báo"}: ${pick(stats, "soNcsCanhBao", "SoNcsCanhBao") ?? "—"}`;
+      } else {
+        metrics.push([isEnglish ? "Candidates" : "Hồ sơ NCS", String(SERVER.candidates.length)]);
+        metrics.push([isEnglish ? "Academic requests" : "Yêu cầu học vụ", String(SERVER.requests.length)]);
+      }
+    }
     const roleNames = isEnglish
       ? { NCS: "PhD candidate", NHD: "Supervisor", BM: "Department chair", KHOA: "Faculty leadership", PDT: "Graduate Academic Affairs", BGH: "University leadership", HOIDONG: "Review committee" }
       : { NCS: "Nghiên cứu sinh", NHD: "Người hướng dẫn khoa học", BM: "Trưởng Bộ môn", KHOA: "Ban Chủ nhiệm Khoa", PDT: "Phòng Đào tạo", BGH: "Ban Giám hiệu", HOIDONG: "Hội đồng đánh giá" };
@@ -307,8 +340,8 @@
       <div class="role-dashboard-heading"><div><span class="role-dashboard-eyebrow">${isEnglish ? "YOUR WORKSPACE" : "BÀN LÀM VIỆC CỦA BẠN"} · ${roleKey}</span><h2 id="role-dashboard-title">${isEnglish ? "Welcome," : "Xin chào,"} ${escapeHtml(authenticatedUser?.hoTen || "")}</h2><p>${escapeHtml(roleNames[roleKey] || roleKey)}</p></div><span class="role-dashboard-date">${formatAcademicYear(isEnglish)}</span></div>
       <div class="role-dashboard-metrics">${metrics.map(([label, value]) => `<article class="role-dashboard-metric"><span>${label}</span><strong>${escapeHtml(String(value))}</strong></article>`).join("")}</div>
       <article class="role-dashboard-priority">
-        <div><span class="role-dashboard-eyebrow">${isEnglish ? "ACADEMIC RECORDS" : "HỒ SƠ HỌC VỤ"}</span><h3>${queue}</h3></div>
-        <span class="role-dashboard-deadline">${isEnglish ? "Track your academic and research progress" : "Theo dõi học tập và nghiên cứu"}</span>
+        <div><span class="role-dashboard-eyebrow">${isEnglish ? "ACADEMIC RECORDS" : "HỒ SƠ HỌC VỤ"}</span><h3>${escapeHtml(priorityTitle)}</h3></div>
+        <span class="role-dashboard-deadline">${escapeHtml(priorityDetail)}</span>
       </article>
       <section aria-labelledby="role-dashboard-actions-title">
         <div class="role-dashboard-section-heading">
@@ -379,6 +412,29 @@
       syncFromServer();
     } catch (err) {
       showError(err.detail || err.message || 'Không thể đăng nhập. Vui lòng thử lại.');
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
+  }
+
+  // Quên mật khẩu: POST /api/Auth/quen-mat-khau (DOCX §2). Backend luôn trả thông báo
+  // chung, không tiết lộ email có tồn tại hay không — giao diện hiển thị đúng như vậy.
+  async function submitForgotPassword(event) {
+    event.preventDefault();
+    const form = event.target;
+    if (!global.DTMS_UI.validate(form)) return;
+    const email = document.getElementById("forgot-email").value.trim().toLowerCase();
+    const status = document.getElementById("forgot-status");
+    const submitButton = form.querySelector('[type="submit"]');
+    if (submitButton) submitButton.disabled = true;
+    try {
+      const result = await global.DTMS_API.forgotPassword(email);
+      const message = result?.message || result?.Message || "Nếu email tồn tại trong hệ thống, hướng dẫn đặt lại mật khẩu đã được gửi.";
+      if (status) status.textContent = message;
+      notify("Đã gửi hướng dẫn", message);
+      form.reset();
+    } catch (error) {
+      showServerError("Không gửi được hướng dẫn", error);
     } finally {
       if (submitButton) submitButton.disabled = false;
     }
@@ -483,7 +539,32 @@
     renderWorkflowUI();
     updateSessionControls();
     applyRealIdentity();
+    renderRoleSwitcher();
     if (!quiet) global.switchView("management");
+  }
+
+  // Bộ chọn vai trò (DOCX §2, §12): tài khoản có nhiều vai trò (vd GV01: BM, NHD) thì
+  // hiển thị bộ chọn ở thanh trên để đổi vai trò làm việc mà không cần đăng nhập lại
+  // (token đã chứa đủ quyền). Chỉ hiện khi có từ 2 vai trò trở lên.
+  function renderRoleSwitcher() {
+    const select = byId("topbar-role-select");
+    if (!select) return;
+    const roles = allowedRoles() || [];
+    if (roles.length < 2) { select.hidden = true; select.replaceChildren(); return; }
+    select.hidden = false;
+    select.replaceChildren(...roles.map((code) => {
+      const option = document.createElement("option");
+      option.value = code;
+      option.textContent = ROLE_LABELS[code] || code;
+      return option;
+    }));
+    select.value = currentUser.code;
+    select.onchange = () => {
+      if (!select.value || select.value === currentUser.code) return;
+      switchRole(select.value);
+      // Dữ liệu máy chủ hiển thị theo vai trò (phạm vi xem khác nhau) nên vẽ lại sau khi đổi.
+      if (backendSession() && SERVER.loaded) renderServerViews();
+    };
   }
 
   // Thanh trên và thẻ người dùng lấy danh tính từ phiên đăng nhập thật.
@@ -513,7 +594,7 @@
 
   // 4. TAB SWITCHER FOR 14 MODULES
   function switchModuleTab(moduleId) {
-    if (global.DTMS_DATA.getString("dtms-signed-out", "", true)) { openModal("modal-login"); return; }
+    if (!sessionUser()) { openModal("modal-login"); return; }
     const allowed = ROLE_MODULES[currentUser.code] || ROLE_MODULES.NCS;
     if (!allowed.includes(moduleId)) {
       notify("Không đủ quyền truy cập", "Vai trò hiện tại không được phép mở phân hệ này.");
@@ -540,7 +621,7 @@
 
   // 5. MODAL SYSTEM CONTROLLER
   function openModal(modalId) {
-    if (MODAL_ACCESS[modalId] && global.DTMS_DATA.getString('dtms-signed-out', "", true)) { openModal('modal-login'); return; }
+    if (MODAL_ACCESS[modalId] && !sessionUser()) { openModal('modal-login'); return; }
     // Chức năng chưa có API: báo "đang phát triển" thay vì mở biểu mẫu rồi lưu cục bộ.
     if (UNDER_DEVELOPMENT[modalId] && backendSession()) { showUnderDevelopment(UNDER_DEVELOPMENT[modalId]); return; }
     // Có phiên máy chủ: "Upload phiên bản luận án mới" ghi qua đề tài luận án thay vì lưu cục bộ.
@@ -552,6 +633,7 @@
       if (backendSession() && SERVER.profile) {
         document.getElementById("profile-phone-input").value = SERVER.profile.soDienThoai || "";
         document.getElementById("profile-email-input").value = SERVER.profile.email || "";
+        document.getElementById("profile-workplace-input").value = SERVER.profile.coQuanCongTac || "";
       }
     }
     const allowedRoles = modal?.dataset.allowedRoles?.split(",") || [];
@@ -560,7 +642,7 @@
       notify("Không đủ quyền thao tác", "Vai trò hiện tại không được phép thực hiện thao tác này.");
       return;
     }
-    if (modal && ['modal-grade-essay','modal-grade-topic','modal-review-progress'].includes(modalId)) {
+    if (modal && !backendSession() && ['modal-grade-essay','modal-grade-topic','modal-review-progress'].includes(modalId)) {
       const names = candidateScope().map(candidate => 'NCS. ' + candidate.name);
       const select = modal.querySelector('select[id$="candidate"],select#essay-candidate');
       if(select) [...select.options].forEach(option => option.disabled = Boolean(option.value && !names.includes(option.value)));
@@ -625,6 +707,7 @@
   function handleSubmitLeaveRequest(e) {
     if (!requireRoles(["NCS"])) { if (typeof e !== "undefined") e.preventDefault(); return; }
     e.preventDefault();
+    if (backendSession()) { submitServerLeaveRequest(e); return; }
     const type = document.getElementById("leave-type-select").value;
     const duration = document.getElementById("leave-duration-input").value;
     const reason = document.getElementById("leave-reason-input").value;
@@ -726,6 +809,7 @@
   function handleAssignSupervisor(e) {
     if (!requireRoles(["PDT"])) { if (typeof e !== "undefined") e.preventDefault(); return; }
     e.preventDefault();
+    if (backendSession()) { submitServerAssignment(e); return; }
     const candidateId = document.getElementById("assign-ncs-select").value;
     const candidate = APP_STATE.candidates.find(item=>item.id===candidateId);
     if(!candidate){notify('Hồ sơ không tồn tại','Chọn nghiên cứu sinh trước khi phân công.');return;}
@@ -759,8 +843,8 @@
   // Module 4: Course Registration
   function handleToggleCourse(courseCode, btn) {
     if (!requireRoles(["NCS"])) { if (typeof e !== "undefined") e.preventDefault(); return; }
-    if (backendSession()) { showUnderDevelopment("Đăng ký học phần"); return; }
-    if (courseCode !== 'ENV809' || !btn) return;
+    if (backendSession()) { notify("Đăng ký trên máy chủ", "Đăng ký học phần thực hiện trong bảng đăng ký ở mục Học phần & Điểm (M04), theo đợt đăng ký đang mở."); return; }
+    if (!btn) return;
     const registeredCourses = new Set(APP_STATE.registeredCourses || []);
     const isRegistered = registeredCourses.has(courseCode);
     if (isRegistered) registeredCourses.delete(courseCode); else registeredCourses.add(courseCode);
@@ -776,6 +860,7 @@
   function handleGradeEssay(e) {
     if (!requireRoles(["NHD", "BM"])) { e.preventDefault(); return; }
     e.preventDefault();
+    if (backendSession()) { submitServerEssayGrade(e); return; }
     if (!(["BM", "NHD"].includes(currentUser.code))) {
       notify("Không đủ quyền", "Chỉ Người hướng dẫn hoặc Trưởng Bộ môn được xác nhận điểm tiểu ban.");
       return;
@@ -974,6 +1059,15 @@
   function renderDefenseChecklistUI() {
     const container = document.getElementById("defense-checklist-container");
     if (!container) return;
+    // Có phiên máy chủ: điều kiện bảo vệ đối chiếu từ dữ liệu máy chủ (hội đồng, bỏ phiếu, cấp bằng) ở bảng bên dưới,
+    // không tính từ dữ liệu mẫu.
+    if (backendSession()) {
+      container.innerHTML = `<div style="background:var(--uni-blue-50); border:1px solid var(--uni-blue-100); border-radius:12px; padding:18px; margin-bottom:20px;">
+        <h4 style="margin:0; font-size:1.05rem; font-weight:800; color:var(--uni-blue-900);">BẢNG KIỂM ĐIỀU KIỆN BẢO VỆ</h4>
+        <p style="margin:6px 0 0; font-size:0.85rem; color:var(--text-secondary);">Điều kiện bảo vệ được đối chiếu từ dữ liệu máy chủ: tín chỉ đã đạt và điểm đánh giá giai đoạn ở mục Học phần & Điểm, Chuyên đề; công bố đã thẩm định ở mục Công bố; hội đồng, bỏ phiếu và công khai luận án ở bảng bên dưới.</p>
+      </div>`;
+      return;
+    }
 
     const essayAvg = parseFloat(APP_STATE.essayResult?.avg || 0);
     const essayPass = essayAvg >= 7.0;
@@ -1073,6 +1167,7 @@
   // Module 10: Defense Voting & Council Resolution
   function handleDefenseVoting() {
     if (!requireRoles(['HOIDONG'])) return;
+    if (backendSession()) { openVoteForm(); return; }
     if (currentUser.code !== "HOIDONG") {
       notify("Không đủ quyền", "Chỉ thành viên Hội đồng được ghi nhận kết quả biểu quyết.");
       return;
@@ -1099,6 +1194,11 @@
   // Module 11: Graduation & Degree Conferral
   function handleConferDegree() {
     if (!requireRoles(['BGH'])) return;
+    if (backendSession()) {
+      switchModuleTab("m11");
+      notify("Ký cấp bằng trên máy chủ", "Chọn NCS, xem trạng thái và nhập số quyết định, số hiệu bằng, số vào sổ gốc trong bảng trạng thái cấp bằng bên dưới.");
+      return;
+    }
     if (currentUser.code !== "BGH") {
       notify("Không đủ quyền", "Chỉ Ban Giám hiệu được ghi nhận quyết định công nhận học vị.");
       return;
@@ -1199,7 +1299,7 @@
       SERVER_FORMS[form.id](event, form);
       return;
     }
-    const specializedForms = ["form-login", "form-edit-profile", "form-leave-request", "form-assign-supervisor", "form-declare-pub", "form-grade-essay", "form-grade-topic", "form-review-progress", "form-candidate"];
+    const specializedForms = ["form-login", "form-forgot-password", "form-edit-profile", "form-leave-request", "form-assign-supervisor", "form-declare-pub", "form-grade-essay", "form-grade-topic", "form-review-progress", "form-candidate"];
     if (specializedForms.includes(form.id)) return;
 
     event.preventDefault();
@@ -1306,7 +1406,7 @@
   }
 
   function canAccessView(viewId) {
-    if (['management', 'profile'].includes(viewId) && global.DTMS_DATA.getString('dtms-signed-out', "", true)) { openModal('modal-login'); return false; }
+    if (['management', 'profile'].includes(viewId) && !sessionUser()) { openModal('modal-login'); return false; }
     return Boolean(document.querySelector(`.os-view[data-view="${CSS.escape(viewId)}"]`));
   }
 
@@ -1374,6 +1474,9 @@
 
     const loginForm = document.getElementById("form-login");
     if (loginForm) loginForm.addEventListener("submit", login);
+
+    const forgotForm = document.getElementById("form-forgot-password");
+    if (forgotForm) forgotForm.addEventListener("submit", submitForgotPassword);
 
 
 
@@ -1499,7 +1602,7 @@
   }
 
   function openWorkspace() {
-    if (global.DTMS_DATA.getString('dtms-signed-out', '', true)) openModal('modal-login');
+    if (!sessionUser()) openModal('modal-login');
     else global.switchView('management');
   }
 
@@ -1535,6 +1638,13 @@
   }
 
   function earnedCourseCredits() {
+    // Có phiên máy chủ: tính từ điểm đã khóa trên máy chủ (đạt = điểm chữ khác F), không đọc DOM.
+    if (backendSession() && SERVER.loaded) {
+      return SERVER.scores.reduce((sum, s) => {
+        const grade = pick(s, "diemChu", "DiemChu");
+        return sum + (grade && grade !== "F" ? subjectCredits(pick(s, "maMonHoc", "MaMonHoc")) : 0);
+      }, 0);
+    }
     // Chỉ cộng học phần có điểm tổng kết trong bảng điểm, không coi đăng ký là đã đạt.
     return [...document.querySelectorAll('#panel-m04 table tbody tr')].reduce((sum,row)=>{
       const grade=Number(row.cells[6]?.textContent.trim());
@@ -1550,6 +1660,8 @@
   }
 
   function renderCandidates() {
+    // Có phiên máy chủ: bảng NCS lấy từ API (renderServerCandidates), không dùng dữ liệu mẫu.
+    if (backendSession()) { renderServerCandidates(); return; }
     const table=document.querySelector('#panel-m01 table');
     if(!table)return;
     table.id='candidates-table';
@@ -1562,6 +1674,7 @@
 
   function openCandidate(id) {
     if(!requireRoles(['PDT','NCS','NHD','BM','KHOA','BGH']))return;
+    if (backendSession()) { openServerCandidate(id); return; }
     const candidate=id?candidateScope().find(c=>c.id===id):null;
     if(id&&!candidate)return;
     if(!id&&currentUser.code!=='PDT')return;
@@ -1582,6 +1695,7 @@
   function saveCandidate(event) {
     event.preventDefault();
     if(!requireRoles(['PDT'])||!global.DTMS_UI.validate(event.target))return;
+    if (backendSession()) { submitServerCandidate(event); return; }
     const id=document.getElementById('candidate-id').value;
     const old=APP_STATE.candidates.find(c=>c.id===id);
     const candidate={ id:id||'ncs-'+Date.now()+'-'+Math.random().toString(36).slice(2,6), seeded:old?.seeded||false };
@@ -1599,6 +1713,7 @@
 
   function deleteCandidate(id) {
     if(!requireRoles(['PDT']))return;
+    if (backendSession()) { deleteServerCandidate(id); return; }
     const candidate=APP_STATE.candidates.find(c=>c.id===id);
     if(!candidate||candidate.seeded) { notify('Hồ sơ khởi tạo','Hồ sơ khởi tạo được bảo vệ. Bạn có thể xóa các hồ sơ được thêm mới.'); return; }
     if(Boolean(APP_STATE.assignments[candidate.id])) { notify('Hồ sơ đang được sử dụng','Không thể xóa hồ sơ đã có phân công người hướng dẫn.'); return; }
@@ -1676,14 +1791,40 @@
       const profileNameInput=document.querySelector('#form-edit-profile input[readonly]');
       if(profileNameInput)profileNameInput.value='';
     }
+    // Có phiên máy chủ: select NCS do fillServerSelects() điền từ API, không ghi đè bằng dữ liệu mẫu.
+    if(!backendSession()){
     const selectedCandidate = document.getElementById('assign-ncs-select').value;
     document.getElementById('assign-ncs-select').replaceChildren(...APP_STATE.candidates.map(candidate=>new Option(candidate.name+' · '+candidate.code,candidate.id)));
     if(APP_STATE.candidates.some(candidate=>candidate.id===selectedCandidate))document.getElementById('assign-ncs-select').value=selectedCandidate;
-    const scope=candidateScope();
-    [scope.length,scope.filter(c=>c.status==='studying').length,scope.filter(c=>c.status==='extended').length,scope.filter(c=>c.status==='paused').length].forEach((value,i)=>{const metric=document.querySelectorAll('#panel-m01 .mgmt-stat-info strong')[i];if(metric)metric.textContent=value;});
+    }
+    const statMetrics=document.querySelectorAll('#panel-m01 .mgmt-stat-info strong');
+    if (backendSession() && SERVER.loaded) {
+      // Có phiên máy chủ: 4 con số M01 lấy từ hồ sơ NCS + yêu cầu học vụ trên máy chủ
+      // (tổng số; đang học; gia hạn đã duyệt; tạm dừng đã duyệt), không dùng dữ liệu mẫu.
+      const cands = SERVER.candidates || [];
+      const approvedCount = (type) => (SERVER.requests || []).filter((r) => pick(r, "loaiYeuCau", "LoaiYeuCau") === type && pick(r, "trangThai", "TrangThai") === "DA_DUYET").length;
+      [cands.length, cands.filter((c) => pick(c, "trangThaiHocVu", "TrangThaiHocVu") === 1).length, approvedCount("GIA_HAN"), approvedCount("TAM_DUNG")].forEach((value, i) => { if (statMetrics[i]) statMetrics[i].textContent = value; });
+    } else {
+      const scope=candidateScope();
+      [scope.length,scope.filter(c=>c.status==='studying').length,scope.filter(c=>c.status==='extended').length,scope.filter(c=>c.status==='paused').length].forEach((value,i)=>{if(statMetrics[i])statMetrics[i].textContent=value;});
+    }
     const essay=document.getElementById('essay-avg-score');
-    if(essay)essay.textContent=APP_STATE.essayResult.status==='pending'?'Chờ chấm điểm':APP_STATE.essayResult.avg+' / 10';
-    APP_STATE.topics.forEach((topic,index)=>{
+    if (essay) {
+      if (backendSession() && SERVER.loaded) {
+        // Điểm TB tiểu luận lấy từ lần chấm tiểu luận mới nhất trên máy chủ
+        // (NCS: của chính mình; vai trò khác: lần chấm mới nhất trong phạm vi xem).
+        const mine = (SERVER.assessments || []).filter((a) => pick(a, "loaiDanhGia", "LoaiDanhGia") === 1);
+        const ownCode = SERVER.profile ? pick(SERVER.profile, "maNcs", "MaNcs") : null;
+        const latest = (currentUser.code === "NCS" && ownCode ? mine.filter((a) => pick(a, "maNcs", "MaNcs") === ownCode) : mine).slice(-1)[0];
+        const avg = latest ? pick(latest, "diemTrungBinh", "DiemTrungBinh") : null;
+        essay.textContent = avg != null ? `${avg} / 10` : "Chờ chấm điểm";
+      } else {
+        essay.textContent=APP_STATE.essayResult.status==='pending'?'Chờ chấm điểm':APP_STATE.essayResult.avg+' / 10';
+      }
+    }
+    // Chỉ chạy ở chế độ mẫu: ở phiên máy chủ bảng chuyên đề M06 lấy từ API đánh giá
+    // (renderServerAssessments), ghi đè tên/điểm mẫu vào đây sẽ làm sai dữ liệu thật.
+    if (!backendSession()) APP_STATE.topics.forEach((topic,index)=>{
       const score=document.getElementById('topic-score-'+(index+1));
       const status=document.getElementById('topic-status-'+(index+1));
       const title=status?.closest('tr')?.cells[0]?.querySelector('strong');
@@ -1692,10 +1833,11 @@
       if(status){status.textContent=topic.status==='passed'?'Đã đánh giá (Đạt)':topic.status==='failed'?'Chưa đạt (yêu cầu ≥ 7)':'Chờ đánh giá';status.className='status-pill '+(topic.status==='passed'?'is-success':'is-warning');}
     });
     const progress=document.querySelector('#panel-m07 table tbody');
-    if(progress)progress.innerHTML=APP_STATE.progressReports.map(report=>`<tr><td>Kỳ ${report.period}</td><td>Báo cáo định kỳ 6 tháng</td><td>${report.values?workflowValues('modal-submit-progress',report.values):'Chưa có nội dung báo cáo hoặc tệp đính kèm.'}</td><td>${report.submittedAt?escapeHtml(new Date(report.submittedAt).toLocaleDateString('vi-VN')):'Chưa có ngày nộp'}</td><td><span id="progress-status-period-${report.period}" class="status-pill ${report.status==='pass'?'is-success':'is-warning'}">${report.status==='pass'?'Đạt tiến độ':report.status==='pending'?'Chờ đánh giá':'Cần chỉnh sửa'}</span></td><td>${report.status==='pass'?'Đã ghi nhận kết quả':'Chờ NHD/BM đánh giá'}</td><td>${['NHD','BM'].includes(currentUser.code)?`<div class="candidate-actions"><button class="btn-mgmt btn-mgmt-sm btn-mgmt-success" data-grade-period="${report.period}" data-result="pass">Đạt</button><button class="btn-mgmt btn-mgmt-sm btn-mgmt-warning" data-grade-period="${report.period}" data-result="revise">Cần sửa</button></div>`:'Chưa có tệp đính kèm'}</td></tr>`).join('');
+    // Chỉ chạy ở chế độ mẫu: ở phiên máy chủ bảng tiến độ M07 lấy từ API báo cáo tiến độ.
+    if(progress && !backendSession())progress.innerHTML=APP_STATE.progressReports.map(report=>`<tr><td>Kỳ ${report.period}</td><td>Báo cáo định kỳ 6 tháng</td><td>${report.values?workflowValues('modal-submit-progress',report.values):'Chưa có nội dung báo cáo hoặc tệp đính kèm.'}</td><td>${report.submittedAt?escapeHtml(new Date(report.submittedAt).toLocaleDateString('vi-VN')):'Chưa có ngày nộp'}</td><td><span id="progress-status-period-${report.period}" class="status-pill ${report.status==='pass'?'is-success':'is-warning'}">${report.status==='pass'?'Đạt tiến độ':report.status==='pending'?'Chờ đánh giá':'Cần chỉnh sửa'}</span></td><td>${report.status==='pass'?'Đã ghi nhận kết quả':'Chờ NHD/BM đánh giá'}</td><td>${['NHD','BM'].includes(currentUser.code)?`<div class="candidate-actions"><button class="btn-mgmt btn-mgmt-sm btn-mgmt-success" data-grade-period="${report.period}" data-result="pass">Đạt</button><button class="btn-mgmt btn-mgmt-sm btn-mgmt-warning" data-grade-period="${report.period}" data-result="revise">Cần sửa</button></div>`:'Chưa có tệp đính kèm'}</td></tr>`).join('');
     const submissions=APP_STATE.workflowSubmissions;
     const workflowModules={'modal-edit-plan':'m02','modal-change-supervisor':'m03','modal-submit-essay':'m05','modal-submit-outline':'m05','modal-register-topic':'m06','modal-submit-progress':'m07','modal-change-topic-title':'m09','modal-upload-thesis-version':'m09','modal-submit-post-defense':'m11','modal-create-change-request':'m12'};
-    for(const [workflow,moduleId] of Object.entries(workflowModules)) {
+    if(!backendSession())for(const [workflow,moduleId] of Object.entries(workflowModules)) {
       const panel=document.getElementById('panel-'+moduleId);
       let summary=panel.querySelector('[data-workflow="'+workflow+'"]');
       const items=submissions.filter(s=>s.workflow===workflow);
@@ -1704,14 +1846,17 @@
       summary.innerHTML='<h4>'+escapeHtml(items[0].title)+' · Đã lưu</h4>'+items.slice(0,5).map(item=>'<div><small>'+escapeHtml(new Date(item.submittedAt).toLocaleString('vi-VN'))+' · '+escapeHtml(item.id)+'</small>'+workflowValues(workflow,item.values)+'</div>').join('<hr>');
     }
     const versions=document.querySelector('#panel-m09 table tbody');
-    if(versions){
+    if(versions && !backendSession()){
       if(!sampleTableRows.has('versions'))sampleTableRows.set('versions',versions.innerHTML);
       versions.innerHTML=(APP_STATE.thesisVersions||[]).map((version,index)=>`<tr><td><strong>Phiên bản ${escapeHtml(version.id)}</strong></td><td>Phiên bản đã nộp cục bộ</td><td>${escapeHtml(new Date(version.submittedAt).toLocaleDateString('vi-VN'))}</td><td>Metadata</td><td>${workflowValues('modal-upload-thesis-version',version.values)}</td><td>Chưa lưu nội dung tệp</td></tr>`).join('')+sampleTableRows.get('versions');
     }
     const changes=document.querySelector('#panel-m12 table tbody');
     if(changes){
+      if(backendSession()){changes.innerHTML='';}
+      else{
       if(!sampleTableRows.has('changes'))sampleTableRows.set('changes',changes.innerHTML);
       changes.innerHTML=submissions.filter(s=>['modal-create-change-request','modal-change-topic-title','modal-change-supervisor'].includes(s.workflow)).map(item=>`<tr><td>${escapeHtml(item.id)}</td><td>${escapeHtml(item.title)}</td><td>${escapeHtml(new Date(item.submittedAt).toLocaleDateString('vi-VN'))}</td><td>${workflowValues(item.workflow,item.values)}</td><td><span class="status-pill is-warning">Chờ xử lý</span></td><td>Chưa có quyết định</td></tr>`).join('')+sampleTableRows.get('changes');
+      }
     }
     for(const selector of ['#assign-nhd-main-select','#assign-nhd-sub-select']) document.querySelectorAll(selector+' option').forEach(option=>{
       const quota=APP_STATE.advisorsQuota[option.value];if(quota)option.textContent=option.value+' · '+quota.count+'/'+quota.max+' chỉ tiêu';
@@ -1722,24 +1867,39 @@
       const entry=Object.entries(APP_STATE.advisorsQuota).find(([key])=>name?.includes(key));
       if(entry){const q=entry[1];row.cells[4].textContent=q.count+' / '+q.max+' NCS';const badge=row.querySelector('.status-pill');if(badge)badge.textContent=q.count>=q.max?'Đủ định mức':'Còn chỉ tiêu';}
     }
+    // Có phiên máy chủ: trạng thái ký NHD / cấp bằng / bỏ phiếu lấy từ API (mount M10/M11), không ghi đè bằng dữ liệu mẫu.
+    if(!backendSession()){
     const sign=document.getElementById('nhd-defense-sign-badge');
     if(sign)sign.textContent=APP_STATE.defenseApproval?'NHD đã xác nhận':'Chưa có xác nhận của NHD';
     const degree=document.getElementById('degree-confer-status');
     if(degree)degree.textContent=APP_STATE.degreeConferred?'Đã ghi nhận thông tin quyết định':'Chưa ghi nhận quyết định cấp bằng';
     const vote=document.getElementById('defense-vote-result-badge');
     if(vote)vote.textContent=APP_STATE.defenseVote?APP_STATE.defenseVote.yesVotes+'/7 phiếu tán thành':'Chưa ghi nhận phiếu đánh giá';
+    }
     const similarity=document.getElementById('turnitin-gauge-val');if(similarity)similarity.textContent='—';
     const similarityStatus=document.getElementById('turnitin-gauge-status');if(similarityStatus)similarityStatus.textContent='Chưa có kết quả kiểm tra độ tương đồng';
     const fill=document.getElementById('turnitin-gauge-fill');if(fill)fill.style.width='0%';
     document.querySelectorAll('[data-priv-roles]').forEach(b=>b.hidden=!b.dataset.privRoles.split(',').includes(currentUser.code));
     document.querySelector('[data-logout]').hidden=Boolean(global.DTMS_DATA.getString('dtms-signed-out', "", true));
+    const metrics=document.querySelectorAll('#panel-m04 .mgmt-stat-info strong');
+    if(backendSession() && SERVER.loaded){
+      // Tín chỉ đã đạt: điểm chữ khác F; GPA: trung bình tổng kết có trọng số tín chỉ.
+      const passed=SERVER.scores.filter(s=>{const g=pick(s,"diemChu","DiemChu");return g && g!=="F";});
+      const passedCredits=passed.reduce((sum,s)=>sum+subjectCredits(pick(s,"maMonHoc","MaMonHoc")),0);
+      const graded=SERVER.scores.filter(s=>Number.isFinite(Number(pick(s,"diemTongKet","DiemTongKet"))));
+      const totalCredits=graded.reduce((sum,s)=>sum+subjectCredits(pick(s,"maMonHoc","MaMonHoc")),0);
+      const gpa=totalCredits?(graded.reduce((sum,s)=>sum+Number(pick(s,"diemTongKet","DiemTongKet"))*subjectCredits(pick(s,"maMonHoc","MaMonHoc")),0)/totalCredits).toFixed(2):null;
+      if(metrics[0])metrics[0].textContent=passedCredits+' / 24 TC';
+      if(metrics[1])metrics[1].textContent=gpa?gpa+' / 10':'Chưa có điểm';
+      if(metrics[2])metrics[2].textContent=passedCredits>=24?'Đủ 24 tín chỉ':'Chưa đủ 24 tín chỉ';
+    } else {
     const credit=document.querySelector('#panel-m04 .mgmt-stat-info strong');if(credit)credit.textContent=earnedCourseCredits()+' / 24 TC';
     const rows=[...document.querySelectorAll('#panel-m04 table tbody tr')];
     const grades=rows.map(row=>({credits:parseInt(row.cells[2]?.textContent,10)||0,grade:Number(row.cells[6]?.textContent.trim())})).filter(item=>Number.isFinite(item.grade));
     const credits=grades.reduce((sum,item)=>sum+item.credits,0);
-    const metrics=document.querySelectorAll('#panel-m04 .mgmt-stat-info strong');
     if(metrics[1])metrics[1].textContent=credits?(grades.reduce((sum,item)=>sum+item.grade*item.credits,0)/credits).toFixed(2)+' / 10':'Chưa có điểm';
     if(metrics[2])metrics[2].textContent=earnedCourseCredits()>=24?'Đủ 24 tín chỉ':'Chưa đủ 24 tín chỉ';
+    }
     renderPlanStatusUI();
     renderGradeHistories();
     renderReports();
@@ -1815,6 +1975,7 @@
   function handleGradeTopicSubmit(e) {
     if (!requireRoles(["NHD", "BM"])) { e.preventDefault(); return; }
     e.preventDefault();
+    if (backendSession()) { submitServerTopicGrade(e); return; }
     if (!(["BM", "NHD"].includes(currentUser.code))) {
       notify("Không đủ quyền", "Chỉ Người hướng dẫn hoặc Trưởng Bộ môn được xác nhận điểm chuyên đề.");
       return;
@@ -1904,6 +2065,8 @@
   }
 
   function renderGradeHistories() {
+    // Có phiên máy chủ: lịch sử chấm lấy từ API đánh giá giai đoạn (renderServerAssessments).
+    if (backendSession()) { renderServerAssessments(); return; }
     const essayHost = document.querySelector("[data-essay-grade-history]");
     if (essayHost) {
       const records = Object.values(APP_STATE.essayResults || {}).filter(record=>candidateScope().some(c=>record.candidate==='NCS. '+c.name)).sort((a, b) => String(b.gradedAt || "").localeCompare(String(a.gradedAt || "")));
@@ -1913,6 +2076,21 @@
     if (topicHost) {
       const records = Object.values(APP_STATE.topicAssessments || {}).filter(record=>candidateScope().some(c=>record.candidate==='NCS. '+c.name)).sort((a, b) => String(b.gradedAt || "").localeCompare(String(a.gradedAt || "")));
       topicHost.innerHTML = records.length ? `<strong>Kết quả chuyên đề đã xác nhận</strong>${records.slice(0, 8).map((record) => `<article><span><b>${escapeHtml(record.candidate)}</b> · ${escapeHtml(record.topic)}</span><span>${escapeHtml(record.score)}/10 · ${escapeHtml(record.status)}</span></article>`).join("")}` : "";
+      // Bảng chuyên đề M06 ở chế độ mẫu cũng điền từ cùng các lần chấm đã xác nhận
+      // (trước đây tbody luôn trống vì không có hàm nào điền).
+      const topicBody = document.querySelector("#panel-m06 table tbody");
+      if (topicBody) {
+        topicBody.innerHTML = records.length ? records.map((record, i) => `<tr>
+          <td><strong>CĐ${i + 1}</strong></td>
+          <td><strong>${escapeHtml(record.topic || "—")}</strong><div ${MUTED}>${escapeHtml(record.candidate || "")}</div></td>
+          <td>2</td>
+          <td><span ${MUTED}>—</span></td>
+          <td>${record.gradedAt ? escapeHtml(new Date(record.gradedAt).toLocaleDateString("vi-VN")) : "—"}</td>
+          <td>${escapeHtml(record.score ?? "—")}</td>
+          <td>${escapeHtml(record.status || "—")}</td>
+          <td><span ${MUTED}>—</span></td>
+        </tr>`).join("") : emptyRow(8);
+      }
     }
     const progressHost = document.querySelector("[data-progress-review-history]");
     if (progressHost) {
@@ -1928,6 +2106,8 @@
   }
 
   function renderReports() {
+    // Có phiên máy chủ: thống kê/cảnh báo lấy từ API học vụ (renderServerWarnings), không ghi đè bằng dữ liệu mẫu.
+    if (backendSession()) return;
     const cards=[...document.querySelectorAll('#panel-m13 .mgmt-card')];
     const cohortCard=cards.find(card=>card.querySelector('h3')?.textContent.includes('2.'));
     const publicationCard=cards.find(card=>card.querySelector('h3')?.textContent.includes('3.'));
@@ -1948,15 +2128,22 @@
   // đề tài luận án và minh chứng ngoại ngữ được đọc/ghi qua DTMS_API. Không có phiên (chế độ demo, ví dụ tắt
   // API_BASE_URL) thì giao diện giữ nguyên dữ liệu mẫu cục bộ như trước.
   // Token chứa đủ quyền của mọi vai trò, nên đổi vai trò chỉ thay đổi những nút được hiện, không gọi lại API.
-  const SERVER = { profile: null, plans: [], reports: [], publications: [], topics: [], certificates: [], loaded: false };
-  const SERVER_LOADERS = { profile: "getProfile", plans: "listPlans", reports: "listProgressReports", publications: "listPublications", topics: "listThesisTopics", certificates: "listLanguageCertificates" };
-  // Chức năng chưa có API: giữ thông báo "đang phát triển", không mở biểu mẫu rồi lưu cục bộ.
-  const UNDER_DEVELOPMENT = {
-    "modal-leave-request": "Gửi yêu cầu học vụ",
-    "modal-create-change-request": "Gửi yêu cầu học vụ",
-    "modal-change-supervisor": "Đề xuất đổi người hướng dẫn",
-    "modal-submit-post-defense": "Nộp đơn xét tốt nghiệp"
+  const SERVER = { profile: null, plans: [], reports: [], publications: [], topics: [], certificates: [], scores: [], subjects: [], registrations: [], periods: [], requests: [], candidates: [], lecturers: [], assignments: [], assessments: [], warnings: [], stats: null, reviewers: [], fluctuations: [], ctdt: [], graduation: [], majors: [], loaded: false };
+  const SERVER_LOADERS = { profile: "getProfile", plans: "listPlans", reports: "listProgressReports", publications: "listPublications", topics: "listThesisTopics", certificates: "listLanguageCertificates", scores: "listScores", subjects: "listSubjects", registrations: "listRegistrations", periods: "listRegistrationPeriods", requests: "listRequests", candidates: "listCandidates", lecturers: "listLecturers", assignments: "listAssignments", assessments: "listAssessments", warnings: "listWarnings", stats: "getStats", reviewers: "listReviewers", fluctuations: "listFluctuations", ctdt: "listCtdt", graduation: "getGraduationReview", majors: "listMajors" };
+  // Tên ngành từ GET /api/Nganhdaotaos (endpoint có thật trong backend, DOCX không nhắc tới):
+  // hiển thị tên ngành thay vì chỉ mã ngành ở hồ sơ và bảng NCS. Chưa tải được thì giữ mã ngành.
+  function majorName(maNganh) {
+    const found = (SERVER.majors || []).find((m) => pick(m, "maNganh", "MaNganh") === maNganh);
+    return (found ? (pick(found, "tenNganh", "TenNganh") || pick(found, "maNganh", "MaNganh")) : null) || maNganh || "—";
+  }
+  // Tên hiển thị của vai trò (dùng cho bộ chọn vai trò ở thanh trên và thẻ người dùng).
+  const ROLE_LABELS = {
+    NCS: "Nghiên cứu sinh", NHD: "Người hướng dẫn khoa học", BM: "Trưởng Bộ môn",
+    KHOA: "Ban Chủ nhiệm Khoa", PDT: "Phòng Đào tạo", BGH: "Ban Giám hiệu", HOIDONG: "Hội đồng đánh giá"
   };
+  // Các biểu mẫu biến động, chấm điểm, hội đồng, cấp bằng trước đây bị chặn ở đây đã được nối API thật
+  // (Yeucauhocvu, Danhgiagiaidoan, Hoidongtruong, Capbang) nên không còn chặn nữa.
+  const UNDER_DEVELOPMENT = {};
   // Vai trò giao diện -> cấp duyệt của API kế hoạch (BM trên giao diện là TBM ở backend).
   const PLAN_CAP = { NHD: "NHD", BM: "TBM", PDT: "PDT" };
   // Mã vai trò tác giả gửi lên API (1/2/3 theo thứ tự các lựa chọn trên biểu mẫu).
@@ -2051,18 +2238,33 @@
       });
     });
     setDemoHidden([...(byId("panel-m08")?.children || [])].find((child) => child.classList.contains("mgmt-card")), on);
-    setDemoHidden([...document.querySelectorAll("#panel-m09 .mgmt-card")].find((card) => card.querySelector("h3")?.textContent.trim().startsWith("1.")), on);
+    // M09: ẩn card "1. Thông tin Đề tài" (tên đề tài + QĐ mẫu ghi cứng) và card "3. Phiên bản"
+    // (bảng phiên bản trống vì không có API lịch sử phiên bản; tệp hiện tại nằm trong bảng
+    // đề tài ở [data-server-view]). Nút "+ Upload phiên bản mới" vẫn còn ở action-bar.
+    [...document.querySelectorAll("#panel-m09 .mgmt-card")].forEach((card) => {
+      const title = card.querySelector("h3")?.textContent.trim() || "";
+      if (title.startsWith("1.") || title.startsWith("3.")) setDemoHidden(card, on);
+    });
+    // M10/M11/M12/M13: ẩn các card dữ liệu mẫu trực tiếp của panel (bảng hội đồng/phản biện/công khai ghi cứng,
+    // banner văn bằng ghi cứng, bảng biến động mẫu, thống kê "Tổng 48 NCS"/"91 Bài báo" ghi cứng);
+    // vùng dữ liệu máy chủ nằm trong [data-server-view] nên vẫn hiện.
+    ["panel-m10", "panel-m11", "panel-m12", "panel-m13"].forEach((panelId) => {
+      [...(byId(panelId)?.children || [])].forEach((child) => {
+        if (child.classList.contains("mgmt-card")) setDemoHidden(child, on);
+      });
+    });
     document.querySelectorAll("[data-server-view]").forEach((mount) => { mount.hidden = !on; });
+    // PUT /api/Profile/me đã nhận coQuanCongTac (DOCX §3) nên ô nơi công tác sửa được cả khi có phiên.
     const workplace = byId("profile-workplace-input");
     if (workplace) {
-      workplace.readOnly = on;
-      workplace.title = on ? "Máy chủ chưa lưu nơi công tác; chỉ email và số điện thoại được cập nhật." : "";
+      workplace.readOnly = false;
+      workplace.title = "";
     }
   }
 
   function resetServerData() {
     syncTicket++; // bỏ qua kết quả của lần tải đang chạy dở
-    Object.assign(SERVER, { profile: null, plans: [], reports: [], publications: [], topics: [], certificates: [], loaded: false });
+    Object.assign(SERVER, { profile: null, plans: [], reports: [], publications: [], topics: [], certificates: [], scores: [], subjects: [], registrations: [], periods: [], requests: [], candidates: [], lecturers: [], assignments: [], assessments: [], warnings: [], stats: null, reviewers: [], fluctuations: [], ctdt: [], graduation: [], loaded: false });
     if (initialized) renderServerViews();
   }
 
@@ -2079,7 +2281,7 @@
       const status = result.reason?.status;
       if (status === 401) return;
       // 403/404: vai trò này không có quyền hoặc không có hồ sơ cho mục đó, coi là rỗng.
-      if (status === 403 || status === 404) { SERVER[key] = key === "profile" ? null : []; return; }
+      if (status === 403 || status === 404) { SERVER[key] = (key === "profile" || key === "stats") ? null : []; return; }
       failures.push(result.reason?.detail || result.reason?.message || "Lỗi không xác định.");
     });
     SERVER.loaded = true;
@@ -2105,6 +2307,22 @@
     renderServerReports();
     renderServerTopics();
     renderServerCertificates();
+    renderServerScores();
+    renderServerRequests();
+    renderServerCandidates();
+    renderServerAssignments();
+    renderServerAssessments();
+    renderServerCtdt();
+    renderServerWarnings();
+    renderServerDefense();
+    renderServerDegree();
+    fillServerSelects();
+    // Dashboard ở view Profile vẽ trước khi tải xong nên phải vẽ lại khi có dữ liệu,
+    // nếu không thẻ hồ sơ/số liệu cứ giữ dòng "Chưa có dữ liệu để hiển thị."
+    renderRoleDashboard();
+    // Các khối vẽ từ dữ liệu mẫu trong renderWorkflowUI (thống kê M01, điểm TB tiểu luận)
+    // cũng phải vẽ lại bằng dữ liệu máy chủ sau khi tải xong.
+    renderWorkflowUI();
   }
 
   // ---- Hồ sơ (GET/PUT /api/Profile/me) ----
@@ -2120,7 +2338,7 @@
     const displayValues = {
       "profile-display-name": fullName,
       "profile-display-id": candidateCode,
-      "profile-display-major": majorCode,
+      "profile-display-major": majorName(majorCode),
       "profile-display-cohort": cohort,
       "profile-display-decision": admissionDecision,
       "profile-display-workplace": profile.coQuanCongTac || profile.CoQuanCongTac || "—"
@@ -2129,6 +2347,31 @@
       const element = byId(id);
       if (element) element.textContent = value;
     });
+    // Nhãn trạng thái 2 thẻ hồ sơ: có dữ liệu máy chủ thì đổi thành "Đã có dữ liệu",
+    // trước đây ghi cứng "Chưa có dữ liệu" và không bao giờ đổi.
+    const setProfilePill = (id) => {
+      const pill = byId(id);
+      if (pill) { pill.textContent = "Đã có dữ liệu"; pill.classList.add("is-success"); }
+    };
+    setProfilePill("profile-personal-pill");
+    setProfilePill("profile-training-pill");
+    // Ngày sinh/giới tính/đối tượng đầu vào lấy từ hồ sơ NCS (GET /api/Nghiencuusinhs)
+    // vì GET /api/Profile/me không trả các trường này. Hạn đào tạo tối đa lấy từ
+    // danh sách cảnh báo khi NCS thuộc diện cảnh báo; hạn chuẩn không có API nào trả
+    // (đã ghi trong danh sách hỏi backend) nên giữ "—" khi chưa có dữ liệu.
+    const ownRecord = (SERVER.candidates || []).find((c) => String(pick(c, "maNcs", "MaNcs") || "") === String(candidateCode));
+    if (ownRecord && candidateCode !== "—") {
+      const dob = formatDate(pick(ownRecord, "ngaySinh", "NgaySinh"));
+      const gender = pick(ownRecord, "gioiTinh", "GioiTinh");
+      const dobGender = byId("profile-display-birth");
+      if (dobGender) dobGender.textContent = [dob !== "—" ? dob : "", gender === true || gender === 1 ? "Nam" : gender === false || gender === 0 ? "Nữ" : ""].filter(Boolean).join(" · ") || "—";
+      const entryType = pick(ownRecord, "doiTuongDauVao", "DoiTuongDauVao");
+      const entryEl = byId("profile-display-audience");
+      if (entryEl) entryEl.textContent = entryType === 1 || entryType === "1" ? "Đối tượng 1 (90 tín chỉ)" : entryType === 2 || entryType === "2" ? "Đối tượng 2 (120 tín chỉ)" : (entryType ?? "—");
+      const warning = (SERVER.warnings || []).find((w) => String(pick(w, "maNcs", "MaNcs") || "") === String(candidateCode));
+      const deadlineMax = byId("profile-display-deadline-max");
+      if (deadlineMax && warning) deadlineMax.textContent = formatDate(pick(warning, "hanDaoTaoToiDa", "HanDaoTaoToiDa"));
+    }
     const profileNameInput = document.querySelector('#form-edit-profile input[readonly]');
     if (profileNameInput) profileNameInput.value = fullName === "—" ? "" : fullName;
     const phone = byId("profile-display-phone");
@@ -2138,11 +2381,7 @@
     const activeDetails = document.querySelector("#mgmt-active-user-display .active-user-info span");
     if (activeDetails) {
       const workplace = profile.coQuanCongTac || profile.CoQuanCongTac;
-      const roleLabels = {
-        NCS: "Nghiên cứu sinh", NHD: "Người hướng dẫn khoa học", BM: "Trưởng Bộ môn",
-        KHOA: "Ban Chủ nhiệm Khoa", PDT: "Phòng Đào tạo", BGH: "Ban Giám hiệu", HOIDONG: "Hội đồng đánh giá"
-      };
-      const roleLabel = roleLabels[currentUser.code] || currentUser.code;
+      const roleLabel = ROLE_LABELS[currentUser.code] || currentUser.code;
       const identityDetails = [roleLabel, cohort !== "—" ? cohort : "", candidateCode !== "—" ? `Mã NCS: ${candidateCode}` : "", workplace || ""].filter(Boolean);
       activeDetails.textContent = identityDetails.join(" · ") || profile.email || profile.Email || "";
     }
@@ -2153,13 +2392,14 @@
     if (!global.DTMS_UI.validate(form)) return;
     const phone = byId("profile-phone-input").value.trim();
     const email = byId("profile-email-input").value.trim();
+    const workplace = byId("profile-workplace-input").value.trim();
     if (phone.length > 20) { global.DTMS_UI.fieldError(byId("profile-phone-input"), "Số điện thoại tối đa 20 ký tự."); return; }
     setBusy(form, true);
     try {
-      await global.DTMS_API.updateProfile({ email, soDienThoai: phone || null });
+      await global.DTMS_API.updateProfile({ email, soDienThoai: phone || null, coQuanCongTac: workplace || null });
       closeModal("modal-edit-profile");
       await reloadServer("profile");
-      notify("Hồ sơ đã cập nhật", "Email và số điện thoại đã được lưu trên máy chủ.");
+      notify("Hồ sơ đã cập nhật", "Email, số điện thoại và nơi công tác đã được lưu trên máy chủ.");
     } catch (error) {
       showServerError("Không cập nhật được hồ sơ", error);
     } finally { setBusy(form, false); }
@@ -2470,13 +2710,20 @@
     const mount = serverMount("panel-m09", "topics");
     if (!mount) return;
     const isNcs = currentUser.code === "NCS";
-    const rows = SERVER.topics.map((topic) => `<tr>
+    const rows = SERVER.topics.map((topic) => {
+      const actions = [];
+      if (isNcs && !topic.trangThaiKhoa) actions.push(serverButton("Sửa", "topic-edit", topic.maDeTai));
+      if (currentUser.code === "PDT") {
+        if (topic.trangThaiDuyet !== 1) actions.push(serverButton("✓ Duyệt", "topic-approve", topic.maDeTai, "btn-mgmt-success", 'data-decision="1"'));
+        if (topic.trangThaiDuyet !== -1) actions.push(serverButton("✕ Từ chối", "topic-approve", topic.maDeTai, "btn-mgmt-outline-danger", 'data-decision="-1"'));
+      }
+      return `<tr>
       <td><strong>${escapeHtml(topic.tenDeTaiVn)}</strong><div ${MUTED}>${escapeHtml(topic.tenDeTaiEn)}</div><div ${MUTED}>NCS ${escapeHtml(topic.maNcs)}${topic.soQddieuChinh ? ` · QĐ điều chỉnh ${escapeHtml(topic.soQddieuChinh)}` : ""}</div></td>
       <td>${escapeHtml(topic.lanChinhSua ?? 0)}</td>
-      <td>${topic.trangThaiKhoa ? `<span class="status-pill is-purple">Đã khóa</span>` : `<span class="status-pill is-blue">Đang mở</span>`}</td>
+      <td>${topic.trangThaiKhoa ? `<span class="status-pill is-purple">Đã khóa</span>` : `<span class="status-pill is-blue">Đang mở</span>`}<div style="margin-top:4px;">${approvalPill(topic.trangThaiDuyet, ["Đã duyệt", "Không đạt", "Chờ PĐT duyệt"])}</div></td>
       <td><div class="candidate-actions">${fileButton(topic.fileToanVan, "📄 Toàn văn")}${fileButton(topic.fileTomTat, "📄 Tóm tắt")}</div></td>
-      <td>${isNcs && !topic.trangThaiKhoa ? serverButton("Sửa", "topic-edit", topic.maDeTai) : `<span ${MUTED}>—</span>`}</td>
-    </tr>`).join("");
+      <td><div class="candidate-actions">${actions.join("") || `<span ${MUTED}>—</span>`}</div></td>
+    </tr>`; }).join("");
     mount.innerHTML = `<div class="mgmt-card">
       <div class="mgmt-card-header"><h3>Đề tài luận án</h3>${isNcs ? serverButton("+ Đăng ký đề tài", "topic-new", "", "btn-mgmt-primary") : `<span class="role-pill-badge">${SERVER.topics.length} đề tài</span>`}</div>
       <p ${MUTED}>Dữ liệu lấy từ máy chủ. Đề tài bị khóa thì nghiên cứu sinh không sửa được. Tệp luận án tối đa 50MB (PDF/Word).</p>
@@ -2622,6 +2869,1206 @@
     }
   }
 
+  // PDT duyệt/từ chối đề tài luận án: PUT /api/Detailuanans/{id}/duyet (DOCX §5).
+  async function approveServerTopic(id, decision) {
+    if (!requireRoles(["PDT"])) return;
+    try {
+      await global.DTMS_API.approveThesisTopic(id, decision);
+      await reloadServer("topics");
+      notify(decision === 1 ? "Đã duyệt đề tài" : "Đã từ chối đề tài", "Kết quả đã được lưu trên máy chủ.");
+    } catch (error) {
+      showServerError("Không cập nhật được duyệt đề tài", error);
+    }
+  }
+
+  // ---- Hỗ trợ chung cho các bảng máy chủ (Giai đoạn 2) ----
+  // Backend serialize camelCase; pick() giữ tương thích nếu gặp PascalCase.
+  const pick = (item, camel, pascal) => item?.[camel] ?? item?.[pascal];
+  const subjectByCode = code => SERVER.subjects.find(s => String(pick(s, "maMonHoc", "MaMonHoc")) === String(code));
+  const subjectName = code => { const s = subjectByCode(code); return s ? (pick(s, "tenMonHoc", "TenMonHoc") || code) : code; };
+  const subjectCredits = code => { const s = subjectByCode(code); return Number(pick(s, "soTinChi", "SoTinChi") ?? 0) || 0; };
+  const candidateByCode = code => SERVER.candidates.find(c => String(pick(c, "maNcs", "MaNcs")) === String(code));
+  const candidateName = code => { const c = candidateByCode(code); return c ? (pick(c, "hoTen", "HoTen") || code) : code; };
+  const lecturerName = code => { const g = SERVER.lecturers.find(x => String(pick(x, "maGv", "MaGv")) === String(code)); return g ? (pick(g, "hoTen", "HoTen") || code) : code; };
+  const myNcsCode = () => pick(SERVER.profile, "maNcs", "MaNcs") || "";
+  const openPeriod = () => {
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    return (SERVER.periods || []).find(p => {
+      const from = pick(p, "tuNgay", "TuNgay"), to = pick(p, "denNgay", "DenNgay");
+      return from && to && new Date(from) <= today && today <= new Date(to);
+    });
+  };
+  const ASSESSMENT_TYPES = { 1: "Tiểu luận", 2: "Đề cương", 3: "Chuyên đề" };
+  const ASSESSMENT_LABEL = value => ASSESSMENT_TYPES[value] || ("Loại " + value);
+  const ASSESSMENT_RESULT = value => value === 1 ? "Thông qua" : value === 2 ? "Thông qua có chỉnh sửa" : value === 0 ? "Không thông qua" : "—";
+  const REQUEST_TYPE_LABELS = { DOI_NHD: "Đổi NHD", DOI_TEN_DE_TAI: "Đổi tên đề tài", GIA_HAN: "Gia hạn", TAM_DUNG: "Tạm dừng" };
+  const REQUEST_STATUS_PILL = value => value === "DA_DUYET" ? `<span class="status-pill is-success">Đã duyệt</span>` : value === "TU_CHOI" ? `<span class="status-pill is-danger">Đã từ chối</span>` : `<span class="status-pill is-warning">Chờ duyệt</span>`;
+
+  function fillSelectOptions(select, items, valueKey, labelFn, placeholder) {
+    if (!select) return;
+    const pascalKey = valueKey[0].toUpperCase() + valueKey.slice(1);
+    const current = select.value;
+    select.innerHTML = "";
+    if (placeholder) { const o = document.createElement("option"); o.value = ""; o.textContent = placeholder; select.append(o); }
+    items.forEach(item => {
+      const o = document.createElement("option");
+      o.value = item?.[valueKey] ?? item?.[pascalKey] ?? "";
+      o.textContent = labelFn(item);
+      select.append(o);
+    });
+    if ([...select.options].some(o => o.value === current)) select.value = current;
+  }
+  // Điền các select từ dữ liệu máy chủ (chỉ khi có phiên; chế độ không phiên giữ dữ liệu mẫu).
+  function fillServerSelects() {
+    if (!backendSession()) return;
+    const cands = SERVER.candidates || [];
+    const lects = SERVER.lecturers || [];
+    const candLabel = c => `${pick(c, "hoTen", "HoTen") || ""} · ${pick(c, "maNcs", "MaNcs") || ""}`;
+    const lectLabel = g => `${pick(g, "hoTen", "HoTen") || ""} · ${pick(g, "maGv", "MaGv") || ""}`;
+    fillSelectOptions(byId("essay-candidate"), cands, "maNcs", candLabel, "Chọn nghiên cứu sinh");
+    fillSelectOptions(byId("topic-candidate"), cands, "maNcs", candLabel, "Chọn nghiên cứu sinh");
+    fillSelectOptions(byId("progress-review-candidate"), cands, "maNcs", candLabel, "Chọn nghiên cứu sinh");
+    fillSelectOptions(byId("assign-ncs-select"), cands, "maNcs", candLabel, "Chọn nghiên cứu sinh");
+    fillSelectOptions(byId("score-ncs-select"), cands, "maNcs", candLabel, "Chọn nghiên cứu sinh");
+    fillSelectOptions(byId("ctdt-ncs-select"), cands, "maNcs", candLabel, "Chọn nghiên cứu sinh");
+    fillSelectOptions(byId("degree-ncs-select"), cands, "maNcs", candLabel, "Chọn nghiên cứu sinh");
+    fillSelectOptions(byId("defense-ncs-select"), cands, "maNcs", candLabel, "Chọn nghiên cứu sinh");
+    fillSelectOptions(byId("assign-nhd-main-select"), lects, "maGv", lectLabel, "Chọn NHD chính");
+    fillSelectOptions(byId("assign-nhd-sub-select"), lects, "maGv", lectLabel, "Không có NHD phụ");
+    fillSelectOptions(byId("change-request-new-advisor"), lects, "maGv", lectLabel, "Chọn NHD mới");
+    fillSelectOptions(byId("change-supervisor-new"), lects, "maGv", lectLabel, "Chọn NHD mới");
+    fillSelectOptions(byId("score-subject-select"), SERVER.subjects || [], "maMonHoc", s => `${pick(s, "maMonHoc", "MaMonHoc")} — ${pick(s, "tenMonHoc", "TenMonHoc")}`, "Chọn học phần");
+  }
+
+  // ---- Điểm học phần + đăng ký học phần (M04: /api/Ketquahocphans, /api/Dangkyhocphan, /api/Monhocs) ----
+  // Bảng điểm HTML có sẵn được điền trực tiếp từ máy chủ (cột giữ đúng thứ tự: TC ở [2], Tổng kết ở [6]
+  // để thống kê tín chỉ/GPA ở renderWorkflowUI tính đúng). Đăng ký học phần hiển thị trong mount riêng.
+  function renderServerScores() {
+    const tbody = document.querySelector("#panel-m04 table tbody");
+    if (!tbody) return;
+    const canEnter = ["ADMIN", "PDT", "BM", "NHD"].includes(currentUser.code);
+    const rows = SERVER.scores.map(score => {
+      const code = pick(score, "maMonHoc", "MaMonHoc");
+      const locked = pick(score, "trangThaiKhoa", "TrangThaiKhoa");
+      const total = pick(score, "diemTongKet", "DiemTongKet");
+      const actions = [];
+      if (canEnter && !locked) actions.push(serverButton("Sửa", "score-edit", pick(score, "maKetQua", "MaKetQua")));
+      if (canEnter) actions.push(serverButton(locked ? "Mở khóa" : "Khóa", locked ? "score-unlock" : "score-lock", pick(score, "maKetQua", "MaKetQua"), locked ? "btn-mgmt-outline-blue" : "btn-mgmt-secondary"));
+      return `<tr>
+        <td><strong>${escapeHtml(code)}</strong></td>
+        <td>${escapeHtml(subjectName(code))}</td>
+        <td>${subjectCredits(code)}</td>
+        <td>${pick(score, "diemChuyenCan", "DiemChuyenCan") ?? "—"}</td>
+        <td>${pick(score, "diemGiuaKy", "DiemGiuaKy") ?? "—"}</td>
+        <td>${pick(score, "diemThiCuoiKy", "DiemThiCuoiKy") ?? "—"}</td>
+        <td><strong>${total ?? "—"}</strong></td>
+        <td>${pick(score, "diemChu", "DiemChu") ?? "—"}</td>
+        <td>${pick(score, "diemHe4", "DiemHe4") ?? "—"}</td>
+        <td>${locked ? `<span class="status-pill is-purple">Đã khóa</span>` : `<span class="status-pill is-blue">Chưa khóa</span>`}<div class="candidate-actions" style="margin-top:4px;">${actions.join("") || `<span ${MUTED}>—</span>`}</div></td>
+      </tr>`;
+    }).join("");
+    tbody.innerHTML = rows || emptyRow(10);
+    renderServerRegistrations();
+  }
+
+  function renderServerRegistrations() {
+    const mount = serverMount("panel-m04", "registrations");
+    if (!mount) return;
+    const period = openPeriod();
+    const canRegister = currentUser.code === "NCS";
+    const registered = new Map((SERVER.registrations || []).map(r => [String(pick(r, "maMonHoc", "MaMonHoc")), r]));
+    const catalog = (SERVER.ctdt || []).map(row => ({
+      maMonHoc: pick(row, "maMonHoc", "MaMonHoc"),
+      tenMonHoc: pick(row, "tenMonHoc", "TenMonHoc"),
+      soTinChi: pick(row, "soTinChi", "SoTinChi"),
+      loaiHocPhan: pick(row, "loaiHocPhan", "LoaiHocPhan")
+    }));
+    const rows = catalog.map(course => {
+      const reg = registered.get(String(course.maMonHoc));
+      const action = !period ? `<span ${MUTED}>Ngoài đợt đăng ký</span>`
+        : reg ? serverButton("✕ Hủy đăng ký", "course-cancel", pick(reg, "maDangKy", "MaDangKy"), "btn-mgmt-danger")
+        : canRegister ? serverButton("+ Đăng ký", "course-register", course.maMonHoc, "btn-mgmt-primary", `data-nam-hoc="${escapeHtml(period ? pick(period, "namHoc", "NamHoc") : "")}" data-hoc-ky="${escapeHtml(period ? pick(period, "hocKy", "HocKy") : "")}" data-loai-hoc-phan="${escapeHtml(course.loaiHocPhan || "BAT_BUOC")}"`)
+        : `<span ${MUTED}>—</span>`;
+      return `<tr>
+        <td><strong>${escapeHtml(course.maMonHoc)}</strong></td>
+        <td>${escapeHtml(course.tenMonHoc || course.maMonHoc)}</td>
+        <td>${escapeHtml(course.soTinChi ?? "—")}</td>
+        <td>${escapeHtml(course.loaiHocPhan || "—")}</td>
+        <td>${reg ? `<span class="status-pill is-success">Đã đăng ký</span>` : `<span class="status-pill is-warning">Chưa đăng ký</span>`}</td>
+        <td><div class="candidate-actions">${action}</div></td>
+      </tr>`;
+    }).join("");
+    const periodText = period
+      ? `Đợt đăng ký đang mở: năm học ${escapeHtml(pick(period, "namHoc", "NamHoc"))} · HK${escapeHtml(pick(period, "hocKy", "HocKy"))} (${formatDate(pick(period, "tuNgay", "TuNgay"))} – ${formatDate(pick(period, "denNgay", "DenNgay"))}) · tối đa 15 tín chỉ/kỳ.`
+      : "Hiện không trong đợt đăng ký học phần.";
+    const canEnter = ["ADMIN", "PDT", "BM", "NHD"].includes(currentUser.code);
+    mount.innerHTML = `<div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Đăng ký học phần</h3><span class="role-pill-badge">${catalog.length} học phần</span></div>
+      <p ${MUTED}>${periodText} Điều kiện tiên quyết, trùng đăng ký và giới hạn tín chỉ do máy chủ kiểm tra và báo lý do khi từ chối.</p>
+      ${canEnter ? `<p><button type="button" class="btn-mgmt btn-mgmt-primary" data-server-action="score-new">＋ Nhập điểm học phần</button></p>` : ""}
+      <div class="mgmt-table-wrapper"><table class="mgmt-table">
+        <thead><tr><th>Mã HP</th><th>Tên học phần</th><th>Số TC</th><th>Loại</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+        <tbody>${rows || emptyRow(6)}</tbody>
+      </table></div>
+    </div>`;
+  }
+
+  async function registerServerCourse(dataset) {
+    if (!requireRoles(["NCS"])) return;
+    try {
+      await global.DTMS_API.registerCourse({
+        maMonHoc: dataset.id,
+        namHoc: dataset.namHoc,
+        hocKy: Number(dataset.hocKy),
+        loaiHocPhan: dataset.loaiHocPhan || "BAT_BUOC"
+      });
+      await reloadServer("registrations");
+      notify("Đã đăng ký học phần", "Đăng ký học phần đã được ghi nhận trên máy chủ.");
+    } catch (error) {
+      showServerError("Không đăng ký được học phần", error);
+    }
+  }
+
+  async function cancelServerRegistration(id) {
+    if (!requireRoles(["NCS"])) return;
+    try {
+      await global.DTMS_API.cancelRegistration(id);
+      await reloadServer("registrations");
+      notify("Đã hủy đăng ký", "Đăng ký học phần đã được hủy.");
+    } catch (error) {
+      showServerError("Không hủy được đăng ký", error);
+    }
+  }
+
+  function openScoreForm(score) {
+    if (!requireRoles(["ADMIN", "PDT", "BM", "NHD"])) return;
+    const form = byId("form-enter-score");
+    if (!form) return;
+    resetFormUi(form);
+    delete form.dataset.editingId;
+    fillServerSelects();
+    if (score) {
+      form.dataset.editingId = String(pick(score, "maKetQua", "MaKetQua"));
+      byId("score-ncs-select").value = pick(score, "maNcs", "MaNcs") || "";
+      byId("score-subject-select").value = pick(score, "maMonHoc", "MaMonHoc") || "";
+      byId("score-cc-input").value = pick(score, "diemChuyenCan", "DiemChuyenCan") ?? "";
+      byId("score-gk-input").value = pick(score, "diemGiuaKy", "DiemGiuaKy") ?? "";
+      byId("score-ck-input").value = pick(score, "diemThiCuoiKy", "DiemThiCuoiKy") ?? "";
+    }
+    openModal("modal-enter-score");
+  }
+
+  async function submitServerScore(event) {
+    event.preventDefault();
+    const form = event.target;
+    if (!global.DTMS_UI.validate(form)) return;
+    const body = {
+      maNcs: byId("score-ncs-select").value,
+      maMonHoc: byId("score-subject-select").value,
+      diemChuyenCan: Number(byId("score-cc-input").value),
+      diemGiuaKy: Number(byId("score-gk-input").value),
+      diemThiCuoiKy: Number(byId("score-ck-input").value)
+    };
+    if ([body.diemChuyenCan, body.diemGiuaKy, body.diemThiCuoiKy].some(v => !Number.isFinite(v) || v < 0 || v > 10)) {
+      notify("Điểm chưa hợp lệ", "Nhập đủ ba điểm từ 0 đến 10.");
+      return;
+    }
+    setBusy(form, true);
+    try {
+      const editingId = form.dataset.editingId;
+      if (editingId) await global.DTMS_API.updateScore(editingId, body);
+      else await global.DTMS_API.createScore(body);
+      closeModal("modal-enter-score");
+      await reloadServer("scores");
+      notify("Đã lưu điểm", "Điểm tổng kết, điểm chữ và điểm hệ 4 do máy chủ tự tính (CC 10% + GK 30% + CK 60%).");
+    } catch (error) {
+      showServerError("Không lưu được điểm", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  async function lockServerScore(id) {
+    if (!requireRoles(["ADMIN", "PDT", "BM", "NHD"])) return;
+    try {
+      await global.DTMS_API.lockScore(id);
+      await reloadServer("scores");
+      notify("Đã khóa bảng điểm", "Bảng điểm đã khóa và công bố kết quả.");
+    } catch (error) {
+      showServerError("Không khóa được bảng điểm", error);
+    }
+  }
+
+  async function unlockServerScore(id) {
+    if (!requireRoles(["ADMIN", "PDT"])) return;
+    try {
+      await global.DTMS_API.unlockScore(id);
+      await reloadServer("scores");
+      notify("Đã mở khóa bảng điểm", "Bảng điểm đã được mở khóa để sửa.");
+    } catch (error) {
+      showServerError("Không mở khóa được bảng điểm", error);
+    }
+  }
+
+  // ---- Yêu cầu học vụ (M12: /api/Yeucauhocvu) + biến động đã ghi nhận (/api/Biendonghocvus) ----
+  function renderServerRequests() {
+    const mount = serverMount("panel-m12", "requests");
+    if (!mount) return;
+    const canApprove = ["NHD", "BM", "KHOA", "PDT", "BGH", "ADMIN"].includes(currentUser.code);
+    const rows = SERVER.requests.map(req => {
+      const id = pick(req, "maYeuCau", "MaYeuCau");
+      const actions = [];
+      if (canApprove) {
+        actions.push(serverButton("✓ Duyệt", "request-approve", id, "btn-mgmt-success", 'data-decision="1"'));
+        actions.push(serverButton("✕ Từ chối", "request-approve", id, "btn-mgmt-outline-danger", 'data-decision="-1"'));
+      }
+      actions.push(serverButton("Chi tiết", "request-detail", id, "btn-mgmt-outline-blue"));
+      return `<tr>
+        <td><strong>${escapeHtml(id)}</strong></td>
+        <td>${escapeHtml(candidateName(pick(req, "maNcs", "MaNcs")))}<div ${MUTED}>${escapeHtml(pick(req, "maNcs", "MaNcs"))}</div></td>
+        <td>${escapeHtml(REQUEST_TYPE_LABELS[pick(req, "loaiYeuCau", "LoaiYeuCau")] || pick(req, "loaiYeuCau", "LoaiYeuCau"))}</td>
+        <td>${escapeHtml(pick(req, "noiDung", "NoiDung") || "")}</td>
+        <td style="white-space:nowrap;">${formatDate(pick(req, "ngayTao", "NgayTao"))}</td>
+        <td>${REQUEST_STATUS_PILL(pick(req, "trangThai", "TrangThai"))}</td>
+        <td><div class="candidate-actions">${actions.join("")}</div></td>
+      </tr>`;
+    }).join("");
+    const fluctRows = (SERVER.fluctuations || []).map(item => `<tr>
+      <td><strong>${escapeHtml(pick(item, "maBienDong", "MaBienDong"))}</strong></td>
+      <td>${escapeHtml(candidateName(pick(item, "maNcs", "MaNcs")))}</td>
+      <td>Loại ${escapeHtml(pick(item, "loaiBienDong", "LoaiBienDong"))}</td>
+      <td>${escapeHtml(pick(item, "soQuyetDinh", "SoQuyetDinh") || "—")}</td>
+      <td style="white-space:nowrap;">${formatDate(pick(item, "ngayHieuLuc", "NgayHieuLuc"))}</td>
+      <td>${escapeHtml(pick(item, "ngayHetHanMoi", "NgayHetHanMoi") ? formatDate(pick(item, "ngayHetHanMoi", "NgayHetHanMoi")) : "—")}</td>
+    </tr>`).join("");
+    mount.innerHTML = `<div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Yêu cầu học vụ</h3><span class="role-pill-badge">${SERVER.requests.length} yêu cầu</span></div>
+      <p ${MUTED}>Dữ liệu lấy từ máy chủ. Duyệt theo đúng bước hiện tại của từng yêu cầu; duyệt sai bước máy chủ sẽ từ chối (403). Nút "Chi tiết" hiển thị các bước duyệt.</p>
+      <div data-request-detail></div>
+      <div class="mgmt-table-wrapper"><table class="mgmt-table">
+        <thead><tr><th>Mã</th><th>NCS</th><th>Loại</th><th>Nội dung</th><th>Ngày tạo</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+        <tbody>${rows || emptyRow(7)}</tbody>
+      </table></div>
+    </div>
+    <div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Biến động học vụ đã ghi nhận</h3><span class="role-pill-badge">${(SERVER.fluctuations || []).length} biến động</span></div>
+      <p ${MUTED}>Chỉ hiển thị. Mã loại biến động chưa có định nghĩa phía backend (chuyển cơ sở / buộc thôi học chưa dùng được qua API này) nên bảng hiển thị dạng số.</p>
+      <div class="mgmt-table-wrapper"><table class="mgmt-table">
+        <thead><tr><th>Mã</th><th>NCS</th><th>Loại</th><th>Số QĐ</th><th>Hiệu lực</th><th>Hạn mới</th></tr></thead>
+        <tbody>${fluctRows || emptyRow(6)}</tbody>
+      </table></div>
+    </div>`;
+  }
+
+  async function approveServerRequest(id, decision) {
+    if (!requireRoles(["NHD", "BM", "KHOA", "PDT", "BGH", "ADMIN"])) return;
+    try {
+      const result = await global.DTMS_API.approveRequest(id, { trangThai: decision, yKien: null });
+      await reloadServer("requests");
+      notify(decision === 1 ? "Đã ghi nhận duyệt" : "Đã từ chối yêu cầu", result?.message || result?.Message || "Kết quả đã được lưu trên máy chủ.");
+    } catch (error) {
+      showServerError("Không cập nhật được yêu cầu", error);
+    }
+  }
+
+  async function showServerRequestDetail(id) {
+    try {
+      const detail = await global.DTMS_API.getRequestDetail(id);
+      const host = document.querySelector("[data-request-detail]");
+      if (!host) return;
+      const req = detail?.yeuCau || detail?.YeuCau || {};
+      const steps = detail?.buocDuyet || detail?.BuocDuyet || [];
+      host.innerHTML = `<div style="border:1px solid var(--border-card); border-radius:10px; padding:12px 14px; margin-bottom:12px;">
+        <strong>Yêu cầu #${escapeHtml(pick(req, "maYeuCau", "MaYeuCau") ?? id)}</strong> · ${escapeHtml(REQUEST_TYPE_LABELS[pick(req, "loaiYeuCau", "LoaiYeuCau")] || pick(req, "loaiYeuCau", "LoaiYeuCau") || "")}
+        ${pick(req, "lyDo", "LyDo") ? `<div ${MUTED}>Lý do: ${escapeHtml(pick(req, "lyDo", "LyDo"))}</div>` : ""}
+        ${pick(req, "maGvMoi", "MaGvMoi") ? `<div ${MUTED}>NHD mới đề xuất: ${escapeHtml(lecturerName(pick(req, "maGvMoi", "MaGvMoi")))}</div>` : ""}
+        ${pick(req, "soThangGiaHan", "SoThangGiaHan") != null ? `<div ${MUTED}>Gia hạn: ${escapeHtml(pick(req, "soThangGiaHan", "SoThangGiaHan"))} tháng</div>` : ""}
+        <div style="margin-top:8px;">${steps.map(s => `<span class="status-pill ${pick(s, "trangThai", "TrangThai") === 1 ? "is-success" : pick(s, "trangThai", "TrangThai") === -1 ? "is-danger" : "is-warning"}" style="margin:0 4px 4px 0;">${escapeHtml(pick(s, "vaiTro", "VaiTro"))}: ${pick(s, "trangThai", "TrangThai") === 1 ? "Đã duyệt" : pick(s, "trangThai", "TrangThai") === -1 ? "Đã từ chối" : "Chờ duyệt"}</span>`).join("") || `<span ${MUTED}>Chưa có bước duyệt.</span>`}</div>
+      </div>`;
+      host.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    } catch (error) {
+      showServerError("Không tải được chi tiết yêu cầu", error);
+    }
+  }
+
+  // ---- Hồ sơ NCS (M01: /api/Nghiencuusinhs, /api/NcsImport) ----
+  // Bảng NCS có sẵn được điền trực tiếp từ máy chủ thay vì mount mới (giữ đúng 7 cột HTML).
+  function renderServerCandidates() {
+    const tbody = document.querySelector("#panel-m01 table tbody");
+    if (!tbody) return;
+    const rows = SERVER.candidates.map(c => {
+      const code = pick(c, "maNcs", "MaNcs");
+      const admission = pick(c, "ngayNhapHoc", "NgayNhapHoc");
+      const cohort = admission ? `Khóa ${String(admission).slice(0, 4)}` : "—";
+      const main = (SERVER.assignments || []).find(a => String(pick(a, "maNcs", "MaNcs")) === String(code) && pick(a, "vaiTro", "VaiTro") === 1 && pick(a, "trangThai", "TrangThai") !== false);
+      const supervisor = main ? lecturerName(pick(main, "maGv", "MaGv")) : "Chưa phân công";
+      const status = pick(c, "trangThaiHocVu", "TrangThaiHocVu");
+      const actions = `<button type="button" class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-candidate-view="${escapeHtml(code)}">Xem</button>${currentUser.code === "PDT" ? `<button type="button" class="btn-mgmt btn-mgmt-sm btn-mgmt-danger" data-candidate-delete="${escapeHtml(code)}">Xóa</button>` : ""}`;
+      return `<tr><td><strong>${escapeHtml(code)}</strong></td><td>${escapeHtml(pick(c, "hoTen", "HoTen"))}</td><td>${escapeHtml(majorName(pick(c, "maNganh", "MaNganh")))}</td><td>${escapeHtml(cohort)}</td><td>${escapeHtml(supervisor)}</td><td><span class="status-pill ${status === 1 ? "is-success" : "is-warning"}">${status === 1 ? "Đang học" : "—"}</span></td><td><div class="candidate-actions">${actions}</div></td></tr>`;
+    }).join("");
+    tbody.innerHTML = rows || emptyRow(7);
+    renderServerCandidateImport();
+  }
+
+  function renderServerCandidateImport() {
+    const mount = serverMount("panel-m01", "candidate-import", "end");
+    if (!mount) return;
+    if (currentUser.code !== "PDT" && currentUser.code !== "ADMIN") { mount.innerHTML = ""; return; }
+    mount.innerHTML = `<div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Nhập nghiên cứu sinh (JSON)</h3></div>
+      <p ${MUTED}>Tải lên tệp JSON chứa danh sách NCS theo mẫu của API <code>/api/NcsImport</code> (mã NCS, họ tên, ngày sinh, giới tính, mã ngành, đối tượng đầu vào 1/2, số QĐ trúng tuyển, ngày nhập học, hạn chuẩn, hạn tối đa, tên đăng nhập, email, mật khẩu tạm). Nếu một dòng lỗi thì không lưu dòng nào.</p>
+      <p><label class="btn-mgmt btn-mgmt-secondary" for="candidate-import-input" style="cursor:pointer;">📥 Chọn tệp JSON để nhập</label>
+      <input type="file" id="candidate-import-input" accept=".json,application/json" hidden /></p>
+      <div data-import-result></div>
+    </div>`;
+  }
+
+  async function importServerCandidates(file) {
+    if (!file) return;
+    const host = document.querySelector("[data-import-result]");
+    let list;
+    try {
+      list = JSON.parse(await file.text());
+      if (!Array.isArray(list)) throw new Error("Tệp JSON phải chứa một mảng các NCS.");
+    } catch (error) {
+      if (host) host.innerHTML = `<p style="color:#dc2626;">Tệp không hợp lệ: ${escapeHtml(error.message)}</p>`;
+      return;
+    }
+    try {
+      const result = await global.DTMS_API.importCandidates(list);
+      await reloadServer("candidates");
+      const message = result?.message || result?.Message || "Đã nhập danh sách.";
+      if (host) host.innerHTML = `<p style="color:#059669;">${escapeHtml(message)}</p>`;
+      notify("Đã nhập nghiên cứu sinh", message);
+    } catch (error) {
+      const detail = error?.detail || error?.message || "Không nhập được danh sách.";
+      const errors = error?.fieldErrors || [];
+      if (host) host.innerHTML = `<p style="color:#dc2626;">${escapeHtml(detail)}</p>` + (errors.length ? `<ul>${errors.map(e => `<li>Dòng ${escapeHtml(e.dong ?? e.Dong ?? "?")}: ${escapeHtml(e.loiNoiDung ?? e.LoiNoiDung ?? "")}</li>`).join("")}</ul>` : "");
+      showServerError("Không nhập được danh sách", error);
+    }
+  }
+
+  // Lưu ý: PUT /api/Nghiencuusinhs thay toàn bộ bản ghi (EntityState.Modified) nhưng GET chỉ trả DTO
+  // thiếu MaNguoiDung và hai hạn đào tạo — gửi PUT từ giao diện sẽ ghi đè các trường đó. Vì vậy:
+  // - Thêm mới: dùng POST /api/NcsImport (tạo cả tài khoản + hồ sơ, kiểm tra trùng lặp theo lô).
+  // - Sửa hồ sơ đã có: chưa có API an toàn — mở ở chế độ xem và báo rõ, chờ backend bổ sung endpoint cập nhật từng phần.
+  function openServerCandidate(maNcs) {
+    const form = byId("form-candidate");
+    if (!form) return;
+    const c = maNcs ? candidateByCode(maNcs) : null;
+    const editing = Boolean(maNcs);
+    form.reset();
+    byId("candidate-id").value = maNcs || "";
+    const note = byId("candidate-server-note");
+    if (note) {
+      note.hidden = false;
+      note.textContent = editing
+        ? "Chế độ xem: sửa hồ sơ trên máy chủ chưa có API an toàn (PUT thay toàn bộ bản ghi, kể cả liên kết tài khoản và hạn đào tạo mà API không trả về). Liên hệ backend team để bổ sung endpoint cập nhật từng phần."
+        : "Thêm mới qua API nhập NCS: hệ thống tạo cả tài khoản đăng nhập và hồ sơ. Mật khẩu tạm tối thiểu 8 ký tự, gồm chữ và số.";
+    }
+    const set = (id, value, disabled) => { const el = byId(id); if (!el) return; el.value = value || ""; el.disabled = !!disabled; };
+    const lock = editing || currentUser.code !== "PDT";
+    set("candidate-code", pick(c, "maNcs", "MaNcs"), lock);
+    set("candidate-name", pick(c, "hoTen", "HoTen"), lock);
+    set("candidate-major", pick(c, "maNganh", "MaNganh"), lock);
+    set("candidate-cohort", pick(c, "ngayNhapHoc", "NgayNhapHoc") ? String(pick(c, "ngayNhapHoc", "NgayNhapHoc")).slice(0, 4) : "", true);
+    set("candidate-dob", pick(c, "ngaySinh", "NgaySinh"), lock);
+    set("candidate-entry-type", pick(c, "doiTuongDauVao", "DoiTuongDauVao") ?? 1, lock);
+    set("candidate-decision", pick(c, "soQdtrungTuyen", "SoQdtrungTuyen"), lock);
+    set("candidate-admission-date", pick(c, "ngayNhapHoc", "NgayNhapHoc"), lock);
+    set("candidate-gender", pick(c, "gioiTinh", "GioiTinh") === false ? "false" : "true", lock);
+    set("candidate-deadline-standard", "", lock);
+    set("candidate-deadline-max", "", lock);
+    set("candidate-email", "", lock);
+    set("candidate-username", "", lock);
+    set("candidate-temp-password", "", lock);
+    set("candidate-phone", "", true);
+    set("candidate-supervisor", "", true);
+    set("candidate-status", pick(c, "trangThaiHocVu", "TrangThaiHocVu") === 1 ? "studying" : "studying", true);
+    byId("candidate-save").hidden = lock;
+    byId("candidate-modal-heading").textContent = maNcs ? "Hồ sơ NCS · " + (pick(c, "hoTen", "HoTen") || maNcs) : "Thêm nghiên cứu sinh";
+    openModal("modal-candidate");
+  }
+
+  async function submitServerCandidate(event) {
+    event.preventDefault();
+    const form = event.target;
+    if (!global.DTMS_UI.validate(form)) return;
+    const maNcs = byId("candidate-code").value.trim();
+    const matKhauTam = byId("candidate-temp-password").value;
+    if (!/^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(matKhauTam)) {
+      notify("Mật khẩu tạm chưa hợp lệ", "Mật khẩu tạm phải có ít nhất 8 ký tự, gồm cả chữ và số.");
+      return;
+    }
+    const item = {
+      maNcs,
+      hoTen: byId("candidate-name").value.trim(),
+      ngaySinh: byId("candidate-dob").value || null,
+      gioiTinh: byId("candidate-gender").value === "true",
+      maNganh: byId("candidate-major").value.trim(),
+      doiTuongDauVao: Number(byId("candidate-entry-type").value),
+      soQdtrungTuyen: byId("candidate-decision").value.trim(),
+      ngayNhapHoc: byId("candidate-admission-date").value || null,
+      ngayHetHanChuan: byId("candidate-deadline-standard").value || null,
+      ngayHetHanToiDa: byId("candidate-deadline-max").value || null,
+      tenDangNhap: byId("candidate-username").value.trim(),
+      email: byId("candidate-email").value.trim(),
+      matKhauTam
+    };
+    if (!item.ngaySinh || !item.ngayNhapHoc || !item.ngayHetHanChuan || !item.ngayHetHanToiDa) {
+      notify("Thiếu ngày", "Nhập đủ ngày sinh, ngày nhập học, hạn đào tạo chuẩn và hạn đào tạo tối đa.");
+      return;
+    }
+    setBusy(form, true);
+    try {
+      const result = await global.DTMS_API.importCandidates([item]);
+      closeModal("modal-candidate");
+      await reloadServer("candidates");
+      notify("Đã thêm nghiên cứu sinh", result?.message || result?.Message || "Hồ sơ và tài khoản đã được tạo trên máy chủ.");
+    } catch (error) {
+      showServerError("Không thêm được nghiên cứu sinh", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  async function deleteServerCandidate(maNcs) {
+    if (!requireRoles(["PDT"])) return;
+    confirmAction("Xóa hồ sơ " + maNcs + " khỏi danh sách trên máy chủ?", async () => {
+      try {
+        await global.DTMS_API.deleteCandidate(maNcs);
+        await reloadServer("candidates");
+        notify("Đã xóa hồ sơ", "Hồ sơ đã được xóa trên máy chủ.");
+      } catch (error) {
+        showServerError("Không xóa được hồ sơ", error);
+      }
+    });
+  }
+
+  // ---- Phân công NHD (M03: /api/Phanconghuongdans, /api/Giangviens) ----
+  function renderServerAssignments() {
+    const tbody = document.querySelector("#panel-m03 table tbody");
+    if (tbody) {
+      const rows = SERVER.lecturers.map(g => {
+        const maGv = pick(g, "maGv", "MaGv");
+        const count = (SERVER.assignments || []).filter(a => String(pick(a, "maGv", "MaGv")) === String(maGv) && pick(a, "trangThai", "TrangThai") !== false).length;
+        const max = pick(g, "hocHam", "HocHam") === "GS" ? 4 : 3;
+        return `<tr>
+          <td><strong>${escapeHtml(pick(g, "hoTen", "HoTen"))}</strong></td>
+          <td>${escapeHtml([pick(g, "hocHam", "HocHam"), pick(g, "hocVi", "HocVi")].filter(Boolean).join(" ") || "—")}</td>
+          <td>${escapeHtml(pick(g, "donViCongTac", "DonViCongTac") || "—")}</td>
+          <td>—</td>
+          <td>${count} / ${max} NCS</td>
+          <td><span class="status-pill ${count >= max ? "is-danger" : "is-success"}">${count >= max ? "Đủ định mức" : "Còn chỉ tiêu"}</span></td>
+          <td><span ${MUTED}>—</span></td>
+        </tr>`;
+      }).join("");
+      tbody.innerHTML = rows || emptyRow(7);
+    }
+    const mount = serverMount("panel-m03", "assignments");
+    if (!mount) return;
+    const rows = (SERVER.assignments || []).map(a => {
+      const id = pick(a, "maPhanCong", "MaPhanCong");
+      return `<tr>
+        <td>${escapeHtml(candidateName(pick(a, "maNcs", "MaNcs")))}<div ${MUTED}>${escapeHtml(pick(a, "maNcs", "MaNcs"))}</div></td>
+        <td>${escapeHtml(lecturerName(pick(a, "maGv", "MaGv")))}</td>
+        <td>${pick(a, "vaiTro", "VaiTro") === 1 ? "Chính" : "Phụ"}</td>
+        <td>${escapeHtml(pick(a, "soQuyetDinh", "SoQuyetDinh") || "—")}</td>
+        <td style="white-space:nowrap;">${formatDate(pick(a, "ngayHieuLuc", "NgayHieuLuc"))}${pick(a, "ngayKetThuc", "NgayKetThuc") ? " – " + formatDate(pick(a, "ngayKetThuc", "NgayKetThuc")) : ""}</td>
+        <td>${pick(a, "trangThai", "TrangThai") === false ? `<span class="status-pill is-warning">Đã kết thúc</span>` : `<span class="status-pill is-success">Đang hiệu lực</span>`}</td>
+        <td>${["ADMIN", "PDT"].includes(currentUser.code) ? serverButton("Xóa", "assignment-delete", id, "btn-mgmt-danger") : `<span ${MUTED}>—</span>`}</td>
+      </tr>`;
+    }).join("");
+    mount.innerHTML = `<div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Phân công người hướng dẫn</h3><span class="role-pill-badge">${(SERVER.assignments || []).length} phân công</span></div>
+      <p ${MUTED}>Dữ liệu lấy từ máy chủ. Định mức do máy chủ kiểm tra (GS tối đa 4 NCS, còn lại tối đa 3).</p>
+      <div class="mgmt-table-wrapper"><table class="mgmt-table">
+        <thead><tr><th>NCS</th><th>Người hướng dẫn</th><th>Vai trò</th><th>Số QĐ</th><th>Hiệu lực</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+        <tbody>${rows || emptyRow(7)}</tbody>
+      </table></div>
+    </div>`;
+  }
+
+  async function submitServerAssignment(event) {
+    event.preventDefault();
+    const form = event.target;
+    const maNcs = byId("assign-ncs-select").value;
+    const main = byId("assign-nhd-main-select").value;
+    const sub = byId("assign-nhd-sub-select").value;
+    const decisionNo = byId("assign-decision-input").value.trim();
+    if (!maNcs || !main || !decisionNo) { notify("Thiếu thông tin", "Chọn nghiên cứu sinh, NHD chính và nhập số quyết định."); return; }
+    if (main === sub) { global.DTMS_UI.fieldError(byId("assign-nhd-sub-select"), "Người hướng dẫn chính và phụ phải khác nhau."); return; }
+    const today = new Date().toISOString().slice(0, 10);
+    setBusy(form, true);
+    try {
+      await global.DTMS_API.createAssignment({ maNcs, maGv: main, vaiTro: 1, soQuyetDinh: decisionNo, ngayHieuLuc: today, trangThai: true });
+      if (sub) {
+        try {
+          await global.DTMS_API.createAssignment({ maNcs, maGv: sub, vaiTro: 2, soQuyetDinh: decisionNo, ngayHieuLuc: today, trangThai: true });
+        } catch (error) {
+          showServerError("Đã phân công NHD chính nhưng chưa phân công được NHD phụ", error);
+        }
+      }
+      closeModal("modal-assign-supervisor");
+      await reloadServer("assignments");
+      await reloadServer("candidates");
+      notify("Đã ghi nhận phân công", "Phân công người hướng dẫn đã được lưu trên máy chủ.");
+    } catch (error) {
+      showServerError("Không phân công được", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  async function deleteServerAssignment(id) {
+    if (!requireRoles(["ADMIN", "PDT"])) return;
+    try {
+      await global.DTMS_API.deleteAssignment(id);
+      await reloadServer("assignments");
+      notify("Đã xóa phân công", "Phân công đã được xóa trên máy chủ.");
+    } catch (error) {
+      showServerError("Không xóa được phân công", error);
+    }
+  }
+
+  // ---- Đánh giá giai đoạn (M05/M06: /api/Danhgiagiaidoan) ----
+  // Lịch sử chấm ở M05/M06 được điền từ máy chủ; kết luận 0/1/2 theo API (không thông qua / thông qua / thông qua có chỉnh sửa).
+  function renderServerAssessments() {
+    const fillHost = (selector, type) => {
+      const host = document.querySelector(selector);
+      if (!host) return;
+      const records = (SERVER.assessments || []).filter(a => pick(a, "loaiDanhGia", "LoaiDanhGia") === type)
+        .sort((a, b) => String(pick(b, "maDanhGia", "MaDanhGia") || "").localeCompare(String(pick(a, "maDanhGia", "MaDanhGia") || "")));
+      host.innerHTML = records.length ? `<strong>Kết quả đã xác nhận (máy chủ)</strong>${records.slice(0, 8).map(r => `<article><span><b>${escapeHtml(candidateName(pick(r, "maNcs", "MaNcs")))}</b> · ${escapeHtml(pick(r, "tenNoiDung", "TenNoiDung") || "")}</span><span>${pick(r, "diemTrungBinh", "DiemTrungBinh") ?? "—"}/10 · ${ASSESSMENT_RESULT(pick(r, "ketLuan", "KetLuan"))}</span></article>`).join("")}` : "";
+    };
+    fillHost("[data-essay-grade-history]", 1);
+    fillHost("[data-topic-grade-history]", 3);
+    // Nhãn trạng thái 2 thẻ M05: đếm lượt chấm từ API, trước đây ghi cứng "Chưa có dữ liệu".
+    const setAssessmentPill = (id, type) => {
+      const pill = byId(id);
+      if (!pill) return;
+      const count = (SERVER.assessments || []).filter((a) => pick(a, "loaiDanhGia", "LoaiDanhGia") === type).length;
+      pill.textContent = count ? `Đã chấm: ${count}` : "Chưa có dữ liệu";
+      pill.classList.toggle("is-success", count > 0);
+    };
+    setAssessmentPill("essay-card-status", 1);
+    setAssessmentPill("outline-card-status", 2);
+    // Chi tiết M05 + bảng chuyên đề M06: điền từ lần chấm mới nhất của API đánh giá giai đoạn.
+    // (Điểm 3 cán bộ chấm riêng và ngày bảo vệ không có trong API nên vẫn để "—".)
+    const latestAssessment = (type) => (SERVER.assessments || []).filter((a) => pick(a, "loaiDanhGia", "LoaiDanhGia") === type)
+      .sort((a, b) => String(pick(b, "maDanhGia", "MaDanhGia") || "").localeCompare(String(pick(a, "maDanhGia", "MaDanhGia") || "")))[0];
+    const essayLatest = latestAssessment(1);
+    const essayTitle = byId("essay-title-display");
+    if (essayTitle) essayTitle.textContent = essayLatest ? (pick(essayLatest, "tenNoiDung", "TenNoiDung") || "—") : "—";
+    const essayMinutes = byId("essay-minutes-display");
+    if (essayMinutes) {
+      const minutesFile = essayLatest ? pick(essayLatest, "fileBienBan", "FileBienBan") : null;
+      essayMinutes.innerHTML = minutesFile ? fileButton(minutesFile, "📄 Biên bản") : "—";
+    }
+    const outlineLatest = latestAssessment(2);
+    const outlineTitle = byId("outline-title-display");
+    if (outlineTitle) outlineTitle.textContent = outlineLatest ? (pick(outlineLatest, "tenNoiDung", "TenNoiDung") || "—") : "—";
+    // Bảng chuyên đề M06 trước đây luôn trống (tbody rỗng, không có hàm nào điền) — nay điền
+    // từ các lần chấm chuyên đề (loại 3) của API; 2 tín chỉ/chuyên đề theo mô tả phân hệ M06.
+    const topicBody = document.querySelector("#panel-m06 table tbody");
+    if (topicBody) {
+      const topics = (SERVER.assessments || []).filter((a) => pick(a, "loaiDanhGia", "LoaiDanhGia") === 3)
+        .sort((a, b) => String(pick(a, "maDanhGia", "MaDanhGia") || "").localeCompare(String(pick(b, "maDanhGia", "MaDanhGia") || "")));
+      topicBody.innerHTML = topics.length ? topics.map((r, i) => `<tr>
+        <td><strong>CĐ${i + 1}</strong></td>
+        <td><strong>${escapeHtml(pick(r, "tenNoiDung", "TenNoiDung") || "—")}</strong><div ${MUTED}>${escapeHtml(candidateName(pick(r, "maNcs", "MaNcs")))}</div></td>
+        <td>2</td>
+        <td>Tiểu ban ${escapeHtml(pick(r, "maHoiDong", "MaHoiDong") ?? "—")}</td>
+        <td><span ${MUTED}>—</span></td>
+        <td>${pick(r, "diemTrungBinh", "DiemTrungBinh") ?? "—"}</td>
+        <td>${ASSESSMENT_RESULT(pick(r, "ketLuan", "KetLuan"))}</td>
+        <td><span ${MUTED}>—</span></td>
+      </tr>`).join("") : emptyRow(8);
+    }
+    const progressHost = document.querySelector("[data-progress-review-history]");
+    if (progressHost) progressHost.innerHTML = "";
+    const topicMount = serverMount("panel-m06", "topic-grade");
+    if (topicMount) {
+      topicMount.innerHTML = `<div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Chấm chuyên đề</h3></div>
+      <p ${MUTED}>Chấm chuyên đề qua API đánh giá giai đoạn (tối đa 3 chuyên đề/NCS; điểm ≥ 7 là thông qua). Cần mã hội đồng/tiểu ban theo quyết định thành lập.</p>
+      <p><button type="button" class="btn-mgmt btn-mgmt-primary" data-server-action="topic-grade-new">Chấm chuyên đề</button></p>
+    </div>`;
+    }
+  }
+
+  function openServerTopicGrade() {
+    if (!requireRoles(["NHD", "BM"])) return;
+    const form = byId("form-grade-topic");
+    if (!form) return;
+    form.reset();
+    byId("grade-topic-index").value = "";
+    byId("grade-topic-title").textContent = "Đánh giá chuyên đề";
+    fillServerSelects();
+    openModal("modal-grade-topic");
+  }
+
+  async function submitServerEssayGrade(event) {
+    event.preventDefault();
+    const form = event.target;
+    if (!global.DTMS_UI.validate(form)) return;
+    const scores = ["essay-score-1", "essay-score-2", "essay-score-3"].map(id => Number(byId(id).value));
+    if (scores.some(v => !Number.isFinite(v) || v < 0 || v > 10)) { notify("Điểm chưa hợp lệ", "Nhập đủ ba điểm từ 0 đến 10."); return; }
+    const avg = Math.round(scores.reduce((a, b) => a + b, 0) / 3 * 100) / 100;
+    const councilId = Number(byId("essay-council-input")?.value);
+    if (!Number.isInteger(councilId) || councilId <= 0) { notify("Thiếu mã hội đồng", "Nhập mã hội đồng/tiểu ban theo quyết định thành lập (API yêu cầu mã hội đồng đúng loại tiểu luận)."); return; }
+    setBusy(form, true);
+    try {
+      await global.DTMS_API.createAssessment({
+        maNcs: byId("essay-candidate").value,
+        loaiDanhGia: "TIEU_LUAN",
+        tenNoiDung: byId("essay-work-select").value,
+        maHoiDong: councilId,
+        diemTrungBinh: avg,
+        ketLuan: avg >= 7 ? 1 : 0
+      });
+      closeModal("modal-grade-essay");
+      await reloadServer("assessments");
+      notify("Đã xác nhận kết quả chấm", `Tiểu luận · Trung bình ${avg}/10 · ${avg >= 7 ? "Thông qua" : "Không thông qua"}. API đánh giá không có trường lưu nhận xét chi tiết — nhận xét vẫn lưu trong biên bản (tệp).`);
+    } catch (error) {
+      showServerError("Không lưu được kết quả chấm", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  async function submitServerTopicGrade(event) {
+    event.preventDefault();
+    const form = event.target;
+    if (!global.DTMS_UI.validate(form)) return;
+    const score = Number(byId("topic-score-input").value);
+    const topicName = byId("topic-name-input")?.value.trim();
+    const councilId = Number(byId("topic-council-input")?.value);
+    if (!topicName) { notify("Thiếu thông tin", "Nhập tên chuyên đề cần đánh giá."); return; }
+    if (!Number.isFinite(score) || score < 0 || score > 10) { notify("Điểm chưa hợp lệ", "Nhập điểm từ 0 đến 10."); return; }
+    if (!Number.isInteger(councilId) || councilId <= 0) { notify("Thiếu mã hội đồng", "Nhập mã hội đồng/tiểu ban theo quyết định thành lập (API yêu cầu mã hội đồng đúng loại chuyên đề)."); return; }
+    setBusy(form, true);
+    try {
+      await global.DTMS_API.createAssessment({
+        maNcs: byId("topic-candidate").value,
+        loaiDanhGia: "CHUYEN_DE",
+        tenNoiDung: topicName,
+        maHoiDong: councilId,
+        diemTrungBinh: score,
+        ketLuan: score >= 7 ? 1 : 0
+      });
+      closeModal("modal-grade-topic");
+      await reloadServer("assessments");
+      notify("Đã xác nhận kết quả", `Chuyên đề ${topicName} · ${score}/10 · ${score >= 7 ? "Thông qua" : "Không thông qua"}.`);
+    } catch (error) {
+      showServerError("Không lưu được kết quả chấm", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  // ---- CTĐT + đối chiếu tiến độ (M02: /api/Ctdt, /api/Doichieu) ----
+  function renderServerCtdt() {
+    const mount = serverMount("panel-m02", "ctdt");
+    if (!mount) return;
+    const rows = SERVER.ctdt.map(row => `<tr>
+      <td><strong>${escapeHtml(pick(row, "maMonHoc", "MaMonHoc"))}</strong></td>
+      <td>${escapeHtml(pick(row, "tenMonHoc", "TenMonHoc") || "")}</td>
+      <td>${escapeHtml(pick(row, "soTinChi", "SoTinChi") ?? "—")}</td>
+      <td>${escapeHtml(pick(row, "loaiHocPhan", "LoaiHocPhan") || "—")}</td>
+      <td>${escapeHtml(pick(row, "doiTuongDauVao", "DoiTuongDauVao") ?? "—")}</td>
+    </tr>`).join("");
+    mount.innerHTML = `<div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Khung chương trình đào tạo</h3><span class="role-pill-badge">${SERVER.ctdt.length} học phần</span></div>
+      <p ${MUTED}>Dữ liệu lấy từ máy chủ. NCS chỉ xem đúng ngành và đối tượng đầu vào của mình.</p>
+      <div class="mgmt-table-wrapper"><table class="mgmt-table">
+        <thead><tr><th>Mã HP</th><th>Tên học phần</th><th>Số TC</th><th>Loại</th><th>Đối tượng</th></tr></thead>
+        <tbody>${rows || emptyRow(5)}</tbody>
+      </table></div>
+    </div>
+    <div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Đối chiếu tiến độ với kế hoạch</h3></div>
+      <p ${MUTED}>So sánh học phần trong kế hoạch đã duyệt với học phần đã đạt (điểm đã khóa, điểm chữ khác F).</p>
+      <p style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <select id="ctdt-ncs-select" class="mgmt-input" style="min-width:260px;"></select>
+        <button type="button" class="btn-mgmt btn-mgmt-primary" data-server-action="comparison-load">Đối chiếu</button>
+      </p>
+      <div data-comparison-result></div>
+    </div>`;
+    fillServerSelects();
+    if (currentUser.code === "NCS") {
+      const select = byId("ctdt-ncs-select");
+      if (select) { select.value = myNcsCode(); select.disabled = true; }
+    }
+  }
+
+  async function loadServerComparison() {
+    const maNcs = currentUser.code === "NCS" ? myNcsCode() : byId("ctdt-ncs-select")?.value;
+    const host = document.querySelector("[data-comparison-result]");
+    if (!maNcs) { notify("Thiếu thông tin", "Chọn nghiên cứu sinh cần đối chiếu."); return; }
+    try {
+      const data = await global.DTMS_API.getComparison(maNcs);
+      const done = data?.hocPhanHoanThanh || data?.HocPhanHoanThanh || [];
+      const missing = data?.hocPhanConThieu || data?.HocPhanConThieu || [];
+      const total = data?.soHocPhanKeHoach ?? data?.SoHocPhanKeHoach ?? 0;
+      const doneCount = data?.soHocPhanHoanThanh ?? data?.SoHocPhanHoanThanh ?? done.length;
+      const pct = data?.tyLeHoanThanhPhanTram ?? data?.TyLeHoanThanhPhanTram ?? 0;
+      if (host) host.innerHTML = `<p><strong>${escapeHtml(candidateName(maNcs))}</strong> · ${doneCount}/${total} học phần · <strong>${pct}%</strong></p>
+        <p ${MUTED}>Đã hoàn thành: ${done.length ? done.map(c => escapeHtml(subjectName(c))).join(", ") : "—"}</p>
+        <p ${MUTED}>Còn thiếu: ${missing.length ? missing.map(c => escapeHtml(subjectName(c))).join(", ") : "—"}</p>`;
+    } catch (error) {
+      showServerError("Không đối chiếu được tiến độ", error);
+    }
+  }
+
+  // ---- Cảnh báo học vụ + thống kê + xuất Excel (M13: /api/Hocvu) ----
+  function renderServerWarnings() {
+    const mount = serverMount("panel-m13", "warnings");
+    if (!mount) return;
+    const stats = SERVER.stats && !Array.isArray(SERVER.stats) ? SERVER.stats : null;
+    const statsHtml = stats ? `<p><strong>Tổng số NCS:</strong> ${escapeHtml(stats.tongSoNcs ?? stats.TongSoNcs ?? "—")} · <strong>Đang cảnh báo:</strong> ${escapeHtml(stats.soNcsCanhBao ?? stats.SoNcsCanhBao ?? "—")} · <strong>GPA thấp:</strong> ${escapeHtml(stats.soGpaThap ?? stats.SoGpaThap ?? "—")} · <strong>Sắp hết hạn:</strong> ${escapeHtml(stats.soGanHetHanDaoTao ?? stats.SoGanHetHanDaoTao ?? "—")} · <strong>Đúng tiến độ:</strong> ${escapeHtml(stats.soNcsDungTienDo ?? stats.SoNcsDungTienDo ?? "—")}</p>
+      <p ${MUTED}>Lưu ý: tổng số NCS là toàn trường, còn số cảnh báo lọc theo phạm vi của vai trò hiện tại, nên "đúng tiến độ" chỉ đúng nghĩa với ADMIN/PĐT/TBM.</p>` : "";
+    const rows = (SERVER.warnings || []).map(w => `<tr>
+      <td><strong>${escapeHtml(pick(w, "maNcs", "MaNcs"))}</strong></td>
+      <td>${escapeHtml(pick(w, "hoTen", "HoTen") || "")}</td>
+      <td>${escapeHtml(pick(w, "maNganh", "MaNganh") || "")}</td>
+      <td>${pick(w, "gpa", "Gpa") ?? "—"}</td>
+      <td style="white-space:nowrap;">${formatDate(pick(w, "hanDaoTaoToiDa", "HanDaoTaoToiDa"))}</td>
+      <td>${(pick(w, "lyDo", "LyDo") || []).map(r => escapeHtml(r)).join("; ")}</td>
+    </tr>`).join("");
+    mount.innerHTML = `<div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Cảnh báo học vụ</h3><span class="role-pill-badge">${(SERVER.warnings || []).length} cảnh báo</span></div>
+      <p ${MUTED}>Dữ liệu lấy từ máy chủ. Cảnh báo khi GPA dưới 2.00 hoặc còn ≤ 180 ngày đến hạn đào tạo tối đa.</p>
+      ${statsHtml}
+      <p><button type="button" class="btn-mgmt btn-mgmt-primary" data-server-action="warnings-export">📥 Xuất Excel cảnh báo (.xlsx)</button></p>
+      <div class="mgmt-table-wrapper"><table class="mgmt-table">
+        <thead><tr><th>Mã NCS</th><th>Họ tên</th><th>Ngành</th><th>GPA</th><th>Hạn đào tạo tối đa</th><th>Lý do cảnh báo</th></tr></thead>
+        <tbody>${rows || emptyRow(6)}</tbody>
+      </table></div>
+    </div>`;
+  }
+
+  async function exportServerWarnings() {
+    try {
+      const { blob, fileName } = await global.DTMS_API.exportWarnings();
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = fileName;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 10000);
+      notify("Đã xuất báo cáo", "Tệp Excel cảnh báo học vụ đã được tải xuống.");
+    } catch (error) {
+      showServerError("Không xuất được báo cáo", error);
+    }
+  }
+
+  // ---- Hội đồng, bỏ phiếu, phản biện, công khai (M10: /api/Hoidongtruong, /api/Phanbiendoclaps, /api/Capbang) ----
+  function renderServerDefense() {
+    const mount = serverMount("panel-m10", "defense");
+    if (!mount) return;
+    const reviewerRows = (SERVER.reviewers || []).map(r => {
+      const id = pick(r, "maPhanBien", "MaPhanBien");
+      const ketQua = pick(r, "ketQua", "KetQua");
+      return `<tr>
+        <td><strong>${escapeHtml(id)}</strong></td>
+        <td>${escapeHtml(candidateName(pick(r, "maNcs", "MaNcs")))}</td>
+        <td>${escapeHtml(lecturerName(pick(r, "maGv", "MaGv")))}</td>
+        <td style="white-space:nowrap;">${formatDate(pick(r, "ngayGui", "NgayGui"))}</td>
+        <td style="white-space:nowrap;">${formatDate(pick(r, "ngayNhan", "NgayNhan"))}</td>
+        <td>${ketQua == null ? `<span ${MUTED}>Chưa nhận xét</span>` : ASSESSMENT_RESULT(ketQua)}</td>
+        <td>${fileButton(pick(r, "fileNhanXet", "FileNhanXet"), "📄 Nhận xét")}</td>
+        <td>${currentUser.code === "HOIDONG" ? serverButton("Nhận xét", "reviewer-comment", id, "btn-mgmt-outline-blue") : `<span ${MUTED}>—</span>`}</td>
+      </tr>`;
+    }).join("");
+    mount.innerHTML = `<div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Hội đồng trường & bỏ phiếu</h3></div>
+      <p ${MUTED}>Nhập mã hội đồng theo quyết định thành lập. Bỏ phiếu kín: mỗi thành viên 1 phiếu, đạt khi ≥ 50% tán thành. Kết quả chỉ hiện khi đủ phiếu.</p>
+      <p style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <label for="defense-council-id">Mã hội đồng:</label>
+        <input id="defense-council-id" type="number" min="1" class="mgmt-input" style="width:140px;" placeholder="VD: 12" />
+        <button type="button" class="btn-mgmt btn-mgmt-secondary" data-server-action="council-check">Kiểm tra thành phần</button>
+        <button type="button" class="btn-mgmt btn-mgmt-secondary" data-server-action="council-result">Xem kết quả</button>
+        <button type="button" class="btn-mgmt btn-mgmt-primary" data-server-action="vote-new">✓ Bỏ phiếu kín</button>
+      </p>
+      <div data-council-result></div>
+    </div>
+    <div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Phản biện độc lập</h3><span class="role-pill-badge">${(SERVER.reviewers || []).length} phân công</span></div>
+      <p ${MUTED}>Kết quả nhận xét dùng thang 0/1/2 như đánh giá giai đoạn (0 không thông qua, 1 thông qua, 2 thông qua có chỉnh sửa) — backend chưa định nghĩa thang này, cần xác nhận lại.</p>
+      <div class="mgmt-table-wrapper"><table class="mgmt-table">
+        <thead><tr><th>Mã</th><th>NCS</th><th>Phản biện</th><th>Ngày gửi</th><th>Ngày nhận</th><th>Kết luận</th><th>Tệp</th><th>Thao tác</th></tr></thead>
+        <tbody>${reviewerRows || emptyRow(8)}</tbody>
+      </table></div>
+    </div>
+    <div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Công khai luận án</h3></div>
+      <p ${MUTED}>PĐT công khai luận án trên website sau khi NCS đạt bảo vệ và hoàn tất lưu chiểu.</p>
+      <p style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <select id="defense-ncs-select" class="mgmt-input" style="min-width:260px;"></select>
+        <button type="button" class="btn-mgmt btn-mgmt-primary" data-server-action="degree-publish">Công khai luận án</button>
+      </p>
+    </div>`;
+    fillServerSelects();
+  }
+
+  function councilIdFromInput() {
+    const value = Number(byId("defense-council-id")?.value);
+    if (!Number.isInteger(value) || value <= 0) { notify("Thiếu mã hội đồng", "Nhập mã hội đồng theo quyết định thành lập."); return null; }
+    return value;
+  }
+
+  async function checkServerCouncil() {
+    if (!requireRoles(["ADMIN", "PDT"])) return;
+    const id = councilIdFromInput();
+    if (!id) return;
+    const host = document.querySelector("[data-council-result]");
+    try {
+      const result = await global.DTMS_API.checkCouncil(id);
+      const ok = result?.hopLe ?? result?.HopLe;
+      const errors = result?.loi || result?.Loi || [];
+      if (host) host.innerHTML = ok
+        ? `<p style="color:#059669;">Hội đồng hợp lệ: đủ 5 thành viên, ≥ 2 thành viên ngoài trường, NHD không nằm trong hội đồng.</p>`
+        : `<p style="color:#dc2626;">Hội đồng chưa hợp lệ:</p><ul>${errors.map(e => `<li>${escapeHtml(e)}</li>`).join("")}</ul>`;
+    } catch (error) {
+      showServerError("Không kiểm tra được hội đồng", error);
+    }
+  }
+
+  async function loadServerCouncilResult() {
+    if (!requireRoles(["ADMIN", "PDT"])) return;
+    const id = councilIdFromInput();
+    if (!id) return;
+    const host = document.querySelector("[data-council-result]");
+    try {
+      const result = await global.DTMS_API.getCouncilResult(id);
+      const done = result?.daBoPhieu ?? result?.DaBoPhieu ?? 0;
+      const total = result?.tongThanhVien ?? result?.TongThanhVien ?? 0;
+      const yes = result?.soPhieuTanThanh ?? result?.SoPhieuTanThanh;
+      const ketLuan = result?.ketLuan ?? result?.KetLuan;
+      const message = result?.message ?? result?.Message;
+      if (host) host.innerHTML = yes == null
+        ? `<p>Đã bỏ phiếu: ${done}/${total}. ${escapeHtml(message || "Chưa đủ phiếu, chưa có kết quả.")}</p>`
+        : `<p>Đã bỏ phiếu: ${done}/${total} · Tán thành: ${yes} · Kết luận: <strong>${escapeHtml(ketLuan)}</strong></p>`;
+    } catch (error) {
+      showServerError("Không tải được kết quả bỏ phiếu", error);
+    }
+  }
+
+  function openVoteForm() {
+    if (!requireRoles(["HOIDONG", "NHD", "BM", "KHOA", "BGH", "ADMIN", "PDT"])) return;
+    const councilId = byId("defense-council-id")?.value;
+    const form = byId("form-cast-vote");
+    if (!form) return;
+    form.reset();
+    if (councilId) byId("vote-council-id").value = councilId;
+    openModal("modal-cast-vote");
+  }
+
+  async function submitServerVote(event) {
+    event.preventDefault();
+    const form = event.target;
+    const councilId = Number(byId("vote-council-id").value);
+    const choice = form.querySelector('input[name="vote-choice"]:checked');
+    if (!Number.isInteger(councilId) || councilId <= 0) { notify("Thiếu mã hội đồng", "Nhập mã hội đồng theo quyết định thành lập."); return; }
+    if (!choice) { notify("Thiếu lựa chọn", "Chọn tán thành hoặc không tán thành."); return; }
+    setBusy(form, true);
+    try {
+      const result = await global.DTMS_API.castVote(councilId, choice.value === "yes");
+      closeModal("modal-cast-vote");
+      notify("Đã ghi nhận phiếu", result?.message || result?.Message || "Phiếu bỏ kín của bạn đã được ghi nhận.");
+      await loadServerCouncilResult();
+    } catch (error) {
+      showServerError("Không ghi được phiếu", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  function openReviewerCommentForm(id) {
+    if (!requireRoles(["HOIDONG"])) return;
+    const form = byId("form-reviewer-comment");
+    if (!form) return;
+    form.reset();
+    form.dataset.reviewerId = String(id);
+    openModal("modal-reviewer-comment");
+  }
+
+  async function submitServerReviewerComment(event) {
+    event.preventDefault();
+    const form = event.target;
+    const id = form.dataset.reviewerId;
+    const ketQua = Number(byId("reviewer-result-select").value);
+    const file = byId("reviewer-file-input")?.files?.[0];
+    if (!id || !Number.isInteger(ketQua) || ketQua < 0 || ketQua > 2) { notify("Thiếu thông tin", "Chọn kết luận nhận xét."); return; }
+    setBusy(form, true);
+    try {
+      let fileNhanXet = null;
+      if (file) {
+        const uploaded = await global.DTMS_API.uploadFile(file, "minhchung");
+        fileNhanXet = uploaded.fileUrl;
+      }
+      await global.DTMS_API.updateReviewerComment(id, { ketQua, fileNhanXet });
+      closeModal("modal-reviewer-comment");
+      await reloadServer("reviewers");
+      notify("Đã cập nhật nhận xét", "Nhận xét phản biện đã được lưu trên máy chủ.");
+    } catch (error) {
+      showServerError("Không cập nhật được nhận xét", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  async function publishServerThesis() {
+    if (!requireRoles(["ADMIN", "PDT"])) return;
+    const maNcs = byId("defense-ncs-select")?.value;
+    if (!maNcs) { notify("Thiếu thông tin", "Chọn nghiên cứu sinh cần công khai luận án."); return; }
+    try {
+      const result = await global.DTMS_API.publishThesis(maNcs);
+      notify("Đã công khai luận án", result?.message || result?.Message || "Luận án đã được công khai trên website.");
+    } catch (error) {
+      showServerError("Không công khai được luận án", error);
+    }
+  }
+
+  // ---- Sau bảo vệ, cấp bằng, xét tốt nghiệp (M11: /api/Capbang, /api/Totnghiep) ----
+  function renderServerDegree() {
+    const mount = serverMount("panel-m11", "degree");
+    if (!mount) return;
+    const gradRows = (SERVER.graduation || []).map(g => {
+      const code = pick(g, "maNcs", "MaNcs");
+      const eligible = pick(g, "duDieuKien", "DuDieuKien");
+      const done = pick(g, "daCongNhan", "DaCongNhan");
+      const reasons = pick(g, "lyDo", "LyDo") || [];
+      return `<tr>
+        <td><strong>${escapeHtml(code)}</strong></td>
+        <td>${escapeHtml(pick(g, "hoTen", "HoTen") || "")}</td>
+        <td>${escapeHtml(pick(g, "tinChiDat", "TinChiDat") ?? "—")}/${escapeHtml(pick(g, "tinChiYeuCau", "TinChiYeuCau") ?? "—")}</td>
+        <td>${eligible ? `<span class="status-pill is-success">Đủ điều kiện</span>` : `<span class="status-pill is-danger">Chưa đủ</span>`}</td>
+        <td>${done ? "Đã công nhận" : "Chưa công nhận"}</td>
+        <td>${reasons.length ? reasons.map(r => escapeHtml(r)).join("; ") : "—"}</td>
+        <td>${["ADMIN", "PDT"].includes(currentUser.code) && eligible && !done ? `<input type="checkbox" data-grad-check="${escapeHtml(code)}" aria-label="Chọn ${escapeHtml(code)}" />` : `<span ${MUTED}>—</span>`}</td>
+      </tr>`;
+    }).join("");
+    mount.innerHTML = `<div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Trạng thái cấp bằng</h3></div>
+      <p ${MUTED}>Dữ liệu lấy từ máy chủ. Chỉ ký được khi đã đạt bảo vệ, đã lưu chiểu và đã công khai.</p>
+      <p style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <select id="degree-ncs-select" class="mgmt-input" style="min-width:260px;"></select>
+        <button type="button" class="btn-mgmt btn-mgmt-secondary" data-server-action="degree-load">Xem trạng thái</button>
+      </p>
+      <div data-degree-status></div>
+      <div style="display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); margin-top:12px;">
+        <label>Số quyết định cấp bằng<input id="degree-qd-input" class="mgmt-input" placeholder="VD: 128/QĐ-ĐHAG" /></label>
+        <label>Số hiệu bằng<input id="degree-sohieu-input" class="mgmt-input" placeholder="VD: TS-AGU-2026-089" /></label>
+        <label>Số vào sổ gốc<input id="degree-sovao-input" class="mgmt-input" placeholder="VD: SG-TS-2026-012" /></label>
+      </div>
+      <p style="margin-top:12px;"><button type="button" class="btn-mgmt btn-mgmt-primary" data-server-action="degree-confer">🎓 BGH ký quyết định cấp bằng</button></p>
+    </div>
+    ${["ADMIN", "PDT"].includes(currentUser.code) ? `<div class="mgmt-card">
+      <div class="mgmt-card-header"><h3>Xét tốt nghiệp</h3><span class="role-pill-badge">${(SERVER.graduation || []).length} hồ sơ</span></div>
+      <p ${MUTED}>Điều kiện đủ do máy chủ kiểm tra lại tại thời điểm duyệt (tín chỉ, môn F, chứng chỉ ngoại ngữ, công bố). Hồ sơ đã công nhận sẽ không nằm trong kết quả duyệt lại.</p>
+      <div class="mgmt-table-wrapper"><table class="mgmt-table">
+        <thead><tr><th>Mã NCS</th><th>Họ tên</th><th>Tín chỉ đạt/yêu cầu</th><th>Điều kiện</th><th>Công nhận</th><th>Lý do thiếu</th><th>Chọn</th></tr></thead>
+        <tbody>${gradRows || emptyRow(7)}</tbody>
+      </table></div>
+      <p style="margin-top:12px;"><button type="button" class="btn-mgmt btn-mgmt-primary" data-server-action="graduation-approve">Công nhận hàng loạt</button></p>
+    </div>` : ""}`;
+    fillServerSelects();
+    if (currentUser.code === "NCS") {
+      const select = byId("degree-ncs-select");
+      if (select) { select.value = myNcsCode(); select.disabled = true; }
+    }
+  }
+
+  async function loadServerDegreeStatus() {
+    const maNcs = currentUser.code === "NCS" ? myNcsCode() : byId("degree-ncs-select")?.value;
+    const host = document.querySelector("[data-degree-status]");
+    if (!maNcs) { notify("Thiếu thông tin", "Chọn nghiên cứu sinh."); return; }
+    try {
+      const s = await global.DTMS_API.getDegreeStatus(maNcs);
+      const flag = (key, label) => `<span class="status-pill ${(s?.[key] ?? s?.[key[0].toUpperCase() + key.slice(1)]) ? "is-success" : "is-warning"}" style="margin:0 4px 4px 0;">${label}: ${(s?.[key] ?? s?.[key[0].toUpperCase() + key.slice(1)]) ? "✓" : "✕"}</span>`;
+      const ready = s?.sanSangKyCapBang ?? s?.SanSangKyCapBang;
+      if (host) host.innerHTML = `<div style="margin-top:8px;">
+        ${flag("datBaoVe", "Đạt bảo vệ")}${flag("daCoGiaiTrinh", "Đã có giải trình")}${flag("daLuuChieu", "Đã lưu chiểu")}${flag("daCongKhai", "Đã công khai")}${flag("daCapBang", "Đã cấp bằng")}
+        <p style="margin-top:8px;"><strong>${ready ? "Sẵn sàng ký cấp bằng." : "Chưa đủ điều kiện ký cấp bằng."}</strong>${(s?.soHieuBang || s?.SoHieuBang) ? ` · Số hiệu bằng: ${escapeHtml(s.soHieuBang || s.SoHieuBang)}` : ""}${(s?.soQdCapBang || s?.SoQdCapBang) ? ` · Số QĐ: ${escapeHtml(s.soQdCapBang || s.SoQdCapBang)}` : ""}</p>
+      </div>`;
+    } catch (error) {
+      showServerError("Không tải được trạng thái cấp bằng", error);
+    }
+  }
+
+  async function conferServerDegree() {
+    if (!requireRoles(["BGH"])) return;
+    const maNcs = currentUser.code === "NCS" ? myNcsCode() : byId("degree-ncs-select")?.value;
+    const soQdCapBang = byId("degree-qd-input").value.trim();
+    const soHieuBang = byId("degree-sohieu-input").value.trim();
+    const soVaoSoGoc = byId("degree-sovao-input").value.trim();
+    if (!maNcs) { notify("Thiếu thông tin", "Chọn nghiên cứu sinh."); return; }
+    if (!soQdCapBang || !soHieuBang || !soVaoSoGoc) { notify("Thiếu thông tin", "Nhập đủ số quyết định, số hiệu bằng và số vào sổ gốc."); return; }
+    try {
+      const result = await global.DTMS_API.conferDegree(maNcs, { soQdCapBang, soHieuBang, soVaoSoGoc });
+      notify("Đã ký quyết định cấp bằng", result?.message || result?.Message || "Quyết định cấp bằng đã được ký.");
+      await loadServerDegreeStatus();
+    } catch (error) {
+      showServerError("Không ký được quyết định cấp bằng", error);
+    }
+  }
+
+  async function approveServerGraduation() {
+    if (!requireRoles(["ADMIN", "PDT"])) return;
+    const selected = [...document.querySelectorAll("[data-grad-check]:checked")].map(el => el.dataset.gradCheck);
+    if (!selected.length) { notify("Chưa chọn hồ sơ", "Chọn ít nhất một nghiên cứu sinh đủ điều kiện."); return; }
+    try {
+      const result = await global.DTMS_API.approveGraduationBulk({ maNcs: selected });
+      const ok = result?.congNhan || result?.CongNhan || [];
+      const no = result?.khongDuDieuKien || result?.KhongDuDieuKien || [];
+      await reloadServer("graduation");
+      notify("Đã xét tốt nghiệp", `${result?.message || result?.Message || ""} Công nhận: ${ok.length} · Không đủ điều kiện: ${no.length}.`);
+    } catch (error) {
+      showServerError("Không xét được tốt nghiệp", error);
+    }
+  }
+
+  // ---- Gửi yêu cầu học vụ từ các biểu mẫu (POST /api/Yeucauhocvu) ----
+  async function uploadRequestFile(file) {
+    if (!file) return "";
+    const uploaded = await global.DTMS_API.uploadFile(file, "baocao");
+    return "\nTệp đính kèm: " + uploaded.fileUrl;
+  }
+
+  async function submitServerLeaveRequest(event) {
+    event.preventDefault();
+    const form = event.target;
+    if (!requireRoles(["NCS"])) return;
+    const select = byId("leave-type-select");
+    const typeText = select?.options?.[select.selectedIndex]?.text || select?.value || "";
+    const duration = byId("leave-duration-input").value.trim();
+    const reason = byId("leave-reason-input").value.trim();
+    if (!reason) { notify("Thiếu thông tin", "Nhập lý do xin gia hạn / tạm dừng."); return; }
+    setBusy(form, true);
+    try {
+      const noiDung = reason + await uploadRequestFile(byId("leave-file-input")?.files?.[0]);
+      if (typeText.includes("Gia hạn")) {
+        const months = parseInt(duration, 10);
+        if (!Number.isInteger(months) || months < 6 || months > 12) { notify("Thời gian chưa hợp lệ", "Gia hạn từ 6 đến 12 tháng. Nhập số tháng vào ô thời gian."); return; }
+        await global.DTMS_API.createRequest({ loaiYeuCau: "GIA_HAN", noiDung, lyDo: reason, soThangGiaHan: months });
+      } else {
+        await global.DTMS_API.createRequest({ loaiYeuCau: "TAM_DUNG", noiDung, lyDo: reason });
+      }
+      closeModal("modal-leave-request");
+      await reloadServer("requests");
+      notify("Đã gửi yêu cầu", "Yêu cầu học vụ đã được gửi lên máy chủ.");
+    } catch (error) {
+      showServerError("Không gửi được yêu cầu", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  async function submitServerChangeRequest(event) {
+    event.preventDefault();
+    const form = event.target;
+    if (!requireRoles(["NCS"])) return;
+    const type = byId("change-request-type").value;
+    const content = byId("change-request-content").value.trim();
+    if (!content) { notify("Thiếu thông tin", "Nhập nội dung yêu cầu."); return; }
+    if (type === "CHUYEN_CO_SO" || type === "BUOC_THOI_HOC") {
+      notify("Chưa có API cho loại này", "Chuyển cơ sở / buộc thôi học chưa có mã biến động phía backend. Cần backend team định nghĩa mã LoaiBienDong trước khi gửi được yêu cầu này.");
+      return;
+    }
+    setBusy(form, true);
+    try {
+      const noiDung = content + await uploadRequestFile(byId("change-request-file")?.files?.[0]);
+      let body;
+      if (type === "DOI_NHD") {
+        const maGvMoi = byId("change-request-new-advisor").value;
+        if (!maGvMoi) { notify("Thiếu thông tin", "Chọn người hướng dẫn mới."); return; }
+        body = { loaiYeuCau: "DOI_NHD", noiDung, maGvMoi };
+      } else if (type === "GIA_HAN") {
+        const months = parseInt(byId("change-request-months").value, 10);
+        if (!Number.isInteger(months) || months < 6 || months > 12) { notify("Thời gian chưa hợp lệ", "Gia hạn từ 6 đến 12 tháng."); return; }
+        body = { loaiYeuCau: "GIA_HAN", noiDung, soThangGiaHan: months };
+      } else if (type === "DOI_TEN_DE_TAI") {
+        body = { loaiYeuCau: "DOI_TEN_DE_TAI", noiDung };
+      } else {
+        body = { loaiYeuCau: "TAM_DUNG", noiDung };
+      }
+      await global.DTMS_API.createRequest(body);
+      closeModal("modal-create-change-request");
+      await reloadServer("requests");
+      notify("Đã gửi yêu cầu", "Yêu cầu đã được gửi lên máy chủ.");
+    } catch (error) {
+      showServerError("Không gửi được yêu cầu", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  async function submitServerChangeSupervisor(event) {
+    event.preventDefault();
+    const form = event.target;
+    if (!requireRoles(["NCS"])) return;
+    const mode = byId("change-supervisor-mode").value;
+    const reason = byId("change-supervisor-reason").value.trim();
+    if (!reason) { notify("Thiếu thông tin", "Nhập lý do đề xuất đổi người hướng dẫn."); return; }
+    if (mode === "remove") {
+      notify("Chưa có API cho thao tác này", "Gỡ người hướng dẫn khỏi hồ sơ chưa có luồng API. Cần backend team bổ sung trước khi gửi được yêu cầu này.");
+      return;
+    }
+    const maGvMoi = byId("change-supervisor-new").value;
+    if (!maGvMoi) { notify("Thiếu thông tin", "Chọn người hướng dẫn mới."); return; }
+    setBusy(form, true);
+    try {
+      const noiDung = reason + await uploadRequestFile(byId("change-supervisor-file")?.files?.[0]);
+      await global.DTMS_API.createRequest({ loaiYeuCau: "DOI_NHD", noiDung, lyDo: reason, maGvMoi });
+      closeModal("modal-change-supervisor");
+      await reloadServer("requests");
+      notify("Đã gửi yêu cầu", "Đề xuất đổi người hướng dẫn đã được gửi lên máy chủ.");
+    } catch (error) {
+      showServerError("Không gửi được yêu cầu", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  // Sau bảo vệ: giải trình (NCS) + lưu chiểu (PDT/ADMIN) theo /api/Capbang.
+  async function submitServerPostDefense(event) {
+    event.preventDefault();
+    const form = event.target;
+    const maNcs = myNcsCode();
+    if (!maNcs) { notify("Không xác định được hồ sơ", "Hồ sơ nghiên cứu sinh của tài khoản hiện tại chưa có mã NCS trên máy chủ."); return; }
+    const explanationFile = byId("post-defense-explanation-file")?.files?.[0];
+    const thesisFile = byId("post-defense-thesis-file")?.files?.[0];
+    const receiptSchool = byId("post-defense-receipt-school")?.value.trim();
+    const receiptNational = byId("post-defense-receipt-national")?.value.trim();
+    setBusy(form, true);
+    try {
+      let done = [];
+      if (explanationFile && currentUser.code === "NCS") {
+        const uploaded = await global.DTMS_API.uploadFile(explanationFile, "baocao");
+        await global.DTMS_API.submitExplanation(maNcs, uploaded.fileUrl);
+        done.push("giải trình");
+      }
+      if ((receiptSchool || receiptNational) && ["ADMIN", "PDT"].includes(currentUser.code)) {
+        await global.DTMS_API.recordDeposit(maNcs, { bienNhanTvqg: receiptNational || null, bienNhanTvtruong: receiptSchool || null });
+        done.push("lưu chiểu");
+      } else if (receiptSchool || receiptNational) {
+        notify("Biên nhận lưu chiểu", "Biên nhận lưu chiểu do PĐT ghi nhận trên máy chủ. Đã gửi phần giải trình (nếu có).");
+      }
+      if (thesisFile) notify("Tệp luận án", "Tệp luận án chỉnh sửa dùng nút \"Upload phiên bản luận án mới\" ở mục Đề tài luận án (M09).");
+      closeModal("modal-submit-post-defense");
+      if (done.length) notify("Đã nộp hồ sơ sau bảo vệ", "Đã ghi nhận: " + done.join(", ") + ".");
+      else if (!thesisFile) notify("Chưa có nội dung để gửi", "Chọn tệp giải trình hoặc nhập biên nhận lưu chiểu.");
+    } catch (error) {
+      showServerError("Không nộp được hồ sơ sau bảo vệ", error);
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
   // ---- Tệp: chỉ tải được khi có token nên tải về dạng blob rồi lưu ----
   async function downloadServerFile(fileUrl) {
     try {
@@ -2671,7 +4118,14 @@
     "form-edit-plan": submitServerPlan,
     "form-submit-progress": submitServerProgress,
     "form-thesis-topic": submitServerThesisTopic,
-    "form-language-cert": submitServerCertificate
+    "form-language-cert": submitServerCertificate,
+    "form-leave-request": submitServerLeaveRequest,
+    "form-create-change-request": submitServerChangeRequest,
+    "form-change-supervisor": submitServerChangeSupervisor,
+    "form-submit-post-defense": submitServerPostDefense,
+    "form-enter-score": submitServerScore,
+    "form-cast-vote": submitServerVote,
+    "form-reviewer-comment": submitServerReviewerComment
   };
 
   function handleServerClick(event) {
@@ -2687,13 +4141,52 @@
     else if (action === "pub-approve") approveServerPublication(id, Number(decision));
     else if (action === "topic-new") openModal("modal-thesis-topic");
     else if (action === "topic-edit") { const topic = find(SERVER.topics, "maDeTai"); if (topic) openForEdit("modal-thesis-topic", () => openTopicForm(topic)); }
+    else if (action === "topic-approve") approveServerTopic(id, Number(decision));
     else if (action === "cert-new") openModal("modal-language-cert");
     else if (action === "cert-edit") { const cert = find(SERVER.certificates, "maChungChi"); if (cert) openForEdit("modal-language-cert", () => openCertificateForm(cert)); }
     else if (action === "cert-approve") approveServerCertificate(id, Number(decision));
+    else if (action === "score-new") openScoreForm(null);
+    else if (action === "score-edit") { const score = find(SERVER.scores, "maKetQua"); if (score) openScoreForm(score); }
+    else if (action === "score-lock") lockServerScore(id);
+    else if (action === "score-unlock") unlockServerScore(id);
+    else if (action === "course-register") registerServerCourse(button.dataset);
+    else if (action === "course-cancel") cancelServerRegistration(id);
+    else if (action === "request-approve") approveServerRequest(id, Number(decision));
+    else if (action === "request-detail") showServerRequestDetail(id);
+    else if (action === "degree-load") loadServerDegreeStatus();
+    else if (action === "topic-grade-new") openServerTopicGrade();
+    else if (action === "assignment-delete") deleteServerAssignment(id);
+    else if (action === "vote-new") openVoteForm();
+    else if (action === "council-check") checkServerCouncil();
+    else if (action === "council-result") loadServerCouncilResult();
+    else if (action === "reviewer-comment") openReviewerCommentForm(id);
+    else if (action === "degree-publish") publishServerThesis();
+    else if (action === "degree-confer") conferServerDegree();
+    else if (action === "graduation-approve") approveServerGraduation();
+    else if (action === "warnings-export") exportServerWarnings();
+    else if (action === "comparison-load") loadServerComparison();
   }
 
   function initServerIntegration() {
     document.addEventListener("click", handleServerClick);
+    // Nút Xem/Sửa và Xóa hồ sơ NCS (data-candidate-view/delete) chưa từng có handler: gắn tại đây cho cả hai chế độ.
+    document.addEventListener("click", (event) => {
+      const viewBtn = event.target.closest("[data-candidate-view]");
+      if (viewBtn) { openCandidate(viewBtn.dataset.candidateView); return; }
+      const delBtn = event.target.closest("[data-candidate-delete]");
+      if (delBtn) deleteCandidate(delBtn.dataset.candidateDelete);
+    });
+    // Nhập NCS từ tệp JSON (input nằm trong mount ở M01).
+    document.addEventListener("change", (event) => {
+      if (event.target?.id === "candidate-import-input") importServerCandidates(event.target.files?.[0]);
+      // Hiện/ẩn ô phụ theo loại yêu cầu trong modal tạo đơn biến động.
+      if (event.target?.id === "change-request-type") {
+        const advisor = byId("change-request-advisor-group");
+        const months = byId("change-request-months-group");
+        if (advisor) advisor.hidden = event.target.value !== "DOI_NHD";
+        if (months) months.hidden = event.target.value !== "GIA_HAN";
+      }
+    });
     // Token hết hạn hoặc bị thu hồi khi đang dùng: về màn hình đăng nhập.
     global.addEventListener("dtms:unauthorized", () => {
       if (global.DTMS_DATA.getString(SESSION_USER_KEY, "")) logout("expired");

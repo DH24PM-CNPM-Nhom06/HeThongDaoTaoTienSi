@@ -15,10 +15,12 @@ namespace DTMS.Api.Controllers
     public class CongbokhoahocsController : ControllerBase
     {
         private readonly DtmsDbContext _context;
+        private readonly IConfiguration _fileConfig;
 
-        public CongbokhoahocsController(DtmsDbContext context)
+        public CongbokhoahocsController(DtmsDbContext context, IConfiguration fileConfig)
         {
             _context = context;
+            _fileConfig = fileConfig;
         }
 
         // GET: api/Congbokhoahocs
@@ -64,6 +66,9 @@ namespace DTMS.Api.Controllers
                 return BadRequest(new { Success = false, Message = "Nghiên cứu sinh không tồn tại." });
             }
 
+            if (!(StoredFileRules.ValidReference(dto.FileMinhChung, maNcs, "minhchung", _fileConfig, required: true)))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
+
             var cb = new Congbokhoahoc
             {
                 MaNcs = maNcs,
@@ -105,6 +110,10 @@ namespace DTMS.Api.Controllers
 
                 cb.TrangThaiDuyet = 0; // sửa xong phải duyệt lại
             }
+
+            if (!StoredFileRules.ValidReference(dto.FileMinhChung, cb.MaNcs, "minhchung", _fileConfig,
+                    cb.FileMinhChung, required: true))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
 
             cb.TenBaiBao = dto.TenBaiBao;
             cb.TenTapChi = dto.TenTapChi;

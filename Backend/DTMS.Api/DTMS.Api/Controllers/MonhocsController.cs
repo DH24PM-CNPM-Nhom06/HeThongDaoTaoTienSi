@@ -83,10 +83,34 @@ public class MonhocsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Monhoc>> PostMonhoc(Monhoc monhoc)
     {
-        _context.Monhocs.Add(monhoc);
-        await _context.SaveChangesAsync();
+        // Validate before writing to return a useful HTTP response for a duplicate key.
+        if (await _context.Monhocs.AnyAsync(m => m.MaMonHoc == monhoc.MaMonHoc))
+        {
+            return Conflict(new
+            {
+                message = "Mã môn học đã tồn tại.",
+                maMonHoc = monhoc.MaMonHoc
+            });
+        }
 
-        return CreatedAtAction("GetMonhoc", new { mamonhoc = monhoc.MaMonHoc }, monhoc);
+        try
+        {
+            _context.Monhocs.Add(monhoc);
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateException ex) when (
+            ex.InnerException is MySqlConnector.MySqlException sqlEx && sqlEx.Number == 1062)
+        {
+            // A second concurrent request can insert the same key after the AnyAsync check.
+            return Conflict(new
+            {
+                message = "Mã môn học đã tồn tại.",
+                maMonHoc = monhoc.MaMonHoc
+            });
+        }
+
+        return CreatedAtAction(nameof(GetMonhoc),
+            new { mamonhoc = monhoc.MaMonHoc }, monhoc);
     }
 
     // DELETE: api/Monhoc/5

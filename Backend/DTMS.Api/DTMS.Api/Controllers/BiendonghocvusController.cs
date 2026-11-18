@@ -14,10 +14,12 @@ namespace DTMS.Api.Controllers
     public class BiendonghocvusController : ControllerBase
     {
         private readonly DtmsDbContext _context;
+        private readonly IConfiguration _fileConfig;
 
-        public BiendonghocvusController(DtmsDbContext context)
+        public BiendonghocvusController(DtmsDbContext context, IConfiguration fileConfig)
         {
             _context = context;
+            _fileConfig = fileConfig;
         }
 
         // GET: api/Biendonghocvus
@@ -54,6 +56,15 @@ namespace DTMS.Api.Controllers
         {
             if (mabiendong != biendonghocvu.MaBienDong) return BadRequest();
 
+            var original = await _context.Biendonghocvus.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.MaBienDong == mabiendong);
+            if (original == null) return NotFound();
+            if (!string.Equals(biendonghocvu.MaNcs, original.MaNcs, StringComparison.Ordinal))
+                return BadRequest(new { Success = false, Message = "Không được đổi NCS sở hữu bản ghi qua PUT." });
+            if (!StoredFileRules.ValidReference(biendonghocvu.FileQuyetDinh, biendonghocvu.MaNcs,
+                    "bienban", _fileConfig, original.FileQuyetDinh))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
+
             _context.Entry(biendonghocvu).State = EntityState.Modified;
             try
             {
@@ -73,6 +84,9 @@ namespace DTMS.Api.Controllers
         [Authorize(Roles = "ADMIN,PDT")]
         public async Task<ActionResult<Biendonghocvu>> PostBiendonghocvu(Biendonghocvu biendonghocvu)
         {
+            if (!StoredFileRules.ValidReference(biendonghocvu.FileQuyetDinh, biendonghocvu.MaNcs, "bienban", _fileConfig))
+                return BadRequest(new { Success = false, Message = "Đường dẫn tệp không hợp lệ, không thuộc NCS hoặc chưa được tải lên đúng mục đích." });
+
             _context.Biendonghocvus.Add(biendonghocvu);
             await _context.SaveChangesAsync();
 

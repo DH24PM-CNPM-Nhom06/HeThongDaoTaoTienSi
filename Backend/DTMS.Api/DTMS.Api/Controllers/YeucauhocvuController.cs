@@ -95,6 +95,9 @@ namespace DTMS.Api.Controllers
                 TrangThai = "CHO_DUYET",
                 NgayTao = DateTime.Now
             };
+            // Lưu yêu cầu và toàn bộ bước duyệt trong một giao dịch:
+            // nếu lưu bất kỳ bước nào thất bại thì không để lại yêu cầu mồ côi.
+            await using var giaoDich = await _context.Database.BeginTransactionAsync();
             _context.YeucauHocvus.Add(yc);
             await _context.SaveChangesAsync();
 
@@ -110,6 +113,7 @@ namespace DTMS.Api.Controllers
                 });
             }
             await _context.SaveChangesAsync();
+            await giaoDich.CommitAsync();
 
             return Ok(new { Success = true, Message = "Đã gửi yêu cầu.", MaYeuCau = yc.MaYeuCau });
         }
@@ -195,7 +199,10 @@ namespace DTMS.Api.Controllers
             }
             else
             {
-                bool conBuoc = await _context.YeucauHocvuBuocs.AnyAsync(b => b.MaYeuCau == id && b.TrangThai == 0);
+                // Bước hiện tại đã chuyển trạng thái trong DbContext nhưng chưa SaveChanges;
+                // truy vấn SQL vẫn thấy trạng thái cũ là 0. Phải loại chính bước này.
+                bool conBuoc = await _context.YeucauHocvuBuocs.AnyAsync(b =>
+                    b.MaYeuCau == id && b.MaBuoc != buoc.MaBuoc && b.TrangThai == 0);
                 if (!conBuoc)
                 {
                     yc.TrangThai = "DA_DUYET";

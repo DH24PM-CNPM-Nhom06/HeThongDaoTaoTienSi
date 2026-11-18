@@ -41,7 +41,12 @@ builder.Services.AddDbContext<DtmsDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddTransient<EmailService>();
-builder.Services.AddHostedService<DTMS.Api.Services.NhacNopBaoCaoService>();
+
+// Chỉ chạy dịch vụ nhắc nộp báo cáo khi được bật
+if (builder.Configuration.GetValue<bool>("NhacNopBaoCao:Enabled"))
+{
+    builder.Services.AddHostedService<NhacNopBaoCaoService>();
+}
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var secretKey = jwtSettings["Key"]

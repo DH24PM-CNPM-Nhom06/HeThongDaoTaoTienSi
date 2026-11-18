@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using MySqlConnector;
 using DTMS.Api.Helpers;
 using DTMS.Api.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -82,40 +84,42 @@ namespace DTMS.Api.Controllers
             return Ok(kq);
         }
 
-        // POST: api/Ketquahocphans  (nhập điểm học phần mới)
+        // POST: api/Ketquahocphans (nhập điểm mới)
         [HttpPost]
         [Authorize(Roles = "ADMIN,PDT,TBM,NHD")]
         public async Task<IActionResult> PostKetquahocphan([FromBody] NhapDiemRequest dto)
         {
             if (!await Access.CanWriteNcsAsync(_context, User, dto.MaNcs)) return Forbid();
 
-            if (!await _context.Nghiencuusinhs.AnyAsync(n => n.MaNcs == dto.MaNcs))
+            try
             {
-                return BadRequest(new { Success = false, Message = "Nghiên cứu sinh không tồn tại." });
+                await using var tx = await _context.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
+                // Tuần tự hóa POST điểm của cùng NCS để không tạo 2 điểm cho cùng môn.
+                if (!await HocPhanRules.KhoaNcsAsync(_context, tx, dto.MaNcs))
+                    return BadRequest(new { Success = false, Message = "Nghiên cứu sinh không tồn tại." });
+
+                if (!await _context.Monhocs.AnyAsync(m => m.MaMonHoc == dto.MaMonHoc))
+                    return BadRequest(new { Success = false, Message = "Môn học không tồn tại." });
+
+                if (await _context.Ketquahocphans.AnyAsync(k => k.MaNcs == dto.MaNcs && k.MaMonHoc == dto.MaMonHoc))
+                    return Conflict(new { Success = false, Message = "NCS này đã có điểm cho môn học này. Hãy sửa bản ghi hiện có." });
+
+                var kq = new Ketquahocphan
+                {
+                    MaNcs = dto.MaNcs,
+                    MaMonHoc = dto.MaMonHoc,
+                    TrangThaiKhoa = false
+                };
+                CapNhatDiem(kq, dto);
+                _context.Ketquahocphans.Add(kq);
+                await _context.SaveChangesAsync();
+                await tx.CommitAsync();
+                return CreatedAtAction(nameof(GetKetquahocphan), new { maketqua = kq.MaKetQua }, KetQuaDto.From(kq));
             }
-
-            if (!await _context.Monhocs.AnyAsync(m => m.MaMonHoc == dto.MaMonHoc))
+            catch (MySqlException ex) when (ex.Number is 1205 or 1213)
             {
-                return BadRequest(new { Success = false, Message = "Môn học không tồn tại." });
+                return Conflict(new { Success = false, Message = "Dữ liệu đang được cập nhật đồng thời, vui lòng thử lại." });
             }
-
-            if (await _context.Ketquahocphans.AnyAsync(k => k.MaNcs == dto.MaNcs && k.MaMonHoc == dto.MaMonHoc))
-            {
-                return Conflict(new { Success = false, Message = "NCS này đã có điểm cho môn học này. Hãy sửa bản ghi hiện có." });
-            }
-
-            var kq = new Ketquahocphan
-            {
-                MaNcs = dto.MaNcs,
-                MaMonHoc = dto.MaMonHoc,
-                TrangThaiKhoa = false
-            };
-            CapNhatDiem(kq, dto);
-
-            _context.Ketquahocphans.Add(kq);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetKetquahocphan), new { maketqua = kq.MaKetQua }, KetQuaDto.From(kq));
         }
 
         // PUT: api/Ketquahocphans/5  (sửa điểm khi bảng điểm chưa khóa)
@@ -133,7 +137,13 @@ namespace DTMS.Api.Controllers
                 return Conflict(new { Success = false, Message = "Bảng điểm đã khóa. Cần PDT hoặc ADMIN mở khóa trước khi sửa." });
             }
 
-            // Mã NCS và mã môn không đổi, chỉ sửa điểm
+            // PUT chỉ cập nhật điểm; không chấp nhận request mang định danh của hồ sơ khác.
+            if (!string.Equals(dto.MaNcs, kq.MaNcs, StringComparison.Ordinal) ||
+                !string.Equals(dto.MaMonHoc, kq.MaMonHoc, StringComparison.Ordinal))
+            {
+                return BadRequest(new { Success = false, Message = "Mã NCS và mã môn học không được thay đổi khi cập nhật điểm." });
+            }
+
             CapNhatDiem(kq, dto);
             await _context.SaveChangesAsync();
 
@@ -213,10 +223,10 @@ namespace DTMS.Api.Controllers
 
     public class NhapDiemRequest
     {
-        [Required]
+        [Required, StringLength(20)]
         public string MaNcs { get; set; } = null!;
 
-        [Required]
+        [Required, StringLength(20)]
         public string MaMonHoc { get; set; } = null!;
 
         [Range(0, 10)]
