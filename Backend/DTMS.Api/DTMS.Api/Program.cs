@@ -79,15 +79,14 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    });
-});
+var frontendOrigins = builder.Configuration.GetSection("Frontend:AllowedOrigins").Get<string[]>() ?? [];
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
+    policy.WithOrigins(frontendOrigins).AllowAnyMethod().AllowAnyHeader()));
 
 var app = builder.Build();
+
+app.UseRouting();
+app.UseCors();
 
 // Swagger và chuyển hướng HTTPS chỉ dùng khi phát triển (khi triển khai, Nginx lo HTTPS)
 if (app.Environment.IsDevelopment())
@@ -101,8 +100,6 @@ else
 {
     app.MapGet("/", () => Results.Ok("DTMS API")).AllowAnonymous();
 }
-
-app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();

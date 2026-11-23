@@ -285,6 +285,12 @@ FakesAssemblies/
 .ntvs_analysis.dat
 node_modules/
 
+# Cấu hình cục bộ và kết quả kiểm thử DTMS
+.env
+.env.*
+!.env.example
+/DTMS_Frontend/test-results/
+
 # Visual Studio 6 build log
 *.plg
 
