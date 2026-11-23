@@ -1,4 +1,5 @@
 const assert = require('node:assert/strict');
+const { readFileSync } = require('node:fs');
 const { setTimeout: delay } = require('node:timers/promises');
 const { base, runChecks } = require('./browser-test.cjs');
 
@@ -103,6 +104,70 @@ cases.push(
   }, { role: 'NCS', api(request, url, route) {
     if (url.pathname === '/api/Nghiencuusinhs') return route.fulfill({ json: { data: [candidate] } });
   } }]
+);
+
+const m05Topics = [
+  { maNcs: 'NCS01', maDeTai: 9, fileTieuLuan: '/api/File/old.pdf' },
+  {
+    maNcs: 'NCS01', maDeTai: 10, fileTieuLuan: '/uploads/ncs01/tieu-luan.pdf',
+    fileDeCuong: '/api/File/de-cuong.pdf'
+  },
+  { maNcs: 'NCS02', maDeTai: 11 }
+];
+const m05Assessments = [
+  { maNcs: 'NCS01', maDanhGia: 9, loaiDanhGia: 1, fileBienBan: '/api/File/old-minutes.pdf' },
+  { maNcs: 'NCS01', maDanhGia: 10, loaiDanhGia: 1, fileBienBan: '/api/File/bien-ban.pdf' },
+  {
+    maNcs: 'NCS01', maDanhGia: 11, loaiDanhGia: 2, fileGiaiTrinh: '/api/File/giai-trinh.pdf',
+    fileBienBan: '/api/File/outline-minutes.pdf'
+  },
+  { maNcs: 'NCS02', maDanhGia: 12, loaiDanhGia: 1, fileBaoCao: '/api/File/ncs02-essay.pdf' }
+];
+
+function mockM05(request, url, route) {
+  if (url.pathname === '/api/Profile/me') return route.fulfill({ json: { maNcs: 'NCS01' } });
+  if (url.pathname === '/api/Detailuanans') return route.fulfill({ json: m05Topics });
+  if (url.pathname === '/api/Danhgiagiaidoan') return route.fulfill({ json: m05Assessments });
+  if (!url.pathname.startsWith('/api/File/')) return;
+  assert.equal(request.headers().authorization, 'Bearer dtms-test-token');
+  return route.fulfill({ contentType: 'application/pdf', body: '%PDF-1.4\n' + url.pathname });
+}
+
+cases.push(
+  ['M05 tải đúng bốn tệp của NCS, gồm đường dẫn cũ và mới', async page => {
+    await page.goto(base + '/#management');
+    await page.evaluate(() => DTMS_MANAGEMENT.switchModuleTab('m05'));
+    await page.getByText('4/4 tệp có thể tải.', { exact: true }).waitFor();
+    assert.equal(await page.locator('#m05-candidate-field').isVisible(), false);
+    const paths = {
+      essay: '/api/File/legacy/NCS01/tieu-luan.pdf',
+      minutes: '/api/File/bien-ban.pdf',
+      outline: '/api/File/de-cuong.pdf',
+      explanation: '/api/File/giai-trinh.pdf'
+    };
+    for (const [kind, path] of Object.entries(paths)) {
+      const [download] = await Promise.all([
+        page.waitForEvent('download'),
+        page.locator('#m05-download-' + kind).click()
+      ]);
+      assert.equal(download.suggestedFilename(), path.split('/').pop());
+      assert.equal(readFileSync(await download.path(), 'utf8'), '%PDF-1.4\n' + path);
+    }
+  }, { role: 'NCS', api: mockM05 }],
+  ['M05 đổi hồ sơ và tắt nút chưa có tệp', async page => {
+    await page.goto(base + '/#management');
+    await page.evaluate(() => DTMS_MANAGEMENT.switchModuleTab('m05'));
+    const select = page.locator('#m05-candidate-select');
+    await page.getByText('4/4 tệp có thể tải.', { exact: true }).waitFor();
+    await select.selectOption('NCS02');
+    await page.getByText('1/4 tệp có thể tải.', { exact: true }).waitFor();
+    assert.equal(await page.locator('#m05-download-essay').getAttribute('data-file-url'), '/api/File/ncs02-essay.pdf');
+    for (const kind of ['minutes', 'outline', 'explanation']) {
+      const button = page.locator('#m05-download-' + kind);
+      assert.equal(await button.isDisabled(), true);
+      assert.equal(await button.getAttribute('data-file-url'), null);
+    }
+  }, { role: 'PDT', api: mockM05 }]
 );
 
 runChecks('integration', cases).catch(error => { console.error(error); process.exitCode = 1; });

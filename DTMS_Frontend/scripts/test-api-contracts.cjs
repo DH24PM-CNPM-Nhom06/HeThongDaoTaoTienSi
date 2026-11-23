@@ -195,16 +195,16 @@ function bodyOf(call) { try { return JSON.parse(call.body); } catch { return nul
   // Các thẻ ghi cứng "Chưa có dữ liệu" phải được cập nhật từ dữ liệu máy chủ.
   check("Nhãn 2 thẻ hồ sơ M01 đổi khi có dữ liệu", mgmt.includes("profile-personal-pill") && mgmt.includes("profile-training-pill"));
   check("Ngày sinh/giới tính/đối tượng đầu vào điền từ hồ sơ NCS", mgmt.includes("profile-display-birth") && mgmt.includes("profile-display-audience"));
-  check("Nhãn 2 thẻ M05 đếm lượt chấm từ API", mgmt.includes("essay-card-status") && mgmt.includes("outline-card-status"));
+  check("Nhãn 2 thẻ M05 đếm lượt chấm từ API", mgmt.includes('kind + "-card-status"') && mgmt.includes("records.length"));
   check("Card thống kê mẫu M13 ẩn khi có phiên máy chủ", mgmt.includes('"panel-m13"'));
 
   // Rà soát vòng 2 (14/11/2026): các khối vẽ từ dữ liệu mẫu lọt vào phiên máy chủ.
   check("Thống kê M01 ở phiên máy chủ lấy từ hồ sơ NCS + yêu cầu đã duyệt", mgmt.includes('approvedCount("GIA_HAN")') && mgmt.includes('approvedCount("TAM_DUNG")'));
-  check("Điểm TB tiểu luận ở phiên máy chủ lấy từ lần chấm mới nhất", mgmt.includes('const avg = latest ? pick(latest, "diemTrungBinh", "DiemTrungBinh") : null;'));
+  check("Điểm TB tiểu luận ở phiên máy chủ lấy từ lần chấm mới nhất", mgmt.includes('const avg = pick(essay, "diemTrungBinh", "DiemTrungBinh");'));
   check("Vòng lặp chuyên đề mẫu không chạy ở phiên máy chủ", mgmt.includes("if (!backendSession()) APP_STATE.topics.forEach"));
   check("Bảng tiến độ mẫu không ghi đè ở phiên máy chủ", mgmt.includes("if(progress && !backendSession())"));
   check("renderWorkflowUI vẽ lại sau khi tải xong dữ liệu máy chủ", mgmt.includes("renderWorkflowUI();\n  }\n\n  // ---- Hồ sơ"));
-  check("Chi tiết M05 điền tên tiểu luận/đề cương + biên bản từ API", mgmt.includes("essay-title-display") && mgmt.includes("essay-minutes-display") && mgmt.includes("outline-title-display"));
+  check("Chi tiết M05 điền tên tiểu luận/đề cương + biên bản từ API", mgmt.includes('kind + "-title-display"') && mgmt.includes("essay-minutes-display"));
   check("Bảng chuyên đề M06 điền từ API đánh giá giai đoạn", mgmt.includes("#panel-m06 table tbody"));
   check("Card phiên bản M09 ẩn khi có phiên máy chủ", mgmt.includes('title.startsWith("3.")'));
 

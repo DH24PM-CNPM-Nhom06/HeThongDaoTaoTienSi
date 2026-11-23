@@ -159,12 +159,17 @@
     return { fileUrl, fileName: result?.fileName ?? result?.FileName ?? file.name };
   }
   // Tệp chỉ tải được khi có token, nên không dùng được thẻ <a href> trực tiếp: tải về dạng blob rồi mở.
-  async function downloadFile(fileUrl) {
+  async function downloadFile(fileUrl, maNcs) {
     if (typeof fileUrl !== "string") throw new ApiError("Đường dẫn tệp không hợp lệ.", 400);
     let url = fileUrl;
     // Đường dẫn SQL cũ chỉ tải qua API có JWT, không mở trực tiếp thư mục /uploads.
-    const old = /^\/uploads\/([A-Za-z0-9_]{1,20})\/([A-Za-z0-9_.-]{1,200})$/i.exec(fileUrl);
-    if (old) url = "/api/File/legacy/" + encodeURIComponent(old[1]) + "/" + encodeURIComponent(old[2]);
+    const legacy = /^\/(?:uploads|api\/File\/legacy)\/([A-Za-z0-9_]{1,20})\/([A-Za-z0-9_.-]{1,200})$/i.exec(fileUrl);
+    if (legacy) {
+      const [, folder, name] = legacy;
+      // Thư mục cũ dùng chữ thường; API kiểm tra quyền theo mã NCS lưu trong hồ sơ.
+      const owner = typeof maNcs === "string" && maNcs.toLowerCase() === folder.toLowerCase() ? maNcs : folder;
+      url = "/api/File/legacy/" + encodeURIComponent(owner) + "/" + encodeURIComponent(name);
+    }
     if (!/^\/api\/File\/(?:legacy\/[A-Za-z0-9_]+\/[A-Za-z0-9_.-]+|[A-Za-z0-9_.-]+)$/i.test(url)) throw new ApiError("Đường dẫn tệp không hợp lệ.", 400);
     const token = getToken();
     let response;

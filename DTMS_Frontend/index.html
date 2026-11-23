@@ -822,6 +822,11 @@
                 </div>
               </div>
 
+              <div class="mgmt-form-group" id="m05-candidate-field" hidden>
+                <label for="m05-candidate-select">Hồ sơ nghiên cứu sinh</label>
+                <select id="m05-candidate-select"></select>
+              </div>
+              <p id="m05-file-status" class="api-status" role="status" aria-live="polite">Chưa có tệp đính kèm.</p>
               <div class="mgmt-grid-2">
                 <!-- Overview Essay Card -->
                 <div class="mgmt-card">
@@ -859,8 +864,8 @@
                     <span id="essay-minutes-display">—</span>
                   </div>
                   <div style="margin-top:14px; display:flex; gap:8px;">
-                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Tải Tiểu luận</button>
-                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📋 Tải Biên bản</button>
+                    <button type="button" id="m05-download-essay" class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-server-action="file-download" disabled>📄 Tải Tiểu luận</button>
+                    <button type="button" id="m05-download-minutes" class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-server-action="file-download" disabled>📋 Tải Biên bản</button>
                   </div>
                   <div class="grade-history" data-essay-grade-history aria-live="polite"></div>
                 </div>
@@ -886,15 +891,15 @@
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Bản giải trình tiếp thu góp ý:</span>
-                    <span>—</span>
+                    <span id="outline-response-display">—</span>
                   </div>
                   <div class="mgmt-detail-row">
                     <span>Quyết định giao đề tài chính thức:</span>
                     <span>—</span>
                   </div>
                   <div style="margin-top:14px; display:flex; gap:8px;">
-                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📑 Tải Đề cương</button>
-                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📝 Bản giải trình</button>
+                    <button type="button" id="m05-download-outline" class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" data-server-action="file-download" disabled>📑 Tải Đề cương</button>
+                    <button type="button" id="m05-download-explanation" class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" data-server-action="file-download" disabled>📝 Bản giải trình</button>
                   </div>
                 </div>
               </div>

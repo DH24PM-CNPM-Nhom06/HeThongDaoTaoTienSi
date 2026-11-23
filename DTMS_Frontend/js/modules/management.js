@@ -1822,20 +1822,9 @@
       const scope=candidateScope();
       [scope.length,scope.filter(c=>c.status==='studying').length,scope.filter(c=>c.status==='extended').length,scope.filter(c=>c.status==='paused').length].forEach((value,i)=>{if(statMetrics[i])statMetrics[i].textContent=value;});
     }
-    const essay=document.getElementById('essay-avg-score');
-    if (essay) {
-      if (backendSession() && SERVER.loaded) {
-        // Điểm TB tiểu luận lấy từ lần chấm tiểu luận mới nhất trên máy chủ
-        // (NCS: của chính mình; vai trò khác: lần chấm mới nhất trong phạm vi xem).
-        const mine = (SERVER.assessments || []).filter((a) => pick(a, "loaiDanhGia", "LoaiDanhGia") === 1);
-        const ownCode = SERVER.profile ? pick(SERVER.profile, "maNcs", "MaNcs") : null;
-        const latest = (currentUser.code === "NCS" && ownCode ? mine.filter((a) => pick(a, "maNcs", "MaNcs") === ownCode) : mine).slice(-1)[0];
-        const avg = latest ? pick(latest, "diemTrungBinh", "DiemTrungBinh") : null;
-        essay.textContent = avg != null ? `${avg} / 10` : "Chờ chấm điểm";
-      } else {
-        essay.textContent=APP_STATE.essayResult.status==='pending'?'Chờ chấm điểm':APP_STATE.essayResult.avg+' / 10';
-      }
-    }
+    if (backendSession()) renderM05Documents();
+    else byId("essay-avg-score").textContent = APP_STATE.essayResult.status === "pending"
+      ? "Chờ chấm điểm" : APP_STATE.essayResult.avg + " / 10";
     // Chỉ chạy ở chế độ mẫu: ở phiên máy chủ bảng chuyên đề M06 lấy từ API đánh giá
     // (renderServerAssessments), ghi đè tên/điểm mẫu vào đây sẽ làm sai dữ liệu thật.
     if (!backendSession()) APP_STATE.topics.forEach((topic,index)=>{
@@ -2315,7 +2304,10 @@
   function renderServerViews() {
     applyServerMode();
     renderPublicationsTable();
-    if (!backendSession()) return;
+    if (!backendSession()) {
+      renderM05Documents();
+      return;
+    }
     renderServerProfile();
     renderServerPlans();
     renderServerReports();
@@ -3547,42 +3539,85 @@
   }
 
   // ---- Đánh giá giai đoạn (M05/M06: /api/Danhgiagiaidoan) ----
-  // Lịch sử chấm ở M05/M06 được điền từ máy chủ; kết luận 0/1/2 theo API (không thông qua / thông qua / thông qua có chỉnh sửa).
-  function renderServerAssessments() {
-    const fillHost = (selector, type) => {
-      const host = document.querySelector(selector);
-      if (!host) return;
-      const records = (SERVER.assessments || []).filter(a => pick(a, "loaiDanhGia", "LoaiDanhGia") === type)
-        .sort((a, b) => String(pick(b, "maDanhGia", "MaDanhGia") || "").localeCompare(String(pick(a, "maDanhGia", "MaDanhGia") || "")));
-      host.innerHTML = records.length ? `<strong>Kết quả đã xác nhận (máy chủ)</strong>${records.slice(0, 8).map(r => `<article><span><b>${escapeHtml(candidateName(pick(r, "maNcs", "MaNcs")))}</b> · ${escapeHtml(pick(r, "tenNoiDung", "TenNoiDung") || "")}</span><span>${pick(r, "diemTrungBinh", "DiemTrungBinh") ?? "—"}/10 · ${ASSESSMENT_RESULT(pick(r, "ketLuan", "KetLuan"))}</span></article>`).join("")}` : "";
+  function newestAssessmentFirst(a, b) {
+    return Number(pick(b, "maDanhGia", "MaDanhGia")) - Number(pick(a, "maDanhGia", "MaDanhGia"));
+  }
+
+  function renderAssessmentHistory(selector, records) {
+    const host = document.querySelector(selector);
+    if (!host) return;
+    host.innerHTML = records.length ? `<strong>Kết quả đã xác nhận (máy chủ)</strong>${records.slice(0, 8).map(r => `<article><span><b>${escapeHtml(candidateName(pick(r, "maNcs", "MaNcs")))}</b> · ${escapeHtml(pick(r, "tenNoiDung", "TenNoiDung") || "")}</span><span>${pick(r, "diemTrungBinh", "DiemTrungBinh") ?? "—"}/10 · ${ASSESSMENT_RESULT(pick(r, "ketLuan", "KetLuan"))}</span></article>`).join("")}` : "";
+  }
+
+  function renderM05Documents() {
+    const select = byId("m05-candidate-select");
+    const signedIn = backendSession();
+    const candidateCode = record => pick(record, "maNcs", "MaNcs");
+    const showSelect = signedIn && currentUser.code !== "NCS";
+    const codes = showSelect ? [...new Set([...SERVER.topics, ...SERVER.assessments].map(candidateCode).filter(Boolean))] : [];
+    const selected = codes.includes(select.value) ? select.value : codes[0];
+    select.replaceChildren(...codes.map(code => {
+      const name = candidateName(code);
+      return new Option(name === code ? code : `${name} · ${code}`, code, false, code === selected);
+    }));
+    byId("m05-candidate-field").hidden = !codes.length;
+
+    const code = signedIn ? (showSelect ? selected : candidateCode(SERVER.profile)) : null;
+    const isSelected = record => Boolean(code) && candidateCode(record) === code;
+    const topic = SERVER.topics.filter(isSelected)
+      .sort((a, b) => Number(pick(b, "maDeTai", "MaDeTai")) - Number(pick(a, "maDeTai", "MaDeTai")))[0];
+    const assessments = SERVER.assessments.filter(isSelected).sort(newestAssessmentFirst);
+    const essays = assessments.filter(record => pick(record, "loaiDanhGia", "LoaiDanhGia") === 1);
+    const outlines = assessments.filter(record => pick(record, "loaiDanhGia", "LoaiDanhGia") === 2);
+    const [essay] = essays;
+    const [outline] = outlines;
+
+    const getFile = (record, camel, pascal) => {
+      const value = pick(record, camel, pascal);
+      return typeof value === "string" ? value.trim() : "";
     };
-    fillHost("[data-essay-grade-history]", 1);
-    fillHost("[data-topic-grade-history]", 3);
-    // Nhãn trạng thái 2 thẻ M05: đếm lượt chấm từ API, trước đây ghi cứng "Chưa có dữ liệu".
-    const setAssessmentPill = (id, type) => {
-      const pill = byId(id);
-      if (!pill) return;
-      const count = (SERVER.assessments || []).filter((a) => pick(a, "loaiDanhGia", "LoaiDanhGia") === type).length;
-      pill.textContent = count ? `Đã chấm: ${count}` : "Chưa có dữ liệu";
-      pill.classList.toggle("is-success", count > 0);
+    const minutes = getFile(essay, "fileBienBan", "FileBienBan");
+    const explanation = getFile(outline, "fileGiaiTrinh", "FileGiaiTrinh");
+    const files = {
+      essay: getFile(topic, "fileTieuLuan", "FileTieuLuan") || getFile(essay, "fileBaoCao", "FileBaoCao"),
+      minutes,
+      outline: getFile(topic, "fileDeCuong", "FileDeCuong") || getFile(outline, "fileBaoCao", "FileBaoCao"),
+      explanation
     };
-    setAssessmentPill("essay-card-status", 1);
-    setAssessmentPill("outline-card-status", 2);
-    // Chi tiết M05 + bảng chuyên đề M06: điền từ lần chấm mới nhất của API đánh giá giai đoạn.
-    // (Điểm 3 cán bộ chấm riêng và ngày bảo vệ không có trong API nên vẫn để "—".)
-    const latestAssessment = (type) => (SERVER.assessments || []).filter((a) => pick(a, "loaiDanhGia", "LoaiDanhGia") === type)
-      .sort((a, b) => String(pick(b, "maDanhGia", "MaDanhGia") || "").localeCompare(String(pick(a, "maDanhGia", "MaDanhGia") || "")))[0];
-    const essayLatest = latestAssessment(1);
-    const essayTitle = byId("essay-title-display");
-    if (essayTitle) essayTitle.textContent = essayLatest ? (pick(essayLatest, "tenNoiDung", "TenNoiDung") || "—") : "—";
-    const essayMinutes = byId("essay-minutes-display");
-    if (essayMinutes) {
-      const minutesFile = essayLatest ? pick(essayLatest, "fileBienBan", "FileBienBan") : null;
-      essayMinutes.innerHTML = minutesFile ? fileButton(minutesFile, "📄 Biên bản") : "—";
+    for (const [kind, url] of Object.entries(files)) {
+      const button = byId("m05-download-" + kind);
+      button.disabled = !url;
+      if (url) {
+        button.dataset.fileUrl = url;
+        button.dataset.fileOwner = code;
+      } else {
+        delete button.dataset.fileUrl;
+        delete button.dataset.fileOwner;
+      }
     }
-    const outlineLatest = latestAssessment(2);
-    const outlineTitle = byId("outline-title-display");
-    if (outlineTitle) outlineTitle.textContent = outlineLatest ? (pick(outlineLatest, "tenNoiDung", "TenNoiDung") || "—") : "—";
+    const available = Object.values(files).filter(Boolean).length;
+    let status = "Hồ sơ này chưa có tệp đính kèm.";
+    if (signedIn && !SERVER.loaded) status = "Đang tải thông tin tệp…";
+    else if (available) status = `${available}/4 tệp có thể tải.`;
+    byId("m05-file-status").textContent = status;
+
+    for (const [kind, records] of [["essay", essays], ["outline", outlines]]) {
+      byId(kind + "-title-display").textContent = pick(records[0], "tenNoiDung", "TenNoiDung") || "—";
+      const pill = byId(kind + "-card-status");
+      pill.textContent = records.length ? `Đã chấm: ${records.length}` : "Chưa có dữ liệu";
+      pill.classList.toggle("is-success", records.length > 0);
+    }
+    const avg = pick(essay, "diemTrungBinh", "DiemTrungBinh");
+    if (signedIn) byId("essay-avg-score").textContent = avg != null ? `${avg} / 10` : "Chờ chấm điểm";
+    byId("essay-minutes-display").textContent = minutes ? "Đã đính kèm" : "—";
+    byId("outline-response-display").textContent = explanation ? "Đã đính kèm" : "—";
+    renderAssessmentHistory("[data-essay-grade-history]", essays);
+  }
+
+  // Kết luận 0/1/2 theo API (không thông qua / thông qua / thông qua có chỉnh sửa).
+  function renderServerAssessments() {
+    renderAssessmentHistory("[data-topic-grade-history]", SERVER.assessments
+      .filter(record => pick(record, "loaiDanhGia", "LoaiDanhGia") === 3).sort(newestAssessmentFirst));
     // Bảng chuyên đề M06 trước đây luôn trống (tbody rỗng, không có hàm nào điền) — nay điền
     // từ các lần chấm chuyên đề (loại 3) của API; 2 tín chỉ/chuyên đề theo mô tả phân hệ M06.
     const topicBody = document.querySelector("#panel-m06 table tbody");
@@ -4185,9 +4220,9 @@
   }
 
   // ---- Tệp: chỉ tải được khi có token nên tải về dạng blob rồi lưu ----
-  async function downloadServerFile(fileUrl) {
+  async function downloadServerFile(fileUrl, fileOwner) {
     try {
-      const { blob, fileName } = await global.DTMS_API.downloadFile(fileUrl);
+      const { blob, fileName } = await global.DTMS_API.downloadFile(fileUrl, fileOwner);
       const objectUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = objectUrl;
@@ -4246,9 +4281,9 @@
   function handleServerClick(event) {
     const button = event.target.closest("[data-server-action]");
     if (!button || button.disabled) return;
-    const { serverAction: action, id, decision, fileUrl } = button.dataset;
+    const { serverAction: action, id, decision, fileUrl, fileOwner } = button.dataset;
     const find = (list, key) => list.find((item) => String(item[key]) === String(id));
-    if (action === "file-download") downloadServerFile(fileUrl);
+    if (action === "file-download") downloadServerFile(fileUrl, fileOwner);
     else if (action === "plan-edit") { const plan = find(SERVER.plans, "maKeHoach"); if (plan && requireRoles(["NCS"])) openForEdit("modal-edit-plan", () => openPlanForm(plan)); }
     else if (action === "plan-approve") approveServerPlan(id, Number(decision));
     else if (action === "report-review") openServerReportReview(id);
@@ -4293,6 +4328,7 @@
     });
     // Nhập NCS từ tệp JSON (input nằm trong mount ở M01).
     document.addEventListener("change", (event) => {
+      if (event.target?.id === "m05-candidate-select") renderM05Documents();
       if (event.target?.id === "candidate-admission-date") {
         const cohort = byId("candidate-cohort");
         if (cohort) cohort.value = String(event.target.value || "").slice(0, 4);
