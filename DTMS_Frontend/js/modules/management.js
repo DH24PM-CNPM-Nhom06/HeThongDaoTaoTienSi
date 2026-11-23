@@ -2304,6 +2304,7 @@
   function renderServerViews() {
     applyServerMode();
     renderPublicationsTable();
+    byId("ctdt-download").disabled = !backendSession() || !SERVER.ctdt.length;
     if (!backendSession()) {
       renderM05Documents();
       return;
@@ -3718,22 +3719,35 @@
   }
 
   // ---- CTĐT + đối chiếu tiến độ (M02: /api/Ctdt, /api/Doichieu) ----
+  const CTDT_COLUMNS = [
+    ["Mã ngành", "maNganh", "MaNganh"],
+    ["Mã học phần", "maMonHoc", "MaMonHoc"],
+    ["Tên học phần", "tenMonHoc", "TenMonHoc"],
+    ["Số tín chỉ", "soTinChi", "SoTinChi"],
+    ["Loại học phần", "loaiHocPhan", "LoaiHocPhan"],
+    ["Đối tượng đầu vào", "doiTuongDauVao", "DoiTuongDauVao"]
+  ];
+
+  function downloadCtdt() {
+    if (!backendSession() || !SERVER.ctdt.length) return;
+    const headings = CTDT_COLUMNS.map(([label]) => label);
+    const rows = SERVER.ctdt.map(row => CTDT_COLUMNS.map(([, camel, pascal]) => pick(row, camel, pascal)));
+    downloadBlob(global.DTMS_DATA.csv([headings, ...rows]), "Khung_CTDT.csv", "text/csv;charset=utf-8");
+  }
+
   function renderServerCtdt() {
     const mount = serverMount("panel-m02", "ctdt");
     if (!mount) return;
-    const rows = SERVER.ctdt.map(row => `<tr>
-      <td><strong>${escapeHtml(pick(row, "maMonHoc", "MaMonHoc"))}</strong></td>
-      <td>${escapeHtml(pick(row, "tenMonHoc", "TenMonHoc") || "")}</td>
-      <td>${escapeHtml(pick(row, "soTinChi", "SoTinChi") ?? "—")}</td>
-      <td>${escapeHtml(pick(row, "loaiHocPhan", "LoaiHocPhan") || "—")}</td>
-      <td>${escapeHtml(pick(row, "doiTuongDauVao", "DoiTuongDauVao") ?? "—")}</td>
-    </tr>`).join("");
+    const headings = CTDT_COLUMNS.map(([label]) => `<th>${label}</th>`).join("");
+    const rows = SERVER.ctdt.map(row => `<tr>${CTDT_COLUMNS.map(([, camel, pascal]) =>
+      `<td>${escapeHtml(pick(row, camel, pascal) ?? "—")}</td>`
+    ).join("")}</tr>`).join("");
     mount.innerHTML = `<div class="mgmt-card">
       <div class="mgmt-card-header"><h3>Khung chương trình đào tạo</h3><span class="role-pill-badge">${SERVER.ctdt.length} học phần</span></div>
       <p ${MUTED}>Dữ liệu lấy từ máy chủ. NCS chỉ xem đúng ngành và đối tượng đầu vào của mình.</p>
       <div class="mgmt-table-wrapper"><table class="mgmt-table">
-        <thead><tr><th>Mã HP</th><th>Tên học phần</th><th>Số TC</th><th>Loại</th><th>Đối tượng</th></tr></thead>
-        <tbody>${rows || emptyRow(5)}</tbody>
+        <thead><tr>${headings}</tr></thead>
+        <tbody>${rows || emptyRow(CTDT_COLUMNS.length)}</tbody>
       </table></div>
     </div>
     <div class="mgmt-card">
@@ -4314,6 +4328,7 @@
     else if (action === "degree-confer") conferServerDegree();
     else if (action === "graduation-approve") approveServerGraduation();
     else if (action === "warnings-export") exportServerWarnings();
+    else if (action === "ctdt-export") downloadCtdt();
     else if (action === "comparison-load") loadServerComparison();
   }
 

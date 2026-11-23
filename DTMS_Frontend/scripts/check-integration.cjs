@@ -170,4 +170,35 @@ cases.push(
   }, { role: 'PDT', api: mockM05 }]
 );
 
+cases.push(
+  ['M02 tải CSV đúng các học phần API trả về', async page => {
+    await page.goto(base + '/#management');
+    await page.evaluate(() => DTMS_MANAGEMENT.switchModuleTab('m02'));
+    const table = page.locator('#panel-m02 [data-server-view="ctdt"] table').first();
+    await table.getByText('Phương pháp, "chuyên sâu"', { exact: true }).waitFor();
+    const [download] = await Promise.all([
+      page.waitForEvent('download'),
+      page.locator('#ctdt-download').click()
+    ]);
+    assert.equal(download.suggestedFilename(), 'Khung_CTDT.csv');
+    assert.equal(readFileSync(await download.path(), 'utf8'), [
+      '\uFEFF"Mã ngành","Mã học phần","Tên học phần","Số tín chỉ","Loại học phần","Đối tượng đầu vào"',
+      '"KTPM","HP01","Phương pháp, ""chuyên sâu""","3","BAT_BUOC","1"'
+    ].join('\r\n'));
+  }, { role: 'NHD', api(request, url, route) {
+    if (url.pathname !== '/api/Ctdt') return;
+    assert.equal(request.headers().authorization, 'Bearer dtms-test-token');
+    return route.fulfill({ json: [{
+      maNganh: 'KTPM', maMonHoc: 'HP01', tenMonHoc: 'Phương pháp, "chuyên sâu"',
+      soTinChi: 3, loaiHocPhan: 'BAT_BUOC', doiTuongDauVao: 1
+    }] });
+  } }],
+  ['M02 tắt nút tải khi khung CTĐT rỗng', async page => {
+    await page.goto(base + '/#management');
+    await page.evaluate(() => DTMS_MANAGEMENT.switchModuleTab('m02'));
+    await page.locator('#panel-m02 [data-server-view="ctdt"]').getByText('Chưa có dữ liệu.', { exact: true }).waitFor();
+    assert.equal(await page.locator('#ctdt-download').isDisabled(), true);
+  }, { role: 'NCS' }]
+);
+
 runChecks('integration', cases).catch(error => { console.error(error); process.exitCode = 1; });
