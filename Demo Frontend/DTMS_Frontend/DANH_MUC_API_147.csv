@@ -1,0 +1,148 @@
+﻿Method,Path,Roles_tham_khao,Controller,Cach_doi_chieu,Trang_thai_kiem_thu_thuc_te
+POST,/api/Auth/login,Công khai,AuthController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Auth/quen-mat-khau,Công khai,AuthController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Auth/dat-lai-mat-khau,Công khai,AuthController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Auth/mo-khoa/{manguoidung:int},"ADMIN,PDT",AuthController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Baocaotiendoes,"ADMIN,NCS,NHD,PDT,TBM",BaocaotiendoesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Baocaotiendoes/{mabaocao:int},"ADMIN,NCS,NHD,PDT,TBM",BaocaotiendoesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Baocaotiendoes,"ADMIN,NCS,PDT",BaocaotiendoesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Baocaotiendoes/{mabaocao:int}/nhanxet,NHD,BaocaotiendoesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Baocaotiendoes/{mabaocao:int},"ADMIN,PDT",BaocaotiendoesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Baocaotiendoes/{mabaocao:int},"ADMIN,PDT",BaocaotiendoesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Biendonghocvus,"ADMIN,NCS,NHD,PDT,TBM",BiendonghocvusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Biendonghocvus/{mabiendong:int},"ADMIN,NCS,NHD,PDT,TBM",BiendonghocvusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Biendonghocvus/{mabiendong:int},"ADMIN,PDT",BiendonghocvusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Biendonghocvus,"ADMIN,PDT",BiendonghocvusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Biendonghocvus/{mabiendong:int},"ADMIN,PDT",BiendonghocvusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Capbang/{maNcs},"ADMIN,BGH,KHOA,NCS,NHD,PDT,TBM",CapbangController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Capbang/{maNcs}/giai-trinh,NCS,CapbangController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Capbang/{maNcs}/luu-chieu,"ADMIN,PDT",CapbangController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Capbang/{maNcs}/cong-khai,"ADMIN,PDT",CapbangController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Capbang/{maNcs}/cap-bang,BGH,CapbangController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Chungchingoaingus,"ADMIN,NCS,NHD,PDT,TBM",ChungchingoaingusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Chungchingoaingus/{machungchi:int},"ADMIN,NCS,NHD,PDT,TBM",ChungchingoaingusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Chungchingoaingus,"ADMIN,NCS,PDT",ChungchingoaingusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Chungchingoaingus/{machungchi:int},"ADMIN,NCS,PDT",ChungchingoaingusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Chungchingoaingus/{machungchi:int}/duyet,"ADMIN,PDT",ChungchingoaingusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Chungchingoaingus/{machungchi:int},"ADMIN,PDT",ChungchingoaingusController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Congbokhoahocs,"ADMIN,NCS,NHD,PDT,TBM",CongbokhoahocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Congbokhoahocs/{macongbo:int},"ADMIN,NCS,NHD,PDT,TBM",CongbokhoahocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Congbokhoahocs,"ADMIN,NCS,PDT",CongbokhoahocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Congbokhoahocs/{macongbo:int},"ADMIN,NCS,PDT",CongbokhoahocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Congbokhoahocs/{macongbo:int}/duyet,"ADMIN,NHD,PDT",CongbokhoahocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Congbokhoahocs/{macongbo:int},"ADMIN,PDT",CongbokhoahocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Ctdt,"ADMIN,BGH,KHOA,NCS,NHD,PDT,TBM",CtdtController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Ctdt,"ADMIN,PDT",CtdtController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Ctdt/{id:int},"ADMIN,PDT",CtdtController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Dangkyhocphan,NCS,DangkyhocphanController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Dangkyhocphan/{id:int},NCS,DangkyhocphanController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Dangkyhocphan,"ADMIN,BGH,KHOA,NCS,NHD,PDT,TBM",DangkyhocphanController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Dangkyhocphan/dot,"ADMIN,PDT",DangkyhocphanController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Dangkyhocphan/dot,"ADMIN,NCS,PDT",DangkyhocphanController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Danhgiagiaidoan,"ADMIN,BGH,KHOA,NCS,NHD,PDT,TBM",DanhgiagiaidoanController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Danhgiagiaidoan,"ADMIN,KHOA,NHD,PDT,TBM",DanhgiagiaidoanController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Danhgiahocthuats,"ADMIN,NCS,NHD,PDT,TBM",DanhgiahocthuatsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Danhgiahocthuats/{madanhgia:int},"ADMIN,NCS,NHD,PDT,TBM",DanhgiahocthuatsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Danhgiahocthuats,"ADMIN,NHD,PDT,TBM",DanhgiahocthuatsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Danhgiahocthuats/{madanhgia:int},"ADMIN,NHD,PDT,TBM",DanhgiahocthuatsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Danhgiahocthuats/{madanhgia:int},"ADMIN,PDT",DanhgiahocthuatsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Detailuanans,"ADMIN,NCS,NHD,PBDL,PDT,TBM",DetailuanansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Detailuanans/{made:int},"ADMIN,NCS,NHD,PBDL,PDT,TBM",DetailuanansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Detailuanans,"ADMIN,NCS,PDT",DetailuanansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Detailuanans/{made:int},"ADMIN,NCS,PDT",DetailuanansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Detailuanans/{made:int}/duyet,"ADMIN,PDT",DetailuanansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Detailuanans/{made:int}/khoa,"ADMIN,PDT",DetailuanansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Detailuanans/{made:int},"ADMIN,PDT",DetailuanansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Doichieu/{maNcs},"ADMIN,BGH,KHOA,NCS,NHD,PBDL,PDT,TBM",DoichieuController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/File/upload,Đăng nhập,FileController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/File/{name},Đăng nhập,FileController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/File/legacy/{maNcs}/{fileName},Đăng nhập,FileController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Giangviens,Đăng nhập,GiangviensController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Giangviens/{magv},Đăng nhập,GiangviensController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Giangviens/{magv},"ADMIN,PDT",GiangviensController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Giangviens,"ADMIN,PDT",GiangviensController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Giangviens/{magv},"ADMIN,PDT",GiangviensController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Hoanthienvatotnghieps,"ADMIN,NCS,NHD,PDT,TBM",HoanthienvatotnghiepsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Hoanthienvatotnghieps/{matotnghiep:int},"ADMIN,NCS,NHD,PDT,TBM",HoanthienvatotnghiepsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Hoanthienvatotnghieps/{matotnghiep:int},"ADMIN,PDT",HoanthienvatotnghiepsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Hoanthienvatotnghieps,"ADMIN,PDT",HoanthienvatotnghiepsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Hoanthienvatotnghieps/{matotnghiep:int},"ADMIN,PDT",HoanthienvatotnghiepsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Hocvu/canhbao,"ADMIN,NCS,NHD,PDT,TBM",HocvuController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Hocvu/thongke,"ADMIN,PDT,TBM",HocvuController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Hocvu/canhbao/xuat,"ADMIN,NCS,NHD,PDT,TBM",HocvuController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Hoidongdanhgiums,"ADMIN,BGH,KHOA,NCS,NHD,PBDL,PDT,TBM",HoidongdanhgiumsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Hoidongdanhgiums/{mahoidong:int},"ADMIN,BGH,KHOA,NCS,NHD,PBDL,PDT,TBM",HoidongdanhgiumsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Hoidongdanhgiums/{mahoidong:int},"ADMIN,PDT",HoidongdanhgiumsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Hoidongdanhgiums,"ADMIN,PDT",HoidongdanhgiumsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Hoidongdanhgiums/{mahoidong:int},"ADMIN,PDT",HoidongdanhgiumsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Hoidongtruong/{maHoiDong:int}/kiem-tra,"ADMIN,PDT",HoidongtruongController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Hoidongtruong/{maHoiDong:int}/bo-phieu,"ADMIN,BGH,KHOA,NHD,PBDL,PDT,TBM",HoidongtruongController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Hoidongtruong/{maHoiDong:int}/ket-qua,"ADMIN,PDT",HoidongtruongController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Kehoachhoctaps,"ADMIN,NCS,NHD,PDT,TBM",KehoachhoctapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Kehoachhoctaps,"ADMIN,NCS,PDT",KehoachhoctapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Kehoachhoctaps/{id:int},"ADMIN,NCS,PDT",KehoachhoctapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Kehoachhoctaps/{id:int}/duyet,"ADMIN,NHD,PDT,TBM",KehoachhoctapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Kehoachhoctaps/{id:int},"ADMIN,PDT",KehoachhoctapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Ketquahocphans,"ADMIN,NCS,NHD,PDT,TBM",KetquahocphansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Ketquahocphans/{maketqua:int},"ADMIN,NCS,NHD,PDT,TBM",KetquahocphansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Ketquahocphans,"ADMIN,NHD,PDT,TBM",KetquahocphansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Ketquahocphans/{maketqua:int},"ADMIN,NHD,PDT,TBM",KetquahocphansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Ketquahocphans/{maketqua:int}/khoa,"ADMIN,NHD,PDT,TBM",KetquahocphansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Ketquahocphans/{maketqua:int}/mo-khoa,"ADMIN,PDT",KetquahocphansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Ketquahocphans/{maketqua:int},"ADMIN,PDT",KetquahocphansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Lylich,"ADMIN,BGH,KHOA,NCS,NHD,PBDL,PDT,TBM",LylichController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Lylich,"ADMIN,BGH,KHOA,NCS,NHD,PBDL,PDT,TBM",LylichController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Lylich/{id:int},"ADMIN,BGH,KHOA,NCS,NHD,PBDL,PDT,TBM",LylichController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Monhocs,Đăng nhập,MonhocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Monhocs/{mamonhoc},Đăng nhập,MonhocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Monhocs/{mamonhoc},Đăng nhập,MonhocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Monhocs,Đăng nhập,MonhocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Monhocs/{mamonhoc},Đăng nhập,MonhocsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/NcsImport,"ADMIN,PDT",NcsImportController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Nganhdaotaos,Đăng nhập,NganhdaotaosController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Nganhdaotaos/{manganh},Đăng nhập,NganhdaotaosController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Nganhdaotaos/{manganh},Đăng nhập,NganhdaotaosController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Nganhdaotaos,Đăng nhập,NganhdaotaosController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Nganhdaotaos/{manganh},Đăng nhập,NganhdaotaosController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Nghiencuusinhs,"ADMIN,BGH,KHOA,NCS,NHD,PBDL,PDT,TBM",NghiencuusinhsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Nghiencuusinhs/{mancs},"ADMIN,BGH,KHOA,NCS,NHD,PBDL,PDT,TBM",NghiencuusinhsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Nghiencuusinhs/{mancs},"ADMIN,PDT",NghiencuusinhsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Nghiencuusinhs,"ADMIN,PDT",NghiencuusinhsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Nghiencuusinhs/{mancs},"ADMIN,PDT",NghiencuusinhsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Nguoidungs,Đăng nhập,NguoidungsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Nguoidungs/{manguoidung:int},Đăng nhập,NguoidungsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Nguoidungs,Đăng nhập,NguoidungsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Nguoidungs/{manguoidung:int},Đăng nhập,NguoidungsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Nguoidungs/{manguoidung:int}/password,Đăng nhập,NguoidungsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Nguoidungs/{manguoidung:int},Đăng nhập,NguoidungsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Phanbiendoclaps,"ADMIN,PBDL,PDT",PhanbiendoclapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Phanbiendoclaps/{maphanbien:int},"ADMIN,PBDL,PDT",PhanbiendoclapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Phanbiendoclaps/{maphanbien:int}/nhanxet,PBDL,PhanbiendoclapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Phanbiendoclaps/{maphanbien:int},"ADMIN,PDT",PhanbiendoclapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Phanbiendoclaps,"ADMIN,PDT",PhanbiendoclapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Phanbiendoclaps/{maphanbien:int},"ADMIN,PDT",PhanbiendoclapsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Phanconghuongdans,"ADMIN,NCS,NHD,PDT,TBM",PhanconghuongdansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Phanconghuongdans/{maphancong:int},"ADMIN,NCS,NHD,PDT,TBM",PhanconghuongdansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Phanconghuongdans/{maphancong:int},"ADMIN,PDT",PhanconghuongdansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Phanconghuongdans,"ADMIN,PDT",PhanconghuongdansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Phanconghuongdans/{maphancong:int},"ADMIN,PDT",PhanconghuongdansController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Profile/me,Đăng nhập,ProfileController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Profile/me,Đăng nhập,ProfileController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Public/theses,Công khai,PublicController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Public/diploma,Công khai,PublicController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Thanhvienhoidongs,"ADMIN,BGH,KHOA,NCS,NHD,PBDL,PDT,TBM",ThanhvienhoidongsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Thanhvienhoidongs/{mahoidong:int}/{magv},"ADMIN,BGH,KHOA,NCS,NHD,PBDL,PDT,TBM",ThanhvienhoidongsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Thanhvienhoidongs/{mahoidong:int}/{magv},"ADMIN,PDT",ThanhvienhoidongsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Thanhvienhoidongs,"ADMIN,PDT",ThanhvienhoidongsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Thanhvienhoidongs/{mahoidong:int}/{magv},"ADMIN,PDT",ThanhvienhoidongsController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Totnghiep/xet,"ADMIN,PDT",TotnghiepController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Totnghiep/duyet-hang-loat,"ADMIN,PDT",TotnghiepController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Vaitroes,Đăng nhập,VaitroesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Vaitroes/{mavaitro},Đăng nhập,VaitroesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Vaitroes/{mavaitro},Đăng nhập,VaitroesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Vaitroes,Đăng nhập,VaitroesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+DELETE,/api/Vaitroes/{mavaitro},Đăng nhập,VaitroesController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+POST,/api/Yeucauhocvu,NCS,YeucauhocvuController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Yeucauhocvu,"ADMIN,BGH,KHOA,NCS,NHD,PDT,TBM",YeucauhocvuController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+GET,/api/Yeucauhocvu/{id:int},"ADMIN,BGH,KHOA,NCS,NHD,PDT,TBM",YeucauhocvuController.cs,API Lab / Swagger live,CHUA_XAC_NHAN
+PUT,/api/Yeucauhocvu/{id:int}/duyet,"ADMIN,BGH,KHOA,NHD,PDT,TBM",YeucauhocvuController.cs,API Lab / Swagger live,CHUA_XAC_NHAN

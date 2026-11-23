@@ -1,0 +1,5 @@
+/* Compatibility entry point. Keep feature stylesheet order here. */
+@import url("core/tokens.css");
+@import url("core/layout.css");
+@import url("components/app-components.css");
+@import url("core/responsive.css");
