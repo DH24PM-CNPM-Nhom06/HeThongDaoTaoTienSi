@@ -38,7 +38,7 @@ jobs:
         working-directory: Demo Frontend
         run: |
           npm run check
-          node scripts/check-api-lab.cjs
+          npm run check:api --prefix DTMS_Frontend
           node scripts/test-api-contracts.cjs
 
       - name: Validate Compose configuration
