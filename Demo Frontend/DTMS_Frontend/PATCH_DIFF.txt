@@ -1,0 +1,452 @@
+--- original/index.html
++++ updated/index.html
+@@ -506,6 +506,10 @@
+                     <span id="profile-display-audience">—</span>
+                   </div>
+                   <div class="mgmt-detail-row">
++                    <span>Người hướng dẫn chính:</span>
++                    <span id="profile-display-supervisor">—</span>
++                  </div>
++                  <div class="mgmt-detail-row">
+                     <span>Thời hạn đào tạo chuẩn:</span>
+                     <span id="profile-display-deadline-std">—</span>
+                   </div>
+@@ -1931,11 +1935,11 @@
+           <div class="mgmt-form-grid">
+             <div class="mgmt-form-group">
+               <label>Họ và tên NCS:</label>
+-              <input type="text" readonly style="background:#e2e8f0;" />
++              <input type="text" id="profile-name-readonly" readonly aria-label="Họ tên NCS (chỉ đọc)" />
+             </div>
+             <div class="mgmt-form-group">
+               <label>Mã số NCS:</label>
+-              <input type="text" readonly style="background:#e2e8f0;" />
++              <input type="text" id="profile-code-readonly" readonly aria-label="Mã NCS (chỉ đọc)" />
+             </div>
+             <div class="mgmt-form-group">
+               <label>Số điện thoại:</label>
+@@ -1950,6 +1954,7 @@
+               <input type="text" id="profile-workplace-input" required />
+             </div>
+           </div>
++          <p class="mgmt-form-help">Họ tên và mã NCS do nhà trường quản lý nên chỉ đọc. Bạn có thể sửa email, số điện thoại và nơi công tác, sau đó chọn Lưu thay đổi.</p>
+           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+             <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-edit-profile">Hủy bỏ</button>
+             <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu Thay Đổi</button>
+@@ -2893,8 +2898,8 @@
+     <div class="mgmt-modal" id="modal-candidate"><div class="mgmt-modal-dialog">
+       <div class="mgmt-modal-header"><h3 id="candidate-modal-heading">Hồ sơ NCS</h3><button type="button" class="mgmt-modal-close" data-close-modal="modal-candidate" aria-label="Đóng">✕</button></div>
+       <form id="form-candidate"><input type="hidden" id="candidate-id" /><div class="mgmt-form-grid">
+-      <div class="mgmt-form-group"><label for="candidate-code">Mã nghiên cứu sinh</label><input id="candidate-code" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-name">Họ và tên</label><input id="candidate-name" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-major">Ngành đào tạo</label><input id="candidate-major" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-cohort">Khóa tuyển sinh</label><input id="candidate-cohort" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-email">Email</label><input id="candidate-email" type="email" /></div><div class="mgmt-form-group"><label for="candidate-phone">Số điện thoại</label><input id="candidate-phone" type="tel" /></div><div class="mgmt-form-group"><label for="candidate-supervisor">Người hướng dẫn</label><input id="candidate-supervisor" type="text" /></div>
+-      <div class="mgmt-form-group"><label for="candidate-status">Trạng thái học vụ</label><select id="candidate-status"><option value="studying">Đang học bình thường</option><option value="extended">Gia hạn học tập</option><option value="paused">Tạm dừng học tập</option><option value="defended">Đã bảo vệ luận án</option><option value="graduated">Đã cấp bằng Tiến sĩ</option></select></div>
++      <div class="mgmt-form-group"><label for="candidate-code">Mã nghiên cứu sinh</label><input id="candidate-code" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-name">Họ và tên</label><input id="candidate-name" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-major">Ngành đào tạo</label><input id="candidate-major" type="text" list="candidate-major-options" placeholder="Nhập mã ngành, ví dụ KTPM" required /><datalist id="candidate-major-options"></datalist></div><div class="mgmt-form-group"><label for="candidate-cohort">Khóa tuyển sinh (từ ngày nhập học)</label><input id="candidate-cohort" type="text" readonly /></div><div class="mgmt-form-group"><label for="candidate-email">Email</label><input id="candidate-email" type="email" /></div><div class="mgmt-form-group"><label for="candidate-phone">Số điện thoại (cập nhật ở hồ sơ cá nhân)</label><input id="candidate-phone" type="tel" /></div><div class="mgmt-form-group"><label for="candidate-supervisor">Người hướng dẫn (phân công tại M03)</label><input id="candidate-supervisor" type="text" /></div>
++      <div class="mgmt-form-group"><label for="candidate-status">Trạng thái học vụ (quản lý bằng quy trình)</label><select id="candidate-status"><option value="studying">Đang học bình thường</option><option value="extended">Gia hạn học tập</option><option value="paused">Tạm dừng học tập</option><option value="defended">Đã bảo vệ luận án</option><option value="graduated">Đã cấp bằng Tiến sĩ</option></select></div>
+       <div class="mgmt-form-group"><label for="candidate-dob">Ngày sinh</label><input id="candidate-dob" type="date" /></div>
+       <div class="mgmt-form-group"><label for="candidate-gender">Giới tính</label><select id="candidate-gender"><option value="true">Nam</option><option value="false">Nữ</option></select></div>
+       <div class="mgmt-form-group"><label for="candidate-entry-type">Đối tượng đầu vào</label><select id="candidate-entry-type"><option value="1">Đối tượng 1 (90 TC)</option><option value="2">Đối tượng 2 (120 TC)</option></select></div>
+--- original/js/modules/management.js
++++ updated/js/modules/management.js
+@@ -8,6 +8,7 @@
+ 
+   // 1. DATA STORE: HỒ SƠ VÀ PHÂN QUYỀN CHO 7 VAI TRÒ
+   const USERS_ROLE_STORE = {
++    ADMIN: { id: "usr_admin", code: "ADMIN", name: "" },
+     NCS: {
+       id: "usr_ncs",
+       code: "NCS",
+@@ -77,6 +78,7 @@
+   let activeModuleId = "m01";
+ 
+   const ROLE_MODULES = {
++    ADMIN: ["m01", "m02", "m03", "m04", "m05", "m06", "m07", "m08", "m09", "m10", "m11", "m12", "m13", "m14"],
+     NCS: ["m01", "m02", "m03", "m04", "m05", "m06", "m07", "m08", "m09", "m10", "m11", "m12"],
+     NHD: ["m01", "m02", "m03", "m05", "m06", "m07", "m08", "m09", "m10", "m11", "m12"],
+     BM: ["m01", "m02", "m03", "m05", "m06", "m07", "m09", "m10", "m12"],
+@@ -312,7 +314,7 @@
+         priorityDetail = isEnglish
+           ? `Credits earned ${passedCredits}/24${gpa ? ` · GPA ${gpa}` : ""}`
+           : `Tín chỉ đã đạt ${passedCredits}/24${gpa ? ` · GPA ${gpa}` : ""}`;
+-      } else if ((roleKey === "PDT" || roleKey === "BGH" || roleKey === "KHOA") && SERVER.stats) {
++      } else if (["ADMIN", "PDT", "BGH", "KHOA"].includes(roleKey) && SERVER.stats) {
+         const stats = SERVER.stats;
+         metrics.push([isEnglish ? "Total candidates" : "Tổng số NCS", String(pick(stats, "tongSoNcs", "TongSoNcs") ?? "—")]);
+         metrics.push([isEnglish ? "On warning" : "Đang cảnh báo", String(pick(stats, "soNcsCanhBao", "SoNcsCanhBao") ?? "—")]);
+@@ -324,8 +326,8 @@
+       }
+     }
+     const roleNames = isEnglish
+-      ? { NCS: "PhD candidate", NHD: "Supervisor", BM: "Department chair", KHOA: "Faculty leadership", PDT: "Graduate Academic Affairs", BGH: "University leadership", HOIDONG: "Review committee" }
+-      : { NCS: "Nghiên cứu sinh", NHD: "Người hướng dẫn khoa học", BM: "Trưởng Bộ môn", KHOA: "Ban Chủ nhiệm Khoa", PDT: "Phòng Đào tạo", BGH: "Ban Giám hiệu", HOIDONG: "Hội đồng đánh giá" };
++      ? { ADMIN: "Administrator", NCS: "PhD candidate", NHD: "Supervisor", BM: "Department chair", KHOA: "Faculty leadership", PDT: "Graduate Academic Affairs", BGH: "University leadership", HOIDONG: "Review committee" }
++      : { ADMIN: "Quản trị hệ thống", NCS: "Nghiên cứu sinh", NHD: "Người hướng dẫn khoa học", BM: "Trưởng Bộ môn", KHOA: "Ban Chủ nhiệm Khoa", PDT: "Phòng Đào tạo", BGH: "Ban Giám hiệu", HOIDONG: "Hội đồng đánh giá" };
+     const title = header.querySelector(".mgmt-header-title h2");
+     const subtitle = header.querySelector(".mgmt-header-title p");
+     if (title) title.textContent = authenticatedUser ? `${isEnglish ? "Workspace" : "Bàn làm việc"} · ${roleNames[roleKey]}` : (isEnglish ? "Workspace" : "Bàn làm việc");
+@@ -630,6 +632,12 @@
+     const modal = document.getElementById(modalId);
+     if (modalId === "modal-edit-profile") {
+       ["phone", "email", "workplace"].forEach(key => { document.getElementById(`profile-${key}-input`).value = APP_STATE.profile[key]; });
++      const profile = backendSession() ? SERVER.profile : null;
++      const own = APP_STATE.candidates.find(c => c.id === "ncs-01") || {};
++      const nameInput = byId("profile-name-readonly");
++      const codeInput = byId("profile-code-readonly");
++      if (nameInput) nameInput.value = pick(profile, "hoTen", "HoTen") || sessionUser()?.hoTen || own.name || "";
++      if (codeInput) codeInput.value = pick(profile, "maNcs", "MaNcs") || own.code || "";
+       if (backendSession() && SERVER.profile) {
+         document.getElementById("profile-phone-input").value = SERVER.profile.soDienThoai || "";
+         document.getElementById("profile-email-input").value = SERVER.profile.email || "";
+@@ -1660,6 +1668,9 @@
+   }
+ 
+   function renderCandidates() {
++    // Quyền tạo hồ sơ thuộc ADMIN/PDT; NCS chỉ cập nhật thông tin liên lạc cá nhân.
++    const manageCandidates = ["ADMIN", "PDT"].includes(currentUser.code);
++    document.querySelectorAll("[data-candidate-add],[data-backup-data]").forEach(button => { button.hidden = !manageCandidates; });
+     // Có phiên máy chủ: bảng NCS lấy từ API (renderServerCandidates), không dùng dữ liệu mẫu.
+     if (backendSession()) { renderServerCandidates(); return; }
+     const table=document.querySelector('#panel-m01 table');
+@@ -1667,34 +1678,33 @@
+     table.id='candidates-table';
+     const labels=CANDIDATE_STATUS;
+     table.tBodies[0].innerHTML=candidateScope().map(c=>`<tr><td><strong>${escapeHtml(c.code)}</strong></td><td>${escapeHtml(c.name)}</td><td>${escapeHtml(c.major)}</td><td>${escapeHtml(c.cohort)}</td><td>${escapeHtml(c.supervisor||'Chưa phân công')}</td><td><span class="status-pill ${c.status==='studying'?'is-success':'is-warning'}">${escapeHtml(labels[c.status]||c.status)}</span></td><td><div class="candidate-actions"><button type="button" class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-candidate-view="${escapeHtml(c.id)}">Xem${currentUser.code==='PDT'?' / Sửa':''}</button>${currentUser.code==='PDT'&&!c.seeded?`<button type="button" class="btn-mgmt btn-mgmt-sm btn-mgmt-danger" data-candidate-delete="${escapeHtml(c.id)}">Xóa</button>`:''}</div></td></tr>`).join('');
+-    document.querySelectorAll('[data-candidate-add],[data-backup-data]').forEach(b=>b.hidden=currentUser.code!=='PDT');
+     const input=document.querySelector('#panel-m01 .mgmt-input-search');
+     if(input?.value)syncCandidateFilter();
+   }
+ 
+   function openCandidate(id) {
+-    if(!requireRoles(['PDT','NCS','NHD','BM','KHOA','BGH']))return;
++    if(!requireRoles(['ADMIN','PDT','NCS','NHD','BM','KHOA','BGH']))return;
+     if (backendSession()) { openServerCandidate(id); return; }
+     const candidate=id?candidateScope().find(c=>c.id===id):null;
+     if(id&&!candidate)return;
+-    if(!id&&currentUser.code!=='PDT')return;
++    if(!id&&!['ADMIN','PDT'].includes(currentUser.code))return;
+     const form=document.getElementById('form-candidate');
+     form.reset();
+     document.getElementById('candidate-id').value=id||'';
+     for(const key of ['code','name','major','cohort','email','phone','supervisor','status']) {
+       const input=document.getElementById('candidate-'+key);
+       input.value=candidate?.[key]||(key==='status'?'studying':'');
+-      input.disabled=currentUser.code!=='PDT';
++      input.disabled=!['ADMIN','PDT'].includes(currentUser.code);
+       global.DTMS_UI.fieldError(input,'');
+     }
+-    document.getElementById('candidate-save').hidden=currentUser.code!=='PDT';
++    document.getElementById('candidate-save').hidden=!['ADMIN','PDT'].includes(currentUser.code);
+     document.getElementById('candidate-modal-heading').textContent=id?'Hồ sơ NCS · '+candidate.name:'Thêm nghiên cứu sinh';
+     openModal('modal-candidate');
+   }
+ 
+   function saveCandidate(event) {
+     event.preventDefault();
+-    if(!requireRoles(['PDT'])||!global.DTMS_UI.validate(event.target))return;
++    if(!requireRoles(['ADMIN','PDT'])||!global.DTMS_UI.validate(event.target))return;
+     if (backendSession()) { submitServerCandidate(event); return; }
+     const id=document.getElementById('candidate-id').value;
+     const old=APP_STATE.candidates.find(c=>c.id===id);
+@@ -1712,13 +1722,13 @@
+   }
+ 
+   function deleteCandidate(id) {
+-    if(!requireRoles(['PDT']))return;
++    if(!requireRoles(['ADMIN','PDT']))return;
+     if (backendSession()) { deleteServerCandidate(id); return; }
+     const candidate=APP_STATE.candidates.find(c=>c.id===id);
+     if(!candidate||candidate.seeded) { notify('Hồ sơ khởi tạo','Hồ sơ khởi tạo được bảo vệ. Bạn có thể xóa các hồ sơ được thêm mới.'); return; }
+     if(Boolean(APP_STATE.assignments[candidate.id])) { notify('Hồ sơ đang được sử dụng','Không thể xóa hồ sơ đã có phân công người hướng dẫn.'); return; }
+     confirmAction('Xóa hồ sơ '+candidate.code+' · '+candidate.name+' khỏi danh sách đang quản lý?',()=>{
+-      if(!requireRoles(['PDT']))return;
++      if(!requireRoles(['ADMIN','PDT']))return;
+       APP_STATE.candidates=APP_STATE.candidates.filter(c=>c.id!==id);
+       if(!saveAppState(APP_STATE))return;
+       renderCandidates();
+@@ -1788,7 +1798,7 @@
+         const display=document.getElementById('profile-display-'+key);
+         if(display)display.textContent='—';
+       }
+-      const profileNameInput=document.querySelector('#form-edit-profile input[readonly]');
++      const profileNameInput=byId("profile-name-readonly");
+       if(profileNameInput)profileNameInput.value='';
+     }
+     // Có phiên máy chủ: select NCS do fillServerSelects() điền từ API, không ghi đè bằng dữ liệu mẫu.
+@@ -2138,7 +2148,7 @@
+   }
+   // Tên hiển thị của vai trò (dùng cho bộ chọn vai trò ở thanh trên và thẻ người dùng).
+   const ROLE_LABELS = {
+-    NCS: "Nghiên cứu sinh", NHD: "Người hướng dẫn khoa học", BM: "Trưởng Bộ môn",
++    ADMIN: "Quản trị hệ thống", NCS: "Nghiên cứu sinh", NHD: "Người hướng dẫn khoa học", BM: "Trưởng Bộ môn",
+     KHOA: "Ban Chủ nhiệm Khoa", PDT: "Phòng Đào tạo", BGH: "Ban Giám hiệu", HOIDONG: "Hội đồng đánh giá"
+   };
+   // Các biểu mẫu biến động, chấm điểm, hội đồng, cấp bằng trước đây bị chặn ở đây đã được nối API thật
+@@ -2331,9 +2341,12 @@
+     if (!profile) return;
+     const fullName = profile.hoTen || profile.HoTen || sessionUser()?.hoTen || "—";
+     const candidateCode = profile.maNcs || profile.MaNcs || "—";
+-    const majorCode = profile.maNganh || profile.MaNganh || "—";
+-    const admissionDecision = profile.soQdtrungTuyen || profile.SoQdtrungTuyen || "—";
+-    const admissionDate = String(profile.ngayNhapHoc || profile.NgayNhapHoc || "").match(/^(\d{4})/);
++    // Profile/me chỉ có liên hệ và mã NCS; các trường đào tạo lấy từ DTO NCS.
++    const ownRecord = (SERVER.candidates || []).find(c =>
++      String(pick(c, "maNcs", "MaNcs") || "") === String(candidateCode));
++    const majorCode = pick(ownRecord, "maNganh", "MaNganh") || "—";
++    const admissionDecision = pick(ownRecord, "soQdtrungTuyen", "SoQdtrungTuyen") || "—";
++    const admissionDate = String(pick(ownRecord, "ngayNhapHoc", "NgayNhapHoc") || "").match(/^(\d{4})/);
+     const cohort = admissionDate ? `Khóa ${admissionDate[1]}` : "—";
+     const displayValues = {
+       "profile-display-name": fullName,
+@@ -2355,11 +2368,8 @@
+     };
+     setProfilePill("profile-personal-pill");
+     setProfilePill("profile-training-pill");
+-    // Ngày sinh/giới tính/đối tượng đầu vào lấy từ hồ sơ NCS (GET /api/Nghiencuusinhs)
+-    // vì GET /api/Profile/me không trả các trường này. Hạn đào tạo tối đa lấy từ
+-    // danh sách cảnh báo khi NCS thuộc diện cảnh báo; hạn chuẩn không có API nào trả
+-    // (đã ghi trong danh sách hỏi backend) nên giữ "—" khi chưa có dữ liệu.
+-    const ownRecord = (SERVER.candidates || []).find((c) => String(pick(c, "maNcs", "MaNcs") || "") === String(candidateCode));
++    // Ngày sinh, giới tính, đối tượng và thời hạn lấy từ GET /api/Nghiencuusinhs.
++    // Không giả lập dữ liệu cho những trường chưa tồn tại trong CSDL/API.
+     if (ownRecord && candidateCode !== "—") {
+       const dob = formatDate(pick(ownRecord, "ngaySinh", "NgaySinh"));
+       const gender = pick(ownRecord, "gioiTinh", "GioiTinh");
+@@ -2368,12 +2378,31 @@
+       const entryType = pick(ownRecord, "doiTuongDauVao", "DoiTuongDauVao");
+       const entryEl = byId("profile-display-audience");
+       if (entryEl) entryEl.textContent = entryType === 1 || entryType === "1" ? "Đối tượng 1 (90 tín chỉ)" : entryType === 2 || entryType === "2" ? "Đối tượng 2 (120 tín chỉ)" : (entryType ?? "—");
+-      const warning = (SERVER.warnings || []).find((w) => String(pick(w, "maNcs", "MaNcs") || "") === String(candidateCode));
++      const deadlineStd = byId("profile-display-deadline-std");
+       const deadlineMax = byId("profile-display-deadline-max");
+-      if (deadlineMax && warning) deadlineMax.textContent = formatDate(pick(warning, "hanDaoTaoToiDa", "HanDaoTaoToiDa"));
+-    }
+-    const profileNameInput = document.querySelector('#form-edit-profile input[readonly]');
++      if (deadlineStd) deadlineStd.textContent = formatDate(pick(ownRecord, "ngayHetHanChuan", "NgayHetHanChuan"));
++      if (deadlineMax) deadlineMax.textContent = formatDate(pick(ownRecord, "ngayHetHanToiDa", "NgayHetHanToiDa"));
++    }
++    const profileNameInput = byId("profile-name-readonly");
++    const profileCodeInput = byId("profile-code-readonly");
+     if (profileNameInput) profileNameInput.value = fullName === "—" ? "" : fullName;
++    if (profileCodeInput) profileCodeInput.value = candidateCode === "—" ? "" : candidateCode;
++    // CCCD/địa chỉ không có trong DTO hiện tại. Không tự sinh dữ liệu giả.
++    for (const id of ["profile-display-citizen", "profile-display-address"]) {
++      const node = byId(id);
++      if (node) {
++        node.textContent = "Chưa có trường dữ liệu trong API";
++        node.title = "Muốn lưu thông tin này cần bổ sung trường vào CSDL và API backend.";
++      }
++    }
++    const supervisorDisplay = byId("profile-display-supervisor");
++    if (supervisorDisplay) {
++      const primary = (SERVER.assignments || []).find(a =>
++        String(pick(a, "maNcs", "MaNcs")) === String(candidateCode) &&
++        Number(pick(a, "vaiTro", "VaiTro")) === 1 &&
++        ![false, 0].includes(pick(a, "trangThai", "TrangThai")));
++      supervisorDisplay.textContent = primary ? lecturerName(pick(primary, "maGv", "MaGv")) : "Chưa có phân công NHD chính";
++    }
+     const phone = byId("profile-display-phone");
+     const email = byId("profile-display-email");
+     if (phone) phone.textContent = profile.soDienThoai || profile.SoDienThoai || "—";
+@@ -2921,6 +2950,15 @@
+   // Điền các select từ dữ liệu máy chủ (chỉ khi có phiên; chế độ không phiên giữ dữ liệu mẫu).
+   function fillServerSelects() {
+     if (!backendSession()) return;
++    const majorsList = byId("candidate-major-options");
++    if (majorsList) {
++      majorsList.replaceChildren(...(SERVER.majors || []).map(item => {
++        const option = document.createElement("option");
++        option.value = pick(item, "maNganh", "MaNganh") || "";
++        option.label = pick(item, "tenNganh", "TenNganh") || option.value;
++        return option;
++      }));
++    }
+     const cands = SERVER.candidates || [];
+     const lects = SERVER.lecturers || [];
+     const candLabel = c => `${pick(c, "hoTen", "HoTen") || ""} · ${pick(c, "maNcs", "MaNcs") || ""}`;
+@@ -3203,7 +3241,8 @@
+       const main = (SERVER.assignments || []).find(a => String(pick(a, "maNcs", "MaNcs")) === String(code) && pick(a, "vaiTro", "VaiTro") === 1 && pick(a, "trangThai", "TrangThai") !== false);
+       const supervisor = main ? lecturerName(pick(main, "maGv", "MaGv")) : "Chưa phân công";
+       const status = pick(c, "trangThaiHocVu", "TrangThaiHocVu");
+-      const actions = `<button type="button" class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-candidate-view="${escapeHtml(code)}">Xem</button>${currentUser.code === "PDT" ? `<button type="button" class="btn-mgmt btn-mgmt-sm btn-mgmt-danger" data-candidate-delete="${escapeHtml(code)}">Xóa</button>` : ""}`;
++      const canManage = ["ADMIN", "PDT"].includes(currentUser.code);
++      const actions = `<button type="button" class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" data-candidate-view="${escapeHtml(code)}">${canManage ? "Xem / Sửa" : "Xem"}</button>${canManage ? `<button type="button" class="btn-mgmt btn-mgmt-sm btn-mgmt-danger" data-candidate-delete="${escapeHtml(code)}">Xóa</button>` : ""}`;
+       return `<tr><td><strong>${escapeHtml(code)}</strong></td><td>${escapeHtml(pick(c, "hoTen", "HoTen"))}</td><td>${escapeHtml(majorName(pick(c, "maNganh", "MaNganh")))}</td><td>${escapeHtml(cohort)}</td><td>${escapeHtml(supervisor)}</td><td><span class="status-pill ${status === 1 ? "is-success" : "is-warning"}">${status === 1 ? "Đang học" : "—"}</span></td><td><div class="candidate-actions">${actions}</div></td></tr>`;
+     }).join("");
+     tbody.innerHTML = rows || emptyRow(7);
+@@ -3248,48 +3287,101 @@
+     }
+   }
+ 
+-  // Backend đã có PUT an toàn (UpdateNghiencuusinhRequest) từ bản sửa đợt 3.
+-  // Chỉ gửi các trường được phép; tài khoản và hạn đào tạo vẫn không thể sửa ở đây.
++  // M01: ADMIN/PDT tạo và chỉnh sửa hồ sơ đào tạo; NCS chỉ xem hồ sơ.
++  // Thông tin liên lạc của chính NCS được đọc/ghi bằng /api/Profile/me.
+   function openServerCandidate(maNcs) {
+     const form = byId("form-candidate");
+     if (!form) return;
++    const canManage = ["ADMIN", "PDT"].includes(currentUser.code);
++    if (!maNcs && !canManage) {
++      notify("Không đủ quyền", "Chỉ ADMIN hoặc Phòng Đào tạo được thêm nghiên cứu sinh. Bạn có thể dùng Cập nhật thông tin cá nhân để sửa liên hệ của mình.");
++      return;
++    }
+     const c = maNcs ? candidateByCode(maNcs) : null;
++    if (maNcs && !c) {
++      notify("Không tìm thấy hồ sơ", "Hãy tải lại danh sách nghiên cứu sinh rồi thử lại.");
++      return;
++    }
+     const editing = Boolean(maNcs);
++    const ownerCode = pick(SERVER.profile, "maNcs", "MaNcs");
++    const ownProfile = editing && String(ownerCode) === String(maNcs) ? SERVER.profile : null;
++    const main = editing ? (SERVER.assignments || []).find(a =>
++      String(pick(a, "maNcs", "MaNcs")) === String(maNcs) &&
++      Number(pick(a, "vaiTro", "VaiTro")) === 1 &&
++      ![false, 0].includes(pick(a, "trangThai", "TrangThai"))
++    ) : null;
++
+     form.reset();
+     byId("candidate-id").value = maNcs || "";
++    const set = (id, value, readOnly) => {
++      const element = byId(id);
++      if (!element) return;
++      element.value = value === null || value === undefined ? "" : String(value);
++      // Quyền sửa thực tế luôn được kiểm tra lại ở API.
++      if (element.tagName === "SELECT") element.disabled = Boolean(readOnly);
++      else { element.disabled = false; element.readOnly = Boolean(readOnly); }
++      element.title = readOnly ? "Thông tin chỉ đọc hoặc được quản lý ở chức năng khác" : "Có thể chỉnh sửa";
++    };
++    const date = (value) => value ? String(value).slice(0, 10) : "";
++    set("candidate-code", pick(c, "maNcs", "MaNcs"), !canManage || editing);
++    set("candidate-name", pick(c, "hoTen", "HoTen"), !canManage);
++    set("candidate-major", pick(c, "maNganh", "MaNganh"), !canManage);
++    set("candidate-cohort", date(pick(c, "ngayNhapHoc", "NgayNhapHoc")).slice(0, 4), true);
++    set("candidate-dob", date(pick(c, "ngaySinh", "NgaySinh")), !canManage);
++    set("candidate-entry-type", pick(c, "doiTuongDauVao", "DoiTuongDauVao") ?? 1, !canManage);
++    set("candidate-decision", pick(c, "soQdtrungTuyen", "SoQdtrungTuyen"), !canManage);
++    set("candidate-admission-date", date(pick(c, "ngayNhapHoc", "NgayNhapHoc")), !canManage);
++    set("candidate-gender", [false,0].includes(pick(c, "gioiTinh", "GioiTinh")) ? "false" : "true", !canManage);
++    set("candidate-deadline-standard", date(pick(c, "ngayHetHanChuan", "NgayHetHanChuan")), true);
++    set("candidate-deadline-max", date(pick(c, "ngayHetHanToiDa", "NgayHetHanToiDa")), true);
++    set("candidate-email", pick(ownProfile, "email", "Email") || "", !canManage || editing);
++    set("candidate-username", "", !canManage || editing);
++    set("candidate-temp-password", "", !canManage || editing);
++    set("candidate-phone", pick(ownProfile, "soDienThoai", "SoDienThoai") || "", true);
++    set("candidate-supervisor", main ? lecturerName(pick(main, "maGv", "MaGv")) : "", true);
++    const academicStatus = pick(c, "trangThaiHocVu", "TrangThaiHocVu");
++    const statusSelect = byId("candidate-status");
++    if (statusSelect) {
++      [...statusSelect.querySelectorAll("[data-server-status]")].forEach(o => o.remove());
++      if (!editing || Number(academicStatus) === 1) statusSelect.value = "studying";
++      else {
++        const option = document.createElement("option");
++        option.dataset.serverStatus = "true";
++        option.value = "server:" + academicStatus;
++        option.textContent = "Mã trạng thái học vụ: " + academicStatus;
++        statusSelect.append(option);
++        statusSelect.value = option.value;
++      }
++      statusSelect.disabled = true; // Trạng thái chỉ đổi qua quy trình học vụ.
++    }
++    // NcsImport tạo tài khoản, không ghi số điện thoại; phân công NHD thuộc M03.
++    ["candidate-phone", "candidate-supervisor"].forEach(id => {
++      const group = byId(id)?.closest(".mgmt-form-group");
++      if (group) group.hidden = !editing;
++    });
+     const note = byId("candidate-server-note");
+     if (note) {
+       note.hidden = false;
+-      note.textContent = editing
+-        ? "Chỉnh sửa qua PUT /api/Nghiencuusinhs/{maNcs}. Mã NCS, liên kết tài khoản và hạn đào tạo được giữ nguyên."
+-        : "Thêm mới qua API nhập NCS: hệ thống tạo cả tài khoản đăng nhập và hồ sơ. Mật khẩu tạm tối thiểu 8 ký tự, gồm chữ và số.";
+-    }
+-    const set = (id, value, disabled) => { const el = byId(id); if (!el) return; el.value = value || ""; el.disabled = !!disabled; };
+-    const lock = currentUser.code !== "PDT";
+-    set("candidate-code", pick(c, "maNcs", "MaNcs"), lock || editing);
+-    set("candidate-name", pick(c, "hoTen", "HoTen"), lock);
+-    set("candidate-major", pick(c, "maNganh", "MaNganh"), lock);
+-    set("candidate-cohort", pick(c, "ngayNhapHoc", "NgayNhapHoc") ? String(pick(c, "ngayNhapHoc", "NgayNhapHoc")).slice(0, 4) : "", true);
+-    set("candidate-dob", pick(c, "ngaySinh", "NgaySinh"), lock);
+-    set("candidate-entry-type", pick(c, "doiTuongDauVao", "DoiTuongDauVao") ?? 1, lock);
+-    set("candidate-decision", pick(c, "soQdtrungTuyen", "SoQdtrungTuyen"), lock);
+-    set("candidate-admission-date", pick(c, "ngayNhapHoc", "NgayNhapHoc"), lock);
+-    set("candidate-gender", pick(c, "gioiTinh", "GioiTinh") === false ? "false" : "true", lock);
+-    set("candidate-deadline-standard", pick(c, "ngayHetHanChuan", "NgayHetHanChuan") || "", lock || editing);
+-    set("candidate-deadline-max", pick(c, "ngayHetHanToiDa", "NgayHetHanToiDa") || "", lock || editing);
+-    set("candidate-email", "", lock || editing);
+-    set("candidate-username", "", lock || editing);
+-    set("candidate-temp-password", "", lock || editing);
+-    set("candidate-phone", "", true);
+-    set("candidate-supervisor", "", true);
+-    set("candidate-status", pick(c, "trangThaiHocVu", "TrangThaiHocVu") === 1 ? "studying" : "studying", true);
+-    byId("candidate-save").hidden = lock;
+-    byId("candidate-modal-heading").textContent = maNcs ? "Hồ sơ NCS · " + (pick(c, "hoTen", "HoTen") || maNcs) : "Thêm nghiên cứu sinh";
++      note.textContent = !canManage
++        ? "Chế độ xem: NCS không thể sửa hồ sơ đào tạo. Để sửa email, điện thoại và cơ quan công tác, đóng cửa sổ này rồi chọn Cập nhật thông tin cá nhân."
++        : editing
++          ? "Chỉnh sửa qua PUT /api/Nghiencuusinhs/{maNcs}. Mã NCS, tài khoản, hạn đào tạo và trạng thái học vụ chỉ đọc. Email/điện thoại được quản lý theo tài khoản; NHD tại M03."
++          : "Tạo hồ sơ và tài khoản qua POST /api/NcsImport. Nhập đầy đủ ngày sinh, ngày nhập học, hạn đào tạo, tên đăng nhập, email và mật khẩu tạm từ 8 ký tự gồm chữ và số.";
++    }
++    const save = byId("candidate-save");
++    if (save) { save.hidden = !canManage; save.textContent = editing ? "Lưu thay đổi" : "Thêm nghiên cứu sinh"; }
++    byId("candidate-modal-heading").textContent = editing
++      ? (canManage ? "Chỉnh sửa hồ sơ NCS · " : "Xem hồ sơ NCS · ") + (pick(c, "hoTen", "HoTen") || maNcs)
++      : "Thêm nghiên cứu sinh";
+     openModal("modal-candidate");
+   }
+ 
+   async function submitServerCandidate(event) {
+     event.preventDefault();
++    if (!["ADMIN", "PDT"].includes(currentUser.code)) {
++      notify("Không đủ quyền", "Chỉ ADMIN và Phòng Đào tạo được thay đổi hồ sơ NCS.");
++      return;
++    }
+     const form = event.target;
+     if (!global.DTMS_UI.validate(form)) return;
+     const editId = byId("candidate-id").value.trim();
+@@ -3352,7 +3444,7 @@
+   }
+ 
+   async function deleteServerCandidate(maNcs) {
+-    if (!requireRoles(["PDT"])) return;
++    if (!requireRoles(["ADMIN", "PDT"])) return;
+     confirmAction("Xóa hồ sơ " + maNcs + " khỏi danh sách trên máy chủ?", async () => {
+       try {
+         await global.DTMS_API.deleteCandidate(maNcs);
+@@ -4197,6 +4289,10 @@
+     });
+     // Nhập NCS từ tệp JSON (input nằm trong mount ở M01).
+     document.addEventListener("change", (event) => {
++      if (event.target?.id === "candidate-admission-date") {
++        const cohort = byId("candidate-cohort");
++        if (cohort) cohort.value = String(event.target.value || "").slice(0, 4);
++      }
+       if (event.target?.id === "candidate-import-input") importServerCandidates(event.target.files?.[0]);
+       // Hiện/ẩn ô phụ theo loại yêu cầu trong modal tạo đơn biến động.
+       if (event.target?.id === "change-request-type") {
+--- original/css/pages/management.css
++++ updated/css/pages/management.css
+@@ -848,3 +848,27 @@
+ 
+ 
+ .thesis-api-empty { padding: 30px; text-align: center; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; }
++
++/* M01: thể hiện rõ ô nhập được và ô do hệ thống quản lý. Giữ nguyên bố cục cũ. */
++#modal-candidate .mgmt-form-group input:not([readonly]):not(:disabled),
++#modal-candidate .mgmt-form-group select:not(:disabled),
++#modal-edit-profile .mgmt-form-group input:not([readonly]):not(:disabled) {
++  background: #ffffff;
++  cursor: text;
++}
++#modal-candidate .mgmt-form-group input[readonly],
++#modal-candidate .mgmt-form-group select:disabled,
++#modal-edit-profile .mgmt-form-group input[readonly] {
++  background: #e9eef5;
++  color: #475569;
++  cursor: default;
++}
++#modal-candidate .mgmt-form-group[hidden] { display: none; }
++.mgmt-form-help {
++  margin: 12px 0;
++  padding: 10px 12px;
++  border-radius: 8px;
++  color: #475569;
++  background: #f1f5f9;
++  font-size: 0.82rem;
++}

@@ -1,0 +1,2949 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="DTMS Academic Studio OS - Hệ điều hành Đào tạo Tiến sĩ Số - Trường Đại học An Giang (ĐHQG-HCM)."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <title>DTMS | Academic Studio OS - ĐH An Giang (ĐHQG-HCM)</title>
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/management.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/api-lab.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Bỏ qua điều hướng</a>
+    <div class="os-shell">
+      <!-- PRIMARY NAVIGATION -->
+      <aside class="os-dock" id="primary-navigation">
+        <div class="dock-brand">DT<span>MS</span></div>
+
+        <nav class="dock-nav" aria-label="Điều hướng chính">
+          <button class="dock-item" data-dock-target="profile" data-tooltip="Profile" aria-label="Profile">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Profile</span>
+          </button>
+          <button class="dock-item is-active" data-dock-target="management" data-tooltip="Bàn làm việc" aria-label="Bàn làm việc">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 8h8M8 12h5M8 16h8"/></svg><span>Bàn làm việc</span>
+          </button>
+          <button class="dock-item" data-dock-target="notifications" data-tooltip="Thông báo" aria-label="Thông báo">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/><path d="M19 3v3m1.5-1.5h-3"/></svg><span>Thông báo</span>
+          </button>
+          <button class="dock-item" data-dock-target="public" data-tooltip="Công khai" aria-label="Công khai">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19.5V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-1.5Zm0 0A2.5 2.5 0 0 1 6.5 17H18M8 7h6m-6 4h6"/></svg><span>Công khai</span>
+          </button>
+          <button class="dock-item" data-dock-target="lookup" data-tooltip="Tra cứu văn bằng" aria-label="Tra cứu văn bằng">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M8 11h6M11 8v6"/></svg><span>Tra cứu</span>
+          </button>
+          <button type="button" class="dock-item" data-dock-target="home" data-tooltip="Trang chủ" aria-label="Trang chủ"><span class="dock-symbol" aria-hidden="true">⌂</span><span>Trang chủ</span></button>
+          <button type="button" class="dock-item" data-dock-target="roadmap" data-tooltip="Lộ trình" aria-label="Lộ trình"><span class="dock-symbol" aria-hidden="true">↗</span><span>Lộ trình</span></button>
+          <button type="button" class="dock-item" data-dock-target="citations" data-tooltip="Văn bản" aria-label="Văn bản"><span class="dock-symbol" aria-hidden="true">§</span><span>Văn bản</span></button>
+          <button type="button" class="dock-item" data-dock-target="about" data-tooltip="Giới thiệu" aria-label="Giới thiệu"><span class="dock-symbol" aria-hidden="true">ⓘ</span><span>Giới thiệu</span></button>
+          <button type="button" class="dock-item" data-dock-target="api-lab" data-tooltip="Kiểm tra API" aria-label="Kiểm tra API">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3 3 8l5 5M16 3l5 5-5 5M14 2l-4 13M3 20h18"/></svg><span>Kiểm tra API</span>
+          </button>
+        </nav>
+      </aside>
+
+      <!-- MAIN STUDIO CANVAS -->
+      <main class="os-main" id="main-content" tabindex="-1">
+        <!-- TOP COMMAND BAR -->
+        <header class="os-topbar">
+          <button type="button" class="menu-toggle" data-menu-toggle aria-controls="primary-navigation" aria-expanded="false" aria-label="Mở menu điều hướng">☰</button>
+          <div class="topbar-status">
+            <span style="font-weight:700; color:var(--text-main);" data-i18n="univ_name">TRƯỜNG ĐẠI HỌC AN GIANG · ĐHQG-HCM</span>
+            <span class="status-indicator">
+              <span style="width:6px; height:6px; border-radius:50%; background:var(--uni-blue-600);"></span>
+              <span data-i18n="status_online">DTMS OS ONLINE</span>
+            </span>
+          </div>
+
+          <div class="command-search">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" aria-label="Tìm phân hệ nghiệp vụ" placeholder="Tìm kiếm nhanh dữ liệu hệ thống..." data-i18n-placeholder="search_placeholder" data-command-input />
+          </div>
+
+          <div class="topbar-actions">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary btn-mgmt-sm" data-logout onclick="DTMS_MANAGEMENT.logout()">Đăng xuất</button>
+            <!-- Language Switcher -->
+            <button class="lang-switcher-btn" data-lang-btn aria-label="Chuyển đổi ngôn ngữ">
+              🌐 VI | EN
+            </button>
+
+
+            <button type="button" id="topbar-user-badge" class="topbar-user-badge" onclick="DTMS_MANAGEMENT.openWorkspace()" aria-label="Người dùng đang đăng nhập">
+              <span class="topbar-avatar" id="topbar-avatar" aria-hidden="true"></span>
+              <span class="topbar-user-name" id="topbar-user-name"></span>
+              <span class="role-pill-badge" id="topbar-role-badge"></span>
+            </button>
+            <!-- Bộ chọn vai trò (DOCX §2, §12): chỉ hiện khi tài khoản có từ 2 vai trò trở lên (vd GV01: BM, NHD). -->
+            <select id="topbar-role-select" class="topbar-role-select" aria-label="Vai trò làm việc" title="Vai trò làm việc" style="background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.3); border-radius:8px; padding:6px 8px; font-size:.85rem;" hidden></select>
+            <button class="btn-login-os" onclick="DTMS_MANAGEMENT.openWorkspace()">
+              <span data-workspace-label>Bàn làm việc</span>
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- OS STAGE CONTENT VIEWS -->
+        <div class="os-stage">
+          
+          <!-- API LAB: chỉ mở khi chọn mục trong dock; giao diện cũ được giữ nguyên. -->
+          <section class="os-view" data-view="api-lab" id="api-lab-view">
+            <div class="api-lab-wrap">
+              <div class="api-lab-heading">
+                <div><span class="api-lab-kicker">DTMS / KẾT NỐI BACKEND</span>
+                  <h1>Trung tâm kiểm tra API</h1>
+                  <p>Chọn API từ Swagger, nhập tham số và xem phản hồi thực tế. Không tự động gửi yêu cầu thay đổi dữ liệu.</p></div>
+                <span class="api-lab-brand">DTMS Academic Studio OS</span>
+              </div>
+              <div class="api-lab-panel api-lab-toolbar">
+                <div class="api-lab-base"><label for="api-lab-url">Địa chỉ backend</label><input id="api-lab-url" type="url" value="https://localhost:7143" spellcheck="false" placeholder="https://localhost:7143"/></div>
+                <button id="api-lab-sync" class="api-lab-btn" type="button">Đọc Swagger</button>
+                <a id="api-lab-swagger" target="_blank" rel="noopener noreferrer" href="https://localhost:7143/swagger">Mở Swagger</a>
+                <span id="api-lab-state" class="api-lab-state" role="status">Chưa kiểm tra kết nối</span>
+              </div>
+              <div class="api-lab-panel api-lab-auth">
+                <div><strong>Đăng nhập để dùng JWT</strong><p>JWT dùng chung với đăng nhập ở giao diện quản trị cũ. Quyền thao tác do backend quyết định.</p></div>
+                <form id="api-lab-login" autocomplete="off">
+                  <input name="username" aria-label="Tên đăng nhập" placeholder="Tên đăng nhập" required/>
+                  <input name="password" type="password" aria-label="Mật khẩu" placeholder="Mật khẩu" required/>
+                  <button type="submit" class="api-lab-btn">Đăng nhập</button>
+                </form>
+                <span id="api-lab-auth-state" class="api-lab-state">Chưa đăng nhập</span>
+                <button type="button" id="api-lab-signout" class="api-lab-btn api-lab-btn-muted">Xóa JWT</button>
+              </div>
+              <div class="api-lab-grid">
+                <aside class="api-lab-panel api-lab-sidebar">
+                  <div class="api-lab-overview"><strong id="api-lab-counter">147 API tham khảo</strong><small id="api-lab-source">Danh sách tĩnh</small></div>
+                  <input id="api-lab-search" type="search" placeholder="Tìm endpoint, controller, vai trò..." aria-label="Tìm API"/>
+                  <select id="api-lab-method" aria-label="Lọc phương thức"><option value="">Tất cả phương thức</option><option>GET</option><option>POST</option><option>PUT</option><option>DELETE</option><option>PATCH</option></select>
+                  <div id="api-lab-list" class="api-lab-list" aria-label="Danh sách endpoint"></div>
+                </aside>
+                <section class="api-lab-panel api-lab-editor" aria-labelledby="api-lab-selected-title">
+                  <div class="api-lab-selected"><span id="api-lab-selected-method" class="api-lab-method">GET</span><h2 id="api-lab-selected-title">Chọn một API</h2></div>
+                  <p id="api-lab-roles" class="api-lab-muted">Vai trò trong danh mục chỉ mang tính tham khảo. Backend kiểm tra quyền thật.</p>
+                  <form id="api-lab-request-form">
+                    <div id="api-lab-path-fields" class="api-lab-fields"></div>
+                    <div id="api-lab-query-fields" class="api-lab-fields"></div>
+                    <label class="api-lab-field">Query bổ sung (không bắt đầu bằng ?)<input id="api-lab-extra-query" placeholder="maNcs=TEST_NCS01&amp;hocKy=1"/></label>
+                    <div id="api-lab-body-zone" class="api-lab-body-zone"><label for="api-lab-json">Request body (JSON)</label><textarea id="api-lab-json" rows="9" spellcheck="false" placeholder='{"tenMonHoc":"..."}'></textarea></div>
+                    <div id="api-lab-upload-zone" hidden><label for="api-lab-file">Tệp upload</label><input id="api-lab-file" type="file"/><p class="api-lab-muted">Chọn file cho trường multipart. Các trường khác nhập bằng JSON dạng object.</p></div>
+                    <div class="api-lab-actions">
+                      <label class="api-lab-write-confirm"><input type="checkbox" id="api-lab-allow-write"/> Cho phép gửi request có thể ghi dữ liệu</label>
+                      <button type="submit" id="api-lab-send" class="api-lab-btn">Gửi yêu cầu</button>
+                    </div>
+                  </form>
+                  <div class="api-lab-response-head"><h3>Kết quả phản hồi</h3><span id="api-lab-result-status">Chưa gửi request</span></div>
+                  <div id="api-lab-response-note" role="status" class="api-lab-muted"></div>
+                  <pre id="api-lab-response" aria-label="Nội dung phản hồi API">Chọn API và nhấn Gửi yêu cầu để xem HTTP status và JSON.</pre>
+                  <div class="api-lab-footer"><button id="api-lab-copy" type="button" class="api-lab-btn api-lab-btn-muted">Sao chép phản hồi</button><small>Không tự chạy POST/PUT/DELETE. Không đưa token, mật khẩu vào bản chụp màn hình.</small></div>
+                </section>
+              </div>
+            </div>
+          </section>
+
+          <!-- 01. TRANG CHỦ (HOME VIEW) -->
+          <section class="os-view" data-view="home" style="margin-left:44px;margin-right:44px;">
+            <div class="home-hero-grid">
+              <div>
+                <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:9999px; background:var(--uni-blue-50); border:1px solid var(--uni-blue-100); color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; margin-bottom:16px;" data-i18n="home_tag">
+                  ● ACADEMIC STUDIO OS · TRANG CHỦ TINH GỌN
+                </div>
+
+                <h1 class="home-h1" data-i18n="home_h1_html">
+                  Hệ điều hành <br />
+                  Đào tạo Tiến sĩ <span class="text-cyan">Số</span>
+                </h1>
+
+                <div class="home-motto-pill">
+                  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  <span data-i18n="home_motto">"Khai phóng tri thức – Nâng tầm nghiên cứu – Kiến tạo tương lai"</span>
+                </div>
+
+                <p style="font-size:1rem; color:var(--text-secondary); line-height:1.65; margin-bottom:24px;" data-i18n="home_desc">
+                  Nền tảng số hóa quản trị hợp nhất hồ sơ Nghiên cứu sinh, theo dõi tiến độ công bố bài báo khoa học và thẩm định bằng Tiến sĩ tại Trường Đại học An Giang (ĐHQG-HCM).
+                </p>
+
+                <!-- DIRECT LAUNCH INTO MANAGEMENT STUDIO BUTTON -->
+                <div style="display:flex; align-items:center; gap:14px; margin-bottom:28px; flex-wrap:wrap;">
+                  <button class="btn-mgmt btn-mgmt-primary" style="padding:14px 26px; font-size:0.95rem; border-radius:9999px;" data-switch-view="management">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h6"/></svg>
+                    <span>Vào Hệ thống Quản trị Học vụ (14 Phân hệ Nghiệp vụ) →</span>
+                  </button>
+
+                  <button class="btn-mgmt btn-mgmt-secondary" style="padding:13px 22px; font-size:0.92rem; border-radius:9999px;" data-switch-view="public">
+                    🔍 Tra cứu Phôi bằng 3D
+                  </button>
+                </div>
+
+                <div class="home-metrics-grid">
+                  <div class="metric-card"><strong>14</strong><span>Phân hệ Nghiệp vụ</span></div>
+                  <div class="metric-card"><strong>07</strong><span>Vai trò RBAC</span></div>
+                  <div class="metric-card"><strong>100%</strong><span>Chuyển đổi số</span></div>
+                  <div class="metric-card"><strong>24/7</strong><span>Tra cứu Phôi bằng</span></div>
+                </div>
+              </div>
+
+              <!-- CAMPUS HUB CARD -->
+              <div style="border-radius:var(--radius-lg); background:var(--bg-card); border:1px solid var(--border-card); box-shadow:var(--shadow-card); padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                  <span style="font-weight:800; font-size:0.86rem; color:var(--uni-blue-900);" data-i18n="campus_name">TRƯỜNG ĐẠI HỌC AN GIANG</span>
+                  <span style="font-size:0.72rem; padding:4px 10px; border-radius:6px; background:var(--uni-blue-50); color:var(--uni-blue-800); font-weight:800;">ĐHQG-HCM</span>
+                </div>
+                <img src="assets/images/agu-campus.png" alt="Trường Đại học An Giang" loading="lazy" decoding="async" style="width:100%; height:200px; object-fit:cover; border-radius:var(--radius-md); margin-bottom:14px;" />
+                <div style="font-size:0.82rem; color:var(--text-secondary); display:flex; justify-content:space-between;">
+                  <span data-i18n="campus_scope_label">Phạm vi quản lý:</span>
+                  <strong style="color:var(--uni-blue-800);" data-i18n="campus_scope_val">Toàn bộ Quá trình Đào tạo TS</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- QUICK LAUNCHPAD TILES -->
+            <div class="quick-launchpad-section">
+              <h3>
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="color:var(--uni-blue-800);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span data-i18n="launchpad_title">Truy cập Nhanh các Phân hệ Chuyên biệt:</span>
+              </h3>
+
+              <div class="quick-launchpad-grid">
+                <!-- Management tile -->
+                <div class="launch-tile" data-switch-view="management" style="border:2px solid var(--uni-blue-600); background:#f0f7ff;">
+                  <div class="launch-tile-icon" style="background:var(--uni-blue-800); color:#ffffff;">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h6"/></svg>
+                  </div>
+                  <strong style="color:var(--uni-blue-900);">Quản lý Học vụ</strong>
+                  <span style="color:var(--uni-blue-800); font-weight:700;">14 Phân hệ Nghiệp vụ</span>
+                </div>
+
+                <div class="launch-tile" data-switch-view="roadmap">
+                  <div class="launch-tile-icon">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  </div>
+                  <strong data-i18n="tile3_title">Quy trình</strong>
+                  <span data-i18n="tile3_sub">Sơ đồ Lộ trình 6 bước</span>
+                </div>
+
+                <div class="launch-tile" data-switch-view="public">
+                  <div class="launch-tile-icon">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19.5V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-1.5Zm0 0A2.5 2.5 0 0 1 6.5 17H18M8 7h6m-6 4h6"/></svg>
+                  </div>
+                  <strong data-i18n="tile4_title">Công khai</strong>
+                  <span data-i18n="tile4_sub">Luận án & Phôi bằng 3D</span>
+                </div>
+
+                <div class="launch-tile" data-switch-view="citations">
+                  <div class="launch-tile-icon">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+                  </div>
+                  <strong data-i18n="tile5_title">Văn bản</strong>
+                  <span data-i18n="tile5_sub">Căn cứ pháp lý & Quy chế</span>
+                </div>
+
+                <div class="launch-tile" data-switch-view="about">
+                  <div class="launch-tile-icon">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  </div>
+                  <strong data-i18n="tile1_title">Giới thiệu</strong>
+                  <span data-i18n="tile1_sub">Mục tiêu quản trị số</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==========================================================================
+               02. HỆ THỐNG QUẢN LÝ HỌC VỤ & ĐÀO TẠO TIẾN SĨ (14 PHÂN HỆ NGHIỆP VỤ)
+               ========================================================================== -->
+          <section class="os-view profile-view" data-view="profile" style="margin-left:44px;margin-right:44px;">
+            <div class="profile-page-heading">
+              <span class="notice-eyebrow">DTMS · PROFILE</span>
+              <h1>Hồ sơ và tổng quan cá nhân</h1>
+              <p data-profile-role-label>Thông tin, tiến độ và nhiệm vụ theo vai trò đang sử dụng.</p>
+            </div>
+            <div data-role-dashboard-mount></div>
+          </section>
+
+          <section class="os-view is-active" data-view="management" style="margin-left:44px;margin-right:44px;">
+            <!-- Header bar of Management Studio -->
+            <div class="mgmt-top-header">
+              <div class="mgmt-header-title">
+                <h2>
+                  <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" style="color:var(--uni-blue-800);"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M6 14h6"/></svg>
+                  Bàn làm việc · Nghiệp vụ đào tạo
+                </h2>
+                <p>Nền tảng số hóa quản trị đầy đủ các quy trình học vụ, chuyên đề, tiến độ, thẩm định công bố WoS/Scopus và cấp bằng Tiến sĩ theo Thông tư 18/2021/TT-BGDĐT.</p>
+              </div>
+              <div class="mgmt-user-badge-group">
+                <div class="active-user-card" id="mgmt-active-user-display" aria-live="polite"></div>
+              </div>
+            </div>
+
+            <!-- 14 MODULES TABS STRIP -->
+            <div class="mgmt-tabs-wrapper">
+              <div class="mgmt-tabs-scroll">
+                <button class="mgmt-tab-btn is-active" data-target-module="m01">
+                  <span>M01. Hồ sơ NCS</span>
+                  <span class="mgmt-tab-badge">Profile</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m02">
+                  <span>M02. CTĐT & Kế hoạch</span>
+                  <span class="mgmt-tab-badge">Plan</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m03">
+                  <span>M03. Người hướng dẫn</span>
+                  <span class="mgmt-tab-badge">Advisor</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m04">
+                  <span>M04. Học phần & Điểm</span>
+                  <span class="mgmt-tab-badge">Courses</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m05">
+                  <span>M05. Tiểu luận & Đề cương</span>
+                  <span class="mgmt-tab-badge">Outline</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m06">
+                  <span>M06. Chuyên đề Tiến sĩ</span>
+                  <span class="mgmt-tab-badge">Topics</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m07">
+                  <span>M07. Tiến độ Nghiên cứu</span>
+                  <span class="mgmt-tab-badge">Progress</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m08">
+                  <span>M08. Công bố Khoa học</span>
+                  <span class="mgmt-tab-badge">WoS/Scopus</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m09">
+                  <span>M09. Đề tài & Luận án</span>
+                  <span class="mgmt-tab-badge">Thesis</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m10">
+                  <span>M10. Bảo vệ Luận án</span>
+                  <span class="mgmt-tab-badge">Defense</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m11">
+                  <span>M11. Hoàn thiện & Cấp bằng</span>
+                  <span class="mgmt-tab-badge">Diploma</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m12">
+                  <span>M12. Quản lý Biến động</span>
+                  <span class="mgmt-tab-badge">Changes</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m13">
+                  <span>M13. Tra cứu & Báo cáo</span>
+                  <span class="mgmt-tab-badge">Reports</span>
+                </button>
+
+                <button class="mgmt-tab-btn" data-target-module="m14">
+                  <span>M14. Phân quyền & Nhật ký</span>
+                  <span class="mgmt-tab-badge">Audit Log</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- MODULE 01: QUẢN LÝ HỒ SƠ NGHIÊN CỨU SINH -->
+            <div class="mgmt-panel is-active" id="panel-m01">
+              <div class="mgmt-action-bar">
+                <div class="mgmt-search-filter">
+                  <input type="text" class="mgmt-input-search" placeholder="Tìm theo tên NCS, mã số, căn cước công dân..." />
+                  <select class="mgmt-select-filter">
+                    <option value="">Tất cả trạng thái học vụ</option>
+                    <option value="studying">Đang học (Bình thường)</option>
+                    <option value="extended">Gia hạn học tập</option>
+                    <option value="paused">Tạm dừng học tập</option>
+                    <option value="defended">Đã bảo vệ luận án</option>
+                    <option value="graduated">Đã cấp bằng Tiến sĩ</option>
+                  </select>
+                </div>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-edit-profile')">
+                    ✎ Cập nhật thông tin cá nhân
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-warning" onclick="DTMS_MANAGEMENT.openModal('modal-leave-request')">
+                    📄 Đơn xin gia hạn / Tạm dừng
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.printProfile()">
+                    📥 Tải hồ sơ số (PDF)
+                  </button>
+                </div>
+              </div>
+
+              <!-- Stat Metrics -->
+              <div class="mgmt-stats-grid">
+                <div class="mgmt-stat-card">
+                  <div class="mgmt-stat-icon blue">
+                    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="mgmt-stat-info">
+                    <strong>48</strong>
+                    <span>Tổng số Nghiên cứu sinh</span>
+                  </div>
+                </div>
+
+                <div class="mgmt-stat-card">
+                  <div class="mgmt-stat-icon green">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <div class="mgmt-stat-info">
+                    <strong>39</strong>
+                    <span>Đang học bình thường</span>
+                  </div>
+                </div>
+
+                <div class="mgmt-stat-card">
+                  <div class="mgmt-stat-icon amber">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  </div>
+                  <div class="mgmt-stat-info">
+                    <strong>05</strong>
+                    <span>Đang gia hạn (6-12 tháng)</span>
+                  </div>
+                </div>
+
+                <div class="mgmt-stat-card">
+                  <div class="mgmt-stat-icon purple">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  </div>
+                  <div class="mgmt-stat-info">
+                    <strong>04</strong>
+                    <span>Tạm dừng / Bảo lưu</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Profile Details Grid -->
+              <div class="mgmt-grid-2">
+                <!-- Personal Info Card -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3 id="profile-personal-title">
+                      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                      1. Thông tin Cá nhân Nghiên cứu sinh
+                    </h3>
+                    <span class="status-pill" id="profile-personal-pill">Chưa có dữ liệu</span>
+                  </div>
+
+                  <div class="mgmt-detail-row">
+                    <span>Họ và tên:</span>
+                    <strong id="profile-display-name">—</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Ngày sinh & Giới tính:</span>
+                    <span id="profile-display-birth">—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Số CCCD / Định danh:</span>
+                    <span id="profile-display-citizen">—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Số điện thoại:</span>
+                    <strong id="profile-display-phone">—</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Email học thuật:</span>
+                    <strong id="profile-display-email">—</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Cơ quan công tác:</span>
+                    <span id="profile-display-workplace">—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Địa chỉ liên hệ:</span>
+                    <span id="profile-display-address">—</span>
+                  </div>
+                </div>
+
+                <!-- Academic Training Profile Card -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3 id="profile-training-title">
+                      <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                      2. Hồ sơ Đào tạo & Trạng thái Học vụ
+                    </h3>
+                    <span class="status-pill" id="profile-training-pill">Chưa có dữ liệu</span>
+                  </div>
+
+                  <div class="mgmt-detail-row">
+                    <span>Mã số Nghiên cứu sinh:</span>
+                    <strong id="profile-display-id" style="color:var(--uni-blue-800);">—</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Chuyên ngành đào tạo:</span>
+                    <strong id="profile-display-major">—</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Khóa tuyển sinh:</span>
+                    <span id="profile-display-cohort">—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Quyết định công nhận NCS:</span>
+                    <span id="profile-display-decision">—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Loại hình đào tạo:</span>
+                    <span id="profile-display-audience">—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Người hướng dẫn chính:</span>
+                    <span id="profile-display-supervisor">—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Thời hạn đào tạo chuẩn:</span>
+                    <span id="profile-display-deadline-std">—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Thời hạn tối đa (kể cả gia hạn):</span>
+                    <span id="profile-display-deadline-max">—</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Candidates Table -->
+              <div class="mgmt-table-wrapper">
+                <table class="mgmt-table">
+                  <thead>
+                    <tr>
+                      <th>Mã NCS</th>
+                      <th>Họ và tên</th>
+                      <th>Ngành đào tạo</th>
+                      <th>Khóa</th>
+                      <th>NHD Khoa học</th>
+                      <th>Trạng thái học vụ</th>
+                      <th>Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+
+              <!-- Extension & Deferral History Table -->
+              <div class="mgmt-card">
+                <div class="mgmt-card-header">
+                  <h3>
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    3. Lịch sử Đơn Xin Gia hạn / Tạm dừng Học tập
+                  </h3>
+                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-leave-request')">
+                    + Tạo đơn mới
+                  </button>
+                </div>
+
+                <div class="mgmt-table-wrapper" style="margin-bottom:0;">
+                  <table class="mgmt-table">
+                    <thead>
+                      <tr>
+                        <th>Mã đơn</th>
+                        <th>Loại học vụ</th>
+                        <th>Thời gian đề xuất</th>
+                        <th>Lý do đề nghị</th>
+                        <th>Ngày nộp</th>
+                        <th>Tình trạng phê duyệt</th>
+                        <th>Minh chứng</th>
+                      </tr>
+                    </thead>
+                    <tbody id="leave-history-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 02: QUẢN LÝ CHƯƠNG TRÌNH & KẾ HOẠCH ĐÀO TẠO -->
+            <div class="mgmt-panel" id="panel-m02">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Khung Chương Trình & Kế Hoạch Đào Tạo Toàn Khóa</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Tổng thời lượng 90 tín chỉ, phân bổ trong 06 học kỳ chính thức theo Quyết định 655/QĐ-ĐHAG.</p>
+                </div>
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-edit-plan')">
+                    ✎ Lập / Điều chỉnh kế hoạch
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-success" onclick="DTMS_MANAGEMENT.handleApprovePlan()">
+                    ✓ Phê duyệt kế hoạch (NHD/PĐT)
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">
+                    📥 Tải Khung CTĐT
+                  </button>
+                </div>
+              </div>
+
+              <!-- Plan Progress Banner -->
+              <div class="mgmt-card" style="margin-bottom:24px; background:linear-gradient(135deg, #f0f7ff, #ffffff); border:1px solid #bfdbfe;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
+                  <div>
+                    <span style="font-size:0.75rem; font-weight:800; color:var(--uni-blue-800); text-transform:uppercase;">TIẾN ĐỘ THỰC HIỆN SO VỚI KẾ HOẠCH TOÀN KHÓA</span>
+                    <h4 style="margin:4px 0 0 0; color:var(--uni-blue-900); font-size:1.2rem;">Tiến độ đạt 68% / 65% kế hoạch chuẩn (+3% Vượt tiến độ)</h4>
+                  </div>
+                  <div>
+                    <span class="status-pill is-success" id="plan-status-badge">Đã duyệt bởi NHD & PĐT</span>
+                  </div>
+                </div>
+
+                <div class="gauge-track" style="max-width:100%; height:14px; margin:0 0 8px 0;">
+                  <div class="gauge-fill" style="width: 68%; background:linear-gradient(90deg, var(--uni-blue-800), #059669);"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:0.76rem; color:var(--text-secondary);">
+                  <span>HK1: Môn học (100%)</span>
+                  <span>HK2: CĐ 1 & Đề cương (100%)</span>
+                  <span>HK3: CĐ 2 & Bài báo 1 (100%)</span>
+                  <span>HK4: CĐ 3 & Bài báo 2 (85%)</span>
+                  <span>HK5: Bản thảo luận án (Chờ)</span>
+                  <span>HK6: Bảo vệ & Cấp bằng (Chờ)</span>
+                </div>
+              </div>
+
+              <!-- Curriculum Breakdown & Semester Plans -->
+              <div class="mgmt-grid-2">
+                <!-- Structure Table -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>Khối lượng Chương trình Đào tạo (90 Tín chỉ)</h3>
+                    <span class="role-pill-badge">90 TC</span>
+                  </div>
+                  <table class="mgmt-table">
+                    <thead>
+                      <tr>
+                        <th>Khối kiến thức</th>
+                        <th>Số tín chỉ</th>
+                        <th>Trạng thái</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+
+                <!-- Semester Milestones Table -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>Kế hoạch Chi tiết theo Học kỳ</h3>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.openModal('modal-edit-plan')">+ Thêm mốc</button>
+                  </div>
+                  <div class="mgmt-table-wrapper" style="margin-bottom:0;">
+                    <table class="mgmt-table">
+                      <thead>
+                        <tr>
+                          <th>Học kỳ</th>
+                          <th>Nội dung trọng tâm</th>
+                          <th>Hạn mốc</th>
+                          <th>Kết quả</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 03: QUẢN LÝ NGƯỜI HƯỚNG DẪN -->
+            <div class="mgmt-panel" id="panel-m03">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Quản Lý Người Hướng Dẫn Khoa Học & Định Mức</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Kiểm soát định mức hướng dẫn tối đa theo Điều 13 Thông tư 18/2021/TT-BGDĐT.</p>
+                </div>
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-assign-supervisor')">
+                    + Phân công Người hướng dẫn
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-warning" onclick="DTMS_MANAGEMENT.openModal('modal-change-supervisor')">
+                    ⇄ Đề xuất Thay đổi / Bổ sung NHD
+                  </button>
+                </div>
+              </div>
+
+              <!-- Supervisor Quotas Grid -->
+              <div class="mgmt-stats-grid">
+                <div class="mgmt-stat-card">
+                  <div class="mgmt-stat-icon blue">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                  </div>
+                  <div class="mgmt-stat-info">
+                    <strong>GS: Max 3 NCS</strong>
+                    <span>Giáo sư hướng dẫn độc lập</span>
+                  </div>
+                </div>
+                <div class="mgmt-stat-card">
+                  <div class="mgmt-stat-icon green">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                  </div>
+                  <div class="mgmt-stat-info">
+                    <strong>PGS: Max 2 NCS</strong>
+                    <span>Phó Giáo sư hướng dẫn chính</span>
+                  </div>
+                </div>
+                <div class="mgmt-stat-card">
+                  <div class="mgmt-stat-icon amber">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                  </div>
+                  <div class="mgmt-stat-info">
+                    <strong>TS: Max 1 NCS</strong>
+                    <span>Tiến sĩ (trên 3 năm thâm niên)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Supervisors Table -->
+              <div class="mgmt-table-wrapper">
+                <table class="mgmt-table">
+                  <thead>
+                    <tr>
+                      <th>Họ và tên NHD</th>
+                      <th>Học hàm / Học vị</th>
+                      <th>Cơ quan / Đơn vị</th>
+                      <th>Hướng nghiên cứu chuyên sâu</th>
+                      <th>Số NCS đang hướng dẫn</th>
+                      <th>Kiểm tra định mức TT18</th>
+                      <th>Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- MODULE 04: QUẢN LÝ HỌC PHẦN & ĐIỂM -->
+            <div class="mgmt-panel" id="panel-m04">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Quản Lý Học Phần, Điểm Số & Học Phần Bổ Sung</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Điều kiện hoàn thành: Tích lũy tối thiểu 12 tín chỉ tiến sĩ với điểm từng học phần từ 7.0 (Điểm B) trở lên.</p>
+                </div>
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Đồng bộ bảng điểm')">
+                    ⟳ Đồng bộ bảng điểm
+                  </button>
+                </div>
+              </div>
+
+              <!-- Coursework Stats -->
+              <div class="mgmt-stats-grid">
+                <div class="mgmt-stat-card">
+                  <div class="mgmt-stat-icon green">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <div class="mgmt-stat-info">
+                    <strong>12 / 12 TC</strong>
+                    <span>Tín chỉ học phần tích lũy</span>
+                  </div>
+                </div>
+                <div class="mgmt-stat-card">
+                  <div class="mgmt-stat-icon blue">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  </div>
+                  <div class="mgmt-stat-info">
+                    <strong>8.85 / 10</strong>
+                    <span>Điểm trung bình GPA (Hệ 4: 3.65)</span>
+                  </div>
+                </div>
+                <div class="mgmt-stat-card">
+                  <div class="mgmt-stat-icon purple">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+                  </div>
+                  <div class="mgmt-stat-info">
+                    <strong>ĐẠT CHUẨN</strong>
+                    <span>Điều kiện hoàn thành học phần</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Available & Registered Courses Table -->
+              <div class="mgmt-table-wrapper">
+                <table class="mgmt-table">
+                  <thead>
+                    <tr>
+                      <th>Mã HP</th>
+                      <th>Tên học phần</th>
+                      <th>Số TC</th>
+                      <th>Chuyên cần (10%)</th>
+                      <th>Giữa kỳ (30%)</th>
+                      <th>Cuối kỳ (60%)</th>
+                      <th>Tổng kết</th>
+                      <th>Điểm chữ</th>
+                      <th>Hệ 4</th>
+                      <th>Trạng thái</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+
+              <!-- Supplementary Courses for Transfer Candidates -->
+              <div class="mgmt-card">
+                <div class="mgmt-card-header">
+                  <h3>Học Phần Bổ Sung (Dành cho NCS học chuyển tiếp hoặc ngành gần)</h3>
+                  <span class="status-pill is-success">Miễn trừ (Đúng chuyên ngành Thạc sĩ)</span>
+                </div>
+                <p style="color:var(--text-secondary); font-size:0.86rem; margin:0;">
+                  NCS tốt nghiệp Thạc sĩ đúng ngành Khoa học Môi trường theo Quyết định công nhận trúng tuyển số 412/QĐ-ĐHAG nên được miễn trừ toàn bộ các học phần bổ sung kiến thức.
+                </p>
+              </div>
+            </div>
+
+            <!-- MODULE 05: QUẢN LÝ TIỂU LUẬN & ĐỀ CƯƠNG -->
+            <div class="mgmt-panel" id="panel-m05">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Quản Lý Tiểu Luận Tổng Quan & Đề Cương Nghiên Cứu</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Thẩm định tổng quan tài liệu, bảo vệ đề cương nghiên cứu và quản lý bản giải trình chỉnh sửa.</p>
+                </div>
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-submit-essay')">
+                    📄 Nộp Tiểu luận tổng quan
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-submit-outline')">
+                    📑 Nộp Đề cương nghiên cứu
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-warning" onclick="DTMS_MANAGEMENT.openModal('modal-grade-essay')">
+                    ✎ Nhập điểm Tiểu ban
+                  </button>
+                </div>
+              </div>
+
+              <div class="mgmt-grid-2">
+                <!-- Overview Essay Card -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>1. Tiểu luận Tổng quan (Literature Review)</h3>
+                    <span class="status-pill" id="essay-card-status">Chưa có dữ liệu</span>
+                  </div>
+
+                  <div class="mgmt-detail-row">
+                    <span>Tên tiểu luận:</span>
+                    <strong id="essay-title-display">—</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Ngày bảo vệ trước Bộ môn:</span>
+                    <span>—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Điểm Cán bộ chấm 1:</span>
+                    <span>—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Điểm Cán bộ chấm 2:</span>
+                    <span>—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Điểm Cán bộ chấm 3:</span>
+                    <span>—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Điểm trung bình thống nhất:</span>
+                    <strong style="color:var(--uni-blue-800); font-size:1.1rem;" id="essay-avg-score">—</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Biên bản đánh giá Tiểu luận:</span>
+                    <span id="essay-minutes-display">—</span>
+                  </div>
+                  <div style="margin-top:14px; display:flex; gap:8px;">
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Tải Tiểu luận</button>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📋 Tải Biên bản</button>
+                  </div>
+                  <div class="grade-history" data-essay-grade-history aria-live="polite"></div>
+                </div>
+
+                <!-- Research Outline & Revision Card -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>2. Đề cương Chi tiết & Bản Giải trình Chỉnh sửa</h3>
+                    <span class="status-pill" id="outline-card-status">Chưa có dữ liệu</span>
+                  </div>
+
+                  <div class="mgmt-detail-row">
+                    <span>Tên đề cương nghiên cứu:</span>
+                    <strong id="outline-title-display">—</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Ngày bảo vệ Đề cương:</span>
+                    <span>—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Kết quả bỏ phiếu:</span>
+                    <strong>—</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Bản giải trình tiếp thu góp ý:</span>
+                    <span>—</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Quyết định giao đề tài chính thức:</span>
+                    <span>—</span>
+                  </div>
+                  <div style="margin-top:14px; display:flex; gap:8px;">
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📑 Tải Đề cương</button>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📝 Bản giải trình</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 06: QUẢN LÝ CHUYÊN ĐỀ TIẾN SĨ -->
+            <div class="mgmt-panel" id="panel-m06">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Quản Lý 02 – 03 Chuyên Đề Tiến Sĩ Bắt Buộc</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Mỗi NCS phải hoàn thành 2 đến 3 chuyên đề tiến sĩ (tương đương 6 tín chỉ) với đánh giá của Tiểu ban chuyên môn.</p>
+                </div>
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-register-topic')">
+                    + Đăng ký chuyên đề mới
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">
+                    📥 Tải sổ biên bản chuyên đề
+                  </button>
+                </div>
+              </div>
+
+              <!-- Topics Table -->
+              <div class="mgmt-table-wrapper">
+                <table class="mgmt-table">
+                  <thead>
+                    <tr>
+                      <th>Chuyên đề</th>
+                      <th>Tên chuyên đề tiến sĩ</th>
+                      <th>Số TC</th>
+                      <th>Cán bộ hướng dẫn / phụ trách</th>
+                      <th>Ngày báo cáo</th>
+                      <th>Điểm TB</th>
+                      <th>Trạng thái</th>
+                      <th>Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <div class="grade-history" data-topic-grade-history aria-live="polite"></div>
+
+            </div>
+
+            <!-- MODULE 07: QUẢN LÝ TIẾN ĐỘ NGHIÊN CỨU & CẢNH BÁO QUÁ HẠN -->
+            <div class="mgmt-panel" id="panel-m07">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Quản Lý Báo Cáo Tiến Độ (6 Tháng / Lần) & Cảnh Báo Quá Hạn</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">NCS bắt buộc nộp Báo cáo tiến độ định kỳ 6 tháng/lần; NHD đánh giá Đạt/Không đạt trực tiếp trên hệ thống.</p>
+                </div>
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-submit-progress')">
+                    + Nộp Báo cáo tiến độ kỳ mới
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-danger" onclick="DTMS_MANAGEMENT.queueReminder()">
+                    ⚠️ Gửi cảnh báo quá hạn (Email)
+                  </button>
+                </div>
+              </div>
+
+
+              <!-- 6-Month Progress Reports Table -->
+              <div class="mgmt-table-wrapper">
+                <table class="mgmt-table">
+                  <thead>
+                    <tr>
+                      <th>Kỳ báo cáo</th>
+                      <th>Giai đoạn thực hiện</th>
+                      <th>Khối lượng công việc chính</th>
+                      <th>Ngày nộp báo cáo</th>
+                      <th>NHD Đánh giá</th>
+                      <th>Nhận xét của NHD</th>
+                      <th>Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <div class="grade-history" data-progress-review-history aria-live="polite"></div>
+            </div>
+
+            <!-- MODULE 08: QUẢN LÝ CÔNG BỐ KHOA HỌC (WOS/SCOPUS & THẨM ĐỊNH) -->
+            <div class="mgmt-panel" id="panel-m08">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Quản Lý Công Bố Khoa Học (WoS/Scopus) & Thẩm Định Chuẩn Đầu Ra</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Thẩm định minh chứng bài báo theo Thông tư 18/2021 và Quy định 1688/QĐ-ĐHQG (Tối thiểu 02 bài báo ISI/Scopus/HĐGSNN >= 0.75).</p>
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-declare-pub')">
+                    + Khai báo bài báo khoa học
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.openModal('modal-workflow-pub')">
+                    📐 Sơ đồ Phân tích Thiết kế (Thẩm định công bố)
+                  </button>
+                </div>
+              </div>
+
+              <!-- Standards Counter Banner -->
+              <div class="mgmt-card" style="margin-bottom:20px; background:linear-gradient(135deg, #ecfdf5, #f0fdf4); border:1px solid #a7f3d0;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                  <div>
+                    <span style="font-size:0.75rem; font-weight:800; color:#065f46; text-transform:uppercase;">CHUẨN ĐẦU RA CÔNG BỐ KHOA HỌC BẮT BUỘC (TT18 & ĐHQG-HCM)</span>
+                    <h4 style="margin:4px 0 0 0; color:#065f46; font-size:1.25rem;">
+                      Đạt 2 / 2 bài báo chuẩn quốc tế (01 WoS Q1 + 01 Scopus Q2) — ĐẠT 100% CHUẨN ĐẦU RA
+                    </h4>
+                  </div>
+                  <span id="pub-total-score-display" class="status-pill is-success" style="font-size:0.85rem; padding:6px 14px;">✓ ĐỦ ĐIỀU KIỆN CÔNG BỐ ĐỂ BẢO VỆ</span>
+                </div>
+              </div>
+
+              <!-- Publications Table -->
+              <div class="mgmt-table-wrapper">
+                <table class="mgmt-table">
+                  <thead>
+                    <tr>
+                      <th>Tên bài báo khoa học & DOI</th>
+                      <th>Tên tạp chí & ISSN</th>
+                      <th>Phân loại tạp chí</th>
+                      <th>Vai trò tác giả</th>
+                      <th>Tình trạng thẩm định (PĐT)</th>
+                      <th>Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pub-table-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- MODULE 09: QUẢN LÝ ĐỀ TÀI & LUẬN ÁN (TURNITIN & NHD KÝ SỐ) -->
+            <div class="mgmt-panel" id="panel-m09">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Quản Lý Tên Đề Tài, Các Phiên Bản Luận Án & Kiểm Tra Trùng Lặp Turnitin</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Quản lý phiên bản toàn văn, kiểm soát định dạng, trích dẫn chuẩn APA/IEEE và ký xác nhận đồng ý cho bảo vệ.</p>
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn-mgmt btn-mgmt-warning" onclick="DTMS_MANAGEMENT.openModal('modal-change-topic-title')">
+                    ✎ Đổi tên đề tài
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-upload-thesis-version')">
+                    + Upload phiên bản luận án mới
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-success" onclick="DTMS_MANAGEMENT.handleSignDefenseApproval()">
+                    ✍ NHD Ký số đồng ý cho bảo vệ
+                  </button>
+                </div>
+              </div>
+
+              <div class="mgmt-grid-2">
+                <!-- Topic Information Card -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>1. Thông tin Đề tài Luận án Tiến sĩ</h3>
+                    <span class="status-pill is-success" id="nhd-defense-sign-badge">NHD Đã Ký Đồng Ý Bảo Vệ</span>
+                  </div>
+
+                  <div class="mgmt-detail-row">
+                    <span>Tên đề tài (Tiếng Việt):</span>
+                    <strong style="color:var(--uni-blue-900);">Nghiên cứu giải pháp công nghệ sinh học tích hợp xử lý nước thải chăn nuôi lợn và thu hồi năng lượng tái tạo tại vùng ĐBSCL</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Tên đề tài (Tiếng Anh):</span>
+                    <em>Research on integrated biotechnological solutions for piggery wastewater treatment and renewable energy recovery in the Mekong Delta region</em>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Quyết định giao đề tài:</span>
+                    <span>Số 289/QĐ-ĐHAG ngày 20/05/2024</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Lĩnh vực chuyên môn:</span>
+                    <span>Khoa học Môi trường / Xử lý Nước thải</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Người hướng dẫn chính:</span>
+                    <strong>—</strong>
+                  </div>
+                </div>
+
+                <!-- Turnitin Simulation Card -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>2. Kiểm tra Trùng lặp Turnitin & Định dạng Trích dẫn</h3>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" id="btn-run-turnitin" onclick="DTMS_MANAGEMENT.handleRunTurnitin()">
+                      ▶ Quét Turnitin
+                    </button>
+                  </div>
+
+                  <div class="gauge-box">
+                    <div class="gauge-pct is-safe" id="turnitin-gauge-val">14%</div>
+                    <div id="turnitin-gauge-status">
+                      <span class="status-pill is-success">✓ 14% Trùng lặp (Ngưỡng cho phép &lt; 20%) - ĐẠT TIÊU CHUẨN</span>
+                    </div>
+                    <div class="gauge-track">
+                      <div class="gauge-fill" id="turnitin-gauge-fill" style="width: 28%; background: #059669;"></div>
+                    </div>
+                  </div>
+
+                  <div class="mgmt-checklist">
+                    <div class="mgmt-check-item is-valid">
+                      <span class="mgmt-check-icon">✓</span>
+                      <span>Định dạng bìa và khung luận án chuẩn Thông tư 18/2021/TT-BGDĐT</span>
+                    </div>
+                    <div class="mgmt-check-item is-valid">
+                      <span class="mgmt-check-icon">✓</span>
+                      <span>Trích dẫn tài liệu tham khảo đồng nhất theo chuẩn APA 7th (100% hợp lệ)</span>
+                    </div>
+                    <div class="mgmt-check-item is-valid">
+                      <span class="mgmt-check-icon">✓</span>
+                      <span>Không phát hiện dấu hiệu đạo văn, sao chép dữ liệu thí nghiệm</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thesis Version History Table -->
+              <div class="mgmt-card">
+                <div class="mgmt-card-header">
+                  <h3>3. Quản Lý Các Phiên Bản Toàn Văn Luận Án (Version Control)</h3>
+                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-upload-thesis-version')">+ Nộp phiên bản mới</button>
+                </div>
+
+                <div class="mgmt-table-wrapper" style="margin-bottom:0;">
+                  <table class="mgmt-table">
+                    <thead>
+                      <tr>
+                        <th>Phiên bản</th>
+                        <th>Giai đoạn nộp</th>
+                        <th>Ngày upload</th>
+                        <th>Dung lượng</th>
+                        <th>Ghi chú điều chỉnh</th>
+                        <th>Thao tác</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 10: QUẢN LÝ BẢO VỆ LUẬN ÁN (HỘI ĐỒNG & PHẢN BIỆN) -->
+            <div class="mgmt-panel" id="panel-m10">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Quản Lý Bảo Vệ Luận Án Cấp Trường (Hội Đồng & Phản Biện Độc Lập)</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Kiểm tra 6 điều kiện bảo vệ, quản lý phản biện kín, công khai 30 ngày và quyết nghị kết quả bảo vệ.</p>
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn-mgmt btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.openModal('modal-workflow-defense')">
+                    📐 Sơ đồ Phân tích Thiết kế (Quy trình 6 bước Bảo vệ)
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-success" onclick="DTMS_MANAGEMENT.handleDefenseVoting()">
+                    ✓ Nhập kết quả bỏ phiếu Hội đồng (7/7 Đạt)
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">
+                    📋 Tải Nghị quyết HĐ
+                  </button>
+                </div>
+              </div>
+
+              <!-- Defense Checklist 6 Criteria (Dynamic Calculation FR-BV02) -->
+              <div id="defense-checklist-container"></div>
+
+              <!-- Defense Grid: Reviewers, Council, 30-day Notice -->
+              <div class="mgmt-grid-2">
+                <!-- Independent Reviewers Card -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>1. Quản lý 02 Phản Biện Độc Lập Kín</h3>
+                    <span class="status-pill is-success">2/2 Bản nhận xét Đạt</span>
+                  </div>
+
+                  <div class="mgmt-table-wrapper" style="margin-bottom:0;">
+                    <table class="mgmt-table">
+                      <thead>
+                        <tr>
+                          <th>Mã phản biện</th>
+                          <th>Chuyên gia / Đơn vị</th>
+                          <th>Ngày nhận xét</th>
+                          <th>Kết luận</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- 30-day Public Notice & Voting Status -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>2. Công Khai 30 Ngày & Kết Quả Bỏ Phiếu</h3>
+                    <span class="status-pill is-success" id="defense-vote-result-badge">7/7 Phiếu Tán Thành (100% Xuất Sắc)</span>
+                  </div>
+
+                  <div class="mgmt-detail-row">
+                    <span>Công khai tóm tắt luận án trên cổng:</span>
+                    <strong style="color:var(--uni-blue-800);">Đã đủ 30/30 ngày (01/12/2025 – 31/12/2025)</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Ngày tổ chức phiên bảo vệ:</span>
+                    <span>15/01/2026 tại Hội trường A - ĐH An Giang</span>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Điểm đánh giá trung bình của HĐ:</span>
+                    <strong style="font-size:1.15rem; color:#059669;">9.4 / 10 (Xuất sắc)</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Nghị quyết của Hội đồng:</span>
+                    <span>Đề nghị công nhận học vị và cấp bằng Tiến sĩ</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Council Members List (7 Members) -->
+              <div class="mgmt-card">
+                <div class="mgmt-card-header">
+                  <h3>3. Danh Sách Hội Đồng Đánh Giá Luận Án Cấp Trường (07 Thành viên theo TT18)</h3>
+                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">
+                    📄 Quyết định thành lập HĐ
+                  </button>
+                </div>
+
+                <div class="mgmt-table-wrapper" style="margin-bottom:0;">
+                  <table class="mgmt-table">
+                    <thead>
+                      <tr>
+                        <th>Vai trò Hội đồng</th>
+                        <th>Họ và tên</th>
+                        <th>Học hàm / Học vị</th>
+                        <th>Cơ quan công tác</th>
+                        <th>Đánh giá bỏ phiếu</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 11: HOÀN THIỆN & CẤP BẰNG TIẾN SĨ -->
+            <div class="mgmt-panel" id="panel-m11">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Hoàn Thiện Sau Bảo Vệ, Hồ Sơ Lưu Chiểu & Cấp Bằng Tiến Sĩ</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Thẩm định bản chỉnh sửa sau bảo vệ, xác nhận nộp lưu chiểu Thư viện Quốc gia và cấp phôi bằng Tiến sĩ số.</p>
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-submit-post-defense')">
+                    + Nộp bản chỉnh sửa sau bảo vệ
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-success" onclick="DTMS_MANAGEMENT.handleConferDegree()">
+                    🎓 BGH Ký Quyết Định Công Nhận Học Vị
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-secondary" data-switch-view="public">
+                    🏛 Xem Phôi Bằng Ép Kim 3D
+                  </button>
+                </div>
+              </div>
+
+              <!-- Degree Conferral Status Banner -->
+              <div class="mgmt-card" style="margin-bottom:24px; background:linear-gradient(135deg, #fef3c7, #ffffff); border:2px solid #f59e0b;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                  <div>
+                    <span style="font-size:0.75rem; font-weight:800; color:#b45309; text-transform:uppercase;">VĂN BẰNG TIẾN SĨ CHÍNH THỨC (DOCTOR OF PHILOSOPHY)</span>
+                    <h4 style="margin:4px 0 0 0; color:#92400e; font-size:1.35rem;">
+                      Công Nhận Học Vị &amp; Cấp Bằng Tiến Sĩ cho —
+                    </h4>
+                    <p style="margin:4px 0 0 0; font-size:0.85rem; color:#b45309;">
+                      Số hiệu văn bằng: <strong>TS-AGU-2026-089</strong> · Số vào sổ gốc: <strong>SG-TS-2026-012</strong> · Quyết định: <strong>128/QĐ-ĐHAG</strong>
+                    </p>
+                  </div>
+                  <div>
+                    <span class="status-pill is-success" id="degree-confer-status" style="font-size:0.85rem; padding:8px 16px;">Đã Ban Hành Quyết Định &amp; Cấp Bằng Số</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mgmt-grid-2">
+                <!-- Library Deposit Receipts -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>1. Hồ sơ Nộp Lưu Chiểu Bắt Buộc</h3>
+                    <span class="status-pill is-success">Đã hoàn tất lưu chiểu</span>
+                  </div>
+
+                  <div class="mgmt-detail-row">
+                    <span>Thư viện Trường ĐH An Giang:</span>
+                    <strong>Đã nộp (Giấy biên nhận số BN-TV089/2026)</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Thư viện Quốc gia Việt Nam:</span>
+                    <strong>Đã nộp (Xác nhận số NL-892/NLV)</strong>
+                  </div>
+                  <div class="mgmt-detail-row">
+                    <span>Cục Thông tin KH&amp;CN Quốc gia:</span>
+                    <strong>Đã đăng ký lưu trữ số</strong>
+                  </div>
+                  <div style="margin-top:14px; display:flex; gap:8px;">
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">📄 Giấy TV ĐHAG</button>
+                    <button class="btn-mgmt btn-mgmt-sm btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.showIntegrationInfo('Tệp đính kèm')">🏛 Giấy TV Quốc Gia</button>
+                  </div>
+                </div>
+
+                <!-- Graduation Clearance Checklist -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>2. Checklist Điều Kiện Tốt Nghiệp</h3>
+                    <span class="status-pill is-success">Đủ điều kiện cấp bằng</span>
+                  </div>
+
+                  <div class="mgmt-checklist">
+                    <div class="mgmt-check-item is-valid">
+                      <span class="mgmt-check-icon">✓</span>
+                      <span>Bản giải trình sau bảo vệ được Chủ tịch &amp; Thư ký HĐ ký duyệt</span>
+                    </div>
+                    <div class="mgmt-check-item is-valid">
+                      <span class="mgmt-check-icon">✓</span>
+                      <span>Hoàn tất lưu chiểu 03 nơi theo đúng thời hạn 30 ngày</span>
+                    </div>
+                    <div class="mgmt-check-item is-valid">
+                      <span class="mgmt-check-icon">✓</span>
+                      <span>Hoàn tất thanh toán tài chính &amp; trả thẻ thư viện</span>
+                    </div>
+                    <div class="mgmt-check-item is-valid">
+                      <span class="mgmt-check-icon">✓</span>
+                      <span>Hồ sơ gốc lưu trữ đầy đủ tại Phòng Đào tạo Sau Đại học</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 12: QUẢN LÝ CÁC THAY ĐỔI TRONG QUÁ TRÌNH ĐÀO TẠO -->
+            <div class="mgmt-panel" id="panel-m12">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Quản Lý Các Thay Đổi & Xử Lý Biến Động Học Vụ</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Quản lý hồ sơ đổi NHD, đổi tên đề tài, tạm dừng học tập, chuyển cơ sở đào tạo hoặc buộc thôi học theo Thông tư 18.</p>
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openModal('modal-create-change-request')">
+                    + Tạo đơn / Yêu cầu thay đổi
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-outline-blue" onclick="DTMS_MANAGEMENT.openModal('modal-workflow-changes')">
+                    📐 Sơ đồ Phân tích Thiết kế (Xử lý biến động & Thôi học)
+                  </button>
+                </div>
+              </div>
+
+              <!-- Changes Table -->
+              <div class="mgmt-table-wrapper">
+                <table class="mgmt-table">
+                  <thead>
+                    <tr>
+                      <th>Mã biến động</th>
+                      <th>NCS thực hiện</th>
+                      <th>Loại biến động</th>
+                      <th>Nội dung chi tiết thay đổi</th>
+                      <th>Ngày đề xuất</th>
+                      <th>Quyết định phê duyệt</th>
+                      <th>Trạng thái</th>
+                      <th>Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- MODULE 13: TRA CỨU & BÁO CÁO THỐNG KÊ, KIỂM ĐỊNH -->
+            <div class="mgmt-panel" id="panel-m13">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Tra Cứu Văn Bằng, Thống Kê Tiến Độ & Xuất Hồ Sơ Kiểm Định</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Thống kê tổng hợp tiến độ nghiên cứu sinh, phân loại công bố khoa học và xuất báo cáo phục vụ kiểm định chất lượng AUN-QA / MOET.</p>
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.handleExportReport('BaoCao_KiemDinh_AUN-QA_2026.csv')">
+                    📊 Xuất Báo Cáo Kiểm Định AUN-QA
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-success" onclick="DTMS_MANAGEMENT.handleExportReport('ThongKe_TienDo_TT18_BGDDT.csv')">
+                    📑 Xuất Báo Cáo Thông tư 18
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.handleExportReport('DuLieu_BaCongKhai_SĐH_2026.csv')">
+                    📥 Xuất Dữ Liệu Ba Công Khai
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quick Diploma Lookup Console -->
+              <div class="mgmt-card" style="margin-bottom:24px;">
+                <div class="mgmt-card-header">
+                  <h3>
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    1. Công cụ Tra cứu Văn bằng Tiến sĩ Số
+                  </h3>
+                  <span class="role-pill-badge">Hệ thống Tra cứu 24/7</span>
+                </div>
+
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px;">
+                  <input type="text" class="mgmt-input-search" id="quick-degree-input" aria-label="Mã văn bằng cần tra cứu" placeholder="Nhập Số hiệu bằng (TS-AGU-2026-089) hoặc Họ tên..." style="max-width:350px;" />
+                  <button class="btn-mgmt btn-mgmt-primary" onclick="DTMS_MANAGEMENT.openDegreeLookup(document.getElementById('quick-degree-input').value)">
+                    🔍 Tra cứu ngay
+                  </button>
+                  <button class="btn-mgmt btn-mgmt-outline-blue" data-switch-view="lookup">
+                    🏛 Mở Console 3D
+                  </button>
+                </div>
+
+                <div style="padding:14px; border-radius:8px; background:var(--bg-subtle); font-size:0.86rem; color:var(--text-secondary);">
+                  Kết quả chỉ hiển thị khi dịch vụ sổ bằng trả dữ liệu hợp lệ. Kết quả tra cứu không thay thế văn bản xác nhận của đơn vị cấp bằng.
+                </div>
+              </div>
+
+              <!-- Charts & Statistics Grid -->
+              <div class="mgmt-grid-2">
+                <!-- Cohort Progress Breakdown -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>2. Thống Kê Tiến Độ Nghiên Cứu Sinh Theo Khóa</h3>
+                    <span class="status-pill is-blue">Tổng 48 NCS</span>
+                  </div>
+
+                  <div style="display:flex; flex-direction:column; gap:14px; margin-top:8px;">
+                    <div>
+                      <div style="display:flex; justify-content:space-between; font-size:0.84rem; margin-bottom:4px;">
+                        <span>Khóa K2021 (Giai đoạn bảo vệ &amp; cấp bằng):</span>
+                        <strong>8 NCS (100% Đúng hạn)</strong>
+                      </div>
+                      <div class="workload-track"><div class="workload-fill" style="width: 100%;"></div></div>
+                    </div>
+
+                    <div>
+                      <div style="display:flex; justify-content:space-between; font-size:0.84rem; margin-bottom:4px;">
+                        <span>Khóa K2022 (Giai đoạn công bố &amp; bản thảo):</span>
+                        <strong>12 NCS (85% Đúng hạn · 15% Gia hạn)</strong>
+                      </div>
+                      <div class="workload-track"><div class="workload-fill" style="width: 85%;"></div></div>
+                    </div>
+
+                    <div>
+                      <div style="display:flex; justify-content:space-between; font-size:0.84rem; margin-bottom:4px;">
+                        <span>Khóa K2023 (Giai đoạn chuyên đề &amp; thí nghiệm):</span>
+                        <strong>14 NCS (92% Đúng hạn)</strong>
+                      </div>
+                      <div class="workload-track"><div class="workload-fill" style="width: 92%;"></div></div>
+                    </div>
+
+                    <div>
+                      <div style="display:flex; justify-content:space-between; font-size:0.84rem; margin-bottom:4px;">
+                        <span>Khóa K2024 (Giai đoạn học phần &amp; đề cương):</span>
+                        <strong>14 NCS (100% Mới nhập học)</strong>
+                      </div>
+                      <div class="workload-track"><div class="workload-fill" style="width: 100%;"></div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Publication Breakdown -->
+                <div class="mgmt-card">
+                  <div class="mgmt-card-header">
+                    <h3>3. Thống Kê Công Bố Khoa Học Toàn Trường</h3>
+                    <span class="status-pill is-success">91 Bài báo</span>
+                  </div>
+
+                  <div class="mgmt-stats-grid" style="grid-template-columns:1fr 1fr; margin-bottom:0;">
+                    <div style="padding:14px; border-radius:8px; background:var(--uni-blue-50); border:1px solid var(--uni-blue-100);">
+                      <span style="font-size:0.75rem; color:var(--uni-blue-800); font-weight:800;">TẠP CHÍ WOS (Q1/Q2)</span>
+                      <strong style="font-size:1.6rem; color:var(--uni-blue-900); display:block;">44 bài</strong>
+                      <span style="font-size:0.72rem; color:var(--text-secondary);">48% Tổng số công bố</span>
+                    </div>
+
+                    <div style="padding:14px; border-radius:8px; background:#ecfdf5; border:1px solid #a7f3d0;">
+                      <span style="font-size:0.75rem; color:#065f46; font-weight:800;">SCOPUS (Q3/Q4)</span>
+                      <strong style="font-size:1.6rem; color:#065f46; display:block;">25 bài</strong>
+                      <span style="font-size:0.72rem; color:var(--text-secondary);">27% Tổng số công bố</span>
+                    </div>
+
+                    <div style="padding:14px; border-radius:8px; background:#fffbeb; border:1px solid #fde68a;">
+                      <span style="font-size:0.75rem; color:#92400e; font-weight:800;">TẠP CHÍ HĐGSNN (&gt;=0.75)</span>
+                      <strong style="font-size:1.6rem; color:#92400e; display:block;">22 bài</strong>
+                      <span style="font-size:0.72rem; color:var(--text-secondary);">25% Tổng số công bố</span>
+                    </div>
+
+                    <div style="padding:14px; border-radius:8px; background:#f5f3ff; border:1px solid #ddd6fe;">
+                      <span style="font-size:0.75rem; color:#5b21b6; font-weight:800;">CHỈ TIÊU BÌNH QUÂN</span>
+                      <strong style="font-size:1.6rem; color:#5b21b6; display:block;">2.4 bài/NCS</strong>
+                      <span style="font-size:0.72rem; color:var(--text-secondary);">Vượt chuẩn Thông tư 18</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 14: PHÂN QUYỀN RBAC & NHẬT KÝ HỆ THỐNG (AUDIT LOG) -->
+            <div class="mgmt-panel" id="panel-m14">
+              <div class="mgmt-action-bar">
+                <div>
+                  <h3 style="margin:0 0 4px 0; color:var(--uni-blue-900);">Ma Trận Phân Quyền 07 Vai Trò (RBAC) & Nhật Ký Hoạt Động (Audit Log)</h3>
+                  <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">Theo dõi lịch sử thao tác và các thay đổi trong quá trình xử lý hồ sơ.</p>
+                </div>
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-mgmt btn-mgmt-outline-danger" data-role-admin-action onclick="DTMS_MANAGEMENT.resetWorkspaceData()" title="Khôi phục dữ liệu khởi tạo">🔄 Khôi phục dữ liệu</button>
+                  <button class="btn-mgmt btn-mgmt-secondary" onclick="DTMS_MANAGEMENT.handleExportAuditLog()">
+                    📥 Xuất Audit Log (CSV)
+                  </button>
+                </div>
+              </div>
+
+              <!-- RBAC Matrix Table -->
+              <p style="margin:0 0 16px; color:var(--text-muted); font-size:.85rem;">Nhật ký hệ thống trên máy chủ chưa có API đọc: bảng dưới đây hiển thị nhật ký thao tác ghi trên thiết bị này. Muốn xem nhật ký máy chủ cần backend bổ sung API đọc audit log.</p>
+              <div class="mgmt-card" style="margin-bottom:24px;">
+                <div class="mgmt-card-header">
+                  <h3>1. Ma Trận Phân Quyền Theo 06 Vai Trò (Role-Based Access Control)</h3>
+                  <span class="role-pill-badge">Bảo mật đa tầng ĐHQG-HCM</span>
+                </div>
+
+                <div class="mgmt-table-wrapper" style="margin-bottom:0;">
+                  <table class="mgmt-table">
+                    <thead>
+                      <tr>
+                        <th>Vai trò chức năng</th>
+                        <th>Hồ sơ &amp; Kế hoạch</th>
+                        <th>Học phần &amp; Điểm</th>
+                        <th>Chuyên đề &amp; Báo cáo</th>
+                        <th>Bài báo &amp; Minh chứng</th>
+                        <th>Bảo vệ Luận án</th>
+                        <th>Cấp Bằng &amp; Quyết định</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- System Audit Log Table -->
+              <div class="mgmt-card">
+                <div class="mgmt-card-header">
+                  <h3>2. Nhật Ký Hoạt Động Hệ Thống Thời Gian Thực (System Audit Log)</h3>
+                  <button class="btn-mgmt btn-mgmt-sm btn-mgmt-primary" onclick="DTMS_MANAGEMENT.refreshAuditLog()">
+                    ⟳ Làm mới
+                  </button>
+                </div>
+
+                <div class="mgmt-table-wrapper" style="margin-bottom:0;">
+                  <table class="mgmt-table">
+                    <thead>
+                      <tr>
+                        <th>Thời gian</th>
+                        <th>Người thực hiện</th>
+                        <th>Vai trò</th>
+                        <th>Hành động</th>
+                        <th>Đối tượng tác động</th>
+                        <th>Địa chỉ IP</th>
+                        <th>Trạng thái</th>
+                      </tr>
+                    </thead>
+                    <tbody id="audit-log-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- 04. QUY TRÌNH (ROADMAP VIEW) -->
+          <section class="os-view" data-view="roadmap" style="margin-left:44px;margin-right:44px;">
+            <div>
+              <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">ROADMAP STAGE GRAPH</span>
+              <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="roadmap_title">Quy trình Lộ trình 06 Giai đoạn</h2>
+              <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;" data-i18n="roadmap_subtitle">Nhấp vào từng nút mốc kết nối để xem chi tiết sản phẩm đầu ra bắt buộc qua Hologram Inspector.</p>
+            </div>
+
+            <!-- Constellation Laser Graph Container -->
+            <div class="constellation-graph" data-constellation-graph></div>
+          </section>
+
+          <!-- THÔNG BÁO CHUNG CẤP ĐÀO TẠO TIẾN SĨ -->
+          <section class="os-view" data-view="notifications" style="margin-left:44px;margin-right:44px;">
+            <div class="notice-page-heading">
+              <span class="notice-eyebrow">DTMS · CẤP ĐÀO TẠO TIẾN SĨ</span>
+              <h2>Thông báo chung</h2>
+              <p>Các thông tin và mốc thời gian áp dụng chung cho nghiên cứu sinh và các đơn vị tham gia đào tạo.</p>
+            </div>
+            <div class="dtms-demo-banner" role="note">
+              <strong>DỮ LIỆU MINH HỌA · CHƯA PHÁT HÀNH CHÍNH THỨC</strong>
+              <span data-notice-demo-note>Thông báo dưới đây được tạo riêng để kiểm tra giao diện và không phải thông báo thật của trường.</span>
+            </div>
+            <div class="notice-list"></div>
+            <p class="dtms-demo-footer">Backend hiện chưa có API thông báo chung; nội dung trang này chỉ nằm trong mã frontend thử nghiệm.</p>
+          </section>
+
+          <!-- 05. CÔNG KHAI: KHO LUẬN ÁN TIẾN SĨ -->
+          <section class="os-view" data-view="public" style="margin-left:44px;margin-right:44px;">
+            <div style="margin-bottom:28px;">
+              <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">PUBLIC DOCTORAL THESES</span>
+              <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="public_title">Kho Luận án Tiến sĩ Công khai</h2>
+              <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;" data-i18n="public_subtitle">Tra cứu và tham khảo các luận án tiến sĩ đã được công khai.</p>
+            </div>
+
+            <!-- THESES SUB-SECTION -->
+            <div id="public-theses-section" style="margin-bottom:44px;">
+              <h3 style="color:var(--uni-blue-900); font-size:1.2rem; margin-bottom:14px;" data-i18n="theses_sec_title">1. Kho Luận án Tiến sĩ Công khai</h3>
+              <div class="dtms-demo-banner" role="note">
+                <div><strong>DỮ LIỆU MINH HỌA / API THẬT</strong><span data-thesis-mode-note>Đang xem nội dung minh họa, không phải luận án đã công bố.</span></div>
+                <button type="button" class="dtms-demo-button" data-thesis-mode-switch>Xem dữ liệu từ API</button>
+              </div>
+              <div style="margin-bottom:16px; padding:12px 18px; border-radius:12px; background:var(--bg-card); border:1px solid var(--border-card); display:flex; align-items:center; gap:12px;">
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" style="color:var(--uni-blue-800);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" placeholder="Lọc theo tên NCS, chuyên ngành hoặc tên luận án..." style="width:100%; border:none; background:transparent; color:var(--text-main); outline:none; font-size:0.9rem;" data-i18n-placeholder="thesis_search_ph" data-thesis-search-input />
+              </div>
+              <div style="display:grid; gap:14px;" data-thesis-grid></div>
+              <p class="api-status" data-thesis-status role="status" aria-live="polite"></p>
+            </div>
+
+          </section>
+
+          <!-- 06. TRA CỨU VĂN BẰNG: CONSOLE 3D -->
+          <section class="os-view" data-view="lookup" style="margin-left:44px;margin-right:44px;">
+            <div style="margin-bottom:28px;">
+              <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">DEGREE VERIFICATION CONSOLE</span>
+              <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="lookup_title">Console Tra cứu Phôi bằng Tiến sĩ 3D</h2>
+              <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;" data-i18n="lookup_subtitle">Nhập số hiệu văn bằng và họ tên để tra cứu thông tin xác minh.</p>
+            </div>
+            <div id="diploma-verifier">
+              <div class="verifier-layout">
+                <form data-degree-lookup-form>
+                  <div class="verifier-input-group">
+                    <label for="code-input" data-i18n="ver_code_label">01. Số hiệu văn bằng</label>
+                    <input type="text" id="code-input" placeholder="Ví dụ: TS-AGU-2025-089" data-i18n-placeholder="ver_code_ph" data-input-code />
+                  </div>
+                  <div class="verifier-input-group">
+                    <label for="name-input" data-i18n="ver_name_label">02. Họ và tên người được cấp bằng</label>
+                    <input type="text" id="name-input" placeholder="Ví dụ: Nguyễn Văn A" data-i18n-placeholder="ver_name_ph" data-input-name />
+                  </div>
+                  <button type="submit" style="width:100%; padding:14px; border-radius:10px; background:linear-gradient(135deg, var(--uni-blue-800), var(--uni-blue-600)); color:#ffffff; font-weight:800; font-size:0.9rem; box-shadow:0 6px 18px rgba(11,56,102,0.3); margin-top:8px;" data-i18n="ver_btn" data-verify-btn>
+                    Tra cứu văn bằng
+                  </button>
+                  <p class="api-status" data-degree-status role="status" aria-live="polite"></p>
+                </form>
+                </div>
+
+                <!-- 3D Foil Certificate Render Card -->
+                <div class="foil-certificate-card" data-foil-card></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 07. VĂN BẢN (CITATIONS VIEW) -->
+          <section class="os-view" data-view="citations" style="margin-left:44px;margin-right:44px;">
+            <div style="margin-bottom:28px;">
+              <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">ACADEMIC REGULATORY CITATIONS</span>
+              <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="citations_title">Văn bản & Căn cứ Pháp lý</h2>
+              <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;" data-i18n="citations_subtitle">Danh mục các văn bản quy phạm pháp luật viện dẫn trong tài liệu phân tích hệ thống.</p>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;">
+              <div style="padding:22px; border-radius:14px; background:var(--bg-card); border:1px solid var(--border-card); box-shadow:var(--shadow-card);">
+                <strong style="color:var(--uni-blue-900); font-size:1rem; display:block; margin-bottom:6px;">Thông tư 18/2021/TT-BGDĐT</strong>
+                <span style="color:var(--text-secondary); font-size:0.84rem;" data-i18n="cit1_sub">Bộ Giáo dục và Đào tạo — Quy chế Đào tạo Tiến sĩ</span>
+              </div>
+              <div style="padding:22px; border-radius:14px; background:var(--bg-card); border:1px solid var(--border-card); box-shadow:var(--shadow-card);">
+                <strong style="color:var(--uni-blue-900); font-size:1rem; display:block; margin-bottom:6px;">Quyết định 1688/QĐ-ĐHQG</strong>
+                <span style="color:var(--text-secondary); font-size:0.84rem;" data-i18n="cit2_sub">Đại học Quốc gia TP.HCM — Quy định chung</span>
+              </div>
+              <div style="padding:22px; border-radius:14px; background:var(--bg-card); border:1px solid var(--border-card); box-shadow:var(--shadow-card);">
+                <strong style="color:var(--uni-blue-900); font-size:1rem; display:block; margin-bottom:6px;">Quyết định 655/QĐ-ĐHAG</strong>
+                <span style="color:var(--text-secondary); font-size:0.84rem;" data-i18n="cit3_sub">Trường Đại học An Giang — Quy chế chi tiết</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- 07. GIỚI THIỆU (ABOUT VIEW) -->
+          <section class="os-view" data-view="about" style="margin-left:44px;margin-right:44px;">
+            <div style="margin-bottom:28px;">
+              <span style="color:var(--uni-blue-800); font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;">SYSTEM OVERVIEW</span>
+              <h2 style="font-size:2.2rem; font-weight:800; margin:6px 0 10px; color:var(--uni-blue-900);" data-i18n="about_title">Giới thiệu Hệ thống DTMS</h2>
+              <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;" data-i18n="about_subtitle">Số hóa và tổ chức quản trị thống nhất toàn bộ quá trình đào tạo tiến sĩ tại Trường Đại học An Giang (ĐHQG-HCM).</p>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px;">
+              <div style="padding:28px; border-radius:16px; background:var(--bg-card); border:1px solid var(--border-card); box-shadow:var(--shadow-card);">
+                <h3 style="color:var(--uni-blue-800); font-size:1.2rem; margin:0 0 14px;" data-i18n="about_card1_title">Mục tiêu Số hóa Tập trung</h3>
+                <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.65;" data-i18n="about_card1_desc">
+                  DTMS được xây dựng nhằm chuẩn hóa toàn bộ dữ liệu hồ sơ Nghiên cứu sinh, theo dõi lộ trình học phần, 
+                  kiểm soát 03 chuyên đề tiến sĩ, bài báo khoa học công bố và hỗ trợ quy trình phản biện độc lập bảo vệ luận án.
+                </p>
+              </div>
+
+              <div style="padding:28px; border-radius:16px; background:var(--bg-card); border:1px solid var(--border-card); box-shadow:var(--shadow-card);">
+                <h3 style="color:var(--uni-blue-800); font-size:1.2rem; margin:0 0 14px;" data-i18n="about_card2_title">Hạ tầng ĐHQG-HCM Standard</h3>
+                <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.65;" data-i18n="about_card2_desc">
+                  Hỗ trợ số hóa quy trình đào tạo theo các tài liệu được cung cấp. Quy tắc chính thức, xác thực và tích hợp cần được nhà trường kiểm chứng trước khi vận hành.
+                </p>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </main>
+    </div>
+
+    <button class="menu-backdrop" data-menu-backdrop hidden aria-label="Đóng menu"></button>
+    <!-- ==========================================================================
+         MODALS CONTAINER (FORMS, UPLOADS, ROLE SWITCHERS, WORKFLOWS)
+         ========================================================================== -->
+
+
+    <!-- Modal Login -->
+    <div class="mgmt-modal" id="modal-login">
+      <div class="mgmt-modal-dialog" style="width:min(480px, 100%);">
+        <div class="mgmt-modal-header">
+          <h3>Truy cập hệ thống DTMS</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-login">✕</button>
+        </div>
+        <form id="form-login">
+          <div class="mgmt-form-group">
+            <label for="login-username">Email người dùng:</label>
+            <input id="login-username" type="email" autocomplete="username" required />
+          </div>
+          <div class="mgmt-form-group">
+            <label for="login-password">Mật khẩu:</label>
+            <input id="login-password" type="password" value="" autocomplete="current-password" required />
+          </div>
+          <p id="login-error" role="alert" hidden style="padding:10px 12px; border-radius:8px; color:#991b1b; background:#fef2f2; font-size:.82rem;"></p>
+          <p style="margin:0 0 14px; color:var(--text-muted); font-size:.8rem;">Đăng nhập bằng tài khoản do nhà trường cấp để mở bàn làm việc tương ứng với vai trò.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:0.8rem;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="remember-email" /> Ghi nhớ email
+            </label>
+            <button type="button" class="text-link" onclick="DTMS_MANAGEMENT.openModal('modal-forgot-password')">Quên mật khẩu?</button>
+          </div>
+          <button type="submit" class="btn-mgmt btn-mgmt-primary" style="width:100%; justify-content:center;">
+            Tiếp tục
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Quên mật khẩu (API /api/Auth/quen-mat-khau): gửi hướng dẫn đặt lại qua email -->
+    <div class="mgmt-modal" id="modal-forgot-password">
+      <div class="mgmt-modal-dialog" style="width:min(480px, 100%);">
+        <div class="mgmt-modal-header">
+          <h3>Quên mật khẩu</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-forgot-password">✕</button>
+        </div>
+        <form id="form-forgot-password">
+          <div class="mgmt-form-group">
+            <label for="forgot-email">Email đã đăng ký:</label>
+            <input id="forgot-email" type="email" autocomplete="email" required />
+          </div>
+          <p id="forgot-status" role="status" style="margin:0 0 14px; color:var(--text-muted); font-size:.8rem;">Nhập email tài khoản. Hệ thống gửi hướng dẫn đặt lại mật khẩu nếu email tồn tại.</p>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-forgot-password">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Gửi hướng dẫn</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Nhập điểm học phần (API /api/Ketquahocphans) -->
+    <div class="mgmt-modal" id="modal-enter-score">
+      <div class="mgmt-modal-dialog" style="width:min(520px, 100%);">
+        <div class="mgmt-modal-header">
+          <h3>Nhập điểm học phần</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-enter-score">✕</button>
+        </div>
+        <form id="form-enter-score">
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label for="score-ncs-select">Nghiên cứu sinh:</label>
+              <select id="score-ncs-select" required></select>
+            </div>
+            <div class="mgmt-form-group">
+              <label for="score-subject-select">Học phần:</label>
+              <select id="score-subject-select" required></select>
+            </div>
+            <div class="mgmt-form-group">
+              <label for="score-cc-input">Chuyên cần (10%):</label>
+              <input id="score-cc-input" type="number" min="0" max="10" step="0.1" placeholder="0–10" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="score-gk-input">Giữa kỳ (30%):</label>
+              <input id="score-gk-input" type="number" min="0" max="10" step="0.1" placeholder="0–10" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="score-ck-input">Cuối kỳ (60%):</label>
+              <input id="score-ck-input" type="number" min="0" max="10" step="0.1" placeholder="0–10" required />
+            </div>
+          </div>
+          <p style="color:var(--text-muted); font-size:.8rem;">Điểm tổng kết, điểm chữ và điểm hệ 4 do máy chủ tự tính. Bảng điểm đã khóa thì mở khóa trước khi sửa.</p>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-enter-score">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu điểm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bỏ phiếu kín hội đồng trường (API /api/Hoidongtruong/{id}/bo-phieu) -->
+    <div class="mgmt-modal" id="modal-cast-vote">
+      <div class="mgmt-modal-dialog" style="width:min(480px, 100%);">
+        <div class="mgmt-modal-header">
+          <h3>Bỏ phiếu kín hội đồng trường</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-cast-vote">✕</button>
+        </div>
+        <form id="form-cast-vote">
+          <div class="mgmt-form-group">
+            <label for="vote-council-id">Mã hội đồng (theo quyết định thành lập):</label>
+            <input id="vote-council-id" type="number" min="1" step="1" required />
+          </div>
+          <div class="mgmt-form-group">
+            <label>Kết quả bỏ phiếu của bạn:</label>
+            <label style="display:flex; gap:8px; align-items:center; margin:6px 0;"><input type="radio" name="vote-choice" value="yes" required /> Tán thành</label>
+            <label style="display:flex; gap:8px; align-items:center; margin:6px 0;"><input type="radio" name="vote-choice" value="no" /> Không tán thành</label>
+          </div>
+          <p style="color:var(--text-muted); font-size:.8rem;">Mỗi thành viên chỉ bỏ 1 phiếu. Đạt khi ≥ 50% thành viên tán thành.</p>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-cast-vote">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Ghi nhận phiếu</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Nhận xét phản biện độc lập (API /api/Phanbiendoclaps/{id}/nhanxet) -->
+    <div class="mgmt-modal" id="modal-reviewer-comment">
+      <div class="mgmt-modal-dialog" style="width:min(520px, 100%);">
+        <div class="mgmt-modal-header">
+          <h3>Nhận xét phản biện độc lập</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-reviewer-comment">✕</button>
+        </div>
+        <form id="form-reviewer-comment">
+          <div class="mgmt-form-group">
+            <label for="reviewer-result-select">Kết luận nhận xét:</label>
+            <select id="reviewer-result-select" required>
+              <option value="">Chọn kết luận</option>
+              <option value="1">Thông qua</option>
+              <option value="2">Thông qua có chỉnh sửa</option>
+              <option value="0">Không thông qua</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="reviewer-file-input">Tệp nhận xét (PDF/ảnh, tối đa 10MB):</label>
+            <input id="reviewer-file-input" type="file" accept=".pdf,.jpg,.jpeg,.png" />
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-reviewer-comment">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu nhận xét</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Đề tài luận án (API /api/Detailuanans): đăng ký mới hoặc sửa khi chưa bị khóa -->
+    <div class="mgmt-modal" id="modal-thesis-topic">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3 id="thesis-topic-modal-title">Đăng ký đề tài luận án</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-thesis-topic" aria-label="Đóng">✕</button>
+        </div>
+        <form id="form-thesis-topic">
+          <div class="mgmt-form-group">
+            <label for="thesis-title-vn-input">Tên đề tài (Tiếng Việt):</label>
+            <textarea id="thesis-title-vn-input" rows="2" maxlength="500" required></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="thesis-title-en-input">Tên đề tài (Tiếng Anh):</label>
+            <textarea id="thesis-title-en-input" rows="2" maxlength="500" required></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="thesis-decision-input">Số quyết định điều chỉnh (nếu có):</label>
+            <input type="text" id="thesis-decision-input" maxlength="100" />
+          </div>
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label>Toàn văn luận án (nếu có), PDF/Word tối đa 50MB:</label>
+              <input type="file" id="thesis-fulltext-input" accept=".pdf,.doc,.docx" />
+            </div>
+            <div class="mgmt-form-group">
+              <label>Tóm tắt luận án (nếu có), PDF/Word tối đa 50MB:</label>
+              <input type="file" id="thesis-summary-input" accept=".pdf,.doc,.docx" />
+            </div>
+          </div>
+          <p id="thesis-topic-file-note" style="margin:0 0 12px; font-size:0.78rem; color:var(--text-muted);" hidden>Không chọn tệp mới thì giữ nguyên tệp đã nộp.</p>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-thesis-topic">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu đề tài</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Minh chứng ngoại ngữ (API /api/Chungchingoaingus): NCS nộp, PĐT duyệt -->
+    <div class="mgmt-modal" id="modal-language-cert">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3 id="language-cert-modal-title">Nộp minh chứng ngoại ngữ</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-language-cert" aria-label="Đóng">✕</button>
+        </div>
+        <form id="form-language-cert">
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label for="cert-name-input">Tên chứng chỉ:</label>
+              <input type="text" id="cert-name-input" maxlength="200" placeholder="Ví dụ: IELTS Academic" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="cert-score-input">Điểm số / bậc:</label>
+              <input type="text" id="cert-score-input" maxlength="50" placeholder="Ví dụ: 6.5" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="cert-issued-input">Ngày cấp:</label>
+              <input type="date" id="cert-issued-input" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="cert-expiry-input">Ngày hết hạn (nếu có):</label>
+              <input type="date" id="cert-expiry-input" />
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label for="cert-issuer-input">Nơi cấp:</label>
+              <input type="text" id="cert-issuer-input" maxlength="200" required />
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label>Tệp minh chứng (PDF hoặc ảnh JPG/PNG, tối đa 10MB):</label>
+              <input type="file" id="cert-file-input" accept=".pdf,.jpg,.jpeg,.png" />
+              <p id="language-cert-file-note" style="margin:6px 0 0; font-size:0.78rem; color:var(--text-muted);" hidden>Không chọn tệp mới thì giữ nguyên tệp đã nộp.</p>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-language-cert">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Gửi minh chứng</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 2: Edit Personal Profile -->
+    <div class="mgmt-modal" id="modal-edit-profile">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Cập Nhật Thông Tin Cá Nhân Nghiên Cứu Sinh</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-edit-profile">✕</button>
+        </div>
+        <form id="form-edit-profile">
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label>Họ và tên NCS:</label>
+              <input type="text" id="profile-name-readonly" readonly aria-label="Họ tên NCS (chỉ đọc)" />
+            </div>
+            <div class="mgmt-form-group">
+              <label>Mã số NCS:</label>
+              <input type="text" id="profile-code-readonly" readonly aria-label="Mã NCS (chỉ đọc)" />
+            </div>
+            <div class="mgmt-form-group">
+              <label>Số điện thoại:</label>
+              <input type="text" id="profile-phone-input" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label>Email liên hệ:</label>
+              <input type="email" id="profile-email-input" required />
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label>Cơ quan công tác hiện tại:</label>
+              <input type="text" id="profile-workplace-input" required />
+            </div>
+          </div>
+          <p class="mgmt-form-help">Họ tên và mã NCS do nhà trường quản lý nên chỉ đọc. Bạn có thể sửa email, số điện thoại và nơi công tác, sau đó chọn Lưu thay đổi.</p>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-edit-profile">Hủy bỏ</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu Thay Đổi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 3: Extension / Leave Request -->
+    <div class="mgmt-modal" id="modal-leave-request">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Đơn Xin Gia Hạn / Tạm Dừng Học Tập</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-leave-request">✕</button>
+        </div>
+        <form id="form-leave-request">
+          <div class="mgmt-form-group">
+            <label>Loại đề nghị học vụ:</label>
+            <select id="leave-type-select" required>
+              <option value="Gia hạn học tập">Gia hạn thời gian đào tạo (Tối đa 12 tháng/lần)</option>
+              <option value="Tạm dừng học tập">Tạm dừng học tập (Nghỉ học tạm thời / Bảo lưu)</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Thời gian xin phép:</label>
+            <input type="text" id="leave-duration-input" placeholder="Ví dụ: 06 tháng (từ 15/10/2026 đến 15/04/2027)" required />
+          </div>
+          <div class="mgmt-form-group">
+            <label>Lý do chi tiết & Kế hoạch cam kết:</label>
+            <textarea id="leave-reason-input" rows="3" placeholder="Nêu rõ lý do học thuật / công tác / sức khỏe và cam kết hoàn thành..." required></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Đính kèm đơn có chữ ký của NHD & Minh chứng:</label>
+            <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <input type="file" id="leave-file-input" class="dtms-file-input" style="display:none;" accept=".pdf,.doc,.docx" />
+              <svg width="28" height="28" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Nhấp hoặc kéo thả file đơn xin gia hạn/tạm dừng (PDF, tối đa 10MB)</p>
+            </label>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-leave-request">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Gửi Đơn Lên Khoa & PĐT</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 4: Assign Supervisor -->
+    <div class="mgmt-modal" id="modal-assign-supervisor">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Phân Công Người Hướng Dẫn Khoa Học</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-assign-supervisor">✕</button>
+        </div>
+        <form id="form-assign-supervisor">
+          <div class="mgmt-form-group">
+            <label>Nghiên cứu sinh được phân công:</label>
+            <select id="assign-ncs-select">
+              <option value="— (Khoa học Môi trường)">Chưa có dữ liệu</option>
+              <option value="— (Trồng trọt)">— (Trồng trọt K2022)</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Người hướng dẫn 1 (Chính):</label>
+            <select id="assign-nhd-main-select">
+              <option value="—">— (Đang hướng dẫn 2/3 - Còn 1 chỉ tiêu)</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Người hướng dẫn 2 (Đồng hướng dẫn - nếu có):</label>
+            <select id="assign-nhd-sub-select">
+              <option value="">Không có NHD phụ</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Số Quyết định phân công của Hiệu trưởng:</label>
+            <input type="text" id="assign-decision-input" required />
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-assign-supervisor">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Ban Hành Quyết Định Phân Công</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 5: Grade Essay -->
+    <div class="mgmt-modal" id="modal-grade-essay">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Đánh Giá & Nhập Điểm Tiểu Luận Tổng Quan</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-grade-essay">✕</button>
+        </div>
+        <form id="form-grade-essay">
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label for="essay-candidate">Nghiên cứu sinh:</label>
+              <select id="essay-candidate" required>
+                <option value="">Chọn nghiên cứu sinh</option>
+              </select>
+            </div>
+            <div class="mgmt-form-group">
+              <label for="essay-work-select">Bài cần chấm:</label>
+              <select id="essay-work-select" required>
+                <option value="">Chọn bài đã nộp</option>
+              </select>
+            </div>
+          </div>
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label for="essay-score-1">Điểm Cán bộ chấm 1 (—):</label>
+              <input type="number" step="0.1" min="0" max="10" id="essay-score-1" placeholder="0–10" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="essay-score-2">Điểm Cán bộ chấm 2:</label>
+              <input type="number" step="0.1" min="0" max="10" id="essay-score-2" placeholder="0–10" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="essay-score-3">Điểm Cán bộ chấm 3:</label>
+              <input type="number" step="0.1" min="0" max="10" id="essay-score-3" placeholder="0–10" required />
+            </div>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Nhận xét chuyên môn của Tiểu ban:</label>
+            <textarea id="essay-grade-comment" rows="3" placeholder="Nhập nhận xét của tiểu ban" required></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="essay-council-input">Mã hội đồng/tiểu ban (theo quyết định thành lập):</label>
+            <input type="number" min="1" step="1" id="essay-council-input" placeholder="VD: 12" />
+            <small style="color:var(--text-muted);">API đánh giá yêu cầu mã hội đồng đúng loại tiểu luận.</small>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-grade-essay">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">✓ Xác nhận và lưu kết quả</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="mgmt-modal" id="modal-grade-topic">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3 id="grade-topic-title">Đánh giá chuyên đề</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-grade-topic" aria-label="Đóng">✕</button>
+        </div>
+        <form id="form-grade-topic">
+          <input type="hidden" id="grade-topic-index" />
+          <div class="mgmt-form-group">
+            <label for="topic-candidate">Nghiên cứu sinh:</label>
+            <select id="topic-candidate" required>
+              <option value="">Chọn nghiên cứu sinh</option>
+              <option value="—">— · K2023</option>
+              <option value="—">— · K2022</option>
+              <option value="—">— · K2023</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="topic-name-input">Tên chuyên đề:</label>
+            <input id="topic-name-input" type="text" placeholder="VD: Chuyên đề 1 — Tổng quan tài liệu" />
+          </div>
+          <div class="mgmt-form-group">
+            <label for="topic-score-input">Điểm tiểu ban (0–10):</label>
+            <input id="topic-score-input" type="number" min="0" max="10" step="0.1" placeholder="Nhập điểm" required />
+          </div>
+          <div class="mgmt-form-group">
+            <label for="topic-grade-comment">Nhận xét:</label>
+            <textarea id="topic-grade-comment" rows="3" placeholder="Nhập nhận xét của tiểu ban" required></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="topic-council-input">Mã hội đồng/tiểu ban (theo quyết định thành lập):</label>
+            <input type="number" min="1" step="1" id="topic-council-input" placeholder="VD: 12" />
+            <small style="color:var(--text-muted);">API đánh giá yêu cầu mã hội đồng đúng loại chuyên đề.</small>
+          </div>
+          <div class="mgmt-modal-actions">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-grade-topic">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">✓ Xác nhận và lưu điểm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="mgmt-modal" id="modal-review-progress">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3 id="progress-review-title">Đánh giá báo cáo tiến độ</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-review-progress" aria-label="Đóng">✕</button>
+        </div>
+        <form id="form-review-progress">
+          <input type="hidden" id="progress-review-period" />
+          <div class="mgmt-form-group">
+            <label for="progress-review-candidate">Nghiên cứu sinh:</label>
+            <select id="progress-review-candidate" required>
+              <option value="">Chọn nghiên cứu sinh</option>
+              <option value="—">— · K2023</option>
+              <option value="—">— · K2022</option>
+              <option value="—">— · K2023</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="progress-review-result">Kết luận:</label>
+            <select id="progress-review-result" required>
+              <option value="">Chọn kết luận</option>
+              <option value="pass">Đạt tiến độ</option>
+              <option value="revision">Yêu cầu bổ sung / chỉnh sửa</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="progress-review-comment">Nhận xét của người hướng dẫn:</label>
+            <textarea id="progress-review-comment" rows="3" placeholder="Nhập nhận xét" required></textarea>
+          </div>
+          <div class="mgmt-modal-actions">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-review-progress">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">✓ Xác nhận đánh giá</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 6: Declare Scientific Publication -->
+    <div class="mgmt-modal" id="modal-declare-pub">
+      <div class="mgmt-modal-dialog modal-lg">
+        <div class="mgmt-modal-header">
+          <h3>Khai Báo Bài Báo Khoa Học & Upload Minh Chứng (WoS/Scopus)</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-declare-pub">✕</button>
+        </div>
+        <form id="form-declare-pub">
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group full-width">
+              <label>Tên bài báo khoa học (Title):</label>
+              <input type="text" id="pub-title-input" placeholder="Nhập tên bài báo tiếng Anh hoặc tiếng Việt..." required />
+            </div>
+            <div class="mgmt-form-group">
+              <label>Tên tạp chí xuất bản (Journal):</label>
+              <input type="text" id="pub-journal-input" placeholder="Ví dụ: Water Science and Technology" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label>Phân loại danh mục:</label>
+              <select id="pub-cat-select" required>
+                <option value="WoS (SCIE) · Q1">WoS (SCIE / SSCI) · Q1</option>
+                <option value="WoS (SCIE) · Q2">WoS (SCIE / SSCI) · Q2</option>
+                <option value="Scopus · Q2">Scopus · Q2</option>
+                <option value="Scopus · Q3/Q4">Scopus · Q3 / Q4</option>
+                <option value="Tạp chí HĐGSNN (0.75-1.0)">Tạp chí uy tín thuộc danh mục HĐGSNN (>= 0.75đ)</option>
+              </select>
+            </div>
+            <div class="mgmt-form-group">
+              <label>Mã số DOI:</label>
+              <input type="text" id="pub-doi-input" placeholder="10.1016/j.envsci.2025.109..." />
+            </div>
+            <div class="mgmt-form-group">
+              <label>Chỉ số ISSN / e-ISSN:</label>
+              <input type="text" placeholder="0944-1344" />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="pub-author-role-select">Vai trò tác giả:</label>
+              <select id="pub-author-role-select" required>
+                <option value="1">Tác giả chính (First author)</option>
+                <option value="2">Tác giả liên hệ (Corresponding)</option>
+                <option value="3">Đồng tác giả</option>
+              </select>
+            </div>
+            <div class="mgmt-form-group">
+              <label style="display:flex; align-items:center; gap:8px; font-weight:500;"><input type="checkbox" id="pub-has-supervisor-input" /> Bài báo có tên người hướng dẫn</label>
+              <label style="display:flex; align-items:center; gap:8px; font-weight:500; margin-top:6px;"><input type="checkbox" id="pub-affiliation-input" checked /> Ghi địa chỉ Trường Đại học An Giang</label>
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label>Upload Minh chứng (Toàn văn bài báo + Thư chấp nhận Acceptance Letter):</label>
+              <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+                <input type="file" id="pub-file-input" class="dtms-file-input" style="display:none;" accept=".pdf,.jpg,.jpeg,.png" />
+                <svg width="28" height="28" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Nhấp chọn file PDF hoặc ảnh minh chứng (tối đa 10MB)</p>
+              </label>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-declare-pub">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Gửi Thẩm Định Lên PĐT</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 7: Workflow Phân tích thiết kế Thẩm định công bố (Module 8) -->
+    <div class="mgmt-modal" id="modal-workflow-pub">
+      <div class="mgmt-modal-dialog modal-lg">
+        <div class="mgmt-modal-header">
+          <h3>Sơ Đồ Phân Tích Thiết Kế: Quy Trình Thẩm Định Công Bố Khoa Học</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-workflow-pub">✕</button>
+        </div>
+        <p style="font-size:0.86rem; color:var(--text-secondary);">
+          Quy trình thẩm định tính hợp lệ của bài báo khoa học phục vụ chuẩn đầu ra theo Thông tư 18/2021/TT-BGDĐT:
+        </p>
+
+        <div class="flowchart-container">
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">1</div>
+            <div class="flowchart-step-content">
+              <strong>Bước 1: NCS Khai báo thông tin &amp; Upload minh chứng</strong>
+              <p>NCS cập nhật DOI, ISSN, vai trò tác giả (chính/liên hệ) và upload file toàn văn kèm thư chấp nhận đăng.</p>
+              <span class="flowchart-actor-tag">Tác nhân: Nghiên cứu sinh (NCS)</span>
+            </div>
+          </div>
+
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">2</div>
+            <div class="flowchart-step-content">
+              <strong>Bước 2: NHD Xác nhận tỷ lệ đóng góp &amp; Sự phù hợp với đề tài</strong>
+              <p>Người hướng dẫn kiểm tra nội dung bài báo, xác nhận kết quả thuộc phạm vi đề tài luận án và phê duyệt.</p>
+              <span class="flowchart-actor-tag">Tác nhân: Người hướng dẫn khoa học (NHD)</span>
+            </div>
+          </div>
+
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">3</div>
+            <div class="flowchart-step-content">
+              <strong>Bước 3: Phòng Đào tạo Sau Đại học Đối soát dữ liệu WoS / Scopus</strong>
+              <p>Chuyên viên tra cứu chỉ số Clarivate (WoS) và Scimago (Scopus), kiểm tra địa chỉ tác giả (An Giang University - AGU).</p>
+              <span class="flowchart-actor-tag">Tác nhân: Phòng Đào tạo (PĐT)</span>
+            </div>
+          </div>
+
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">4</div>
+            <div class="flowchart-step-content">
+              <strong>Bước 4: Cập nhật Bộ đếm Chuẩn đầu ra Công bố</strong>
+              <p>Bảng kiểm tổng hợp các công bố đã được thẩm định theo yêu cầu của chương trình đào tạo.</p>
+              <span class="flowchart-actor-tag">Hệ thống: DTMS Automated Rule Engine</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 8: Workflow Phân tích thiết kế 6 bước Bảo vệ luận án (Module 10) -->
+    <div class="mgmt-modal" id="modal-workflow-defense">
+      <div class="mgmt-modal-dialog modal-lg">
+        <div class="mgmt-modal-header">
+          <h3>Sơ Đồ Phân Tích Thiết Kế: Quy Trình 6 Bước Bảo Vệ Luận Án Cấp Trường</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-workflow-defense">✕</button>
+        </div>
+
+        <div class="flowchart-container">
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">1</div>
+            <div class="flowchart-step-content">
+              <strong>01. Sinh hoạt chuyên môn tại Bộ môn (Trình luận án cơ sở)</strong>
+              <p>Tổ chức đánh giá cấp bộ môn với tối thiểu 05 tiến sĩ chuyên ngành, lập biên bản thông qua luận án.</p>
+              <span class="flowchart-actor-tag">Bộ môn &amp; Khoa</span>
+            </div>
+          </div>
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">2</div>
+            <div class="flowchart-step-content">
+              <strong>02. Thẩm định điều kiện bảo vệ &amp; Quét Turnitin</strong>
+              <p>Kiểm tra 6/6 tiêu chuẩn (tín chỉ, ngoại ngữ, chuyên đề, bài báo, đạo văn &lt; 20%, NHD ký duyệt).</p>
+              <span class="flowchart-actor-tag">Phòng Đào tạo Sau Đại học</span>
+            </div>
+          </div>
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">3</div>
+            <div class="flowchart-step-content">
+              <strong>03. Gửi hồ sơ lấy ý kiến 02 Phản biện độc lập ngoài trường</strong>
+              <p>Bảo mật thông tin phản biện độc lập kín, nhận xét trong vòng 30 ngày làm việc.</p>
+              <span class="flowchart-actor-tag">Chuyên gia phản biện độc lập</span>
+            </div>
+          </div>
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">4</div>
+            <div class="flowchart-step-content">
+              <strong>04. Thành lập Hội đồng Đánh giá Luận án cấp Trường (07 thành viên)</strong>
+              <p>Hiệu trưởng ký Quyết định thành lập Hội đồng: Chủ tịch, 2 Phản biện, Thư ký, 3 Ủy viên.</p>
+              <span class="flowchart-actor-tag">Hiệu trưởng / Ban Giám hiệu</span>
+            </div>
+          </div>
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">5</div>
+            <div class="flowchart-step-content">
+              <strong>05. Đăng tải Công khai Tóm tắt Luận án trên Cổng DTMS (30 ngày)</strong>
+              <p>Đăng toàn văn tóm tắt và trang đóng góp mới để lấy ý kiến rộng rãi của cộng đồng khoa học.</p>
+              <span class="flowchart-actor-tag">Cổng thông tin DTMS Public</span>
+            </div>
+          </div>
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">6</div>
+            <div class="flowchart-step-content">
+              <strong>06. Phiên Bảo vệ Chính thức, Bỏ phiếu &amp; Thông qua Quyết nghị</strong>
+              <p>Bỏ phiếu kín đánh giá chất lượng, ký biên bản họp và ban hành Quyết nghị của Hội đồng.</p>
+              <span class="flowchart-actor-tag">Hội đồng cấp Trường</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 9: Workflow Phân tích thiết kế Xử lý Biến động & Thôi học (Module 12) -->
+    <div class="mgmt-modal" id="modal-workflow-changes">
+      <div class="mgmt-modal-dialog modal-lg">
+        <div class="mgmt-modal-header">
+          <h3>Sơ Đồ Phân Tích Thiết Kế (1): Quy Trình Xử Lý Biến Động &amp; Thôi Học</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-workflow-changes">✕</button>
+        </div>
+
+        <div class="flowchart-container">
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">1</div>
+            <div class="flowchart-step-content">
+              <strong>Tiếp nhận yêu cầu biến động (Đổi NHD / Đổi đề tài / Tạm dừng / Thôi học)</strong>
+              <p>Đơn đề xuất từ NCS (hoặc biên bản đề nghị xử lý quá hạn đào tạo từ Phòng Đào tạo).</p>
+              <span class="flowchart-actor-tag">Khởi tạo yêu cầu</span>
+            </div>
+          </div>
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">2</div>
+            <div class="flowchart-step-content">
+              <strong>Hội đồng Khoa học Khoa thẩm định chuyên môn</strong>
+              <p>Lấy ý kiến Người hướng dẫn, xem xét tính khả thi học thuật và quy định thời hạn đào tạo.</p>
+              <span class="flowchart-actor-tag">Thẩm tra cấp Khoa</span>
+            </div>
+          </div>
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">3</div>
+            <div class="flowchart-step-content">
+              <strong>Phòng Đào tạo Sau Đại học thẩm tra tính pháp lý</strong>
+              <p>Đối chiếu Thông tư 18/2021/TT-BGDĐT và Quy định ĐHQG-HCM, soạn thảo dự thảo quyết định.</p>
+              <span class="flowchart-actor-tag">Thẩm định pháp lý</span>
+            </div>
+          </div>
+          <div class="flowchart-step">
+            <div class="flowchart-step-badge">4</div>
+            <div class="flowchart-step-content">
+              <strong>Hiệu trưởng Ban hành Quyết định Điều chỉnh Học vụ chính thức</strong>
+              <p>Ký số quyết định, cập nhật trạng thái học vụ mới trên hệ thống và lưu trữ hồ sơ vĩnh viễn.</p>
+              <span class="flowchart-actor-tag">Hiệu trưởng ban hành QĐ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Edit Training Plan -->
+    <div class="mgmt-modal" id="modal-edit-plan">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Lập / Điều Chỉnh Kế Hoạch Đào Tạo Toàn Khóa</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-edit-plan">✕</button>
+        </div>
+        <form id="form-edit-plan">
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label for="plan-year-input">Năm học:</label>
+              <input type="text" id="plan-year-input" placeholder="Ví dụ: 2025-2026" pattern="\d{4}-\d{4}" title="Nhập theo dạng 2025-2026" maxlength="20" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="plan-semester-select">Học kỳ điều chỉnh:</label>
+              <select id="plan-semester-select" required>
+                <option value="HK4">Học kỳ 4 (04/2025 - 10/2025)</option>
+                <option value="HK5">Học kỳ 5 (10/2025 - 04/2026)</option>
+                <option value="HK6">Học kỳ 6 (04/2026 - 10/2026)</option>
+              </select>
+            </div>
+            <div class="mgmt-form-group">
+              <label for="plan-deadline-input">Thời hạn dự kiến hoàn thành:</label>
+              <input type="text" id="plan-deadline-input" required />
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label for="plan-goals-input">Mục tiêu & Khối lượng công việc học tập / nghiên cứu:</label>
+              <textarea id="plan-goals-input" rows="3" required>Hoàn thành thí nghiệm thực địa giai đoạn 2, bảo vệ Chuyên đề tiến sĩ 3 và hoàn thiện bài báo gửi tạp chí quốc tế Q1.</textarea>
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label for="plan-outputs-input">Dự kiến sản phẩm đầu ra (Bài báo / Báo cáo):</label>
+              <input type="text" id="plan-outputs-input" required />
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-edit-plan">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu Kế Hoạch & Gửi Duyệt</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Change or Add Supervisor -->
+    <div class="mgmt-modal" id="modal-change-supervisor">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Đề Xuất Thay Đổi / Bổ Sung Người Hướng Dẫn</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-change-supervisor">✕</button>
+        </div>
+        <form id="form-change-supervisor">
+          <div class="mgmt-form-group">
+            <label for="change-supervisor-mode">Hình thức đề xuất:</label>
+            <select id="change-supervisor-mode" required>
+              <option value="change">Thay đổi Người hướng dẫn chính</option>
+              <option value="add">Bổ sung thêm Người hướng dẫn 2 (Đồng hướng dẫn)</option>
+              <option value="remove">Rút tên Người hướng dẫn phụ</option>
+            </select>
+          </div>
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label for="change-supervisor-current">Người hướng dẫn hiện tại:</label>
+              <input id="change-supervisor-current" type="text" readonly style="background:#e2e8f0;" />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="change-supervisor-new">Người hướng dẫn đề xuất mới/bổ sung:</label>
+              <select id="change-supervisor-new">
+                <option value="">Chọn người hướng dẫn mới</option>
+              </select>
+            </div>
+          </div>
+          <div class="mgmt-form-group">
+            <label for="change-supervisor-reason">Lý do đề xuất thay đổi/bổ sung:</label>
+            <textarea id="change-supervisor-reason" rows="3" placeholder="Nêu rõ lý do học thuật, sức khỏe hoặc điều chỉnh chuyên sâu phạm vi đề tài..." required></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Đính kèm Biên bản đồng thuận giữa các bên (PDF):</label>
+            <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <input type="file" id="change-supervisor-file" class="dtms-file-input" style="display:none;" accept=".pdf" />
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="file-name-display" style="margin:0; font-size:0.85rem;">Tải lên biên bản thỏa thuận đồng thuận (PDF)</p>
+            </label>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-change-supervisor">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Gửi Đề Xuất Lên Khoa & PĐT</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Submit Overview Essay -->
+    <div class="mgmt-modal" id="modal-submit-essay">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Nộp Toàn Văn Tiểu Luận Tổng Quan</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-submit-essay">✕</button>
+        </div>
+        <form>
+          <div class="mgmt-form-group">
+            <label>Tên đề tài tiểu luận tổng quan:</label>
+            <input type="text" required />
+          </div>
+          <div class="mgmt-form-group">
+            <label>Tóm tắt nội dung (Abstract):</label>
+            <textarea rows="3" required placeholder="Nhập tóm tắt nội dung tiểu luận..."></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label>File toàn văn Tiểu luận (PDF, tối đa 20MB):</label>
+            <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <input type="file" class="dtms-file-input" style="display:none;" accept=".pdf" />
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="file-name-display" style="margin:0; font-size:0.85rem;">Nhấp chọn file Tiểu luận hoàn chỉnh (PDF)</p>
+            </label>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-submit-essay">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Nộp Bài Cho Bộ Môn</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Submit Research Outline & Revision -->
+    <div class="mgmt-modal" id="modal-submit-outline">
+      <div class="mgmt-modal-dialog modal-lg">
+        <div class="mgmt-modal-header">
+          <h3>Nộp Bản Đề Cương Chi Tiết & Bản Giải Trình Chỉnh Sửa</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-submit-outline">✕</button>
+        </div>
+        <form>
+          <div class="mgmt-form-group">
+            <label>Tên đề cương nghiên cứu:</label>
+            <input type="text" required />
+          </div>
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label>Đối tượng & Phạm vi nghiên cứu:</label>
+              <input type="text" required />
+            </div>
+            <div class="mgmt-form-group">
+              <label>Phương pháp nghiên cứu chính:</label>
+              <input type="text" required />
+            </div>
+          </div>
+          <div class="mgmt-form-group">
+            <label>File Đề cương nghiên cứu hoàn thiện (PDF):</label>
+            <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <input type="file" id="outline-file-input" class="dtms-file-input" style="display:none;" accept=".pdf" />
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Nhấp chọn file Đề cương nghiên cứu chi tiết (PDF)</p>
+            </label>
+          </div>
+          <div class="mgmt-form-group">
+            <label>File Bản giải trình tiếp thu ý kiến đóng góp của Hội đồng (PDF):</label>
+            <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <input type="file" id="outline-explanation-file-input" class="dtms-file-input" style="display:none;" accept=".pdf" />
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Nhấp chọn file Bản giải trình chỉnh sửa (PDF)</p>
+            </label>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-submit-outline">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Lưu & Gửi Phê Duyệt</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Register Doctoral Topic -->
+    <div class="mgmt-modal" id="modal-register-topic">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Đăng Ký Chuyên Đề Tiến Sĩ Mới</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-register-topic">✕</button>
+        </div>
+        <form>
+          <div class="mgmt-form-group">
+            <label>Chọn thứ tự chuyên đề:</label>
+            <select required>
+              <option value="CĐ1">Chuyên đề 1 (2 Tín chỉ)</option>
+              <option value="CĐ2">Chuyên đề 2 (2 Tín chỉ)</option>
+              <option value="CĐ3">Chuyên đề 3 (2 Tín chỉ)</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Tên chuyên đề tiến sĩ:</label>
+            <input type="text" placeholder="Nhập tên chuyên đề chuyên sâu..." required />
+          </div>
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label>Cán bộ phụ trách hướng dẫn:</label>
+              <select required>
+                <option value="—">—</option>
+                <option value="—">—</option>
+              </select>
+            </div>
+            <div class="mgmt-form-group">
+              <label>Thời gian dự kiến báo cáo:</label>
+              <input type="text" placeholder="Tháng / Năm (Ví dụ: 12/2025)" required />
+            </div>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Upload đề cương / Bản thảo chuyên đề (nếu có):</label>
+            <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <input type="file" class="dtms-file-input" style="display:none;" accept=".pdf,.doc,.docx" />
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="file-name-display" style="margin:0; font-size:0.85rem;">Nhấp chọn file báo cáo chuyên đề (PDF/Docx)</p>
+            </label>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-register-topic">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Đăng Ký Chuyên Đề</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Submit Progress Report -->
+    <div class="mgmt-modal" id="modal-submit-progress">
+      <div class="mgmt-modal-dialog modal-lg">
+        <div class="mgmt-modal-header">
+          <h3>Nộp Báo Cáo Tiến Độ Nghiên Cứu Định Kỳ (6 Tháng / Lần)</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-submit-progress">✕</button>
+        </div>
+        <form>
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group">
+              <label for="progress-period-select">Kỳ báo cáo định kỳ:</label>
+              <select id="progress-period-select" required>
+              </select>
+            </div>
+            <div class="mgmt-form-group">
+              <label>Ngày nộp báo cáo:</label>
+              <input type="text" readonly style="background:#e2e8f0;" />
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label>Khối lượng công việc đã hoàn thành trong 6 tháng qua:</label>
+              <textarea rows="3" required>Đã hoàn thành toàn bộ thí nghiệm tại hiện trường An Giang và thu thập 120 mẫu nước thải; đã công bố thành công 01 bài báo trên Tạp chí WoS Q1; đang tiến hành viết chương 3 và chương 4 của bản thảo luận án.</textarea>
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label>Những khó khăn, vướng mắc &amp; đề xuất hỗ trợ:</label>
+              <input type="text" />
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label>Kế hoạch nghiên cứu chi tiết 6 tháng tới:</label>
+              <input type="text" required />
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label>File Báo cáo tiến độ đầy đủ có chữ ký của NCS (PDF / Word):</label>
+              <p style="margin:0 0 8px; font-size:0.78rem; color:var(--text-muted);">Máy chủ hiện lưu kỳ báo cáo, hạn nộp và tệp báo cáo. Các ô mô tả phía trên chỉ để bạn chuẩn bị nội dung, chưa được lưu lên máy chủ.</p>
+              <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+                <input type="file" id="progress-file-input" class="dtms-file-input" style="display:none;" accept=".pdf,.doc,.docx" />
+                <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Nhấp chọn file Báo cáo tiến độ có chữ ký (PDF/Word, tối đa 10MB)</p>
+              </label>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-submit-progress">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Gửi Cho NHD Đánh Giá</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Change Thesis Title -->
+    <div class="mgmt-modal" id="modal-change-topic-title">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Đề Xuất Điều Chỉnh Tên Đề Tài Luận Án Tiến Sĩ</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-change-topic-title">✕</button>
+        </div>
+        <form>
+          <div class="mgmt-form-group">
+            <label>Tên đề tài hiện tại:</label>
+            <textarea rows="2" readonly style="background:#e2e8f0;">—</textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Tên đề tài mới đề xuất (Tiếng Việt):</label>
+            <textarea rows="2" required placeholder="Nhập tên đề tài mới đề xuất..."></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Tên đề tài mới đề xuất (Tiếng Anh):</label>
+            <textarea rows="2" required placeholder="Thesis title in English..."></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Lý do điều chỉnh tên đề tài:</label>
+            <textarea rows="2" required></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Biên bản họp Bộ môn đồng thuận (PDF):</label>
+            <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <input type="file" id="change-title-file-input" class="dtms-file-input" style="display:none;" accept=".pdf" />
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Nhấp chọn file Biên bản Bộ môn (PDF)</p>
+            </label>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-change-topic-title">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Trình Khoa &amp; Hiệu Trưởng Phê Duyệt</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Upload Thesis Version -->
+    <div class="mgmt-modal" id="modal-upload-thesis-version">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Upload Phiên Bản Luận Án Tiến Sĩ Mới</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-upload-thesis-version">✕</button>
+        </div>
+        <form>
+          <div class="mgmt-form-group">
+            <label>Chọn phiên bản luận án:</label>
+            <select required>
+              <option value="v3.1">v3.1 - Bản chỉnh sửa hoàn thiện sau bảo vệ chính thức</option>
+              <option value="v3.0">v3.0 - Bản bảo vệ chính thức cấp Trường</option>
+              <option value="v2.0">v2.0 - Bản gửi Phản biện độc lập</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Ghi chú các điểm sửa đổi chính:</label>
+            <textarea rows="3" required placeholder="Mô tả tóm tắt nội dung chỉnh sửa so với phiên bản trước..."></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label>File toàn văn Luận án (PDF, dung lượng tối đa 50MB):</label>
+            <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <input type="file" id="thesis-file-input" class="dtms-file-input" style="display:none;" accept=".pdf" />
+              <svg width="28" height="28" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Kéo thả file luận án PDF hoặc nhấp để duyệt file</p>
+            </label>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-upload-thesis-version">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Upload &amp; Lưu Phiên Bản</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Submit Post-Defense Revisions -->
+    <div class="mgmt-modal" id="modal-submit-post-defense">
+      <div class="mgmt-modal-dialog modal-lg">
+        <div class="mgmt-modal-header">
+          <h3>Nộp Luận Án Hoàn Thiện Sau Bảo Vệ &amp; Hồ Sơ Lưu Chiểu</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-submit-post-defense">✕</button>
+        </div>
+        <form id="form-submit-post-defense">
+          <div class="mgmt-form-grid">
+            <div class="mgmt-form-group full-width">
+              <label>File Luận án bản in chính thức hoàn thiện (PDF có chữ ký):</label>
+              <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+                <input type="file" id="post-defense-thesis-file" class="dtms-file-input" style="display:none;" accept=".pdf" />
+                <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Tải lên file Luận án hoàn thiện (PDF)</p>
+              </label>
+            </div>
+            <div class="mgmt-form-group full-width">
+              <label>Bản giải trình chi tiết tiếp thu ý kiến của 07 thành viên Hội đồng:</label>
+              <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+                <input type="file" id="post-defense-explanation-file" class="dtms-file-input" style="display:none;" accept=".pdf" />
+                <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <p class="file-name-display" style="margin:0; font-size:0.85rem; color:var(--text-main);">Tải lên Bản giải trình tiếp thu (PDF)</p>
+              </label>
+            </div>
+            <div class="mgmt-form-group">
+              <label for="post-defense-receipt-school">Giấy biên nhận nộp Thư viện Trường ĐH An Giang:</label>
+              <input id="post-defense-receipt-school" type="text" />
+            </div>
+            <div class="mgmt-form-group">
+              <label for="post-defense-receipt-national">Giấy biên nhận nộp Thư viện Quốc gia Việt Nam:</label>
+              <input id="post-defense-receipt-national" type="text" />
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-submit-post-defense">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Gửi Hồ Sơ Xét Cấp Bằng</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Create Academic Change Request -->
+    <div class="mgmt-modal" id="modal-create-change-request">
+      <div class="mgmt-modal-dialog">
+        <div class="mgmt-modal-header">
+          <h3>Tạo Đơn / Yêu Cầu Thay Đổi Biến Động Học Vụ</h3>
+          <button class="mgmt-modal-close" data-close-modal="modal-create-change-request">✕</button>
+        </div>
+        <form id="form-create-change-request">
+          <div class="mgmt-form-group">
+            <label for="change-request-type">Phân loại biến động học vụ:</label>
+            <select id="change-request-type" required>
+              <option value="DOI_NHD">Thay đổi / Bổ sung Người hướng dẫn khoa học</option>
+              <option value="DOI_TEN_DE_TAI">Thay đổi tên đề tài nghiên cứu</option>
+              <option value="TAM_DUNG">Xin tạm dừng học tập / Nghỉ học tạm thời</option>
+              <option value="GIA_HAN">Gia hạn thời gian đào tạo (6 - 12 tháng)</option>
+              <option value="CHUYEN_CO_SO">Chuyển cơ sở đào tạo / Chuyển ngành</option>
+              <option value="BUOC_THOI_HOC">Xử lý buộc thôi học (do quá hạn tối đa hoặc vi phạm)</option>
+            </select>
+          </div>
+          <div class="mgmt-form-group" id="change-request-advisor-group" hidden>
+            <label for="change-request-new-advisor">Người hướng dẫn mới:</label>
+            <select id="change-request-new-advisor"></select>
+          </div>
+          <div class="mgmt-form-group" id="change-request-months-group" hidden>
+            <label for="change-request-months">Số tháng gia hạn (6–12):</label>
+            <input id="change-request-months" type="number" min="6" max="12" step="1" placeholder="VD: 6" />
+          </div>
+          <div class="mgmt-form-group">
+            <label for="change-request-content">Nội dung chi tiết yêu cầu &amp; Căn cứ đề nghị:</label>
+            <textarea id="change-request-content" rows="3" required placeholder="Trình bày lý do, thời gian, cơ sở thực hiện..."></textarea>
+          </div>
+          <div class="mgmt-form-group">
+            <label>Tệp minh chứng đính kèm (PDF):</label>
+            <label class="mgmt-upload-zone" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <input type="file" id="change-request-file" class="dtms-file-input" style="display:none;" accept=".pdf" />
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="file-name-display" style="margin:0; font-size:0.85rem;">Nhấp chọn file đơn và minh chứng hợp lệ</p>
+            </label>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-create-change-request">Hủy</button>
+            <button type="submit" class="btn-mgmt btn-mgmt-primary">Gửi Yêu Cầu Xử Lý</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- SINGLE COLLAPSED FLOATING CONTACT & AI ASSISTANT HUB -->
+    <div class="floating-contact-container">
+      <button class="contact-trigger-btn" data-contact-trigger aria-label="Hỗ trợ & Liên hệ">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span data-i18n="contact_trigger">Hỗ trợ & Liên hệ</span>
+      </button>
+
+      <!-- Collapsed Hub Menu with 3 Channel Options -->
+      <div class="contact-hub-menu" data-contact-hub>
+        <button class="hub-option-btn hub-option-zalo" data-option-zalo>
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span data-i18n="contact_zalo">Chat qua Zalo Hỗ trợ</span>
+        </button>
+
+        <button class="hub-option-btn hub-option-fb" data-option-fb>
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.145 2 11.259c0 2.913 1.454 5.514 3.73 7.214V22l3.385-1.86c.91.252 1.874.388 2.885.388 5.523 0 10-4.145 10-9.259C22 6.145 17.523 2 12 2z"/></svg>
+          <span data-i18n="contact_fb">Messenger Facebook</span>
+        </button>
+
+        <button class="hub-option-btn hub-option-ai" data-option-ai>
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/></svg>
+          <span data-i18n="contact_ai">🤖 AI Trợ lý Học thuật</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- AI MINI CHATBOT POPUP WINDOW -->
+    <div class="ai-chat-window" data-ai-chat-window>
+      <div class="ai-chat-header">
+        <div class="ai-chat-header-info">
+          <div class="ai-avatar">AI</div>
+          <div>
+            <strong style="font-size:0.84rem; color:#ffffff; display:block;" data-i18n="ai_header_title">AI Trợ lý Học thuật DTMS</strong>
+            <span style="font-size:0.68rem; color:#93c5fd; display:flex; align-items:center; gap:4px;">
+              <span style="width:6px; height:6px; border-radius:50%; background:#38bdf8;"></span> <span data-i18n="ai_header_sub">Trực tuyến 24/7</span>
+            </span>
+          </div>
+        </div>
+        <button style="color:#ffffff; font-size:1rem;" data-ai-chat-close aria-label="Đóng chat">✕</button>
+      </div>
+
+      <div class="ai-chat-body" data-ai-chat-body>
+        <div class="ai-msg ai-msg-bot" data-i18n="ai_welcome">
+          Xin chào! Tôi là AI Trợ lý Học thuật DTMS. Bạn có thể hỏi tôi các câu hỏi cơ bản về Đào tạo Tiến sĩ tại ĐH An Giang!
+        </div>
+      </div>
+
+      <div class="ai-chat-chips" data-ai-chips>
+        <button class="ai-chip" data-i18n="chip1">DTMS là gì?</button>
+        <button class="ai-chip" data-i18n="chip2">Quy trình 6 bước?</button>
+        <button class="ai-chip" data-i18n="chip3">Điều kiện bảo vệ?</button>
+        <button class="ai-chip" data-i18n="chip4">Tra cứu văn bằng?</button>
+      </div>
+
+      <div class="ai-chat-footer">
+        <input type="text" placeholder="Nhập câu hỏi của bạn..." data-i18n-placeholder="ai_input_ph" data-ai-chat-input aria-label="Câu hỏi cho trợ lý hướng dẫn" />
+        <button style="padding:8px 14px; border-radius:8px; background:linear-gradient(135deg, var(--uni-blue-800), var(--uni-blue-600)); color:#ffffff; font-weight:800; font-size:0.78rem;" data-i18n="ai_send" data-ai-chat-send>
+          Gửi
+        </button>
+      </div>
+    </div>
+
+    <!-- HOLOGRAM INSPECTOR MODAL -->
+    <div class="hologram-modal" data-hologram-modal>
+      <div class="modal-box">
+        <button class="modal-close-btn" data-modal-close>✕</button>
+        <div data-modal-body></div>
+      </div>
+    </div>
+
+
+    <div class="mgmt-modal" id="modal-candidate"><div class="mgmt-modal-dialog">
+      <div class="mgmt-modal-header"><h3 id="candidate-modal-heading">Hồ sơ NCS</h3><button type="button" class="mgmt-modal-close" data-close-modal="modal-candidate" aria-label="Đóng">✕</button></div>
+      <form id="form-candidate"><input type="hidden" id="candidate-id" /><div class="mgmt-form-grid">
+      <div class="mgmt-form-group"><label for="candidate-code">Mã nghiên cứu sinh</label><input id="candidate-code" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-name">Họ và tên</label><input id="candidate-name" type="text" required /></div><div class="mgmt-form-group"><label for="candidate-major">Ngành đào tạo</label><input id="candidate-major" type="text" list="candidate-major-options" placeholder="Nhập mã ngành, ví dụ KTPM" required /><datalist id="candidate-major-options"></datalist></div><div class="mgmt-form-group"><label for="candidate-cohort">Khóa tuyển sinh (từ ngày nhập học)</label><input id="candidate-cohort" type="text" readonly /></div><div class="mgmt-form-group"><label for="candidate-email">Email</label><input id="candidate-email" type="email" /></div><div class="mgmt-form-group"><label for="candidate-phone">Số điện thoại (cập nhật ở hồ sơ cá nhân)</label><input id="candidate-phone" type="tel" /></div><div class="mgmt-form-group"><label for="candidate-supervisor">Người hướng dẫn (phân công tại M03)</label><input id="candidate-supervisor" type="text" /></div>
+      <div class="mgmt-form-group"><label for="candidate-status">Trạng thái học vụ (quản lý bằng quy trình)</label><select id="candidate-status"><option value="studying">Đang học bình thường</option><option value="extended">Gia hạn học tập</option><option value="paused">Tạm dừng học tập</option><option value="defended">Đã bảo vệ luận án</option><option value="graduated">Đã cấp bằng Tiến sĩ</option></select></div>
+      <div class="mgmt-form-group"><label for="candidate-dob">Ngày sinh</label><input id="candidate-dob" type="date" /></div>
+      <div class="mgmt-form-group"><label for="candidate-gender">Giới tính</label><select id="candidate-gender"><option value="true">Nam</option><option value="false">Nữ</option></select></div>
+      <div class="mgmt-form-group"><label for="candidate-entry-type">Đối tượng đầu vào</label><select id="candidate-entry-type"><option value="1">Đối tượng 1 (90 TC)</option><option value="2">Đối tượng 2 (120 TC)</option></select></div>
+      <div class="mgmt-form-group"><label for="candidate-decision">Số QĐ trúng tuyển</label><input id="candidate-decision" type="text" /></div>
+      <div class="mgmt-form-group"><label for="candidate-admission-date">Ngày nhập học</label><input id="candidate-admission-date" type="date" /></div>
+      <div class="mgmt-form-group"><label for="candidate-deadline-standard">Hạn đào tạo chuẩn</label><input id="candidate-deadline-standard" type="date" /></div>
+      <div class="mgmt-form-group"><label for="candidate-deadline-max">Hạn đào tạo tối đa</label><input id="candidate-deadline-max" type="date" /></div>
+      <div class="mgmt-form-group"><label for="candidate-username">Tên đăng nhập (tài khoản mới)</label><input id="candidate-username" type="text" /></div>
+      <div class="mgmt-form-group"><label for="candidate-temp-password">Mật khẩu tạm (tối thiểu 8 ký tự, có chữ và số)</label><input id="candidate-temp-password" type="password" autocomplete="new-password" /></div>
+      <p id="candidate-server-note" hidden style="grid-column:1/-1; color:var(--text-muted); font-size:.82rem; margin:0;"></p>
+      </div><div class="mgmt-modal-actions"><button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-candidate">Đóng</button><button type="submit" id="candidate-save" class="btn-mgmt btn-mgmt-primary">Lưu hồ sơ</button></div></form>
+    </div></div>
+    <div class="mgmt-modal" id="modal-confirm"><div class="mgmt-modal-dialog"><div class="mgmt-modal-header"><h3>Xác nhận thao tác</h3><button type="button" class="mgmt-modal-close" data-close-modal="modal-confirm" aria-label="Đóng">✕</button></div><p data-confirm-message></p><div class="mgmt-modal-actions"><button type="button" class="btn-mgmt btn-mgmt-secondary" data-close-modal="modal-confirm">Hủy</button><button type="button" class="btn-mgmt btn-mgmt-danger" data-confirm-accept>Xác nhận</button></div></div></div>
+    <div class="mgmt-modal" id="modal-information"><div class="mgmt-modal-dialog"><div class="mgmt-modal-header"><h3>Thông tin</h3><button type="button" class="mgmt-modal-close" data-close-modal="modal-information" aria-label="Đóng">✕</button></div><div data-information-body></div></div></div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div style="position:fixed; bottom:24px; right:24px; z-index:1500; display:grid; gap:10px;" data-toast-region role="status" aria-live="polite" aria-atomic="false"></div>
+
+    <script src="js/data.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <!-- Backend đã bỏ stub tra cứu văn bằng: bật gọi /api/Public/diploma. Cấu hình này phải đứng trước js/core/config.js. -->
+    <script>window.DTMS_RUNTIME_CONFIG = { DEGREE_SERVICE_READY: true };</script>
+    <script src="js/core/config.js" defer></script>
+    <script src="js/core/api.js" defer></script>
+    <script src="js/api-manifest.js" defer></script>
+    <script src="js/features/api-lab.js" defer></script>
+    <script src="js/features/collections.js" defer></script>
+    <script src="js/demo/sample-content.js" defer></script>
+    <script src="js/features/notifications.js" defer></script>
+    <script src="js/features/public-theses.js" defer></script>
+    <script src="js/features/degree-lookup.js" defer></script>
+    <script src="js/features/assistant.js" defer></script>
+    <script src="js/core/app.js" defer></script>
+    <script src="js/modules/management.js" defer></script>
+  </body>
+</html>
+
+
+
