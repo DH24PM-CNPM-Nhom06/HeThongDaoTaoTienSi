@@ -1,0 +1,1 @@
+window.DTMS_RUNTIME_CONFIG = window.DTMS_RUNTIME_CONFIG || {};

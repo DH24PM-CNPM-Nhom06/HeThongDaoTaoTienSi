@@ -43,6 +43,15 @@ npm.cmd test
 
 Có thể dùng Chrome đã cài bằng `npm.cmd test -- chrome`. Kết quả và ảnh kiểm thử nằm trong `DTMS_Frontend/test-results/`. Khi kiểm tra nghiệp vụ với API thật, dùng MariaDB riêng và tài khoản thử cho từng vai trò.
 
+## CI/CD
+
+GitHub Actions chạy kiểm tra và build backend .NET, kiểm tra giao diện và build hai Docker image trên mỗi lần push; pull request vào `main` cũng được kiểm tra. Push lên `main` hoặc tag dạng `v*` sẽ publish image lên GitHub Container Registry:
+
+- `ghcr.io/dh24pm-cnpm-nhom06/hethongdaotaotiensi/backend:<main|tag>`
+- `ghcr.io/dh24pm-cnpm-nhom06/hethongdaotaotiensi/frontend:<main|tag>`
+
+Frontend Nginx proxy `/api` và `/swagger` tới dịch vụ `backend:8080`; khi chạy container, đặt frontend và backend trên cùng Docker network. Backend cần được cấu hình kết nối tới MariaDB riêng.
+
 ## 1. Thông tin nhóm
 
 - Tên nhóm: Nhóm 06
