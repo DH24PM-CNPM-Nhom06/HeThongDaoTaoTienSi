@@ -1,0 +1,16 @@
+{
+  "name": "dtms-postgraduate-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend hệ thống quản lý học vụ sau đại học",
+  "scripts": {
+    "start": "node scripts/serve.cjs",
+    "check": "node scripts/check-source.cjs",
+    "test": "node scripts/check-all.cjs chromium",
+    "test:profile": "node scripts/check-profile-layout.cjs chromium",
+    "check:api": "node scripts/check-api-lab.cjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
