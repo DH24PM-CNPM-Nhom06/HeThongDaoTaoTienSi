@@ -1,0 +1,8 @@
+.env
+.env.*
+**/.env
+**/.env.*
+.git
+.vs
+.worktrees
+**/wwwroot/uploads/**

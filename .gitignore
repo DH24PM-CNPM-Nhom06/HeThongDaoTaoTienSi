@@ -1,0 +1,23 @@
+# Per-machine Compose secrets. Keep the shared template only.
+.env
+.env.*
+!.env.example
+**/.env.local
+
+# Local IDE/worktree state.
+/.vs/
+**/.vs/
+/.worktrees/
+
+# Compose only needs the SQL seed; keep source/archive attachments local.
+DTMS_BACKUP/*
+!DTMS_BACKUP/DTMS_DuLieuGoc_Va_KiemThu.sql
+
+**/bin/
+**/obj/
+**/node_modules/
+**/test-results/
+**/*.user
+**/wwwroot/uploads/**
+DTMS_UPLOADS/**
+!DTMS_UPLOADS/.gitkeep

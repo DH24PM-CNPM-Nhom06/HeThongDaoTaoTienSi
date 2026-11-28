@@ -1,0 +1,62 @@
+name: hethongdaotaotiensi
+
+services:
+  db:
+    container_name: HeThongDaoTaoTienSi-db
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-dtms_db}
+      MARIADB_USER: ${MARIADB_USER:-dtms_app}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:?Set MARIADB_PASSWORD in .env}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:?Set MARIADB_ROOT_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:${MARIADB_HOST_PORT:-3307}:3306"
+    volumes:
+      - dtms_db_data:/var/lib/mysql
+      - ./DTMS_BACKUP/DTMS_DuLieuGoc_Va_KiemThu.sql:/docker-entrypoint-initdb.d/01-dtms.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  backend:
+    container_name: HeThongDaoTaoTienSi-backend
+    build:
+      context: ./DTMS_BACKEND
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: "Server=db;Port=3306;Database=${MARIADB_DATABASE:-dtms_db};User=${MARIADB_USER:-dtms_app};Password=${MARIADB_PASSWORD:?Set MARIADB_PASSWORD in .env};CharSet=utf8mb4"
+      Jwt__Key: ${JWT_KEY:?Set JWT_KEY in .env}
+      Frontend__AllowedOrigins__0: "http://localhost:${FRONTEND_HOST_PORT:-4174}"
+      Frontend__AllowedOrigins__1: "http://127.0.0.1:${FRONTEND_HOST_PORT:-4174}"
+      Frontend__ResetUrl: "http://localhost:${FRONTEND_HOST_PORT:-4174}/reset.html"
+      UploadPath: /app/uploads
+      LegacyUploadPath: /app/uploads
+    ports:
+      - "127.0.0.1:${API_HOST_PORT:-8080}:8080"
+    volumes:
+      - ./DTMS_UPLOADS:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    container_name: HeThongDaoTaoTienSi-frontend
+    build:
+      context: ./DTMS_FRONTEND
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4173
+      DTMS_API_BASE_URL: "http://localhost:${API_HOST_PORT:-8080}"
+    ports:
+      - "127.0.0.1:${FRONTEND_HOST_PORT:-4174}:4173"
+
+volumes:
+  dtms_db_data:

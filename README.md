@@ -32,3 +32,7 @@ Chịu trách nhiệm cấu hình hạ tầng, thiết lập quy trình CI/CD (G
 Chịu trách nhiệm viết Unit/Integration Tests, kiểm tra bảo mật, chuẩn hóa dữ liệu, thiết lập cơ sở dữ liệu (PostgreSQL/Redis) và kiểm soát chất lượng mã nguồn trước khi tạo Pull Request.
 
 
+
+## Docker Compose
+
+See [README_HUONGDAN.md](README_HUONGDAN.md) for the complete instructions to run the frontend, .NET backend, and MariaDB with Docker Compose.
